@@ -3,30 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package co.edu.uniandes.csw.traductor.dtos;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * PropuestaTO Objeto de transferencia de datos de Editoriales. Los DTO
+ * PropuestaDTO Objeto de transferencia de datos de Editoriales. Los DTO
  * contienen las representaciones de los JSON que se transfieren entre el
  * cliente y el servidor.
  *
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
  *   {
- *      "id": number,
- *      "name": string
- *   }
- * </pre> Por ejemplo una editorial se representa asi:<br>
- *
- * <pre>
- *
- *   {
- *      "id": 1,
- *      "name": "Norma"
- *   }
+ *		"idEmpleado": Long, 
+ *		"estado" : "String", 
+ *		"descripcion" : "String",
+ *		"costo" : Integer, 
+ *		"tiempoEstimado" : "String ISO 8601"
+ *	 } 
  *
  * </pre>
  *

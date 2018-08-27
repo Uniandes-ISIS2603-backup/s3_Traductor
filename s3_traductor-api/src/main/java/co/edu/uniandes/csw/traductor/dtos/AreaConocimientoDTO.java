@@ -6,9 +6,21 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 /**
+ * AreaConocimientoDTO Objeto de transferencia de datos de Editoriales. Los DTO
+ * contienen las representaciones de los JSON que se transfieren entre el
+ * cliente y el servidor.
  *
- * @author estudiante
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *   {
+ *		"id" : Long, 
+ *		"area" : String, 		
+ *	 }
+ * </pre>
+ *
+ * @author Geovanny Andrés Gonzalez
  */
+
 public class AreaConocimientoDTO {
 
 	/**

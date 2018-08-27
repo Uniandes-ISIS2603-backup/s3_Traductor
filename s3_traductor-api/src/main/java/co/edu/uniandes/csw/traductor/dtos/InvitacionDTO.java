@@ -6,9 +6,23 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 /**
+ * InvitacionDTO Objeto de transferencia de datos de Editoriales. Los DTO
+ * contienen las representaciones de los JSON que se transfieren entre el
+ * cliente y el servidor.
  *
- * @author Geovanny Andrés González
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *   {
+ *		"idCliente" : Long, 
+ *		"solicitudId" : Long, 
+ *		"descripcion" : String, 
+ *		"idEmpleado" : Long
+ *	 }
+ * </pre>
+ *
+ * @author Geovanny Andrés Gonzalez
  */
+
 public class InvitacionDTO {
 
 	private Long idInvitacion;
