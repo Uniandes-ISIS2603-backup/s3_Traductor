@@ -5,11 +5,13 @@
  */
 package co.edu.uniandes.csw.traductor.dtos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Santiago Salazar
  */
-public class ClienteDTO 
+public class ClienteDTO implements Serializable
 {
-    
+    protected Long id;
 }
