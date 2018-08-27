@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.traductor.dtos;
 import java.io.Serializable;
+import java.io.File;
 /**
  *
  * @author estudiante
