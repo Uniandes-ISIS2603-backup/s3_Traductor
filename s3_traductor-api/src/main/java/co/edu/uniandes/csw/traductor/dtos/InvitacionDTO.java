@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.dtos;
-
+import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
+import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * InvitacionDTO Objeto de transferencia de datos de Editoriales. Los DTO
  * contienen las representaciones de los JSON que se transfieren entre el
@@ -23,7 +26,7 @@ package co.edu.uniandes.csw.traductor.dtos;
  * @author Geovanny Andrés Gonzalez
  */
 
-public class InvitacionDTO {
+public class InvitacionDTO implements Serializable{
 
 	private Long idInvitacion;
 	private Long idCliente;
@@ -37,6 +40,52 @@ public class InvitacionDTO {
 	
 	public InvitacionDTO() {
 	}
+	
+	//===================================================
+	//Metodos de transformacion
+	//===================================================
+	
+	/**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param invitacionEntity: Es la entidad que se va a convertir a DTO
+     */
+	
+	public InvitacionDTO (InvitacionEntity invitacionEntity)
+	{
+		if (invitacionEntity != null)
+		{
+			this.idCliente = invitacionEntity.getIdCliente();
+			this.solicitudId = invitacionEntity.getSolicitudId();
+			this.descripcion = invitacionEntity.getDescripcion();
+			this.idEmpleado = invitacionEntity.getIdEmpleado();
+		}
+	}
+	
+	/**
+     * Conviertir DTO a Entity (Crea un nuevo Entity con los valores que posee el DTO).
+	 * @return Una PropuestaEntity con los valores que posee el DTO.
+     */
+	
+	public InvitacionEntity toEntity()
+	{
+		InvitacionEntity invitacionEntity = new InvitacionEntity();
+		invitacionEntity.setIdCliente(idCliente);
+		invitacionEntity.setSolicitudId(solicitudId);
+		invitacionEntity.setDescripcion(descripcion);
+		invitacionEntity.setIdEmpleado(idEmpleado);		
+		return invitacionEntity;
+	}
+	
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+	
+	//===================================================
+	//Metodos
+	//===================================================
 
 	/**
 	 * @return the idInvitacion
