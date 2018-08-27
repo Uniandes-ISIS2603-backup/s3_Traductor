@@ -39,9 +39,17 @@ public class PropuestaDTO {
     private Long idEmpleado;
     private String fecha;
 
+	/**
+	 * Constructor vacio para que sea llenado por JAX-RS
+	 */
+	
+	public PropuestaDTO() {
+	}
+
     /**
      * @return the propuestaId
      */
+	
     public Long getPropuestaId() {
         return propuestaId;
     }

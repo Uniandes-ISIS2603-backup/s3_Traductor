@@ -24,6 +24,13 @@ package co.edu.uniandes.csw.traductor.dtos;
 public class AreaConocimientoDTO {
 
 	/**
+	 * Constructor vacio para que sea llenado por JAX-RS
+	 */
+	
+	public AreaConocimientoDTO() {
+	}
+
+	/**
 	 * @return the id
 	 */
 	public Long getId() {

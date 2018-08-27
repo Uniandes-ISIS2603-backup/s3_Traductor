@@ -32,6 +32,13 @@ public class InvitacionDTO {
 	private String descripcion;
 	
 	/**
+	 * Constructor vacio para que sea llenado por JAX-RS
+	 */
+	
+	public InvitacionDTO() {
+	}
+
+	/**
 	 * @return the idInvitacion
 	 */
 	public Long getIdInvitacion() {
