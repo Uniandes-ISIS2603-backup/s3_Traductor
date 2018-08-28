@@ -65,7 +65,7 @@ public class InvitacionDTO implements Serializable{
 	
 	/**
      * Conviertir DTO a Entity (Crea un nuevo Entity con los valores que posee el DTO).
-	 * @return Una PropuestaEntity con los valores que posee el DTO.
+	 * @return Una InvitacionEntity con los valores que posee el DTO.
      */
 	
 	public InvitacionEntity toEntity()
