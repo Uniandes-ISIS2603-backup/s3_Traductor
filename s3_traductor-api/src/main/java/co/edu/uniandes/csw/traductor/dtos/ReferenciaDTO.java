@@ -7,8 +7,56 @@ package co.edu.uniandes.csw.traductor.dtos;
 
 /**
  *
- * @author estudiante
+ * @author Juan Felipe Parra Camargo
  */
 public class ReferenciaDTO {
-    
+
+   
+    private String name;
+    private Long id;
+    private Integer telephoneNumber;
+    public ReferenciaDTO(){
+        
+    }
+     /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the telephoneNumber
+     */
+    public Integer getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    /**
+     * @param telephoneNumber the telephoneNumber to set
+     */
+    public void setTelephoneNumber(Integer telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
 }
