@@ -7,8 +7,41 @@ package co.edu.uniandes.csw.traductor.dtos;
 
 /**
  *
- * @author estudiante
+ * @author Juan Felipe Parra Camargo
  */
 public class EmpresaDTO {
+    private String nit;
+    private String socialReason;
+    public EmpresaDTO(){
+        
+    }
+
+    /**
+     * @return the nit
+     */
+    public String getNit() {
+        return nit;
+    }
+
+    /**
+     * @param nit the nit to set
+     */
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    /**
+     * @return the socialReason
+     */
+    public String getSocialReason() {
+        return socialReason;
+    }
+
+    /**
+     * @param socialReason the socialReason to set
+     */
+    public void setSocialReason(String socialReason) {
+        this.socialReason = socialReason;
+    }
     
 }
