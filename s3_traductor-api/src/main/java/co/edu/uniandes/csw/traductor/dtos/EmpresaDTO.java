@@ -9,7 +9,7 @@ package co.edu.uniandes.csw.traductor.dtos;
  *
  * @author Juan Felipe Parra Camargo
  */
-public class EmpresaDTO {
+public class EmpresaDTO extends ClienteDTO{
     private String nit;
     private String socialReason;
     public EmpresaDTO(){

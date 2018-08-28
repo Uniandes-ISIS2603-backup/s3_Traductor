@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author Juan Felipe Parra Camargo
  */
-public class PersonaNaturalDTO {
+public class PersonaNaturalDTO extends ClienteDTO {
     private String name;
     private Date bornDate;
     private File profilePhoto;
