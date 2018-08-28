@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.dtos;
+package co.edu.uniandes.csw.traductor.entities;
+
 import java.util.Date;
 
 /**
  *
  * @author ANDRES
  */
-public class TarjetaDeCreditoDTO 
-{
-    private Long idTarjeta;
+public class TarjetaDeCreditoEntity {
+   private Long idTarjeta;
     private Long numeroTarjetaCredito;
     private Integer ccv;
     private Date fechaExpiracion;
     private String redBancaria; 
 
-    public TarjetaDeCreditoDTO() {
+public TarjetaDeCreditoEntity() {
+        
     }
 
     
@@ -62,4 +63,5 @@ public class TarjetaDeCreditoDTO
         this.redBancaria = redBancaria;
     }
     
-    }
+   
+}

@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.dtos;
+package co.edu.uniandes.csw.traductor.entities;
 
 /**
  *
  * @author ANDRES
  */
-public class HojaDeVidaDTO {
+public class HojaDeVidaEntity {
 
     private String estudios;
     private String trayectoria;
     private String hojaDeVida;
-    public HojaDeVidaDTO() {
+    public HojaDeVidaEntity() {
 
     }
     public String getEstudios() {

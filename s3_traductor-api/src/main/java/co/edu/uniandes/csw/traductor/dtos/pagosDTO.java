@@ -7,11 +7,16 @@ package co.edu.uniandes.csw.traductor.dtos;
 
 /**
  *
- * @author estudiante
+ * @author ANDRES
  */
-public class pagosTCO {
+public class pagosDTO {
+
     private Boolean pagoAprobado;
     private Long idTransaccion;
+
+    public pagosDTO() {
+
+    }
 
     public Boolean getPagoAprobado() {
         return pagoAprobado;
@@ -28,5 +33,5 @@ public class pagosTCO {
     public void setIdTransaccion(Long idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
-    
+
 }
