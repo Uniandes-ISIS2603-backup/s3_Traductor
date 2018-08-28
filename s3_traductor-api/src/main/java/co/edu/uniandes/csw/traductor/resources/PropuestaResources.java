@@ -45,10 +45,11 @@ public class PropuestaResources
 	 * @param nuevaPropuesta {@link PropuestaDTO} - La propuesta que se desea guardar.
 	 * @return JSON {@link PropuestaDTO} - La propuesta recibida.
 	 */
+	
 	@POST
 	public PropuestaDTO createPropuesta(PropuestaDTO nuevaPropuesta) {
 		
-		// TODO:: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+		// TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 	
 		//Llamado al Logger, no se para que sirve :(
 		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
@@ -70,6 +71,7 @@ public class PropuestaResources
 	 * @return JSON {@link PropuestaDTO} - La editorial guardada.
 	 * @throws WebApplicationException {@link WebApplicationExceptionMapper} - Error de lógica que se genera cuando no se encuentra la propuesta a actualizar.
 	 */
+	
 	@PUT
 	@Path("{propuestaId: \\d+}") //Es la forma como se va a reconocer lo contenido en la propuesta, en este caso es 1 o mas numeros.
 	public PropuestaDTO updatePropuesta(@PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws WebApplicationException {
@@ -87,7 +89,7 @@ public class PropuestaResources
 		// TODO: [getAllPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 		
 		//LOGGER.info("PropuestaResource getAllPropuestas: input: void");
-		//List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(editorialLogic.getEditorials()); Se llama a la logica para que devuelva la lista !
+		//List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(propuestaLogic.getPropuestas()); Se llama a la logica para que devuelva la lista !
 		//LOGGER.log(Level.INFO, "PropuestaResource getAllPropuestas:: output: {0}", listaPropuestas.toString());
 		return null;
 	}
@@ -104,18 +106,18 @@ public class PropuestaResources
 	public PropuestaDTO getPropuesta(@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
 		
 		// TODO: [getPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		//LOGGER.log(Level.INFO, "PropuestaResource getEditorial: input: {0}", editorialsId);
+		//LOGGER.log(Level.INFO, "PropuestaResource getPropuesta: input: {0}", editorialsId);
 		
 		/**
 		 * Verificacion de que existe
-		PropuestaEntity propuestaEntity = propuestaLogic.getEditorial(editorialsId);
+		PropuestaEntity propuestaEntity = propuestaLogic.getPropuesta(editorialsId);
 		if (propuestaEntity == null) {
 			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
 		}
 		*/
 		
 		//PropuestaDTO detailDTO = new PropuestaDTO(propuestaEntity);
-		//LOGGER.log(Level.INFO, "EditorialResource getEditorial: output: {0}", detailDTO.toString());
+		//LOGGER.log(Level.INFO, "EditorialResource getPropuesta: output: {0}", detailDTO.toString());
 		return null;
 	}
 	
@@ -137,10 +139,10 @@ public class PropuestaResources
 		LOGGER.log(Level.INFO, "PropuestaResource deleteEditorial: input: {0}", propuestaId);
         
 		/**
-		if (editorialLogic.getEditorial(propuestaId) == null) {
-            throw new WebApplicationException("El recurso /editorials/" + propuestaId + " no existe.", 404);
+		if (propuestaLogic.getPropuesta(propuestaId) == null) {
+            throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
         }
-        editorialLogic.deleteEditorial(propuestaId);
+        propuestaLogic.deleteEditorial(propuestaId);
 		*/
 		
         LOGGER.info("PropuestaResource deleteEditorial: output: void");
