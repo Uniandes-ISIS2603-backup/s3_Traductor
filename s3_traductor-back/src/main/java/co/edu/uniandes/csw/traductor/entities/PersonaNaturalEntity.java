@@ -6,13 +6,14 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author estudiante
  */
-public class PersonaNaturalEntity extends ClienteEntity{
+public class PersonaNaturalEntity extends ClienteEntity implements Serializable{
     private String nombre;
     private Date fechaDeNacimiento;
     private File fotoPerfil;

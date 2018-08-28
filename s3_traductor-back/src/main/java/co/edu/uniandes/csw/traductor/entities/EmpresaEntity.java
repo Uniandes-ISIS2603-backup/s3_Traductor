@@ -5,11 +5,13 @@
  */
 package co.edu.uniandes.csw.traductor.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author estudiante
  */
-public class EmpresaEntity extends ClienteEntity{
+public class EmpresaEntity extends ClienteEntity implements Serializable{
     private String nit;
     private String rasonSocial;
 

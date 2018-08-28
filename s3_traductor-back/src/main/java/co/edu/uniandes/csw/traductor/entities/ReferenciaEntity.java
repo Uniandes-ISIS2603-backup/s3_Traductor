@@ -5,11 +5,13 @@
  */
 package co.edu.uniandes.csw.traductor.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author estudiante
  */
-public class ReferenciaEntity{
+public class ReferenciaEntity implements Serializable{
     private String nombre;
     private Long id;
     private Integer numeroDeTelefono;
