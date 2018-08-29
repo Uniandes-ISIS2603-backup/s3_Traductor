@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.dtos;
+import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import java.util.Date;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -18,9 +21,31 @@ public class TarjetaDeCreditoDTO
     private Date fechaExpiracion;
     private String redBancaria; 
 
-    public TarjetaDeCreditoDTO() {
+    public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
+        numeroTarjetaCredito=tarjeta.getNumeroTarjetaCredito();
+        ccv=tarjeta.getCcv();
+        fechaExpiracion=tarjeta.getFechaExpiracion();
+        redBancaria=tarjeta.getRedBancaria();
     }
-
+    
+    public TarjetaDeCreditoDTO()
+    {
+        
+    }
+public TarjetaDeCreditoEntity toEntity()
+	{
+		TarjetaDeCreditoEntity tarjetaDeCredito = new TarjetaDeCreditoEntity();
+		tarjetaDeCredito.setCcv(ccv);
+                tarjetaDeCredito.setFechaExpiracion(fechaExpiracion);
+                tarjetaDeCredito.setNumeroTarjetaCredito(numeroTarjetaCredito);
+                tarjetaDeCredito.setRedBancaria(redBancaria);
+		return tarjetaDeCredito;
+	}	
+	
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
     
     public Long getIdTarjeta() {
         return idTarjeta;

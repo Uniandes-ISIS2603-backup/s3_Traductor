@@ -12,7 +12,7 @@ import java.util.Date;
  * @author ANDRES
  */
 public class TarjetaDeCreditoEntity {
-   private Long idTarjeta;
+
     private Long numeroTarjetaCredito;
     private Integer ccv;
     private Date fechaExpiracion;
@@ -22,14 +22,6 @@ public TarjetaDeCreditoEntity() {
         
     }
 
-    
-    public Long getIdTarjeta() {
-        return idTarjeta;
-    }
-
-    public void setIdTarjeta(Long idTarjeta) {
-        this.idTarjeta = idTarjeta;
-    }
 
     public Long getNumeroTarjetaCredito() {
         return numeroTarjetaCredito;

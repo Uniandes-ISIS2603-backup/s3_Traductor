@@ -12,13 +12,13 @@ import java.util.Collection;
  * @author ANDRES
  */
 public class TarjetaDeCreditoDetailDTO {
-    private Collection<pagosDTO>pagos;
+    private Collection<PagosDTO>pagos;
 
-    public Collection<pagosDTO> getPagos() {
+    public Collection<PagosDTO> getPagos() {
         return pagos;
     }
 
-    public void setPagos(Collection<pagosDTO> pagos) {
+    public void setPagos(Collection<PagosDTO> pagos) {
         this.pagos = pagos;
     }
 
