@@ -24,6 +24,7 @@ private List<DocumentoDTO> documentos;
 private ClienteDTO cliente;
 
 //Falta la relación con empleado.
+private EmpleadoDTO empleado;
 
 public SolicitudDetailDTO()
 {
@@ -60,6 +61,14 @@ public SolicitudDetailDTO()
 
     public void setCliente(ClienteDTO cliente) {
         this.cliente = cliente;
+    }
+
+    public EmpleadoDTO getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoDTO empleado) {
+        this.empleado = empleado;
     }
     
 
