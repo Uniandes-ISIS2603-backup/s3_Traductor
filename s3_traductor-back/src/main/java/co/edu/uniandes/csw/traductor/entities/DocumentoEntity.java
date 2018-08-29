@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Alvaro
  */
 public class DocumentoEntity extends BaseEntity implements Serializable{
     

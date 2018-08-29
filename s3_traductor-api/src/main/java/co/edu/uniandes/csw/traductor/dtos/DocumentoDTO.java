@@ -11,7 +11,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  *
- * @author estudiante
+ * @author Alvaro
  */
 public class DocumentoDTO implements Serializable{
     private Long id;
