@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.traductor.dtos;
 
+import co.edu.uniandes.csw.traductor.entities.PagosEntity;
+
 /**
  *
  * @author ANDRES
@@ -16,6 +18,10 @@ public class PagosDTO {
 
     public PagosDTO() {
 
+    }
+
+    public PagosDTO(PagosEntity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Boolean getPagoAprobado() {
