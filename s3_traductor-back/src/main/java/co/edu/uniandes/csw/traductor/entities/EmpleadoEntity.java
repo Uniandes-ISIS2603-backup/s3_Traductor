@@ -13,19 +13,12 @@ import java.io.Serializable;
  */
 public class EmpleadoEntity extends BaseEntity implements Serializable{
 
-    private String nombre;
+    private String nombreEmpleado;
     private String correoElectronico;
     private String nombreUsuario;
     private String contrasenia;
+    private HojaDeVidaEntity hojaDeVida;
     private Integer aniosExperiencia;
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public String getCorreoElectronico() {
         return correoElectronico;
@@ -58,4 +51,21 @@ public class EmpleadoEntity extends BaseEntity implements Serializable{
     public void setAniosExperiencia(Integer aniosExperiencia) {
         this.aniosExperiencia = aniosExperiencia;
     }
+
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
+
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
+    }
+
+    public HojaDeVidaEntity getHojaDeVida() {
+        return hojaDeVida;
+    }
+
+    public void setHojaDeVida(HojaDeVidaEntity hojaDeVida) {
+        this.hojaDeVida = hojaDeVida;
+    }
+    
 }

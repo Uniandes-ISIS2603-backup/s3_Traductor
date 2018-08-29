@@ -30,7 +30,7 @@ public class DocumentoDTO implements Serializable{
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
      *
-     * @param DocumentoEntity: Es la entidad que se va a convertir a DTO
+     * @param entity: Es la entidad que se va a convertir a DTO
      */
 
     public DocumentoDTO(DocumentoEntity entity){
@@ -87,12 +87,14 @@ public class DocumentoDTO implements Serializable{
         newEntity.setId(this.id);
         newEntity.setDescripcion(this.Descripcion);
         newEntity.setNumeroPalabras(this.numeroPalabras);
-        newEntity.setArchivoAdjunto(this.archivoAdjunto);
+        if(this.archivoAdjunto != null)
+            newEntity.setArchivoAdjunto(this.archivoAdjunto);
         return newEntity;
     }
     /**
     *Convierte la clase a string para el logger
     */
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
