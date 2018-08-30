@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.traductor.resources;
 
 /**
  *
- * @author estudiante
+ * @author Juan Felipe Parra Camargo
  */
 public class PersonaNaturalResource {
     
