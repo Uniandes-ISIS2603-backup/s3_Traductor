@@ -25,7 +25,7 @@ public class EmpleadoDTO implements Serializable{
     private Integer aniosExperiencia;
     private String nombreUsuario;
     private String contrasenia;
-    private HojaDeVidaDTO hojaDeVida;
+    
     //----------------------------------------------------
     //constructores
     //----------------------------------------------------
@@ -37,13 +37,6 @@ public class EmpleadoDTO implements Serializable{
         this.aniosExperiencia=empleado.getAniosExperiencia();
         this.nombreUsuario=empleado.getNombreUsuario();
         this.contrasenia=empleado.getContrasenia();
-        HojaDeVidaEntity hojaDevidaTmp = empleado.getHojaDeVida();
-        if(hojaDevidaTmp!=null){
-            this.hojaDeVida= new HojaDeVidaDTO(hojaDevidaTmp);
-        }
-        else{
-            this.hojaDeVida= null;
-        }
     }
     //----------------------------------------------------
     //getters and setters
@@ -96,13 +89,6 @@ public class EmpleadoDTO implements Serializable{
         this.contrasenia = contrasenia;
     }
 
-    public HojaDeVidaDTO getHojaDeVida() {
-        return hojaDeVida;
-    }
-
-    public void setHojaDeVida(HojaDeVidaDTO hojaDeVida) {
-        this.hojaDeVida = hojaDeVida;
-    }
     //----------------------------------------------------
     //Metodos adicionales
     //----------------------------------------------------
@@ -119,9 +105,6 @@ public class EmpleadoDTO implements Serializable{
         nemen.setAniosExperiencia(this.aniosExperiencia);
         nemen.setNombreUsuario(this.nombreUsuario);
         nemen.setContrasenia(this.contrasenia);
-        if(this.hojaDeVida!=null){
-            nemen.setHojaDeVida(this.hojaDeVida.toEntity());
-        }
         return nemen;
     }
 }
