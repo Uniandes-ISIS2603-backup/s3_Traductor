@@ -14,13 +14,28 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ReferenciaDTO {
 
-   
+   /**
+    * nombre de la persona a referenciar
+    */
     private String nombre;
+    /**
+     * id de la referencia
+     */
     private Long id;
+    /**
+     * telefono de la persona referenciada
+     */
     private Integer numeroDeTelefono;
+    /**
+     * 
+     */
     public ReferenciaDTO(){
         
     }
+    /**
+     * Construye una ReferenciaDTO a partir de su Entity
+     * @param referenciaEntity 
+     */
     public ReferenciaDTO(ReferenciaEntity referenciaEntity){
         if(referenciaEntity!=null){
             this.nombre=referenciaEntity.getNombre();
@@ -29,46 +44,50 @@ public class ReferenciaDTO {
         }
     }
      /**
-     * @return the name
+     * @return el nombre
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * @param name the name to set
+     * @param name el nombre a colocar en la referencia
      */
     public void setNombre(String name) {
         this.nombre = name;
     }
 
     /**
-     * @return the id
+     * @return la id de la referencia
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * @param id la id a asignar
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * @return the telephoneNumber
+     * @return el telefono
      */
     public Integer getNumeroDeTelefono() {
         return numeroDeTelefono;
     }
 
     /**
-     * @param telephoneNumber the telephoneNumber to set
+     * @param telephoneNumber el numeroDeTelefono a asignar
      */
     public void setNumeroDeTelefono(Integer telephoneNumber) {
         this.numeroDeTelefono = telephoneNumber;
     }
+    /**
+     * Convertir el DTO actual a entity
+     * @return el entity correspondiente a el dto actual
+     */
     public ReferenciaEntity toEntity(){
         ReferenciaEntity referencia=new ReferenciaEntity();
         referencia.setNombre(nombre);

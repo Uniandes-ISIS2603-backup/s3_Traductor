@@ -12,11 +12,24 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Juan Felipe Parra Camargo
  */
 public class EmpresaDTO extends ClienteDTO{
+    /**
+     * nit de la empresa
+     */
     private String nit;
+    /**
+     * rason social de la empresa
+     */
     private String rasonSocial;
+    /**
+     * constructor vacío
+     */
     public EmpresaDTO(){
         
     }
+    /**
+     * constructor de una empresa a partir de su entity
+     * @param empresaEntity Entity de la empresa con la cual se construyen los DTO
+     */
     public EmpresaDTO(EmpresaEntity empresaEntity){
         super(empresaEntity);
         if(empresaEntity!=null){
@@ -26,32 +39,36 @@ public class EmpresaDTO extends ClienteDTO{
         }
     }
     /**
-     * @return the nit
+     * @return el nit de la empresa
      */
     public String getNit() {
         return nit;
     }
 
     /**
-     * @param nit the nit to set
+     * @param nit, el nit por el cual se cambiará el actual
      */
     public void setNit(String nit) {
         this.nit = nit;
     }
 
     /**
-     * @return the socialReason
+     * @return la rason social de la empresa
      */
     public String getRasonSocial() {
         return rasonSocial;
     }
 
     /**
-     * @param socialReason the socialReason to set
+     * @param socialReason, la rason social por la cual se va a cambiar la actual
      */
     public void setRasonSocial(String socialReason) {
         this.rasonSocial = socialReason;
     }
+    /**
+     * Convertir en entity el DTO actual
+     * @return  EmpresaEntity, entidad de la empresa actual
+     */
     public EmpresaEntity toEntity(){
         super.toEntity();
         EmpresaEntity empresa=new EmpresaEntity();
@@ -60,6 +77,9 @@ public class EmpresaDTO extends ClienteDTO{
         return empresa;
     }
     @Override
+    /**
+     * convertir la empresaDTO actual a String
+     */
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
