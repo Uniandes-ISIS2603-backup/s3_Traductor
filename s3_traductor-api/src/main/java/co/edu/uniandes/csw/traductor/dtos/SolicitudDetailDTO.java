@@ -15,37 +15,16 @@ public class SolicitudDetailDTO extends SolicitudDTO
 
 {
     
-private IdiomaDTO idiomaEntrada;
-
-private IdiomaDTO idiomaSalida;
-
 private List<DocumentoDTO> documentos;
 
-private ClienteDTO cliente;
 
-//Falta la relación con empleado.
-private EmpleadoDTO empleado;
 
 public SolicitudDetailDTO()
 {
     
 }
 
-    public IdiomaDTO getIdiomaEntrada() {
-        return idiomaEntrada;
-    }
 
-    public void setIdiomaEntrada(IdiomaDTO idiomaEntrada) {
-        this.idiomaEntrada = idiomaEntrada;
-    }
-
-    public IdiomaDTO getIdiomaSalida() {
-        return idiomaSalida;
-    }
-
-    public void setIdiomaSalida(IdiomaDTO idiomaSalida) {
-        this.idiomaSalida = idiomaSalida;
-    }
 
     public List<DocumentoDTO> getDocumentos() {
         return documentos;
@@ -55,22 +34,6 @@ public SolicitudDetailDTO()
         this.documentos = documentos;
     }
 
-    public ClienteDTO getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteDTO cliente) {
-        this.cliente = cliente;
-    }
-
-    public EmpleadoDTO getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(EmpleadoDTO empleado) {
-        this.empleado = empleado;
-    }
-    
 
     
 }

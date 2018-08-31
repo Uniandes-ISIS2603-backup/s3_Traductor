@@ -47,6 +47,10 @@ public class SolicitudDTO implements Serializable{
         private Date fechaEntrega;
         private Integer estado;
         private Integer tipoSolicitud;
+        private ClienteDTO cliente;
+        private EmpleadoDTO empleado;
+        private IdiomaDTO idiomaEntrada;
+        private IdiomaDTO idiomaSalida;
 	
 	/**
 	 * Constructor vacio para que sea llenado por JAX-RS
@@ -77,7 +81,23 @@ public class SolicitudDTO implements Serializable{
                         this.fechaEntrega = solicitudEntity.getFechaEntrega();
                         this.estado = solicitudEntity.getEstado();  
                         this.tipoSolicitud = solicitudEntity.getTipoSolicitud();
-		}
+                        if(solicitudEntity.getCliente() != null)
+                        {
+                            this.cliente = new ClienteDTO(solicitudEntity.getCliente());
+                        }
+		if(solicitudEntity.getEmpleado() != null)
+                {
+                    this.empleado = new EmpleadoDTO(solicitudEntity.getEmpleado());
+                }
+                if(solicitudEntity.getIdiomaEntrada() != null)
+                {
+                    this.idiomaEntrada = new IdiomaDTO(solicitudEntity.getIdiomaEntrada());
+                }
+                if(solicitudEntity.getIdiomaSalida() != null)
+                {
+                    this.idiomaSalida = new IdiomaDTO(solicitudEntity.getIdiomaSalida());
+                }
+                }
 	}
 	
 	/**
@@ -139,6 +159,38 @@ public class SolicitudDTO implements Serializable{
 
     public void setTipoSolicitud(Integer tipoSolicitud) {
         this.tipoSolicitud = tipoSolicitud;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
+
+    public EmpleadoDTO getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoDTO empleado) {
+        this.empleado = empleado;
+    }
+
+    public IdiomaDTO getIdiomaEntrada() {
+        return idiomaEntrada;
+    }
+
+    public void setIdiomaEntrada(IdiomaDTO idiomaEntrada) {
+        this.idiomaEntrada = idiomaEntrada;
+    }
+
+    public IdiomaDTO getIdiomaSalida() {
+        return idiomaSalida;
+    }
+
+    public void setIdiomaSalida(IdiomaDTO idiomaSalida) {
+        this.idiomaSalida = idiomaSalida;
     }
 	
 	
