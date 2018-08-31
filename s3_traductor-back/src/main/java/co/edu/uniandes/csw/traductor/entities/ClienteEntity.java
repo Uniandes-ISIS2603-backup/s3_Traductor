@@ -15,9 +15,27 @@ import javax.persistence.Entity;
 @Entity
 public class ClienteEntity extends BaseEntity implements Serializable{
 
-    protected String nombreUsuario;
-    protected String correoElectronico;
-    protected String contrasenia;
+    private String nombreUsuario;
+    private String correoElectronico;
+    private String contrasenia;
+    private String nombre;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+    private String identificacion;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -41,7 +59,5 @@ public class ClienteEntity extends BaseEntity implements Serializable{
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }
-
-    
+    }  
 }
