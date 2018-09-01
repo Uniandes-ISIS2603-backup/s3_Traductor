@@ -32,6 +32,7 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.traductor.mappers.BusinessLogicExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.traductor.mappers.WebApplicationExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.AreaConocimientoResources.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.DocumentoResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.HojaDeVidaResources.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.InvitacionResources.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.PagosResources.class);
