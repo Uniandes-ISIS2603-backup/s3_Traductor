@@ -32,7 +32,7 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class PagosResources {
      //Logger
-    private static final Logger LOGGER = Logger.getLogger(PropuestaResources.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
 
     /**
      * Crea una nueva tarjeta con la informacion que se recibe en el cuerpo de

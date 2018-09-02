@@ -32,11 +32,11 @@ import javax.ws.rs.WebApplicationException;
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class AreaConocimientoResources
+public class AreaConocimientoResource
 {
 
 	//Logger
-	private static final Logger LOGGER = Logger.getLogger(AreaConocimientoResources.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(AreaConocimientoResource.class.getName());
 
 	/**
 	 * Crea una nueva area de conocimiento con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
@@ -129,7 +129,7 @@ public class AreaConocimientoResources
         areaLogic.deleteArea(id);
 		*/
 		
-        LOGGER.info("AreaConocimientoResources deleteArea: output: void");
+        LOGGER.info("AreaConocimientoResources deleteArea: output: void");		
     }
 
     /**

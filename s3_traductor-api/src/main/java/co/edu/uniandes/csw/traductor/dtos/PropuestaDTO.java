@@ -37,7 +37,7 @@ public class PropuestaDTO implements Serializable{
     private String costo;
     private String estado;
     private Long idEmpleado;
-    private String fecha;
+    private String tiempoEstimado;
 
 	/**
 	 * Constructor vacio para que sea llenado por JAX-RS
@@ -65,7 +65,7 @@ public class PropuestaDTO implements Serializable{
 			this.costo = propuestaEntity.getCosto();
 			this.estado = propuestaEntity.getEstado();
 			this.idEmpleado = propuestaEntity.getIdEmpleado();
-			this.fecha = propuestaEntity.getFecha();			
+			this.tiempoEstimado = propuestaEntity.getTiempoEstimado();
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class PropuestaDTO implements Serializable{
 		propuestaEntity.setDescripcion(descripcion);
 		propuestaEntity.setEstado(estado);
 		propuestaEntity.setIdEmpleado(idEmpleado);
-		propuestaEntity.setFecha(fecha);
+		propuestaEntity.setTiempoEstimado(tiempoEstimado);
 		return propuestaEntity;
 	}
 	
@@ -176,16 +176,16 @@ public class PropuestaDTO implements Serializable{
 	 * Retorna la fecha estimada de entrega
 	 * @return the fecha
 	 */
-	public String getFecha() {
-		return fecha;
+	public String getTiempoEstimado() {
+		return tiempoEstimado;
 	}
 
 	/**
 	 * Cambia la fecha estimada de entrega
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+	public void setTiempoEstimado(String fecha) {
+		this.tiempoEstimado = fecha;
 	}  
 	
 	@Override

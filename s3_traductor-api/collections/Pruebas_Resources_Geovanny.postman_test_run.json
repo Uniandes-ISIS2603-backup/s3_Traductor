@@ -1,0 +1,591 @@
+{
+	"id": "7e2006ec-4219-437e-a8b9-528d27bffac9",
+	"name": "Pruebas_Resources_Geovanny",
+	"allTests": [],
+	"timestamp": "2018-09-02T01:21:42.927Z",
+	"collection_id": "4f0f4928-d610-4645-a379-4bcb6bd002c8",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "0",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "4f0f4928-d610-4645-a379-4bcb6bd002c8",
+		"name": "Pruebas_Resources_Geovanny",
+		"description": "",
+		"auth": null,
+		"events": null,
+		"variables": [],
+		"order": [],
+		"folders_order": [
+			"a56f79b2-f6a9-405b-9fe2-1ac815be703d",
+			"405f38be-d183-4ed7-97da-a8bf54e5c96b",
+			"ecef61d8-7077-4472-b67d-696c1eb172e3"
+		],
+		"owner": "5159131",
+		"permissions": {},
+		"favorite": false,
+		"shared": false,
+		"type": "collection",
+		"depth": 0
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [],
+	"results": [
+		{
+			"name": "GET /propuestas",
+			"id": "728fe650-a9cf-4cdd-bf8a-6e53a53713c9",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"56"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "56",
+			"totalRequestTime": "56",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST /propuestas",
+			"id": "9d3d8e8c-d828-4ec9-98b6-652396d84959",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"9"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "9",
+			"totalRequestTime": "9",
+			"iterationResults": {}
+		},
+		{
+			"name": "PUT /propuestas",
+			"id": "d926d2b1-8380-4301-a733-9791c40dcdd5",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET /propuestas/1",
+			"id": "a76e469f-1de4-4e9c-9687-114dcd0e7702",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE /propuestas",
+			"id": "e8483468-c89e-4034-8a39-c64c3bb9246f",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas/45",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"5"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "5",
+			"totalRequestTime": "5",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET /invitaciones",
+			"id": "4750ef70-0cdc-4658-b21f-ab1fb5a49f98",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"5"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "5",
+			"totalRequestTime": "5",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST /invitaciones",
+			"id": "21a481c8-2c04-4ab8-9afa-fee2b010bdc7",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"8"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "8",
+			"totalRequestTime": "8",
+			"iterationResults": {}
+		},
+		{
+			"name": "PUT /invitaciones",
+			"id": "7362c663-2e58-42c1-8e6e-bc230630df85",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET /invitaciones/1",
+			"id": "7f8c3a2f-89ca-4760-b13b-4fdfb146aa80",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"5"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "5",
+			"totalRequestTime": "5",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE /invitaciones",
+			"id": "0d976d7e-45eb-4c96-bbf0-68ec694df68f",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones/45",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET /areasConocimiento",
+			"id": "2fc4b332-66c7-4ebe-86bb-4d781d925e7e",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"5"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "5",
+			"totalRequestTime": "5",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST /areasConocimiento",
+			"id": "46c1469a-d43f-4ec7-8894-f5fccaca459b",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET /areasConocimiento/id",
+			"id": "06f33f09-f5df-4651-b1d1-e4b3ccb9af73",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento/1",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"7"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "7",
+			"totalRequestTime": "7",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE /areasConocimiento/id",
+			"id": "fc821a7e-43dd-4f38-8b14-d03a2efb1204",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento/21",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request",
+				"detail": {
+					"name": "Bad Request",
+					"detail": "The request cannot be fulfilled due to bad syntax."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"5"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "5",
+			"totalRequestTime": "5",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 0,
+	"totalFail": 0,
+	"totalTime": 135,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "GET /propuestas",
+			"id": "728fe650-a9cf-4cdd-bf8a-6e53a53713c9",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "POST /propuestas",
+			"id": "9d3d8e8c-d828-4ec9-98b6-652396d84959",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "PUT /propuestas",
+			"id": "d926d2b1-8380-4301-a733-9791c40dcdd5",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas/1",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "GET /propuestas/1",
+			"id": "a76e469f-1de4-4e9c-9687-114dcd0e7702",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas/1",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "DELETE /propuestas",
+			"id": "e8483468-c89e-4034-8a39-c64c3bb9246f",
+			"url": "http://localhost:8080/s3_traductor-api/api/propuestas/45",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "GET /invitaciones",
+			"id": "4750ef70-0cdc-4658-b21f-ab1fb5a49f98",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "POST /invitaciones",
+			"id": "21a481c8-2c04-4ab8-9afa-fee2b010bdc7",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "PUT /invitaciones",
+			"id": "7362c663-2e58-42c1-8e6e-bc230630df85",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones/1",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "GET /invitaciones/1",
+			"id": "7f8c3a2f-89ca-4760-b13b-4fdfb146aa80",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones/1",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "DELETE /invitaciones",
+			"id": "0d976d7e-45eb-4c96-bbf0-68ec694df68f",
+			"url": "http://localhost:8080/s3_traductor-api/api/invitaciones/45",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "GET /areasConocimiento",
+			"id": "2fc4b332-66c7-4ebe-86bb-4d781d925e7e",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "POST /areasConocimiento",
+			"id": "46c1469a-d43f-4ec7-8894-f5fccaca459b",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "GET /areasConocimiento/id",
+			"id": "06f33f09-f5df-4651-b1d1-e4b3ccb9af73",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento/1",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "DELETE /areasConocimiento/id",
+			"id": "fc821a7e-43dd-4f38-8b14-d03a2efb1204",
+			"url": "http://localhost:8080/s3_traductor-api/api/areasConocimiento/21",
+			"time": "2018-09-02T01:21:42.927Z",
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request",
+				"detail": {
+					"name": "Bad Request",
+					"detail": "The request cannot be fulfilled due to bad syntax."
+				}
+			},
+			"testPassFailCounts": {}
+		}
+	],
+	"synced": false
+}

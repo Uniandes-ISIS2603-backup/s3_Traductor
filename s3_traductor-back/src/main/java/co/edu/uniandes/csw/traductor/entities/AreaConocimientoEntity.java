@@ -12,6 +12,7 @@ import javax.persistence.Entity;
  * serialización.
  *
  * @author Geovanny Andres Gonzalez
+ * 
  */
 
 @Entity
