@@ -16,7 +16,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------    
-    private HojaDeVidaDTO hojaDeVida;
+    
     //----------------------------------------------------
     //constructores
     //----------------------------------------------------
@@ -30,12 +30,6 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
-    public HojaDeVidaDTO getHojaDeVida() {
-        return hojaDeVida;
-    }
 
-    public void setHojaDeVida(HojaDeVidaDTO hojaDeVida) {
-        this.hojaDeVida = hojaDeVida;
-    }
     
 }
