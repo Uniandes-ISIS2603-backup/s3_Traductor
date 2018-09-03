@@ -1,0 +1,53 @@
+{
+   "info":{ "name": "Cliente test",
+    "description":"Coleccion de pruebas sobre el recurso Author",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+    "item":[
+        {
+                "_postman_id":"",
+            "name": "Crear un cliente",
+            "event": [
+                {
+                    "listen":"test",
+                    "script": {
+                        "id":"",
+                        "type":"text/javascript",
+                        "exec":[
+                            "var data = JSON.parse(responseBody);",
+			"postman.setGlobalVariable(\"new_id_a\",data.id);",
+			"tests[\"No genera error en el Post\"] = responseCode.code === 200;",
+			"console.log(data.id);"
+                        ]
+                    }
+                }
+            ],
+            "request":{
+                "method": "POST",
+                "header":[
+                {
+                    "key":"Content-Type",
+                    "value":"application/json"
+                }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw":     "(\n    datos cliente "
+                },
+                "url":{
+                    "raw": "http://{{ip}}:{{puerto}}/clientes/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"clientes"
+					]
+                },
+                "descripcion":"**Release**"
+                
+            },
+            "response":[]
+        }
+    ]
+}

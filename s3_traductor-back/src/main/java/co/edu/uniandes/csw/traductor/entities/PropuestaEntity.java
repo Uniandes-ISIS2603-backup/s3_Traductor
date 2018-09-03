@@ -20,8 +20,8 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	private String descripcion;
     private String costo;
     private String estado;
-    private Long idEmpleado;
-    private String fecha;
+    private Long idEmpleado;	
+    private String tiempoEstimado;
 	
 	/*
 		Constructor
@@ -98,15 +98,15 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	 * Retorna la fecha estimada de entrega
 	 * @return the fecha
 	 */
-	public String getFecha() {
-		return fecha;
+	public String getTiempoEstimado() {
+		return tiempoEstimado;
 	}
 
 	/**
 	 * Cambia la fecha estimada de entrega
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+	public void setTiempoEstimado(String tiempoEstimado) {
+		this.tiempoEstimado = tiempoEstimado;
 	}	
 }

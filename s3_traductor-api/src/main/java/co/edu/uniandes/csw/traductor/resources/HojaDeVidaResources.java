@@ -28,7 +28,7 @@ import javax.ws.rs.WebApplicationException;
 @Consumes("application/json")
 @RequestScoped
 public class HojaDeVidaResources {
-    private static final Logger LOGGER = Logger.getLogger(PropuestaResources.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
 
     /**
      * Crea una nueva hoja de vida con la informacion que se recibe en el cuerpo de

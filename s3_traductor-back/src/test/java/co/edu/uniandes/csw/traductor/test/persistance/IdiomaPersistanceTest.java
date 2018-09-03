@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.dtos;
+package co.edu.uniandes.csw.traductor.test.persistance;
 
 /**
  *
- * @author estudiante
+ * @author Juan Felipe Parra Camargo
  */
-public class UnaClaseDTO {
+public class IdiomaPersistanceTest {
     
 }

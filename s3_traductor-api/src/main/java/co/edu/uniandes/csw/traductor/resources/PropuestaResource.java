@@ -31,11 +31,11 @@ import javax.ws.rs.WebApplicationException;
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class PropuestaResources
+public class PropuestaResource
 {
 
 	//Logger
-	private static final Logger LOGGER = Logger.getLogger(PropuestaResources.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
 
 	/**
 	 * Crea una nueva propuesta con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
