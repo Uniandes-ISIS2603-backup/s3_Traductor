@@ -29,13 +29,13 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class DocumentoResource {
     //Logger
-	private static final Logger LOGGER = Logger.getLogger(PropuestaResources.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(DocumentoResource.class.getName());
     /**
 	 * Crea un nuevo Documento con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
 	 *
 	 * Septiembre 1: Esta operacion solo esta puesta para retornar lo recibido.
 	 *
-	 * @param nuevaDocumento {@link DocumentoDTO} - el Documento que se desea guardar.
+	 * @param nuevoDocumento {@link DocumentoDTO} - el Documento que se desea guardar.
 	 * @return JSON {@link DocumentoDTO} - el Documento recibido.
 	 */
 	
