@@ -21,7 +21,6 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private String correoElectronico;
     private String nombreUsuario;
     private String contrasenia;
-    private HojaDeVidaEntity hojaDeVida;
     private Integer aniosExperiencia;
     private List<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
     private List<InvitacionEntity> invitaciones = new ArrayList<InvitacionEntity>();
@@ -74,13 +73,6 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
         this.nombreEmpleado = nombreEmpleado;
     }
 
-    public HojaDeVidaEntity getHojaDeVida() {
-        return hojaDeVida;
-    }
-
-    public void setHojaDeVida(HojaDeVidaEntity hojaDeVida) {
-        this.hojaDeVida = hojaDeVida;
-    }
 
     public List<CalificacionEntity> getCalificaciones() {
         return calificaciones;

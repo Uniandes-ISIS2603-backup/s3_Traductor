@@ -5,18 +5,39 @@
  */
 package co.edu.uniandes.csw.traductor.entities;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author ANDRES
  */
-public class TarjetaDeCreditoEntity {
+@Entity
+public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
 
     private Long numeroTarjetaCredito;
     private Integer ccv;
     private Date fechaExpiracion;
     private String redBancaria; 
+    @PodamExclude
+    @OneToMany(mappedBy = "tarjetaDeCredito", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    private List<PagosEntity> pagos = new ArrayList<PagosEntity>();
+    
+    public List<PagosEntity> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<PagosEntity> pagos) {
+        this.pagos = pagos;
+    }
 
 public TarjetaDeCreditoEntity() {
         

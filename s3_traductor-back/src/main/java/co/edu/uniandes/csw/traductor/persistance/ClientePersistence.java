@@ -20,14 +20,14 @@ import javax.persistence.TypedQuery;
  * @author Juan Felipe Parra
  */
 @Stateless
-public class ClientePersistance {
-    private static final Logger LOGGER = Logger.getLogger(ClientePersistance.class.getName());
-        @PersistenceContext(unitName = "PrometeusPU")
-        protected EntityManager em;
-        /**
+public class ClientePersistence {
+    private static final Logger LOGGER = Logger.getLogger(ClientePersistence.class.getName());
+    @PersistenceContext(unitName = "PrometeusPU")
+    protected EntityManager em;
+    /**
      * Método para persisitir la entidad en la base de datos.
      *
-     * @param calificacionEntity objeto calificacion que se creará en la base de datos
+     * @param clienteEntity objeto cliente que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
     public ClienteEntity create(ClienteEntity clienteEntity) {
@@ -52,22 +52,22 @@ public class ClientePersistance {
     }
 	
     /**
-     * Busca si hay alguna calificacion con el id enviado por parametro
+     * Busca si hay algun cliente con el id enviado por parametro
      *
-     * @param calId: id correspondiente a la calificacion buscada.
+     * @param clientesId: id correspondiente del cliente buscado.
      * @return una editorial.
      */
-    public ClienteEntity find(Long calId) {
-        LOGGER.log(Level.INFO, "Consultando calificacion con id={0}", calId);
-        return em.find(ClienteEntity.class, calId);
+    public ClienteEntity find(Long clientesId) {
+        LOGGER.log(Level.INFO, "Consultando calificacion con id={0}", clientesId);
+        return em.find(ClienteEntity.class, clientesId);
     }
     /**
      * Actualiza una cliente.
      *
-     * @param authorEntity: la author que viene con los nuevos cambios. Por
+     * @param clienteEntity: la author que viene con los nuevos cambios. Por
      * ejemplo el nombre pudo cambiar. En ese caso, se haria uso del método
      * update.
-     * @return una author con los cambios aplicados.
+     * @return el cliente con los cambios aplicados.
      */
     public ClienteEntity update(ClienteEntity clienteEntity) {
         LOGGER.log(Level.INFO, "Actualizando el author con id={0}", clienteEntity.getId());
