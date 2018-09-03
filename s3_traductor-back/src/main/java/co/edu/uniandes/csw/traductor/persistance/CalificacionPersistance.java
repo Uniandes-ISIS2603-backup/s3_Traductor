@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class CalificacionPersistance {
      private static final Logger LOGGER = Logger.getLogger(CalificacionPersistance.class.getName());
-        @PersistenceContext(unitName = "TraductorPU")
+        @PersistenceContext(unitName = "PrometeusPU")
         protected EntityManager em;
         /**
      * Método para persisitir la entidad en la base de datos.
