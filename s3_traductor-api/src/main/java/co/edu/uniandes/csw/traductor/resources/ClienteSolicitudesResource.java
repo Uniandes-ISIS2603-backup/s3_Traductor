@@ -38,7 +38,7 @@ public class ClienteSolicitudesResource
 //    @Inject
 //    private SolicitudLogic solicitudLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
      
-     /**
+    /**
      * Guarda una solicitud dentro de un cliente con la informacion que recibe el
      * la URL. Se devuelve el libro que se guarda en la editorial.
      *
