@@ -18,6 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class PagosEntity extends BaseEntity implements Serializable {
 
     private Boolean pagoAprobado;
+    
     @PodamExclude
     @ManyToOne
     private TarjetaDeCreditoEntity tarjeta;

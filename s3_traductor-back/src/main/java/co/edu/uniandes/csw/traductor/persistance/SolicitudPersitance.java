@@ -16,7 +16,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author Jhonattan Fonseca
+ * @author jhonattanfonseca
  */
 @Stateless
 public class SolicitudPersitance 
