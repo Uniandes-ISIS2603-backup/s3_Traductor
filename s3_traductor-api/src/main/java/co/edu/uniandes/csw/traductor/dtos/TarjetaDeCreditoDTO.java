@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.traductor.dtos;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
+import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -13,7 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author ANDRES
  */
-public class TarjetaDeCreditoDTO 
+public class TarjetaDeCreditoDTO implements Serializable
 {
     private Long idTarjeta;
     private Long numeroTarjetaCredito;
