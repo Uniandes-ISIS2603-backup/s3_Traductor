@@ -24,6 +24,9 @@ public class EmpleadoDTO implements Serializable{
     private Integer aniosExperiencia;
     private String nombreUsuario;
     private String contrasenia;
+    private String trayectoria;
+    private String hojaDeVida; 
+
     
     //----------------------------------------------------
     //constructores
@@ -36,6 +39,9 @@ public class EmpleadoDTO implements Serializable{
         this.aniosExperiencia=empleado.getAniosExperiencia();
         this.nombreUsuario=empleado.getNombreUsuario();
         this.contrasenia=empleado.getContrasenia();
+        this.trayectoria = empleado.getTrayectoria();
+        this.hojaDeVida = empleado.getHojaDeVida();
+        
     }
     //----------------------------------------------------
     //getters and setters
@@ -44,6 +50,22 @@ public class EmpleadoDTO implements Serializable{
         return id;
     }
 
+    public String getTrayectoria() {
+        return trayectoria;
+    }
+
+    public void setTrayectoria(String trayectoria) {
+        this.trayectoria = trayectoria;
+    }
+
+    public String getHojaDeVida() {
+        return hojaDeVida;
+    }
+
+    public void setHojaDeVida(String hojaDeVida) {
+        this.hojaDeVida = hojaDeVida;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -105,6 +127,8 @@ public class EmpleadoDTO implements Serializable{
         nemen.setAniosExperiencia(this.aniosExperiencia);
         nemen.setNombreUsuario(this.nombreUsuario);
         nemen.setContrasenia(this.contrasenia);
+        nemen.setTrayectoria(this.trayectoria);
+        nemen.setHojaDeVida(this.hojaDeVida);
       
         return nemen;
     }

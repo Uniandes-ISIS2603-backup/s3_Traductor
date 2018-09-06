@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -25,10 +24,12 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
 
     private Long numeroTarjetaCredito;
     private Integer ccv;
+    @Temporal(TemporalType.DATE)
     private Date fechaExpiracion;
-    private String redBancaria; 
+    private String redBancaria;
+    
     @PodamExclude
-    @OneToMany(mappedBy = "tarjetaDeCredito", cascade = CascadeType.PERSIST, orphanRemoval = false)
+    @OneToMany(mappedBy = "tarjeta")
     private List<PagosEntity> pagos = new ArrayList<PagosEntity>();
     
     public List<PagosEntity> getPagos() {
@@ -39,7 +40,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
         this.pagos = pagos;
     }
 
-public TarjetaDeCreditoEntity() {
+    public TarjetaDeCreditoEntity() {
         
     }
 
