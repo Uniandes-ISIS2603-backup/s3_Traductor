@@ -7,11 +7,12 @@ package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-
+ 
 /**
  *
  * @author jhonattanfonseca
  */
+//@Entity
 public class SolicitudEntity extends BaseEntity implements Serializable {
 
     //Atributos
@@ -20,6 +21,15 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     private Date fechaEntrega;
     private Integer estado;
     private Integer tipoSolicitud;
+    
+    private ClienteEntity cliente;
+    
+    private EmpleadoEntity empleado;
+    
+    private IdiomaEntity idiomaSalida;
+    
+    private IdiomaEntity idiomaEntrada;
+   
 
     public Long getIdSolicitud() {
         return idSolicitud;
@@ -39,6 +49,22 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
 
     public Integer getTipoSolicitud() {
         return tipoSolicitud;
+    }
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    public IdiomaEntity getIdiomaSalida() {
+        return idiomaSalida;
+    }
+
+    public IdiomaEntity getIdiomaEntrada() {
+        return idiomaEntrada;
     }
 
     
@@ -62,6 +88,22 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
 
     public void setTipoSolicitud(Integer tipoSolicitud) {
         this.tipoSolicitud = tipoSolicitud;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
+
+    public void setIdiomaSalida(IdiomaEntity idiomaSalida) {
+        this.idiomaSalida = idiomaSalida;
+    }
+
+    public void setIdiomaEntrada(IdiomaEntity idiomaEntrada) {
+        this.idiomaEntrada = idiomaEntrada;
     }
 
     

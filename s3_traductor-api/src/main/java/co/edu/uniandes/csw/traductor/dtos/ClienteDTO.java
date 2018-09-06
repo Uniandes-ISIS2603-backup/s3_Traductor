@@ -9,18 +9,52 @@ import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import java.io.Serializable;
 
 /**
- *
+ * Clase que representa a un cliente dentro de la app.
  * @author Santiago Salazar
  */
 public class ClienteDTO implements Serializable
 {
-    protected Long id;
-    protected String nombreUsuario;
-    protected String contrasenia;
-    protected String correoElectronico;
+    private Long id;
+    private String nombreUsuario;
+    private String contrasenia;
+    private String correoElectronico;
+    private String nombre;
+    private String identificacion;
+
+    /**
+     * Da el nombre de un cliente en el sistema
+     * @return El nombre del cliente
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Cambia el nombre del cliente
+     * @param nombre El nuevo nombre del cliente.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * Da la identificacion (NIT o documento) del cliente.
+     * @return El documento identificacion del cliente.
+     */
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    /**
+     * Cambia la identificacion del cliente.
+     * @param identificacion La nueva identificacion
+     */
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
     
     /**
-     * Método que da el id del cliente
+     * Metodo que da el id del cliente
      * @return el id del cliente
      */
     public Long getId() {
@@ -101,6 +135,8 @@ public class ClienteDTO implements Serializable
             this.nombreUsuario = clienteEntity.getNombreUsuario();
             this.correoElectronico = clienteEntity.getCorreoElectronico();
             this.contrasenia = clienteEntity.getContrasenia();
+            this.nombre = clienteEntity.getNombre();
+            this.identificacion = clienteEntity.getIdentificacion();
         }
     }
     
@@ -115,6 +151,8 @@ public class ClienteDTO implements Serializable
         clienteEntity.setNombreUsuario(this.nombreUsuario);
         clienteEntity.setCorreoElectronico(this.correoElectronico);
         clienteEntity.setContrasenia(this.contrasenia);
+        clienteEntity.setNombre(this.nombre);
+        clienteEntity.setIdentificacion(this.identificacion);
         return clienteEntity;
     }
 }

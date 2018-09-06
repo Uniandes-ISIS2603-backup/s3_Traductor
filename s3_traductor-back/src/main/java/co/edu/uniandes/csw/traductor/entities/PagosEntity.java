@@ -5,14 +5,31 @@
  */
 package co.edu.uniandes.csw.traductor.entities;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
+
 /**
  *
  * @author ANDRES
  */
-public class PagosEntity {
+@Entity
+public class PagosEntity extends BaseEntity implements Serializable {
 
     private Boolean pagoAprobado;
-    private Long idTransaccion;
+    
+    @PodamExclude
+    @ManyToOne
+    private TarjetaDeCreditoEntity tarjeta;
+
+    public TarjetaDeCreditoEntity getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(TarjetaDeCreditoEntity tarjeta) {
+        this.tarjeta = tarjeta;
+    }
 
     public PagosEntity() {
 
@@ -26,12 +43,5 @@ public class PagosEntity {
         this.pagoAprobado = pagoAprobado;
     }
 
-    public Long getIdTransaccion() {
-        return idTransaccion;
-    }
-
-    public void setIdTransaccion(Long idTransaccion) {
-        this.idTransaccion = idTransaccion;
-    }
 
 }
