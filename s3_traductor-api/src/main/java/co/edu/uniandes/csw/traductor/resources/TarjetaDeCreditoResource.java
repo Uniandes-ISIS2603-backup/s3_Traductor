@@ -31,7 +31,7 @@ import javax.ws.rs.WebApplicationException;
 @Consumes("application/json")
 @RequestScoped
 
-public class TarjetaDeCreditoResources {
+public class TarjetaDeCreditoResource {
 
     //Logger
     private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());

@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.traductor.persistance;
 
-
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,41 +27,40 @@ public class SolicitudPersitance
         /**
      * Método para persisitir la entidad en la base de datos.
      *
-     * @param calificacionEntity objeto calificacion que se creará en la base de datos
+     * @param SolicitudEntity objeto solicitud que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    public SolicitudPersitance create(SolicitudPersitance calificacionEntity) {
-        LOGGER.log(Level.INFO, "Creando una calificacion nueva");
-        em.persist(calificacionEntity);
-        LOGGER.log(Level.INFO, "Saliendo de crear una calificaion nueva");
-        return calificacionEntity;
+    public SolicitudPersitance create(SolicitudPersitance solicitudEntity) {
+        LOGGER.log(Level.INFO, "Creando una solicitd nueva");
+        em.persist(solicitudEntity);
+        LOGGER.log(Level.INFO, "Saliendo de crear una solicitud nueva");
+        return solicitudEntity;
     }
 	
     /**
-     * Devuelve todas las calificaciones de la base de datos.
+     * Devuelve todas las solicitudes de la base de datos.
      *
-     * @return una lista con todas las calificaciones que encuentre en la base de
-     * datos, "select u from CalificaionEntity u" es como un "select * from
-     * CalificacionEntity;" - "SELECT * FROM table_name" en SQL.
+     * @return una lista con todas las solicitudes que encuentre en la base de
+     * datos, "select u from SolicitudEntity u" es como un "select * from
+     * SolicitudEntity;" - "SELECT * FROM table_name" en SQL.
      */
     public List<SolicitudEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos las calificaciones");
+        LOGGER.log(Level.INFO, "Consultando todas las solicitudes");
         
-        TypedQuery query = em.createQuery("select u from CalificacionEntity u", SolicitudEntity.class);
+        TypedQuery query = em.createQuery("select u from SolicitudEntity u", SolicitudEntity.class);
         return query.getResultList();
     }
 	
     /**
-     * Busca si hay alguna calificacion con el id enviado por parametro
+     * Busca si hay alguna solcitud con el id enviado por parametro
      *
      * @param calId: id correspondiente a la calificacion buscada.
      * @return una editorial.
      */
     public SolicitudEntity find(Long calId) {
-        LOGGER.log(Level.INFO, "Consultando calificacion con id={0}", calId);
+        LOGGER.log(Level.INFO, "Consultando solicitud con id={0}", calId);
         return em.find(SolicitudEntity.class, calId);
     }
     
     
 }
-
