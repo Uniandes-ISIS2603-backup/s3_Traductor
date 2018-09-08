@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
-import co.edu.uniandes.csw.traductor.entities.HojaDeVidaEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -25,7 +24,9 @@ public class EmpleadoDTO implements Serializable{
     private Integer aniosExperiencia;
     private String nombreUsuario;
     private String contrasenia;
-    private HojaDeVidaDTO hojaDeVida;
+    private String trayectoria;
+    private String hojaDeVida; 
+
     
     //----------------------------------------------------
     //constructores
@@ -38,8 +39,9 @@ public class EmpleadoDTO implements Serializable{
         this.aniosExperiencia=empleado.getAniosExperiencia();
         this.nombreUsuario=empleado.getNombreUsuario();
         this.contrasenia=empleado.getContrasenia();
-        if(empleado.getHojaDeVida()!=null)
-            this.hojaDeVida=new HojaDeVidaDTO(empleado.getHojaDeVida());
+        this.trayectoria = empleado.getTrayectoria();
+        this.hojaDeVida = empleado.getHojaDeVida();
+        
     }
     //----------------------------------------------------
     //getters and setters
@@ -48,6 +50,22 @@ public class EmpleadoDTO implements Serializable{
         return id;
     }
 
+    public String getTrayectoria() {
+        return trayectoria;
+    }
+
+    public void setTrayectoria(String trayectoria) {
+        this.trayectoria = trayectoria;
+    }
+
+    public String getHojaDeVida() {
+        return hojaDeVida;
+    }
+
+    public void setHojaDeVida(String hojaDeVida) {
+        this.hojaDeVida = hojaDeVida;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -91,14 +109,6 @@ public class EmpleadoDTO implements Serializable{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-
-    public HojaDeVidaDTO getHojaDeVida() {
-        return hojaDeVida;
-    }
-
-    public void setHojaDeVida(HojaDeVidaDTO hojaDeVida) {
-        this.hojaDeVida = hojaDeVida;
-    }
     
 
     //----------------------------------------------------
@@ -117,10 +127,9 @@ public class EmpleadoDTO implements Serializable{
         nemen.setAniosExperiencia(this.aniosExperiencia);
         nemen.setNombreUsuario(this.nombreUsuario);
         nemen.setContrasenia(this.contrasenia);
-        if(this.hojaDeVida!=null){
-            HojaDeVidaEntity hojaTmp= this.hojaDeVida.toEntity();
-            nemen.setHojaDeVida(hojaTmp);
-        }
+        nemen.setTrayectoria(this.trayectoria);
+        nemen.setHojaDeVida(this.hojaDeVida);
+      
         return nemen;
     }
 }

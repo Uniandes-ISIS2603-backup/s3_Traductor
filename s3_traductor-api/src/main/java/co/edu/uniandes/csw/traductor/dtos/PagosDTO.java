@@ -6,23 +6,34 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.PagosEntity;
+import java.io.Serializable;
 
 /**
  *
  * @author ANDRES
  */
-public class PagosDTO {
+public class PagosDTO implements Serializable {
 
     private Boolean pagoAprobado;
     private Long idTransaccion;
+
+    public Long getId() {
+        return idTransaccion;
+    }
+
+    public void setId(Long id) {
+        this.idTransaccion = id;
+    }
 
     public PagosDTO() {
 
     }
 
     public PagosDTO(PagosEntity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if(entity!=null){
+            pagoAprobado=entity.getPagoAprobado();
+        }
+            }
 
     public Boolean getPagoAprobado() {
         return pagoAprobado;
@@ -32,12 +43,5 @@ public class PagosDTO {
         this.pagoAprobado = pagoAprobado;
     }
 
-    public Long getIdTransaccion() {
-        return idTransaccion;
-    }
-
-    public void setIdTransaccion(Long idTransaccion) {
-        this.idTransaccion = idTransaccion;
-    }
-
+   
 }

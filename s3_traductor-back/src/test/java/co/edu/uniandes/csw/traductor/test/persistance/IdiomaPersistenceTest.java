@@ -9,6 +9,6 @@ package co.edu.uniandes.csw.traductor.test.persistance;
  *
  * @author Juan Felipe Parra Camargo
  */
-public class IdiomaPersistanceTest {
+public class IdiomaPersistenceTest {
     
 }
