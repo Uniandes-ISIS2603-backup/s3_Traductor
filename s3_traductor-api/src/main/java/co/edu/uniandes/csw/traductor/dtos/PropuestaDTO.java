@@ -38,7 +38,13 @@ public class PropuestaDTO implements Serializable{
     private String estado;
     private Long idEmpleado;
     private String tiempoEstimado;
-
+	
+	/**
+	 * Asociacion de cardinalidad 1 con invitacion 
+	 */
+	
+	private InvitacionDTO invitacion;	
+	
 	/**
 	 * Constructor vacio para que sea llenado por JAX-RS
 	 */
@@ -61,11 +67,13 @@ public class PropuestaDTO implements Serializable{
 	{
 		if (propuestaEntity != null)
 		{
+			this.propuestaId = propuestaEntity.getId();
 			this.descripcion = propuestaEntity.getDescripcion();
 			this.costo = propuestaEntity.getCosto();
 			this.estado = propuestaEntity.getEstado();
 			this.idEmpleado = propuestaEntity.getIdEmpleado();
 			this.tiempoEstimado = propuestaEntity.getTiempoEstimado();
+			this.invitacion = (propuestaEntity.getInvitacion() != null) ? new InvitacionDTO(propuestaEntity.getInvitacion()): null;
 		}
 	}
 	
@@ -82,6 +90,11 @@ public class PropuestaDTO implements Serializable{
 		propuestaEntity.setEstado(estado);
 		propuestaEntity.setIdEmpleado(idEmpleado);
 		propuestaEntity.setTiempoEstimado(tiempoEstimado);
+		if (invitacion != null)
+		{
+			propuestaEntity.setInvitacion(invitacion.toEntity());
+		}
+		
 		return propuestaEntity;
 	}
 	
@@ -187,6 +200,14 @@ public class PropuestaDTO implements Serializable{
 	public void setTiempoEstimado(String fecha) {
 		this.tiempoEstimado = fecha;
 	}  
+	
+	public InvitacionDTO getInvitacion() {
+		return invitacion;
+	}
+
+	public void setInvitacion(InvitacionDTO invitacion) {
+		this.invitacion = invitacion;
+	}
 	
 	@Override
     public String toString() {
