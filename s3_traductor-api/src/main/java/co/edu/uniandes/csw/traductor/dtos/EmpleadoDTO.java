@@ -18,14 +18,14 @@ public class EmpleadoDTO implements Serializable{
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------
-    private Long id;
-    private String nombreEmpleado;
-    private String correoElectronico;
-    private Integer aniosExperiencia;
-    private String nombreUsuario;
-    private String contrasenia;
-    private String trayectoria;
-    private String hojaDeVida; 
+    protected Long id;
+    protected String nombreEmpleado;
+    protected String correoElectronico;
+    protected Integer aniosExperiencia;
+    protected String nombreUsuario;
+    protected String contrasenia;
+    protected String trayectoria;
+    //private String hojaDeVida; 
 
     
     //----------------------------------------------------
@@ -40,72 +40,117 @@ public class EmpleadoDTO implements Serializable{
         this.nombreUsuario=empleado.getNombreUsuario();
         this.contrasenia=empleado.getContrasenia();
         this.trayectoria = empleado.getTrayectoria();
-        this.hojaDeVida = empleado.getHojaDeVida();
+        //this.hojaDeVida = empleado.getHojaDeVida();
         
     }
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
-    public Long getId() {
-        return id;
-    }
-
+   
+    /**
+    * obtiene la trayectoria de un empleado 
+    * @return trayectoria
+    */
     public String getTrayectoria() {
         return trayectoria;
     }
-
+    /**
+     * asigna la trayectoria a un empleado
+     * @param trayectoria trayectoria del empleado.
+     */
     public void setTrayectoria(String trayectoria) {
         this.trayectoria = trayectoria;
     }
 
-    public String getHojaDeVida() {
-        return hojaDeVida;
-    }
+    //public String getHojaDeVida() {
+      //  return hojaDeVida;
+    //}
 
-    public void setHojaDeVida(String hojaDeVida) {
-        this.hojaDeVida = hojaDeVida;
+//    public void setHojaDeVida(String hojaDeVida) {
+  //      this.hojaDeVida = hojaDeVida;
+    //}
+    /**
+     * metodo para obtener la id del empleado
+     * @return id empleado
+     */
+     public Long getId() {
+        return id;
     }
-    
+    /**
+     * metodo para agrear la id del empleado
+     * @param id la id del documento
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+    * metodo para obtener el nombre del empleado
+    * @return nombre del empleado
+    */
     public String getNombreEmpleado() {
         return nombreEmpleado;
     }
-
+    /**
+     * metodo para agrear el nombre del empleado
+     * @param nombreEmpleado 
+     */
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
     }
-
+    /**
+     * metodo para obtener el correo del empleado
+     * @return correo electronico
+     */
     public String getCorreoElectronico() {
         return correoElectronico;
     }
-
+    /**
+     * metodo para asignar el correo electronico al empleado
+     * 
+     * @param correoElectronico 
+     */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-
+    /**
+     * metodo para obtener los anios de experiencia del empleado
+     * @return 
+     */
     public Integer getAniosExperiencia() {
         return aniosExperiencia;
     }
-
+    /**
+     * metodo para asignar el numero de anios de experiencia laboral del empleado
+     * @param aniosExperiencia 
+     */
     public void setAniosExperiencia(Integer aniosExperiencia) {
         this.aniosExperiencia = aniosExperiencia;
     }
-
+    /**
+     * metodo para obtener el nombre de usuario del empleado
+     * @return nombre de usuario del empleado
+     */
     public String getNombreUsuario() {
         return nombreUsuario;
     }
-
+    /**
+     * metodo para asignar el nombre de usuario del empleado
+     * @param nombreUsuario 
+     */
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-
+    /**
+     * metodo para obtener la contrasenia del empleado registrado
+     * @return contrasenia del empleado
+     */
     public String getContrasenia() {
         return contrasenia;
     }
-
+    /**
+     * metodo para asignar la contrasenia del empleado
+     * @param contrasenia contrasenia asiganada
+     */
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
@@ -114,10 +159,18 @@ public class EmpleadoDTO implements Serializable{
     //----------------------------------------------------
     //Metodos adicionales
     //----------------------------------------------------
+    /**
+     * convierte un objeto empleado dto a estring para generar el log
+     * @return string
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
+    /**
+     * convuierte un EmpleadoDTO a un objeto entity correspondiente para la persistencia
+     * @return nuevo entity correspondiente
+     */
     public EmpleadoEntity toEntity(){
         //nemen = newEmpleadoEntity
         EmpleadoEntity nemen = new EmpleadoEntity();
@@ -128,7 +181,7 @@ public class EmpleadoDTO implements Serializable{
         nemen.setNombreUsuario(this.nombreUsuario);
         nemen.setContrasenia(this.contrasenia);
         nemen.setTrayectoria(this.trayectoria);
-        nemen.setHojaDeVida(this.hojaDeVida);
+       // nemen.setHojaDeVida(this.hojaDeVida);
       
         return nemen;
     }

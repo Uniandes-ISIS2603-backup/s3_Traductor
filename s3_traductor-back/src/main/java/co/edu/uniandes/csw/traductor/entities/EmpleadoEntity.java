@@ -24,14 +24,14 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private Integer aniosExperiencia;
     private String trayectoria;
     private String HojaDeVida;
-    private List<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
-    private List<InvitacionEntity> invitaciones = new ArrayList<InvitacionEntity>();
-    private List<ReferenciaEntity> refLaborales = new ArrayList<ReferenciaEntity>();
-    private List<ReferenciaEntity> refPersonales = new ArrayList<ReferenciaEntity>();
-    private List<PropuestaEntity> propuestas = new ArrayList<PropuestaEntity>();
-    private List<SolicitudEntity> solicitudes=new ArrayList<SolicitudEntity>();
-    private List<AreaConocimientoEntity> areasDeConocimiento=new ArrayList<AreaConocimientoEntity>();
-    private List<IdiomaEntity> idiomas=new ArrayList<IdiomaEntity>();
+    private List<CalificacionEntity> calificaciones;
+    private List<InvitacionEntity> invitaciones;
+    private List<ReferenciaEntity> refLaborales; 
+    private List<ReferenciaEntity> refPersonales;
+    private List<PropuestaEntity> propuestas ;
+    private List<SolicitudEntity> solicitudes;
+    private List<AreaConocimientoEntity> areasDeConocimiento;
+    private List<IdiomaEntity> idiomas;
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
