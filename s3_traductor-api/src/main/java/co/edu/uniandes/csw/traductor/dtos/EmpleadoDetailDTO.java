@@ -237,7 +237,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
             for(IdiomaDTO tmparea: this.idiomas){
                 listIdiomas.add(tmparea.toEntity());
             }
-            nemen.setAreasDeConocimiento(listIdiomas);
+            nemen.setIdiomas(listIdiomas);
         }
         return nemen;
     }
