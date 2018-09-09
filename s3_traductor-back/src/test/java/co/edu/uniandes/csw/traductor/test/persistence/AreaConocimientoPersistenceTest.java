@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.test.persistance;
-import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
-import co.edu.uniandes.csw.traductor.persistance.InvitacionPersistence;
+package co.edu.uniandes.csw.traductor.test.persistence;
+import co.edu.uniandes.csw.traductor.entities.AreaConocimientoEntity;
+import co.edu.uniandes.csw.traductor.persistence.AreaConocimientoPersistence;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,19 +25,19 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Metodos para probar que todas las operaciones de InvitacionPersistence se realicen a cabalidad.
+ * Metodos para probar que todas las operaciones de AreaConocimientoPersistence se realicen a cabalidad.
  * @author Geovanny Andres Gonzalez
  */
 
 @RunWith(Arquillian.class)
-public class InvitacionPersistenceTest 
+public class AreaConocimientoPersistenceTest 
 {
 	/**
-     * Inyección de la dependencia a la clase InvitacionPersistence cuyos métodos
+     * Inyección de la dependencia a la clase AreaConocimientoPersistence cuyos métodos
      * se van a probar.
      */
     @Inject
-    private InvitacionPersistence invitacionPersistence;
+    private AreaConocimientoPersistence areaPersistence;
 
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -58,7 +58,7 @@ public class InvitacionPersistenceTest
      * Lista que tiene los datos de prueba.
      */
 	
-    private List<InvitacionEntity> data = new ArrayList<InvitacionEntity>();
+    private List<AreaConocimientoEntity> data = new ArrayList<AreaConocimientoEntity>();
 	
 	/**
      *
@@ -70,8 +70,8 @@ public class InvitacionPersistenceTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(InvitacionEntity.class.getPackage())
-                .addPackage(InvitacionPersistence.class.getPackage())
+                .addPackage(AreaConocimientoEntity.class.getPackage())
+                .addPackage(AreaConocimientoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -105,7 +105,7 @@ public class InvitacionPersistenceTest
      */
 	
     private void clearData() {
-        em.createQuery("delete from InvitacionEntity").executeUpdate();
+        em.createQuery("delete from AreaConocimientoEntity").executeUpdate();
     }
 
     /**
@@ -118,65 +118,65 @@ public class InvitacionPersistenceTest
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++)
 		{
-            InvitacionEntity entity = factory.manufacturePojo(InvitacionEntity.class);			
+            AreaConocimientoEntity entity = factory.manufacturePojo(AreaConocimientoEntity.class);			
             em.persist(entity); //Hace el insert en la base de datos de las tablas.
             data.add(entity); //Agrega a la lista la entidad insertada para que se realicen validaciones luego.
         }
     }
 	
 	/**
-     * Prueba para crear una invitacion.     
+     * Prueba para crear una area de conocimiento.     
      */
 	
     @Test
-    public void createInvitacionTest() {
+    public void createAreaTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        InvitacionEntity newEntity = factory.manufacturePojo(InvitacionEntity.class);
-        InvitacionEntity result = invitacionPersistence.create(newEntity);
+        AreaConocimientoEntity newEntity = factory.manufacturePojo(AreaConocimientoEntity.class);
+        AreaConocimientoEntity result = areaPersistence.create(newEntity);
         Assert.assertNotNull(result);
-        InvitacionEntity entity = em.find(InvitacionEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getIdEmpleado(), entity.getIdEmpleado());
+        AreaConocimientoEntity entity = em.find(AreaConocimientoEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getArea(), entity.getArea());
     }	
 	
 	/**
-	 * Permite hacer las pruebas de busqueda de una invitacion
+	 * Permite hacer las pruebas de busqueda de una area de conocimiento
 	 */
 	@Test
-	public void findInvitacionTest()
+	public void findAreaTest()
 	{
-		InvitacionEntity busqueda = invitacionPersistence.find(Long.MIN_VALUE); //Intenta buscar una invitacion que no existe.
-		Assert.assertNull("La invitacion no deberia existir en la base de datos pues está vacia", busqueda);
-		InvitacionEntity invitacion = data.get(0); //Toma una invitacion de la lista.
-		InvitacionEntity result = invitacionPersistence.create(invitacion); //Guarda la nueva invitacion en la base de datos para ser buscada.		
-		InvitacionEntity busqueda2 = invitacionPersistence.find(invitacion.getId());
-		Assert.assertNotNull("La invitacion deberia existir en la base de datos", busqueda2);
-		Assert.assertEquals("La descripcion deberia ser la misma", busqueda2.getDescripcion(), invitacion.getDescripcion());
+		AreaConocimientoEntity busqueda = areaPersistence.find(Long.MIN_VALUE); //Intenta buscar un area que no existe.
+		Assert.assertNull("El area de conocimiento no deberia existir en la base de datos pues está vacia", busqueda);
+		AreaConocimientoEntity invitacion = data.get(0); //Toma un area de la lista.
+		AreaConocimientoEntity result = areaPersistence.create(invitacion); //Guarda la nueva area en la base de datos para ser buscada.		
+		AreaConocimientoEntity busqueda2 = areaPersistence.find(invitacion.getId());
+		Assert.assertNotNull("El area de conocimiento deberia existir en la base de datos", busqueda2);
+		Assert.assertEquals("El area deberia ser la misma", busqueda2.getArea(), invitacion.getArea());
 	}
 	
 	/**
-     * Prueba para actualizar una invitacion.
+     * Prueba para actualizar un area de conocimiento.
      */
 	
     @Test
-    public void updateInvitacionTest() {
-        InvitacionEntity entity = data.get(0); //Trae la primera invitacion de la lista de Podam
+    public void updateAreaTest() {
+        AreaConocimientoEntity entity = data.get(0); //Trae la primera area de la lista de Podam
         PodamFactory factory = new PodamFactoryImpl();
-        InvitacionEntity newEntity = factory.manufacturePojo(InvitacionEntity.class); //Crea una nueva entidad para el reemplazo.
+        AreaConocimientoEntity newEntity = factory.manufacturePojo(AreaConocimientoEntity.class); //Crea una nueva entidad para el reemplazo.
         newEntity.setId(entity.getId()); //Reemplaza la PK para que se pueda hacer el reemplazo correctamente.
-        invitacionPersistence.update(newEntity); //Actualiza con la nueva entidad los datos.
-        InvitacionEntity resp = em.find(InvitacionEntity.class, entity.getId()); //Busca la entidad que se cambio		
-        Assert.assertEquals("El ID del empleado deberia ser igual", newEntity.getIdEmpleado(), resp.getIdEmpleado());
+        areaPersistence.update(newEntity); //Actualiza con la nueva entidad los datos.
+        AreaConocimientoEntity resp = em.find(AreaConocimientoEntity.class, entity.getId()); //Busca la entidad que se cambio		
+        Assert.assertEquals("El area de conocimiento deberia ser igual", newEntity.getArea(), resp.getArea());
     }
 	
 	/**
-     * Prueba para eliminar una invitacion.
+     * Prueba para eliminar un area de conocimiento.
      */
 	
     @Test
-    public void deleteInvitacionTest() {
-        InvitacionEntity entity = data.get(0); //Recordar que por inicializacion de @Before la entidad ya existe en la BD
-        invitacionPersistence.delete(entity.getId());
-        InvitacionEntity deleted = em.find(InvitacionEntity.class, entity.getId());
-        Assert.assertNull("La propuesta se deberia haber borrado satisfactoriamente",deleted);
+    public void deleteAreaTest() {
+        AreaConocimientoEntity entity = data.get(0); //Recordar que por inicializacion de @Before la entidad ya existe en la BD
+        areaPersistence.delete(entity.getId());
+        AreaConocimientoEntity deleted = em.find(AreaConocimientoEntity.class, entity.getId());
+        Assert.assertNull("El area de conocimiento se deberia haber borrado satisfactoriamente",deleted);
     }	
 }
