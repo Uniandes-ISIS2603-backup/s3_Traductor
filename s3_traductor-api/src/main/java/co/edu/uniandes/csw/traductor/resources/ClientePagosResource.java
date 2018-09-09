@@ -9,16 +9,21 @@ import co.edu.uniandes.csw.traductor.dtos.PagosDTO;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Clase que representa el recurso "clientes/{id}/pagos"
  * @author Santiago Salazar
  */
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ClientePagosResource 
 {
     private static final Logger LOGGER = Logger.getLogger(ClientePagosResource.class.getName());

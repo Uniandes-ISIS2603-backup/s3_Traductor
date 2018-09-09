@@ -5,10 +5,14 @@
  */
 package co.edu.uniandes.csw.traductor.test.logic;
 
+import org.jboss.arquillian.junit.Arquillian;
+import org.junit.runner.RunWith;
+
 /**
  *
  * @author Santiago Salazar
  */
+@RunWith(Arquillian.class)
 public class ClienteLogicTest 
 {
     
