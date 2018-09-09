@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.test.persistance;
-import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
-import co.edu.uniandes.csw.traductor.persistance.PropuestaPersistence;
+import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
+import co.edu.uniandes.csw.traductor.persistance.InvitacionPersistence;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,19 +25,19 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Metodos para probar que todas las operaciones de PropuestaPersistence se realicen a cabalidad.
+ * Metodos para probar que todas las operaciones de InvitacionPersistence se realicen a cabalidad.
  * @author Geovanny Andres Gonzalez
  */
 
 @RunWith(Arquillian.class)
-public class PropuestaPersistenceTest 
+public class InvitacionPersistenceTest 
 {
 	/**
-     * Inyección de la dependencia a la clase PropuestaPersistence cuyos métodos
+     * Inyección de la dependencia a la clase InvitacionPersistence cuyos métodos
      * se van a probar.
      */
     @Inject
-    private PropuestaPersistence propuestaPersistence;
+    private InvitacionPersistence invitacionPersistence;
 
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -58,7 +58,7 @@ public class PropuestaPersistenceTest
      * Lista que tiene los datos de prueba.
      */
 	
-    private List<PropuestaEntity> data = new ArrayList<PropuestaEntity>();
+    private List<InvitacionEntity> data = new ArrayList<InvitacionEntity>();
 	
 	/**
      *
@@ -70,8 +70,8 @@ public class PropuestaPersistenceTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(PropuestaEntity.class.getPackage())
-                .addPackage(PropuestaPersistence.class.getPackage())
+                .addPackage(InvitacionEntity.class.getPackage())
+                .addPackage(InvitacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -105,7 +105,7 @@ public class PropuestaPersistenceTest
      */
 	
     private void clearData() {
-        em.createQuery("delete from PropuestaEntity").executeUpdate();
+        em.createQuery("delete from InvitacionEntity").executeUpdate();
     }
 
     /**
@@ -118,86 +118,65 @@ public class PropuestaPersistenceTest
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++)
 		{
-            PropuestaEntity entity = factory.manufacturePojo(PropuestaEntity.class);			
+            InvitacionEntity entity = factory.manufacturePojo(InvitacionEntity.class);			
             em.persist(entity); //Hace el insert en la base de datos de las tablas.
             data.add(entity); //Agrega a la lista la entidad insertada para que se realicen validaciones luego.
         }
     }
 	
 	/**
-     * Prueba para crear una propuesta.     
+     * Prueba para crear una invitacion.     
      */
 	
     @Test
-    public void createPropuestaTest() {
+    public void createInvitacionTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        PropuestaEntity newEntity = factory.manufacturePojo(PropuestaEntity.class);
-        PropuestaEntity result = propuestaPersistence.create(newEntity);
+        InvitacionEntity newEntity = factory.manufacturePojo(InvitacionEntity.class);
+        InvitacionEntity result = invitacionPersistence.create(newEntity);
         Assert.assertNotNull(result);
-        PropuestaEntity entity = em.find(PropuestaEntity.class, result.getId());
+        InvitacionEntity entity = em.find(InvitacionEntity.class, result.getId());
         Assert.assertEquals(newEntity.getIdEmpleado(), entity.getIdEmpleado());
     }	
 	
 	/**
-	 * Permite hacer las pruebas de busqueda de una propuesta
+	 * Permite hacer las pruebas de busqueda de una invitacion
 	 */
 	@Test
-	public void findPropuestaTest()
+	public void findInvitacionTest()
 	{
-		PropuestaEntity busqueda = propuestaPersistence.find(Long.MIN_VALUE); //Intenta buscar una propuesta que no existe.
-		Assert.assertNull("La propuesta no deberia existir en la base de datos pues está vacia", busqueda);
-		PropuestaEntity propuestaLista = data.get(0); //Toma una propuesta de la lista.
-		PropuestaEntity result = propuestaPersistence.create(propuestaLista); //Guarda la nueva propuesta en la base de datos para ser buscada.		
-		PropuestaEntity busqueda2 = propuestaPersistence.find(propuestaLista.getId());
-		Assert.assertNotNull("La propuesta deberia existir en la base de datos", busqueda2);
-		Assert.assertEquals("La descripcion deberia ser la misma", busqueda2.getDescripcion(), propuestaLista.getDescripcion());
+		InvitacionEntity busqueda = invitacionPersistence.find(Long.MIN_VALUE); //Intenta buscar una invitacion que no existe.
+		Assert.assertNull("La invitacion no deberia existir en la base de datos pues está vacia", busqueda);
+		InvitacionEntity invitacion = data.get(0); //Toma una invitacion de la lista.
+		InvitacionEntity result = invitacionPersistence.create(invitacion); //Guarda la nueva invitacion en la base de datos para ser buscada.		
+		InvitacionEntity busqueda2 = invitacionPersistence.find(invitacion.getId());
+		Assert.assertNotNull("La invitacion deberia existir en la base de datos", busqueda2);
+		Assert.assertEquals("La descripcion deberia ser la misma", busqueda2.getDescripcion(), invitacion.getDescripcion());
 	}
 	
 	/**
-     * Prueba para actualizar una propuesta.
+     * Prueba para actualizar una invitacion.
      */
 	
     @Test
-    public void updatePropuestaTest() {
-        PropuestaEntity entity = data.get(0); //Trae la primera propuesta de la lista de Podam
+    public void updateInvitacionTest() {
+        InvitacionEntity entity = data.get(0); //Trae la primera invitacion de la lista de Podam
         PodamFactory factory = new PodamFactoryImpl();
-        PropuestaEntity newEntity = factory.manufacturePojo(PropuestaEntity.class); //Crea una nueva entidad para el reemplazo.
+        InvitacionEntity newEntity = factory.manufacturePojo(InvitacionEntity.class); //Crea una nueva entidad para el reemplazo.
         newEntity.setId(entity.getId()); //Reemplaza la PK para que se pueda hacer el reemplazo correctamente.
-        propuestaPersistence.update(newEntity); //Actualiza con la nueva entidad los datos.
-        PropuestaEntity resp = em.find(PropuestaEntity.class, entity.getId()); //Busca la entidad que se cambio		
-        Assert.assertEquals("El estado de las propuestas deberia ser igual", newEntity.getEstado(), resp.getEstado());
+        invitacionPersistence.update(newEntity); //Actualiza con la nueva entidad los datos.
+        InvitacionEntity resp = em.find(InvitacionEntity.class, entity.getId()); //Busca la entidad que se cambio		
+        Assert.assertEquals("El ID del empleado deberia ser igual", newEntity.getIdEmpleado(), resp.getIdEmpleado());
     }
 	
 	/**
-     * Prueba para eliminar una propuesta.
+     * Prueba para eliminar una invitacion.
      */
 	
     @Test
-    public void deletePropuestaTest() {
-        PropuestaEntity entity = data.get(0); //Recordar que por inicializacion de @Before la entidad ya existe en la BD
-        propuestaPersistence.delete(entity.getId());
-        PropuestaEntity deleted = em.find(PropuestaEntity.class, entity.getId());
+    public void deleteInvitacionTest() {
+        InvitacionEntity entity = data.get(0); //Recordar que por inicializacion de @Before la entidad ya existe en la BD
+        invitacionPersistence.delete(entity.getId());
+        InvitacionEntity deleted = em.find(InvitacionEntity.class, entity.getId());
         Assert.assertNull("La propuesta se deberia haber borrado satisfactoriamente",deleted);
-    }
-	
-	/**
-	 * Test para consultar propuestas por costo en la base de datos
-	 */
-	
-	@Test
-	public void findAllByCostoTest()
-	{
-		PodamFactory factory = new PodamFactoryImpl(); //Instancia de Podam para crear los datos aleatorios.
-		//Crear con Podam los nuevos casos de prueba.
-		List<PropuestaEntity> cola = new LinkedList<>();
-		for (short i = 0; i < 4; i++)
-		{
-			PropuestaEntity nuevaProp = factory.manufacturePojo(PropuestaEntity.class); //Crea una nueva entidad para el reemplazo.
-			nuevaProp.setCosto(1); //Pone el costo en un pesito :)
-			propuestaPersistence.create(nuevaProp); //Pone en la base de datos los Entities.
-		}
-		
-		List<PropuestaEntity> respuesta = propuestaPersistence.findAllByCosto(1); //Le pide a la BD que le retorne todos las propuestas con costo 1.
-		Assert.assertEquals("Deberia haber 4 propuestas con el costo de 1 pesito", respuesta.size(), 4);
-	}
+    }	
 }
