@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Entidad de DTO Cliente para la persistencia.
@@ -19,6 +22,43 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     private String correoElectronico;
     private String contrasenia;
     private String nombre;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<TarjetaDeCreditoEntity> tarjetas;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<SolicitudEntity> solicitudes;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<PagosEntity> pagos;
+
+    public List<PagosEntity> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<PagosEntity> pagos) {
+        this.pagos = pagos;
+    }
+
+    public List<SolicitudEntity> getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(List<SolicitudEntity> solicitudes) {
+        this.solicitudes = solicitudes;
+    }
+    
+
+    public List<TarjetaDeCreditoEntity> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<TarjetaDeCreditoEntity> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
 
     public String getNombre() {
         return nombre;

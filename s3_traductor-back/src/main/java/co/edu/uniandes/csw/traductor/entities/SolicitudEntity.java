@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
  
 /**
  *
@@ -22,6 +24,8 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     private Integer estado;
     private Integer tipoSolicitud;
     
+    @PodamExclude
+    @ManyToOne
     private ClienteEntity cliente;
     
     private EmpleadoEntity empleado;
