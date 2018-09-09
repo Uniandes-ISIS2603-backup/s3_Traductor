@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
  
@@ -14,7 +15,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  *
  * @author jhonattanfonseca
  */
-//@Entity
+@Entity
 public class SolicitudEntity extends BaseEntity implements Serializable {
 
     //Atributos
