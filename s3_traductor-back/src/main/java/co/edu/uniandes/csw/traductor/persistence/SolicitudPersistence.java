@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.persistance;
+package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import java.util.List;
@@ -19,9 +19,9 @@ import javax.persistence.TypedQuery;
  * @author jhonattanfonseca
  */
 @Stateless
-public class SolicitudPersitance 
+public class SolicitudPersistence 
 {
-    private static final Logger LOGGER = Logger.getLogger(SolicitudPersitance.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SolicitudPersistence.class.getName());
         @PersistenceContext(unitName = "PrometeusPU")
         protected EntityManager em;
         /**
@@ -30,7 +30,7 @@ public class SolicitudPersitance
      * @param SolicitudEntity objeto solicitud que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    public SolicitudPersitance create(SolicitudPersitance solicitudEntity) {
+    public SolicitudPersistence create(SolicitudPersistence solicitudEntity) {
         LOGGER.log(Level.INFO, "Creando una solicitd nueva");
         em.persist(solicitudEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear una solicitud nueva");

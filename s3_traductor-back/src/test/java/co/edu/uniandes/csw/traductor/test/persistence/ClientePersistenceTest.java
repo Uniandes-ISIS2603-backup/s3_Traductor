@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.test.persistance;
+package co.edu.uniandes.csw.traductor.test.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
-import co.edu.uniandes.csw.traductor.persistance.ClientePersistence;
+import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
