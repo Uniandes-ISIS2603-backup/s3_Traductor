@@ -52,6 +52,7 @@ public class AreaConocimientoDTO implements Serializable{
 	{
 		if (areaConocimientoEntity != null)
 		{
+			this.id = areaConocimientoEntity.getId();
 			this.area = areaConocimientoEntity.getArea();
 		}
 	}

@@ -23,6 +23,9 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
     private Long idEmpleado;	
     private String tiempoEstimado;
 	
+	//Asociacion de cardinalidad 1 con Invitacion
+	private InvitacionEntity invitacion;
+	
 	/*
 		Constructor
 	*/
@@ -109,4 +112,18 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	public void setTiempoEstimado(String tiempoEstimado) {
 		this.tiempoEstimado = tiempoEstimado;
 	}	
+	
+	/**
+	 * @return the invitacion
+	 */
+	public InvitacionEntity getInvitacion() {
+		return invitacion;
+	}
+
+	/**
+	 * @param invitacion the invitacion to set
+	 */
+	public void setInvitacion(InvitacionEntity invitacion) {
+		this.invitacion = invitacion;
+	}
 }

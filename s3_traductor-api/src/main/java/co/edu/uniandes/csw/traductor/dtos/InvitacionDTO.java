@@ -16,8 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
  *   {
- *		"idCliente" : Long, 
- *		"solicitudId" : Long, 
+ *		"idCliente" : Long,  
  *		"descripcion" : String, 
  *		"idEmpleado" : Long
  *	 }
@@ -30,8 +29,7 @@ public class InvitacionDTO implements Serializable{
 
 	private Long idInvitacion;
 	private Long idCliente;
-	private Long idEmpleado;
-	private Long solicitudId;
+	private Long idEmpleado;	
 	private String descripcion;
 	
 	/**
@@ -56,8 +54,8 @@ public class InvitacionDTO implements Serializable{
 	{
 		if (invitacionEntity != null)
 		{
-			this.idCliente = invitacionEntity.getIdCliente();
-			this.solicitudId = invitacionEntity.getSolicitudId();
+			this.idInvitacion = invitacionEntity.getId();
+			this.idCliente = invitacionEntity.getIdCliente();			
 			this.descripcion = invitacionEntity.getDescripcion();
 			this.idEmpleado = invitacionEntity.getIdEmpleado();
 		}
@@ -71,8 +69,7 @@ public class InvitacionDTO implements Serializable{
 	public InvitacionEntity toEntity()
 	{
 		InvitacionEntity invitacionEntity = new InvitacionEntity();
-		invitacionEntity.setIdCliente(idCliente);
-		invitacionEntity.setSolicitudId(solicitudId);
+		invitacionEntity.setIdCliente(idCliente);		
 		invitacionEntity.setDescripcion(descripcion);
 		invitacionEntity.setIdEmpleado(idEmpleado);		
 		return invitacionEntity;
@@ -127,21 +124,7 @@ public class InvitacionDTO implements Serializable{
 	 */
 	public void setIdEmpleado(Long idEmpleado) {
 		this.idEmpleado = idEmpleado;
-	}
-
-	/**
-	 * @return the solicitudId
-	 */
-	public Long getSolicitudId() {
-		return solicitudId;
-	}
-
-	/**
-	 * @param solicitudId the solicitudId to set
-	 */
-	public void setSolicitudId(Long solicitudId) {
-		this.solicitudId = solicitudId;
-	}
+	}	
 
 	/**
 	 * @return the descripcion
