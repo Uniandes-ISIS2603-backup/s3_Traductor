@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.test.persistance;
+package co.edu.uniandes.csw.traductor.test.persistence;
 
+import co.edu.uniandes.csw.traductor.persistence.CalificacionPersistence;
 import org.junit.Test;
 import uk.co.jemos.podam.api.PodamFactory;
 import javax.inject.Inject;
-import co.edu.uniandes.csw.traductor.persistance.*;
 import co.edu.uniandes.csw.traductor.entities.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class CalificacionPersistenceTest {
     @Inject
-    private CalificacionPersistance calificacionPersistance;
+    private CalificacionPersistence calificacionPersistance;
     
     @Inject
     UserTransaction utx;
@@ -45,7 +45,7 @@ public class CalificacionPersistenceTest {
     public static JavaArchive createDeployment(){
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(CalificacionEntity.class.getPackage())
-                .addPackage(CalificacionPersistance.class.getPackage())
+                .addPackage(CalificacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml","persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml","beans.xml");
     }

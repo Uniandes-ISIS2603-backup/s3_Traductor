@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.TarjetaDeCreditoDTO;
-import co.edu.uniandes.csw.traductor.dtos.TarjetaDeCreditoDetailDTO;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -60,11 +59,11 @@ public class ClienteTarjetasResource
      *
      * @param clientesId Identificador del cliente que se esta buscando.
      * Este debe ser una cadena de dígitos.
-     * @return JSONArray {@link TarjetaDeCreditoDetailDTO} - Las tarjetas encontradas en el
+     * @return JSONArray {@link TarjetaDeCreditoDTO} - Las tarjetas encontradas en el
      * cliente. Si no hay ninguno retorna una lista vacía.
      */
      @GET
-     public List<TarjetaDeCreditoDetailDTO> getTarjetas(@PathParam("clientesId") Long clientesId)
+     public List<TarjetaDeCreditoDTO> getTarjetas(@PathParam("clientesId") Long clientesId)
      {
          //TODO: finalizar cascaron y REVISAR SI ASÏ SE HACE LA RELACION EN NUESTRO PROBLEMA
          return null;
@@ -77,7 +76,7 @@ public class ClienteTarjetasResource
      * Este debe ser una cadena de dígitos.
      * @param tarjetasId Identificador de la tarjeta que se esta buscando. Este debe
      * ser una cadena de dígitos.
-     * @return JSON {@link TarjetaDeCreditoDetailDTO} - La tarjeta buscada
+     * @return JSON {@link TarjetaDeCreditoDTO} - La tarjeta buscada
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la tarjeta.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
@@ -86,7 +85,7 @@ public class ClienteTarjetasResource
      */
     @GET
     @Path("{tarjetasId: \\d+}")
-    public TarjetaDeCreditoDetailDTO getTarjeta(@PathParam("clientesId") Long clientesId, @PathParam("tarjetasId") Long tarjetasId) throws BusinessLogicException
+    public TarjetaDeCreditoDTO getTarjeta(@PathParam("clientesId") Long clientesId, @PathParam("tarjetasId") Long tarjetasId) throws BusinessLogicException
     {
         //TODO: finalizar cascaron y REVISAR SI ASÏ SE HACE LA RELACION EN NUESTRO PROBLEMA
         return null;
