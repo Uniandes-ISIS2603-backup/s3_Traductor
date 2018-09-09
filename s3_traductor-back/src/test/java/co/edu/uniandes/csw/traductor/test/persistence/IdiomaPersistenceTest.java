@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.resources;
+package co.edu.uniandes.csw.traductor.test.persistence;
 
 /**
  *
  * @author Juan Felipe Parra Camargo
  */
-public class PersonaNaturalResource {
+public class IdiomaPersistenceTest {
     
 }

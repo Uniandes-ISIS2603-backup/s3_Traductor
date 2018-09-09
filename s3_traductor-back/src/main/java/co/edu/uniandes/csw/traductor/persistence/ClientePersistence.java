@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.persistance;
+package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import java.util.List;
@@ -75,5 +75,50 @@ public class ClientePersistence
         LOGGER.log(Level.INFO, "Actualizando el cliente con id={0}", clienteEntity.getId());
         
         return em.merge(clienteEntity);
+    }
+    
+    /**
+     *
+     * Borra un cliente de la base de datos recibiendo como argumento el id
+     * del cliente
+     *
+     * @param clientesId: id correspondiente al cliente a borrar.
+     */
+    public void delete(Long clientesId) {
+        LOGGER.log(Level.INFO, "Borrando cliente con id = {0}", clientesId);
+        
+        ClienteEntity entity = em.find(ClienteEntity.class, clientesId);
+        /* Note que una vez obtenido el objeto desde la base de datos llamado "entity", volvemos hacer uso de un método propio del
+         EntityManager para eliminar de la base de datos el objeto que encontramos y queremos borrar.
+         Es similar a "delete from ClienteEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
+        em.remove(entity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar el cliente con id = {0}", clientesId);
+    }
+    
+    /**
+     * Busca si hay algun cliente con la identificacion que se envía de argumento
+     *
+     * @param identificacion: Identificación de la editorial que se está buscando
+     * @return null si no existe ningun cliente con la identificación del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public ClienteEntity findByIdentificacion(String identificacion) {
+        LOGGER.log(Level.INFO, "Consultando clientes por identificacion ", identificacion);
+        // Se crea un query para buscar clientes con la identificacion que recibe el método como argumento. ":identificacion" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.identificacion = :identificacion", ClienteEntity.class);
+        // Se remplaza el placeholder ":identificacion" con el valor del argumento 
+        query = query.setParameter("identificacion", identificacion);
+        // Se invoca el query se obtiene la lista resultado
+        List<ClienteEntity> sameIdentificacion = query.getResultList();
+        ClienteEntity result;
+        if (sameIdentificacion == null) {
+            result = null;
+        } else if (sameIdentificacion.isEmpty()) {
+            result = null;
+        } else {
+            result = sameIdentificacion.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por identificacion ", identificacion);
+        return result;
     }
 }

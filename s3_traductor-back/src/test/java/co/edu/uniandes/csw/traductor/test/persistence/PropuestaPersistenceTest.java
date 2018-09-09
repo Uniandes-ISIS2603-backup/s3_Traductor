@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.test.persistance;
+package co.edu.uniandes.csw.traductor.test.persistence;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class PropuestaPersistenceTest 
 {
 	/**
-     * Inyección de la dependencia a la clase PropuestaPersistence cuyos métodos
+     * Inyección de la dependencia a la clase EditorialPersistence cuyos métodos
      * se van a probar.
      */
     @Inject
