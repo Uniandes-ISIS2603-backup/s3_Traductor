@@ -5,11 +5,14 @@
  */
 package co.edu.uniandes.csw.traductor.ejb;
 
+import javax.ejb.Stateless;
+
 /**
  * Clase que implementa la conexion con la persistencia para la entidad de
  * Cliente.
  * @author Santiago Salazar
  */
+@Stateless
 public class ClienteLogic 
 {
     

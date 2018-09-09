@@ -6,13 +6,14 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.ReferenciaEntity;
+import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  *
  * @author Juan Felipe Parra Camargo
  */
-public class ReferenciaDTO {
+public class ReferenciaDTO implements Serializable{
 
    /**
     * nombre de la persona a referenciar
