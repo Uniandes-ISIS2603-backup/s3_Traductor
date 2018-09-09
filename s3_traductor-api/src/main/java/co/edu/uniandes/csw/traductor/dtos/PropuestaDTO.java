@@ -34,7 +34,7 @@ public class PropuestaDTO implements Serializable{
     
     private Long propuestaId;
     private String descripcion;
-    private String costo;
+    private Integer costo;
     private String estado;
     private Long idEmpleado;
     private String tiempoEstimado;
@@ -140,7 +140,7 @@ public class PropuestaDTO implements Serializable{
 	 * @return the costo
 	 */
 	
-	public String getCosto() {
+	public Integer getCosto() {
 		return costo;
 	}
 
@@ -149,7 +149,7 @@ public class PropuestaDTO implements Serializable{
 	 * @param costo the costo to set
 	 */
 	
-	public void setCosto(String costo) {
+	public void setCosto(Integer costo) {
 		this.costo = costo;
 	}
 

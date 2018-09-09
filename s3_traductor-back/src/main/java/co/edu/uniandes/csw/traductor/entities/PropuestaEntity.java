@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase que representa una propuesta en la persistencia y permite su
@@ -18,12 +20,14 @@ import javax.persistence.Entity;
 public class PropuestaEntity extends BaseEntity implements Serializable {
 
 	private String descripcion;
-    private String costo;
+    private Integer costo;
     private String estado;
     private Long idEmpleado;	
     private String tiempoEstimado;
 	
 	//Asociacion de cardinalidad 1 con Invitacion
+	@PodamExclude
+	@ManyToOne
 	private InvitacionEntity invitacion;
 	
 	/*
@@ -53,7 +57,7 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	 * Costo de la realizacion del trabajo
 	 * @return the costo
 	 */
-	public String getCosto() {
+	public Integer getCosto() {
 		return costo;
 	}
 
@@ -61,7 +65,7 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	 * Cambia el costo del trabajo
 	 * @param costo the costo to set
 	 */
-	public void setCosto(String costo) {
+	public void setCosto(Integer costo) {
 		this.costo = costo;
 	}
 
