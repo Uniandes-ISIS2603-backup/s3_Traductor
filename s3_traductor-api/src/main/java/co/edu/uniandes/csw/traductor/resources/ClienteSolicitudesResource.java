@@ -23,7 +23,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
- *  Clase que representa el recurso "clientes/{id}/solicitudes"
+ * Clase que representa el recurso "clientes/{id}/solicitudes"
  * @author Santiago Salazar
  */
 @Consumes(MediaType.APPLICATION_JSON)
@@ -40,7 +40,7 @@ public class ClienteSolicitudesResource
      
     /**
      * Guarda una solicitud dentro de un cliente con la informacion que recibe el
-     * la URL. Se devuelve el libro que se guarda en la editorial.
+     * la URL. Se devuelve la solicitud que se guarda en el cliente.
      *
      * @param clientesId Identificador del cliente que se esta
      * actualizando. Este debe ser una cadena de dígitos.
