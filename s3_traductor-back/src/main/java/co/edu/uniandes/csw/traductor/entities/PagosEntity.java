@@ -19,9 +19,7 @@ public class PagosEntity extends BaseEntity implements Serializable {
 
     private Boolean pagoAprobado;
     
-    @PodamExclude
-    @ManyToOne
-    private TarjetaDeCreditoEntity tarjeta;
+   
     
     @PodamExclude
     @ManyToOne
@@ -35,14 +33,7 @@ public class PagosEntity extends BaseEntity implements Serializable {
         this.cliente = cliente;
     }
 
-    public TarjetaDeCreditoEntity getTarjeta() {
-        return tarjeta;
-    }
-
-    public void setTarjeta(TarjetaDeCreditoEntity tarjeta) {
-        this.tarjeta = tarjeta;
-    }
-
+    
     public PagosEntity() {
 
     }

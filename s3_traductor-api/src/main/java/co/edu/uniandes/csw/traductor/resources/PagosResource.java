@@ -69,7 +69,12 @@ public class PagosResource {
     @Path("{idTransaccion: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
     public PagosDTO updatePago(@PathParam("idTransaccion") Long idTransaccion, PagosDTO pago) throws WebApplicationException {
 
-        return null;
+     LOGGER.log(Level.INFO, "PagosResource modificarTPago: input:(0)", idTransaccion);
+        PagosDTO modificadoDTO = new PagosDTO ();
+        
+        LOGGER.log(Level.INFO,"LaboratorioResource modificarLaboratorio: output: (0)", modificadoDTO.toString());
+        
+        return modificadoDTO;
     }
 
     /**
