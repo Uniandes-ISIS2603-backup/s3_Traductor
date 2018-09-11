@@ -7,6 +7,8 @@
 package co.edu.uniandes.csw.traductor.dtos;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Temporal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -22,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *		"estado" : "String", 
  *		"descripcion" : "String",
  *		"costo" : Integer, 
- *		"tiempoEstimado" : "String ISO 8601"
+ *		"tiempoEstimado" : "Date"
  *	 } 
  *
  * </pre>
@@ -36,8 +38,8 @@ public class PropuestaDTO implements Serializable{
     private String descripcion;
     private Integer costo;
     private String estado;
-    private Long idEmpleado;
-    private String tiempoEstimado;
+    private Long idEmpleado;	
+    private Date tiempoEstimado;
 	
 	/**
 	 * Asociacion de cardinalidad 1 con invitacion 
@@ -189,7 +191,7 @@ public class PropuestaDTO implements Serializable{
 	 * Retorna la fecha estimada de entrega
 	 * @return the fecha
 	 */
-	public String getTiempoEstimado() {
+	public Date getTiempoEstimado() {
 		return tiempoEstimado;
 	}
 
@@ -197,7 +199,7 @@ public class PropuestaDTO implements Serializable{
 	 * Cambia la fecha estimada de entrega
 	 * @param fecha the fecha to set
 	 */
-	public void setTiempoEstimado(String fecha) {
+	public void setTiempoEstimado(Date fecha) {
 		this.tiempoEstimado = fecha;
 	}  
 	

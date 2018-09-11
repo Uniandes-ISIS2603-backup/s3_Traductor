@@ -8,6 +8,11 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
+import java.util.Date;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Clase que representa una propuesta en la persistencia y permite su
@@ -22,13 +27,20 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	private String descripcion;
     private Integer costo;
     private String estado;
-    private Long idEmpleado;	
-    private String tiempoEstimado;
+    private Long idEmpleado;
+
+	@Temporal(TemporalType.DATE)
+    private Date tiempoEstimado;
 	
 	//Asociacion de cardinalidad 1 con Invitacion
 	@PodamExclude
-	@ManyToOne
+	@OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
 	private InvitacionEntity invitacion;
+	
+	//"Callback a Empleado - Relacion ManyToOne"
+	@PodamExclude
+	@ManyToOne
+	private EmpleadoEntity empleado;	
 	
 	/*
 		Constructor
@@ -105,15 +117,15 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	 * Retorna la fecha estimada de entrega
 	 * @return the fecha
 	 */
-	public String getTiempoEstimado() {
+	public Date getTiempoEstimado() {
 		return tiempoEstimado;
 	}
 
 	/**
 	 * Cambia la fecha estimada de entrega
-	 * @param fecha the fecha to set
+	 * @param tiempoEstimado the fecha to set
 	 */
-	public void setTiempoEstimado(String tiempoEstimado) {
+	public void setTiempoEstimado(Date tiempoEstimado) {
 		this.tiempoEstimado = tiempoEstimado;
 	}	
 	

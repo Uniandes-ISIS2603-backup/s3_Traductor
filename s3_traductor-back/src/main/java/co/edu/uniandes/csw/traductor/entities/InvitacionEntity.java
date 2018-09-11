@@ -6,6 +6,9 @@
 package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase que representa una invitacion en la persistencia y permite su
@@ -21,6 +24,16 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 	private Long idEmpleado;
 	private Long solicitudId;
 	private String descripcion;
+	
+	@PodamExclude
+	@OneToOne
+	private PropuestaEntity propuesta;
+	
+	//"Callback a Empleado - Relacion ManyToOne"
+	@PodamExclude
+	@ManyToOne
+	private EmpleadoEntity empleado;
+	
 	
 	/**
 	 * Constructor
