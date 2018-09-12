@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.traductor.entities.IdiomaEntity;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.entities.ReferenciaEntity;
+import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
     private List<ReferenciaDTO> refLaborales;
     private List<ReferenciaDTO> refPersonales;
     private List<PropuestaDTO> propuestas;
-    //private List<SolicitudDTO> solicitudes=new ArrayList<>();
+    private List<SolicitudDetailDTO> solicitudes;
     private List<AreaConocimientoDTO> areasDeConocimiento;
     private List<IdiomaDTO> idiomas;
     //----------------------------------------------------
@@ -89,6 +90,13 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         for(IdiomaEntity entIdi:empleado.getIdiomas()){
             IdiomaDTO tmpIdio= new IdiomaDTO(entIdi);
             this.idiomas.add(tmpIdio);
+            }
+        }
+        solicitudes=new ArrayList<>();
+        if(empleado.getSolicitudes()!=null){
+            for(SolicitudEntity solen:empleado.getSolicitudes()){
+                //SolicitudDetailDTO tmpsoli = new SolicitudDetailDTO(solen);
+                break; //TODO
             }
         }
     }
@@ -234,10 +242,17 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         }
         if(this.idiomas!=null){
             List<IdiomaEntity> listIdiomas=new ArrayList<>();
-            for(IdiomaDTO tmparea: this.idiomas){
-                listIdiomas.add(tmparea.toEntity());
+            for(IdiomaDTO tmpIdio: this.idiomas){
+                listIdiomas.add(tmpIdio.toEntity());
             }
             nemen.setIdiomas(listIdiomas);
+        }
+        if(this.solicitudes!=null){
+            List<SolicitudEntity> listSoli=new ArrayList<>();
+            for(SolicitudDetailDTO tmpSol: this.solicitudes){
+                listSoli.add(tmpSol.toEntity());
+            }
+            nemen.setSolicitudes(listSoli);
         }
         return nemen;
     }
