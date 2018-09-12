@@ -5,13 +5,14 @@
  */
 package co.edu.uniandes.csw.traductor.dtos;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author jhonattanfonseca
  */
-public class SolicitudDetailDTO extends SolicitudDTO
+public class SolicitudDetailDTO extends SolicitudDTO implements Serializable
 
 {
     

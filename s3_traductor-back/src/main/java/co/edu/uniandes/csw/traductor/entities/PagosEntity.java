@@ -19,18 +19,21 @@ public class PagosEntity extends BaseEntity implements Serializable {
 
     private Boolean pagoAprobado;
     
+   
+    
     @PodamExclude
     @ManyToOne
-    private TarjetaDeCreditoEntity tarjeta;
+    private ClienteEntity cliente;
 
-    public TarjetaDeCreditoEntity getTarjeta() {
-        return tarjeta;
+    public ClienteEntity getCliente() {
+        return cliente;
     }
 
-    public void setTarjeta(TarjetaDeCreditoEntity tarjeta) {
-        this.tarjeta = tarjeta;
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
     }
 
+    
     public PagosEntity() {
 
     }

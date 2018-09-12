@@ -6,11 +6,10 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -29,17 +28,17 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     private String redBancaria;
     
     @PodamExclude
-    @OneToMany(mappedBy = "tarjeta")
-    private List<PagosEntity> pagos = new ArrayList<PagosEntity>();
+    @ManyToOne
+    private ClienteEntity cliente;
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
     
-    public List<PagosEntity> getPagos() {
-        return pagos;
-    }
-
-    public void setPagos(List<PagosEntity> pagos) {
-        this.pagos = pagos;
-    }
-
     public TarjetaDeCreditoEntity() {
         
     }

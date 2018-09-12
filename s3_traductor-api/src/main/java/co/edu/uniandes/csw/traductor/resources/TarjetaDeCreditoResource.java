@@ -71,7 +71,13 @@ public class TarjetaDeCreditoResource {
     @Path("{idTarjeta: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
     public TarjetaDeCreditoDTO updateTarjeta(@PathParam("propuestaId") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws WebApplicationException {
 
-        return null;
+       LOGGER.log(Level.INFO, "TarjetaDeCreditoResource modificarTarjeta: input:(0)", idTarjeta);
+        TarjetaDeCreditoDTO modificadoDTO = new TarjetaDeCreditoDTO ();
+        
+        LOGGER.log(Level.INFO,"TarjetaDeCreditosResource modificarTarjeta: output: (0)", modificadoDTO.toString());
+        
+        return modificadoDTO;
+
     }
 
     /**

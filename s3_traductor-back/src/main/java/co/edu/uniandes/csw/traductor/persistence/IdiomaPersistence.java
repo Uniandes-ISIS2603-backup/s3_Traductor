@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.persistance;
+package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.IdiomaEntity;
 import java.util.List;
@@ -19,8 +19,8 @@ import javax.persistence.TypedQuery;
  * @author Juan Felipe Parra
  */
 @Stateless
-public class IdiomaPersistance {
-        private static final Logger LOGGER = Logger.getLogger(IdiomaPersistance.class.getName());
+public class IdiomaPersistence {
+        private static final Logger LOGGER = Logger.getLogger(IdiomaPersistence.class.getName());
         @PersistenceContext(unitName = "PrometeusPU")
         protected EntityManager em;
         /**
