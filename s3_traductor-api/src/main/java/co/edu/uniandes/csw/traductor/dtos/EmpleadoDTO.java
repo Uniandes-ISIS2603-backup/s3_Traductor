@@ -25,7 +25,7 @@ public class EmpleadoDTO implements Serializable{
     protected String nombreUsuario;
     protected String contrasenia;
     protected String trayectoria;
-    //private String hojaDeVida; 
+    private String hojaDeVida; 
 
     
     //----------------------------------------------------
@@ -40,7 +40,7 @@ public class EmpleadoDTO implements Serializable{
         this.nombreUsuario=empleado.getNombreUsuario();
         this.contrasenia=empleado.getContrasenia();
         this.trayectoria = empleado.getTrayectoria();
-        //this.hojaDeVida = empleado.getHojaDeVida();
+        this.hojaDeVida = empleado.getHojaDeVida();
         
     }
     //----------------------------------------------------
@@ -62,13 +62,13 @@ public class EmpleadoDTO implements Serializable{
         this.trayectoria = trayectoria;
     }
 
-    //public String getHojaDeVida() {
-      //  return hojaDeVida;
-    //}
+    public String getHojaDeVida() {
+        return hojaDeVida;
+    }
 
-//    public void setHojaDeVida(String hojaDeVida) {
-  //      this.hojaDeVida = hojaDeVida;
-    //}
+    public void setHojaDeVida(String hojaDeVida) {
+        this.hojaDeVida = hojaDeVida;
+    }
     /**
      * metodo para obtener la id del empleado
      * @return id empleado
@@ -181,7 +181,7 @@ public class EmpleadoDTO implements Serializable{
         nemen.setNombreUsuario(this.nombreUsuario);
         nemen.setContrasenia(this.contrasenia);
         nemen.setTrayectoria(this.trayectoria);
-       // nemen.setHojaDeVida(this.hojaDeVida);
+        nemen.setHojaDeVida(this.hojaDeVida);
       
         return nemen;
     }
