@@ -182,6 +182,34 @@ public class ClientePersistenceTest {
     }
     
     /**
+     * Prueba para consultar un cliente por nombre de usuario.
+     */
+    @Test
+    public void findByNombreUsuarioTest() {
+        ClienteEntity entity = data.get(0);
+        ClienteEntity newEntity = clientePersistence.findByNombreUsuario(entity.getNombreUsuario());
+        Assert.assertNotNull(newEntity);
+        assertEquals(entity.getNombreUsuario(), newEntity.getNombreUsuario());
+
+        newEntity = clientePersistence.findByNombreUsuario(null);
+        Assert.assertNull(newEntity);
+    }
+    
+    /**
+     * Prueba para consultar un cliente por correo electrónico.
+     */
+    @Test
+    public void findByCorreoTest() {
+        ClienteEntity entity = data.get(0);
+        ClienteEntity newEntity = clientePersistence.findByCorreo(entity.getCorreoElectronico());
+        Assert.assertNotNull(newEntity);
+        assertEquals(entity.getCorreoElectronico(), newEntity.getCorreoElectronico());
+
+        newEntity = clientePersistence.findByCorreo(null);
+        Assert.assertNull(newEntity);
+    }
+    
+    /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
