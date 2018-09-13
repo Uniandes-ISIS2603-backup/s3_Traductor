@@ -34,6 +34,32 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(mappedBy = "cliente")
     private List<PagosEntity> pagos;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<InvitacionEntity> invitaciones;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<PropuestaEntity> propuestas;
+
+    public List<InvitacionEntity> getInvitaciones() {
+        return invitaciones;
+    }
+
+    public void setInvitaciones(List<InvitacionEntity> invitaciones) {
+        this.invitaciones = invitaciones;
+    }
+
+    public List<PropuestaEntity> getPropuestas() {
+        return propuestas;
+    }
+
+    public void setPropuestas(List<PropuestaEntity> propuestas) {
+        this.propuestas = propuestas;
+    }
+    
+    
 
     public List<PagosEntity> getPagos() {
         return pagos;

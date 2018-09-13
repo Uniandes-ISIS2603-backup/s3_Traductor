@@ -42,6 +42,11 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	@ManyToOne
 	private EmpleadoEntity empleado;	
 	
+        //"Callback a Cliente - Relacion ManyToOne"
+	@PodamExclude
+	@ManyToOne
+	private ClienteEntity cliente;
+        
 	/*
 		Constructor
 	*/
@@ -142,4 +147,20 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	public void setInvitacion(InvitacionEntity invitacion) {
 		this.invitacion = invitacion;
 	}
+        
+        public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
 }
