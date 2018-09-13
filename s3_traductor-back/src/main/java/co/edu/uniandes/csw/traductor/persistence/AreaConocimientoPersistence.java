@@ -96,5 +96,20 @@ public class AreaConocimientoPersistence
          Es similar a "delete from AreaConocimientoEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la areaConocimiento con id = {0}", areaId);
-    }    
+    }
+	
+	/**
+     * Busca las areas de conocimiento que existen en la base de datos.          
+     * @return Todas las areas de conocimiento existentes en la base de datos.     
+     */
+	
+    public List<AreaConocimientoEntity> getAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las areas");
+        // Se crea un query para buscar las invitaciones con el nombre que recibe el método como argumento
+        TypedQuery query = em.createQuery("Select e From AreaConocimientoEntity e", AreaConocimientoEntity.class); //Query tipeado para consulta       
+        // Se invoca el query se obtiene la lista resultado
+        List<AreaConocimientoEntity> entidades = query.getResultList(); //Retorna una lista con las tuplas resultados.        
+        LOGGER.log(Level.INFO, "Retornando todas las areas");
+        return entidades;
+    }
 }

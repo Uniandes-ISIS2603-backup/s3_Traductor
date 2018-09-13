@@ -96,5 +96,20 @@ public class InvitacionPersistence
          Es similar a "delete from InvitacionEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la invitacion con id = {0}", invitacionId);
-    }    
+    }
+	
+	/**
+     * Busca las propuestas que existen en la base de datos.          
+     * @return Todas las propuestas existentes en la base de datos.     
+     */
+	
+    public List<InvitacionEntity> getAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las invitaciones");
+        // Se crea un query para buscar las invitaciones con el nombre que recibe el método como argumento
+        TypedQuery query = em.createQuery("Select e From InvitacionEntity e", InvitacionEntity.class); //Query tipeado para consulta       
+        // Se invoca el query se obtiene la lista resultado
+        List<InvitacionEntity> entidades = query.getResultList(); //Retorna una lista con las tuplas resultados.        
+        LOGGER.log(Level.INFO, "Retornando todas las invitaciones");
+        return entidades;
+    }
 }
