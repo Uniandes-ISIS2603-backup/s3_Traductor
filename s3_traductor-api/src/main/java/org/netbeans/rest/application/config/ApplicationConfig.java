@@ -33,6 +33,8 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.traductor.mappers.WebApplicationExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.AreaConocimientoResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.CalificacionResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.ClienteInvitacionResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.ClientePagosResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.ClienteResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.ClienteSolicitudesResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.ClienteTarjetasResource.class);
@@ -41,8 +43,8 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.traductor.resources.InvitacionResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.PagosResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.PropuestaResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.TarjetaDeCreditoResource.class);
+		resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudResource.class);
+		resources.add(co.edu.uniandes.csw.traductor.resources.TarjetaDeCreditoResource.class);
     }
     
 }
