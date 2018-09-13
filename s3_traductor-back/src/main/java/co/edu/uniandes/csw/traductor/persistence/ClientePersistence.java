@@ -98,7 +98,7 @@ public class ClientePersistence
     /**
      * Busca si hay algun cliente con la identificacion que se envía de argumento
      *
-     * @param identificacion: Identificación de la editorial que se está buscando
+     * @param identificacion: Identificación del cliente que se está buscando
      * @return null si no existe ningun cliente con la identificación del argumento. Si
      * existe alguno devuelve el primero.
      */
@@ -119,6 +119,58 @@ public class ClientePersistence
             result = sameIdentificacion.get(0);
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar clientes por identificacion ", identificacion);
+        return result;
+    }
+    /**
+     * Busca si hay algun cliente con el nombre de usuario que se envía de argumento
+     *
+     * @param nombreUsuario: el nombre de usuario del cliente que se está buscando
+     * @return null si no existe ningun cliente con la identificación del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public ClienteEntity findByNombreUsuario(String nombreUsuario) {
+        LOGGER.log(Level.INFO, "Consultando clientes por nombre de usuario ", nombreUsuario);
+        // Se crea un query para buscar clientes con el nombre de usuario que recibe el método como argumento. ":nombreUsuario" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.nombreUsuario = :nombreUsuario", ClienteEntity.class);
+        // Se remplaza el placeholder ":nombreUsuario" con el valor del argumento 
+        query = query.setParameter("nombreUsuario", nombreUsuario);
+        // Se invoca el query se obtiene la lista resultado
+        List<ClienteEntity> sameNombreUsuario = query.getResultList();
+        ClienteEntity result;
+        if (sameNombreUsuario == null) {
+            result = null;
+        } else if (sameNombreUsuario.isEmpty()) {
+            result = null;
+        } else {
+            result = sameNombreUsuario.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por nombre de usuario ", nombreUsuario);
+        return result;
+    }
+    /**
+     * Busca si hay algun cliente con el correo que se envía de argumento
+     *
+     * @param correoElectronico: correo del cliente que se está buscando
+     * @return null si no existe ningun cliente con el correo del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public ClienteEntity findByCorreo(String correoElectronico) {
+        LOGGER.log(Level.INFO, "Consultando clientes por correo electronico ", correoElectronico);
+        // Se crea un query para buscar clientes con el correo que recibe el método como argumento. ":correoElectronico" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.correoElectronico = :correoElectronico", ClienteEntity.class);
+        // Se remplaza el placeholder ":correoElectronico" con el valor del argumento 
+        query = query.setParameter("correoElectronico", correoElectronico);
+        // Se invoca el query se obtiene la lista resultado
+        List<ClienteEntity> sameCorreoElectronico = query.getResultList();
+        ClienteEntity result;
+        if (sameCorreoElectronico == null) {
+            result = null;
+        } else if (sameCorreoElectronico.isEmpty()) {
+            result = null;
+        } else {
+            result = sameCorreoElectronico.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por correo electronico ", correoElectronico);
         return result;
     }
 }
