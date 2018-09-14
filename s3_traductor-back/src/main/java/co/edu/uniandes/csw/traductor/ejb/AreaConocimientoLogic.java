@@ -44,6 +44,11 @@ public class AreaConocimientoLogic
 		{
 			throw new BusinessLogicException("La descripcion del area de conocimiento no puede ser nula o de longitud vacia");
 		}
+
+		else if (areaPersistence.findByArea(areaEntity.getArea()) != null)
+		{
+			throw new BusinessLogicException("La area de conocimiento ya existe");
+		}
 		
         // Invoca la persistencia para crear la area de conocimiento pues se ha validado todas las reglas.
         areaPersistence.create(areaEntity);

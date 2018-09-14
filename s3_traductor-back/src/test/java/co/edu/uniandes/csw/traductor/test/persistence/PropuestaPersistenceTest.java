@@ -200,4 +200,20 @@ public class PropuestaPersistenceTest
 		List<PropuestaEntity> respuesta = propuestaPersistence.findAllByCosto(1); //Le pide a la BD que le retorne todos las propuestas con costo 1.
 		Assert.assertEquals("Deberia haber 4 propuestas con el costo de 1 pesito", respuesta.size(), 4);
 	}
+	
+	/**
+	 * Permite consultar todos los elementos en la tabla en la base de datos
+	 */
+	
+	@Test
+	public void getAllTest()
+	{
+		List<PropuestaEntity> entidades = propuestaPersistence.getAll();
+		Assert.assertEquals("El numero de elementos en la tabla no es el correcto",3 ,entidades.size());
+		PodamFactory podam = new PodamFactoryImpl(); //Crear una nueva entidad.
+		PropuestaEntity nuevaEntidad = podam.manufacturePojo(PropuestaEntity.class);
+		propuestaPersistence.create(nuevaEntidad);
+		entidades = propuestaPersistence.getAll(); //Volver a realizar el llamado para obtener el nuevo elemento
+		Assert.assertEquals("El numero de elementos en la tabla no es el correcto", 4, entidades.size());
+	}
 }

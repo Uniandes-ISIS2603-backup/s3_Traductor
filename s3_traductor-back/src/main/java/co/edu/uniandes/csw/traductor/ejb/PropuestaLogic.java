@@ -29,6 +29,9 @@ public class PropuestaLogic
 	@Inject
 	private PropuestaPersistence propuestaPersistence; //Invocación a la tabla de propuesta para trabajar en la base de datos.	
 	
+	@Inject
+	private InvitacionLogic invitacionLogic; //Invocación a la tabla de invitaciones para trabajar en la base de datos.	
+	
 	/**
      * Crea una propuesta en la persistencia.
      * @param propuestaEntity La entidad que representa la propuesta a persistir.
@@ -51,18 +54,14 @@ public class PropuestaLogic
 		{
 			throw new BusinessLogicException("El costo de la propuesta no puede ser un valor negativo, su valor fue: " + propuestaEntity.getCosto()); 
 		}
-        
-		else if (!propuestaEntity.getEstado().equals(CULMINADA) || !propuestaEntity.getEstado().equals(EN_PROCESO))
-		{
-			throw new BusinessLogicException("El estado de la propuesta no es correcto se esperaba EN_PROCESO o CULMINADA y se obtuvo: " + propuestaEntity.getEstado()); 
-		}
-		
+			
 		else if (propuestaEntity.getDescripcion().length() == 0 || propuestaEntity.getDescripcion() == null)
 		{
 			throw new BusinessLogicException("La descripcion de la propuesta no puede ser nula o vacia");
 		}
 		
         // Invoca la persistencia para crear la propuesta pues se ha validado todas las reglas.
+		propuestaEntity.setEstado(EN_PROCESO);
         propuestaPersistence.create(propuestaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la propuesta");
         return propuestaEntity;		

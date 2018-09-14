@@ -58,6 +58,27 @@ public class AreaConocimientoPersistence
 		
         return em.find(AreaConocimientoEntity.class, areaId);
     }
+	
+	/**
+     * Busca si hay alguna areaConocimiento con el area que se envía de argumento     
+     * @param areaBusqueda: Es el nombre del area a quien se le va a realizar la busqueda.
+     * @return La areaConocimiento con el area que se recibe por parametro.
+     */
+	
+    public AreaConocimientoEntity findByArea(String areaBusqueda) {
+        LOGGER.log(Level.INFO, "Consultando areaConocimiento con area: {0}", areaBusqueda);		
+		/* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento
+		el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+		Suponga que es algo similar a "select * from AreaConocimientoEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+		 */
+		
+		TypedQuery query = em.createQuery("Select e From AreaConocimientoEntity e where e.area = :area", AreaConocimientoEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("area", areaBusqueda);
+        // Se invoca el query se obtiene la lista resultado
+        List<AreaConocimientoEntity> resultado = query.getResultList();
+		return (resultado.get(0) == null) ? null : resultado.get(0);        
+    }
 
 	 /**
      * Actualiza una areaConocimiento.    
