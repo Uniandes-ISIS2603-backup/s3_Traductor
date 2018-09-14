@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -47,13 +47,13 @@ public class ClienteLogicTest
     @Inject
     private UserTransaction utx;
 
-    private List<ClienteEntity> data = new ArrayList();
+    private List<ClienteEntity> data = new ArrayList<>();
 
-    private List<SolicitudEntity> solicitudesData = new ArrayList();
+    private List<SolicitudEntity> solicitudesData = new ArrayList<>();
     
-    private List<PropuestaEntity> propuestasData = new ArrayList();
+    private List<PropuestaEntity> propuestasData = new ArrayList<>();
     
-    private List<InvitacionEntity> invitacionesData = new ArrayList();
+    private List<InvitacionEntity> invitacionesData = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -105,31 +105,30 @@ public class ClienteLogicTest
      * pruebas.
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
-            em.persist(solicitudes);
-            solicitudesData.add(solicitudes);
-        }
-        for (int i = 0; i < 3; i++) {
-            InvitacionEntity invitaciones = factory.manufacturePojo(InvitacionEntity.class);
-            em.persist(invitaciones);
-            invitacionesData.add(invitaciones);
-        }
-        for (int i = 0; i < 3; i++) {
-            PropuestaEntity propuestas = factory.manufacturePojo(PropuestaEntity.class);
-            em.persist(propuestas);
-            propuestasData.add(propuestas);
-        }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
             em.persist(entity);
+            entity.setSolicitudes(new ArrayList<>());
+            entity.setPropuestas(new ArrayList<>());
+            entity.setInvitaciones(new ArrayList<>());
             data.add(entity);
-            if (i == 0) {
-                solicitudesData.get(i).setCliente(entity);
-                propuestasData.get(i).setCliente(entity);
-                invitacionesData.get(i).setCliente(entity);
-            }
         }
+        ClienteEntity cliente = data.get(0);
+        SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
+        solicitud.setCliente(cliente);
+        em.persist(solicitud);
+        cliente.getSolicitudes().add(solicitud);
+        
+        InvitacionEntity invitacion = factory.manufacturePojo(InvitacionEntity.class);
+        invitacion.setCliente(data.get(1));
+        em.persist(invitacion);
+        data.get(1).getInvitaciones().add(invitacion);
+        
+        
+        PropuestaEntity propuesta = factory.manufacturePojo(PropuestaEntity.class);
+        propuesta.setCliente(data.get(2));
+        em.persist(propuesta);
+        data.get(2).getPropuestas().add(propuesta);
     }
 
     /**
@@ -211,7 +210,7 @@ public class ClienteLogicTest
      * Prueba para crear un cliente con el mismo correo de un cliente que ya
      * existe.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createClienteConMismoCorreoTest() throws BusinessLogicException {
@@ -243,7 +242,7 @@ public class ClienteLogicTest
      */
     @Test
     public void deleteClienteTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(1);
+        ClienteEntity entity = data.get(3);
         clienteLogic.deleteCliente(entity.getId());
         ClienteEntity deleted = em.find(ClienteEntity.class, entity.getId());
         Assert.assertNull(deleted);
@@ -267,18 +266,18 @@ public class ClienteLogicTest
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConPropuestasAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+        ClienteEntity entity = data.get(2);
         clienteLogic.deleteCliente(entity.getId());
     }
     
     /**
      * Prueba para eliminar un Cliente con invitaciones asociadas.
      *
-     * @throws Exception
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConInvitacionesAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+        ClienteEntity entity = data.get(1);
         clienteLogic.deleteCliente(entity.getId());
     }
 }
