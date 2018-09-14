@@ -47,15 +47,17 @@ public class ClienteLogic
         if (persistence.findByNombreUsuario(clienteEntity.getNombreUsuario()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con el nombre de usuario \"" + clienteEntity.getNombreUsuario()+ "\"");
         }
+        // Verifica la regla de negocio que dice que no puede haber 2 clientes con el mismo correo electronico.
         if (persistence.findByCorreo(clienteEntity.getCorreoElectronico()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con el correo electronico \"" + clienteEntity.getCorreoElectronico()+ "\"");
         }
+        // Verifica la regla de negocio que dice que no puede haber 2 clientes con la misma identificacion.
         if (persistence.findByIdentificacion(clienteEntity.getIdentificacion()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con la identificacion \"" + clienteEntity.getIdentificacion()+ "\"");
         }
-        // Invoca la persistencia para crear la editorial
+        // Invoca la persistencia para crear el cliente
         persistence.create(clienteEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación de la editorial");
+        LOGGER.log(Level.INFO, "Termina proceso de creación del cliente");
         return clienteEntity;
     }
 
@@ -115,7 +117,7 @@ public class ClienteLogic
      * @param clientesId: id del cliente a borrar
      * @throws BusinessLogicException Si el cliente a eliminar tiene solicitudes.
      */
-    public void deleteEditorial(Long clientesId) throws BusinessLogicException {
+    public void deleteCliente(Long clientesId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el cliente con id = {0}", clientesId);
         // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
         List<SolicitudEntity> solicitudes = getCliente(clientesId).getSolicitudes();

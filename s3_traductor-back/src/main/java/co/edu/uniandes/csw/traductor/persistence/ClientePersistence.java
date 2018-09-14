@@ -57,7 +57,7 @@ public class ClientePersistence
      * Busca si hay algun cliente con el id enviado por parametro
      *
      * @param clientesId: id correspondiente del cliente buscado.
-     * @return una editorial.
+     * @return una cliente.
      */
     public ClienteEntity find(Long clientesId) {
         LOGGER.log(Level.INFO, "Consultando cliente con id={0}", clientesId);
@@ -66,7 +66,7 @@ public class ClientePersistence
     /**
      * Actualiza una cliente.
      *
-     * @param clienteEntity: la author que viene con los nuevos cambios. Por
+     * @param clienteEntity: el cliente que viene con los nuevos cambios. Por
      * ejemplo el nombre pudo cambiar. En ese caso, se haria uso del método
      * update.
      * @return el cliente con los cambios aplicados.

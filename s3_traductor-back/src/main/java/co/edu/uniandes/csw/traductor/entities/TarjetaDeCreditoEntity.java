@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -28,7 +29,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     private String redBancaria;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private ClienteEntity cliente;
 
     public ClienteEntity getCliente() {
