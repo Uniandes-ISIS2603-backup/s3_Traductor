@@ -47,7 +47,7 @@ public class ClienteLogicTest
     @Inject
     private UserTransaction utx;
 
-    private List<ClienteEntity> data = new ArrayList<ClienteEntity>();
+    private List<ClienteEntity> data = new ArrayList();
 
     private List<SolicitudEntity> solicitudesData = new ArrayList();
     
@@ -97,6 +97,7 @@ public class ClienteLogicTest
         em.createQuery("delete from SolicitudEntity").executeUpdate();
         em.createQuery("delete from PropuestaEntity").executeUpdate();
         em.createQuery("delete from InvitacionEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
     }
 
     /**
@@ -132,9 +133,41 @@ public class ClienteLogicTest
     }
 
     /**
+     * Prueba para consultar la lista de Clientes.
+     */
+    @Test
+    public void getClientesTest() {
+        List<ClienteEntity> list = clienteLogic.getClientes();
+        Assert.assertEquals(data.size(), list.size());
+        for (ClienteEntity entity : list) {
+            boolean found = false;
+            for (ClienteEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    /**
+     * Prueba para consultar un Cliente.
+     */
+    @Test
+    public void getClienteTest() {
+        ClienteEntity entity = data.get(0);
+        ClienteEntity resultEntity = clienteLogic.getCliente(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
+        Assert.assertEquals(entity.getIdentificacion(), resultEntity.getIdentificacion());
+        Assert.assertEquals(entity.getNombreUsuario(), resultEntity.getNombreUsuario());
+    }
+    
+    /**
      * Prueba para crear un Cliente.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test
     public void createClienteTest() throws BusinessLogicException {
@@ -152,7 +185,7 @@ public class ClienteLogicTest
      * Prueba para crear un cliente con el mismo nombre de usuario de un cliente que ya
      * existe.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createClienteConMismoNombreUsuarioTest() throws BusinessLogicException {
@@ -165,7 +198,7 @@ public class ClienteLogicTest
      * Prueba para crear un cliente con la misma identificacion de un cliente que ya
      * existe.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createClienteConMismaIdentificacionTest() throws BusinessLogicException {
@@ -188,38 +221,6 @@ public class ClienteLogicTest
     }
 
     /**
-     * Prueba para consultar la lista de Clientes.
-     */
-    @Test
-    public void getClientesTest() {
-        List<ClienteEntity> list = clienteLogic.getClientes();
-        Assert.assertEquals(data.size(), list.size());
-        for (ClienteEntity entity : list) {
-            boolean found = false;
-            for (ClienteEntity storedEntity : data) {
-                if (entity.getId().equals(storedEntity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
-
-    /**
-     * Prueba para consultar un Cliente.
-     */
-    @Test
-    public void getClienteTest() {
-        ClienteEntity entity = data.get(0);
-        ClienteEntity resultEntity = clienteLogic.getCliente(entity.getId());
-        Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
-        Assert.assertEquals(entity.getIdentificacion(), resultEntity.getIdentificacion());
-        Assert.assertEquals(entity.getNombreUsuario(), resultEntity.getNombreUsuario());
-    }
-
-    /**
      * Prueba para actualizar un Cliente.
      */
     @Test
@@ -238,12 +239,12 @@ public class ClienteLogicTest
     /**
      * Prueba para eliminar un Cliente.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test
     public void deleteClienteTest() throws BusinessLogicException {
         ClienteEntity entity = data.get(1);
-        clienteLogic.deleteEditorial(entity.getId());
+        clienteLogic.deleteCliente(entity.getId());
         ClienteEntity deleted = em.find(ClienteEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -251,33 +252,33 @@ public class ClienteLogicTest
     /**
      * Prueba para eliminar un Cliente con solicitudes asociadas.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConSolicitudesAsociadasTest() throws BusinessLogicException {
         ClienteEntity entity = data.get(0);
-        clienteLogic.deleteEditorial(entity.getId());
+        clienteLogic.deleteCliente(entity.getId());
     }
     
     /**
      * Prueba para eliminar un Cliente con propuestas asociadas.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConPropuestasAsociadasTest() throws BusinessLogicException {
         ClienteEntity entity = data.get(0);
-        clienteLogic.deleteEditorial(entity.getId());
+        clienteLogic.deleteCliente(entity.getId());
     }
     
     /**
      * Prueba para eliminar un Cliente con invitaciones asociadas.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws Exception
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConInvitacionesAsociadasTest() throws BusinessLogicException {
         ClienteEntity entity = data.get(0);
-        clienteLogic.deleteEditorial(entity.getId());
+        clienteLogic.deleteCliente(entity.getId());
     }
 }
