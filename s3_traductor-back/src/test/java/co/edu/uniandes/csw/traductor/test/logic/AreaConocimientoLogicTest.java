@@ -5,10 +5,10 @@
  */
 package co.edu.uniandes.csw.traductor.test.logic;
 
-import co.edu.uniandes.csw.traductor.ejb.PropuestaLogic;
-import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
+import co.edu.uniandes.csw.traductor.ejb.AreaConocimientoLogic;
+import co.edu.uniandes.csw.traductor.entities.AreaConocimientoEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
+import co.edu.uniandes.csw.traductor.persistence.AreaConocimientoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -27,12 +27,12 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas unitarias de la clase PropuestaLogic
+ * Pruebas unitarias de la clase AreaConocimientoLogic
  * @author Geovanny Andres Gonzalez
  */
 
 @RunWith(Arquillian.class)
-public class PropuestaLogicTest 
+public class AreaConocimientoLogicTest 
 {
 	//Objeto podam para llenar los objetos de informacion.
 	private PodamFactory podam = new PodamFactoryImpl();
@@ -40,7 +40,7 @@ public class PropuestaLogicTest
 	//Inyecciones de clases requeridas.
 	
 	@Inject 
-	private PropuestaLogic propuestaLogic;
+	private AreaConocimientoLogic areaLogic;
 	
 	@PersistenceContext
     private EntityManager em;
@@ -48,8 +48,8 @@ public class PropuestaLogicTest
     @Inject
     private UserTransaction utx;
 	
-	//Listado de objetos propuesta.
-	private List<PropuestaEntity> data = new ArrayList<>();
+	//Listado de objetos areaConocimiento.
+	private List<AreaConocimientoEntity> data = new ArrayList<>();
 
      /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -59,9 +59,9 @@ public class PropuestaLogicTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(PropuestaEntity.class.getPackage())
-                .addPackage(PropuestaLogic.class.getPackage())
-                .addPackage(PropuestaPersistence.class.getPackage())
+                .addPackage(AreaConocimientoEntity.class.getPackage())
+                .addPackage(AreaConocimientoLogic.class.getPackage())
+                .addPackage(AreaConocimientoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -93,7 +93,7 @@ public class PropuestaLogicTest
 	
     private void clearData() 
 	{
-        em.createQuery("delete from PropuestaEntity").executeUpdate();        
+        em.createQuery("delete from AreaConocimientoEntity").executeUpdate();        
     }
 
     /**
@@ -104,144 +104,133 @@ public class PropuestaLogicTest
     private void insertData()
 	{
         for (int i = 0; i < 3; i++) {
-            PropuestaEntity propuestas = podam.manufacturePojo(PropuestaEntity.class);
-            em.persist(propuestas);
-            data.add(propuestas);
+            AreaConocimientoEntity areasConocimiento = podam.manufacturePojo(AreaConocimientoEntity.class);
+            em.persist(areasConocimiento);
+            data.add(areasConocimiento);
         }        
     }
 	
 	/**
-	 * Prueba para comprobar el funcionamiento de createPropuesta()
+	 * Prueba para comprobar el funcionamiento de createArea()
 	*/
 	
 	@Test
-	public void createPropuestaTest()
+	public void createAreaTest()
 	{
-		PropuestaEntity entidad = podam.manufacturePojo(PropuestaEntity.class);
+		AreaConocimientoEntity entidad = podam.manufacturePojo(AreaConocimientoEntity.class);
 		//Casos de prueba.
 		
 		//#1 - Algunos datos de entrada son nulos.
-		entidad.setIdEmpleado(null);
+		entidad.setArea(null);
 		
 		try
 		{
-			propuestaLogic.createPropuesta(entidad); 			
+			areaLogic.createArea(entidad); 			
 			Assert.fail("El metodo deberia fallar debido a que el id del empleado no existe");
 			
 		}		
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}		
 		
-		//#2 - La propuesta se crea satisfactoriamente.
-		Long nuevaId = (long) 43211213;
-		entidad.setIdEmpleado(nuevaId);
+		//#2 - La areaConocimiento se crea satisfactoriamente.
+		String nuevaArea = "Matematicas";
+		entidad.setArea(nuevaArea);
 		
 		try
 		{
-			propuestaLogic.createPropuesta(entidad); //Se manda a crear la entidad.
-			Assert.assertNotNull("La entidad debio haberse creado y debe existir", propuestaLogic.getPropuesta(entidad.getId()));
+			areaLogic.createArea(entidad); //Se manda a crear la entidad.
+			Assert.assertNotNull("La entidad debio haberse creado y debe existir", areaLogic.getArea(entidad.getId()));
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
-		//#3 - El costo es un valor negativo.
-		entidad.setCosto(-23);
+		//#3 - Intentar crear un area ya existente			
 		try
 		{
-			propuestaLogic.createPropuesta(entidad); //Se manda a crear la entidad.			
-			Assert.fail("El metodo deberia fallar debido a que el costo no puede ser un valor negativo");
-		}
-		
-		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
-		
-		//4 - La descripcion es una cadena vacia
-		entidad.setCosto(23);
-		entidad.setDescripcion("");
-		try
-		{
-			propuestaLogic.createPropuesta(entidad); //Se manda a crear la entidad.
-			Assert.fail("El metodo deberia fallar debido a que la descripcion no puede ser vacia");					
+			areaLogic.createArea(data.get(0)); //Se manda a crear la entidad.
+			Assert.fail("El metodo deberia fallar debido a que el area ya existe");					
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 	}
 
 	/**
-	 * Prueba para comprobar el funcionamiento de updatePropuesta()
+	 * Prueba para comprobar el funcionamiento de updateArea()
 	 */
 	
 	@Test
-	public void updatePropuestaTest()
+	public void updateAreaTest()
 	{
 		//Casos de prueba
-		PropuestaEntity entidad = data.get(0); //Se trae la primera entidad de los datos.
+		AreaConocimientoEntity entidad = data.get(0); //Se trae la primera entidad de los datos.
 		
 		//#1 - Buscar un objeto inexistente. 
 		try
 		{
-			propuestaLogic.updatePropuesta(Long.MAX_VALUE, entidad);			
-			Assert.fail("La propuesta no deberia existir");
+			areaLogic.updateArea(Long.MAX_VALUE, entidad);			
+			Assert.fail("La areaConocimiento no deberia existir");
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
 		//#2 - Actualizar satisfactoriamente.
 		String descripcion = "Papitas"; //Un nuevo estado a actualizar.
-		entidad.setDescripcion(descripcion);
+		entidad.setArea(descripcion);
 		try	
 		{
-			propuestaLogic.updatePropuesta(entidad.getId(), entidad);
+			areaLogic.updateArea(entidad.getId(), entidad);
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
 		try
 		{
-			entidad = propuestaLogic.getPropuesta(entidad.getId());
+			entidad = areaLogic.getArea(entidad.getId());
 		}
 		
 		catch(BusinessLogicException e){System.out.println("ATENCION: NO DEBERIA MORIR AQUI"); e.printStackTrace();}
-		Assert.assertEquals("La descripcion despues de actualizar no es la deseada", descripcion, entidad.getDescripcion());	
+		Assert.assertEquals("La area despues de actualizar no es la deseada", descripcion, entidad.getArea());	
 	}
 	
 	/**
-	 * Prueba para comprobar el funcionamiento de getPropuesta()
+	 * Prueba para comprobar el funcionamiento de getArea()
 	 */
+	
 	@Test
-	public void getPropuestaTest()
+	public void getAreaTest()
 	{
 		//Casos de prueba.
 		
-		//#1 - Buscar una propuesta inexistente.
+		//#1 - Buscar una areaConocimiento inexistente.
 		try
 		{
-			propuestaLogic.getPropuesta(Long.MAX_VALUE);
-			Assert.fail("La propuesta no deberia existir");
+			areaLogic.getArea(Long.MAX_VALUE);
+			Assert.fail("La areaConocimiento no deberia existir");
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
-		//#2 - Buscar una propuesta existente en la base de datos.
-		PropuestaEntity buscado = null; //Vamos a traer la ultima de la lista data.
+		//#2 - Buscar una areaConocimiento existente en la base de datos.
+		AreaConocimientoEntity buscado = null; //Vamos a traer la ultima de la lista data.
 		try
 		{
-			buscado = propuestaLogic.getPropuesta(data.get(2).getId());			
+			buscado = areaLogic.getArea(data.get(2).getId());			
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
-		Assert.assertNotNull("La propuesta buscada no es nula pues sí existe", buscado);
-		Assert.assertEquals("La descripcion de la propuesta no es la esperada", buscado.getDescripcion(), data.get(2).getDescripcion());
+		Assert.assertNotNull("La areaConocimiento buscada no es nula pues sí existe", buscado);
+		Assert.assertEquals("El area del areaConocimiento no es la esperada", buscado.getArea(), data.get(2).getArea());
 	}
 	
 	/**
-	 * Prueba para comprobar el funcionamiento de getAllPropuestas()
+	 * Prueba para comprobar el funcionamiento de getAllAreas()
 	 */
 	
 	@Test
-	public void getAllPropuestasTest()
+	public void getAllAreasTest()
 	{
-		//Caso unico: El numero de propuestas obtenidas debe ser igual al de los creados.
-		List<PropuestaEntity> entidades = propuestaLogic.getAllPropuestas();
+		//Caso unico: El numero de areas de conocimiento obtenido debe ser igual al de los creados.
+		List<AreaConocimientoEntity> entidades = areaLogic.getAllAreas();
 		Assert.assertEquals("El numero de elementos no es el deseado", 3, entidades.size());
 		for (short g = 0; g < entidades.size(); g++)
 		{
@@ -250,33 +239,16 @@ public class PropuestaLogicTest
 	}
 	
 	@Test
-	public void deletePropuestaTest()
+	public void deleteAreaTest()
 	{
 		//Casos de prueba
-		
-		//#1 - La propuesta no se puede borrar debido a que tiene una invitacion.
-		/*
-		PropuestaEntity entidad1 = data.get(0);
-		InvitacionEntity nuevaEntidad = podam.manufacturePojo(InvitacionEntity.class);
-		entidad1.setInvitacion(nuevaEntidad);
-		
-		try
-		{
-			propuestaLogic.updatePropuesta(entidad1.getId(), entidad1); //Meter el objeto Invitacion.
-			Assert.assertNotNull("La invitacion no debe de ser nula",propuestaLogic.getPropuesta(entidad1.getId()).getInvitacion());
-			propuestaLogic.deletePropuesta(entidad1.getId());
-			Assert.fail("Deberia haber fallado pues la invitacion no es nula y por ello no se puede borrar");
-		}
-		
-		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
-		*/
-		
-		//#2 - La propuesta se puede borrar
-		PropuestaEntity entidad2 = data.get(1);
+				
+		//#1 - La areaConocimiento se puede borrar
+		AreaConocimientoEntity entidad2 = data.get(1);
 		
 		try
 		{			
-			propuestaLogic.deletePropuesta(entidad2.getId());			
+			areaLogic.deleteArea(entidad2.getId());			
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
@@ -284,7 +256,7 @@ public class PropuestaLogicTest
 		try
 		{
 			
-			entidad2 = propuestaLogic.getPropuesta(entidad2.getId());
+			entidad2 = areaLogic.getArea(entidad2.getId());
 			Assert.assertNull("La entidad ya debio haberse borrado", entidad2);
 		}
 		

@@ -5,10 +5,10 @@
  */
 package co.edu.uniandes.csw.traductor.test.logic;
 
-import co.edu.uniandes.csw.traductor.ejb.PropuestaLogic;
-import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
+import co.edu.uniandes.csw.traductor.ejb.InvitacionLogic;
+import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
+import co.edu.uniandes.csw.traductor.persistence.InvitacionPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -27,12 +27,12 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas unitarias de la clase PropuestaLogic
+ * Pruebas unitarias de la clase InvitacionLogic
  * @author Geovanny Andres Gonzalez
  */
 
 @RunWith(Arquillian.class)
-public class PropuestaLogicTest 
+public class InvitacionLogicTest 
 {
 	//Objeto podam para llenar los objetos de informacion.
 	private PodamFactory podam = new PodamFactoryImpl();
@@ -40,7 +40,7 @@ public class PropuestaLogicTest
 	//Inyecciones de clases requeridas.
 	
 	@Inject 
-	private PropuestaLogic propuestaLogic;
+	private InvitacionLogic invitacionLogic;
 	
 	@PersistenceContext
     private EntityManager em;
@@ -48,8 +48,8 @@ public class PropuestaLogicTest
     @Inject
     private UserTransaction utx;
 	
-	//Listado de objetos propuesta.
-	private List<PropuestaEntity> data = new ArrayList<>();
+	//Listado de objetos invitacion.
+	private List<InvitacionEntity> data = new ArrayList<>();
 
      /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -59,9 +59,9 @@ public class PropuestaLogicTest
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(PropuestaEntity.class.getPackage())
-                .addPackage(PropuestaLogic.class.getPackage())
-                .addPackage(PropuestaPersistence.class.getPackage())
+                .addPackage(InvitacionEntity.class.getPackage())
+                .addPackage(InvitacionLogic.class.getPackage())
+                .addPackage(InvitacionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -93,7 +93,7 @@ public class PropuestaLogicTest
 	
     private void clearData() 
 	{
-        em.createQuery("delete from PropuestaEntity").executeUpdate();        
+        em.createQuery("delete from InvitacionEntity").executeUpdate();        
     }
 
     /**
@@ -104,20 +104,20 @@ public class PropuestaLogicTest
     private void insertData()
 	{
         for (int i = 0; i < 3; i++) {
-            PropuestaEntity propuestas = podam.manufacturePojo(PropuestaEntity.class);
-            em.persist(propuestas);
-            data.add(propuestas);
+            InvitacionEntity invitaciones = podam.manufacturePojo(InvitacionEntity.class);
+            em.persist(invitaciones);
+            data.add(invitaciones);
         }        
     }
 	
 	/**
-	 * Prueba para comprobar el funcionamiento de createPropuesta()
+	 * Prueba para comprobar el funcionamiento de createInvitacion()
 	*/
 	
 	@Test
-	public void createPropuestaTest()
+	public void createInvitacionTest()
 	{
-		PropuestaEntity entidad = podam.manufacturePojo(PropuestaEntity.class);
+		InvitacionEntity entidad = podam.manufacturePojo(InvitacionEntity.class);
 		//Casos de prueba.
 		
 		//#1 - Algunos datos de entrada son nulos.
@@ -125,41 +125,30 @@ public class PropuestaLogicTest
 		
 		try
 		{
-			propuestaLogic.createPropuesta(entidad); 			
+			invitacionLogic.createInvitacion(entidad); 			
 			Assert.fail("El metodo deberia fallar debido a que el id del empleado no existe");
 			
 		}		
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}		
 		
-		//#2 - La propuesta se crea satisfactoriamente.
+		//#2 - La invitacion se crea satisfactoriamente.
 		Long nuevaId = (long) 43211213;
 		entidad.setIdEmpleado(nuevaId);
 		
 		try
 		{
-			propuestaLogic.createPropuesta(entidad); //Se manda a crear la entidad.
-			Assert.assertNotNull("La entidad debio haberse creado y debe existir", propuestaLogic.getPropuesta(entidad.getId()));
+			invitacionLogic.createInvitacion(entidad); //Se manda a crear la entidad.
+			Assert.assertNotNull("La entidad debio haberse creado y debe existir", invitacionLogic.getInvitacion(entidad.getId()));
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
-		//#3 - El costo es un valor negativo.
-		entidad.setCosto(-23);
-		try
-		{
-			propuestaLogic.createPropuesta(entidad); //Se manda a crear la entidad.			
-			Assert.fail("El metodo deberia fallar debido a que el costo no puede ser un valor negativo");
-		}
-		
-		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
-		
-		//4 - La descripcion es una cadena vacia
-		entidad.setCosto(23);
+		//#3 - La descripcion es una cadena vacia		
 		entidad.setDescripcion("");
 		try
 		{
-			propuestaLogic.createPropuesta(entidad); //Se manda a crear la entidad.
+			invitacionLogic.createInvitacion(entidad); //Se manda a crear la entidad.
 			Assert.fail("El metodo deberia fallar debido a que la descripcion no puede ser vacia");					
 		}
 		
@@ -167,20 +156,20 @@ public class PropuestaLogicTest
 	}
 
 	/**
-	 * Prueba para comprobar el funcionamiento de updatePropuesta()
+	 * Prueba para comprobar el funcionamiento de updateInvitacion()
 	 */
 	
 	@Test
-	public void updatePropuestaTest()
+	public void updateInvitacionTest()
 	{
 		//Casos de prueba
-		PropuestaEntity entidad = data.get(0); //Se trae la primera entidad de los datos.
+		InvitacionEntity entidad = data.get(0); //Se trae la primera entidad de los datos.
 		
 		//#1 - Buscar un objeto inexistente. 
 		try
 		{
-			propuestaLogic.updatePropuesta(Long.MAX_VALUE, entidad);			
-			Assert.fail("La propuesta no deberia existir");
+			invitacionLogic.updateInvitacion(Long.MAX_VALUE, entidad);			
+			Assert.fail("La invitacion no deberia existir");
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
@@ -190,14 +179,14 @@ public class PropuestaLogicTest
 		entidad.setDescripcion(descripcion);
 		try	
 		{
-			propuestaLogic.updatePropuesta(entidad.getId(), entidad);
+			invitacionLogic.updateInvitacion(entidad.getId(), entidad);
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
 		try
 		{
-			entidad = propuestaLogic.getPropuesta(entidad.getId());
+			entidad = invitacionLogic.getInvitacion(entidad.getId());
 		}
 		
 		catch(BusinessLogicException e){System.out.println("ATENCION: NO DEBERIA MORIR AQUI"); e.printStackTrace();}
@@ -205,43 +194,44 @@ public class PropuestaLogicTest
 	}
 	
 	/**
-	 * Prueba para comprobar el funcionamiento de getPropuesta()
+	 * Prueba para comprobar el funcionamiento de getInvitacion()
 	 */
+	
 	@Test
-	public void getPropuestaTest()
+	public void getInvitacionTest()
 	{
 		//Casos de prueba.
 		
-		//#1 - Buscar una propuesta inexistente.
+		//#1 - Buscar una invitacion inexistente.
 		try
 		{
-			propuestaLogic.getPropuesta(Long.MAX_VALUE);
-			Assert.fail("La propuesta no deberia existir");
+			invitacionLogic.getInvitacion(Long.MAX_VALUE);
+			Assert.fail("La invitacion no deberia existir");
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
 		
-		//#2 - Buscar una propuesta existente en la base de datos.
-		PropuestaEntity buscado = null; //Vamos a traer la ultima de la lista data.
+		//#2 - Buscar una invitacion existente en la base de datos.
+		InvitacionEntity buscado = null; //Vamos a traer la ultima de la lista data.
 		try
 		{
-			buscado = propuestaLogic.getPropuesta(data.get(2).getId());			
+			buscado = invitacionLogic.getInvitacion(data.get(2).getId());			
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
-		Assert.assertNotNull("La propuesta buscada no es nula pues sí existe", buscado);
-		Assert.assertEquals("La descripcion de la propuesta no es la esperada", buscado.getDescripcion(), data.get(2).getDescripcion());
+		Assert.assertNotNull("La invitacion buscada no es nula pues sí existe", buscado);
+		Assert.assertEquals("La descripcion de la invitacion no es la esperada", buscado.getDescripcion(), data.get(2).getDescripcion());
 	}
 	
 	/**
-	 * Prueba para comprobar el funcionamiento de getAllPropuestas()
+	 * Prueba para comprobar el funcionamiento de getAllInvitaciones()
 	 */
 	
 	@Test
-	public void getAllPropuestasTest()
+	public void getAllInvitacionesTest()
 	{
-		//Caso unico: El numero de propuestas obtenidas debe ser igual al de los creados.
-		List<PropuestaEntity> entidades = propuestaLogic.getAllPropuestas();
+		//Caso unico: El numero de invitaciones obtenido debe ser igual al de los creados.
+		List<InvitacionEntity> entidades = invitacionLogic.getAllInvitaciones();
 		Assert.assertEquals("El numero de elementos no es el deseado", 3, entidades.size());
 		for (short g = 0; g < entidades.size(); g++)
 		{
@@ -250,33 +240,16 @@ public class PropuestaLogicTest
 	}
 	
 	@Test
-	public void deletePropuestaTest()
+	public void deleteInvitacionTest()
 	{
 		//Casos de prueba
-		
-		//#1 - La propuesta no se puede borrar debido a que tiene una invitacion.
-		/*
-		PropuestaEntity entidad1 = data.get(0);
-		InvitacionEntity nuevaEntidad = podam.manufacturePojo(InvitacionEntity.class);
-		entidad1.setInvitacion(nuevaEntidad);
-		
-		try
-		{
-			propuestaLogic.updatePropuesta(entidad1.getId(), entidad1); //Meter el objeto Invitacion.
-			Assert.assertNotNull("La invitacion no debe de ser nula",propuestaLogic.getPropuesta(entidad1.getId()).getInvitacion());
-			propuestaLogic.deletePropuesta(entidad1.getId());
-			Assert.fail("Deberia haber fallado pues la invitacion no es nula y por ello no se puede borrar");
-		}
-		
-		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
-		*/
-		
-		//#2 - La propuesta se puede borrar
-		PropuestaEntity entidad2 = data.get(1);
+				
+		//#1 - La invitacion se puede borrar
+		InvitacionEntity entidad2 = data.get(1);
 		
 		try
 		{			
-			propuestaLogic.deletePropuesta(entidad2.getId());			
+			invitacionLogic.deleteInvitacion(entidad2.getId());			
 		}
 		
 		catch(BusinessLogicException e){Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);}
@@ -284,7 +257,7 @@ public class PropuestaLogicTest
 		try
 		{
 			
-			entidad2 = propuestaLogic.getPropuesta(entidad2.getId());
+			entidad2 = invitacionLogic.getInvitacion(entidad2.getId());
 			Assert.assertNull("La entidad ya debio haberse borrado", entidad2);
 		}
 		

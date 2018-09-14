@@ -77,7 +77,7 @@ public class AreaConocimientoPersistence
         query = query.setParameter("area", areaBusqueda);
         // Se invoca el query se obtiene la lista resultado
         List<AreaConocimientoEntity> resultado = query.getResultList();
-		return (resultado.get(0) == null) ? null : resultado.get(0);        
+		return (resultado == null || resultado.isEmpty()) ? null : resultado.get(0);        
     }
 
 	 /**
