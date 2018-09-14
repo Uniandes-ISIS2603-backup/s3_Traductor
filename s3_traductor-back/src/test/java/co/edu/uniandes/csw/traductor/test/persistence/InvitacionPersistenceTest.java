@@ -178,5 +178,21 @@ public class InvitacionPersistenceTest
         invitacionPersistence.delete(entity.getId());
         InvitacionEntity deleted = em.find(InvitacionEntity.class, entity.getId());
         Assert.assertNull("La propuesta se deberia haber borrado satisfactoriamente",deleted);
-    }	
+    }
+
+	/**
+	 * Permite consultar todos los elementos en la tabla en la base de datos
+	 */
+	
+	@Test
+	public void getAllTest()
+	{
+		List<InvitacionEntity> entidades = invitacionPersistence.getAll();
+		Assert.assertEquals("El numero de elementos en la tabla no es el correcto",3 ,entidades.size());
+		PodamFactory podam = new PodamFactoryImpl(); //Crear una nueva entidad.
+		InvitacionEntity nuevaEntidad = podam.manufacturePojo(InvitacionEntity.class);
+		invitacionPersistence.create(nuevaEntidad);
+		entidades = invitacionPersistence.getAll(); //Volver a realizar el llamado para obtener el nuevo elemento
+		Assert.assertEquals("El numero de elementos en la tabla no es el correcto", 4, entidades.size());
+	}
 }

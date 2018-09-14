@@ -42,7 +42,7 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	@ManyToOne
 	private EmpleadoEntity empleado;	
 	
-        //"Callback a Cliente - Relacion ManyToOne"
+    //"Callback a Cliente - Relacion ManyToOne"
 	@PodamExclude
 	@ManyToOne
 	private ClienteEntity cliente;
