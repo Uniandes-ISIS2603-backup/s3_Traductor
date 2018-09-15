@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.PropuestaDTO;
+import co.edu.uniandes.csw.traductor.ejb.PropuestaLogic;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
+import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +41,7 @@ public class PropuestaResource
 	
 	//Inyeccion de la logica
 	@Inject
-	
+	private PropuestaLogic propuestaLogic;
 
 	/**
 	 * Crea una nueva propuesta con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
@@ -51,18 +53,18 @@ public class PropuestaResource
 	 */
 	
 	@POST
-	public PropuestaDTO createPropuesta(PropuestaDTO nuevaPropuesta) {
+	public PropuestaDTO createPropuesta(PropuestaDTO nuevaPropuesta) throws BusinessLogicException {
 		
 		// TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
 		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
-
 		// Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-		PropuestaEntity propuestaEntity = nuevaPropuesta.toEntity();
-		// Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.		
-		// Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.		        
-		//PropuestaDTO respuestaDTO = new PropuestaDTO(nuevoEditorialEntity);
-		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", nuevaPropuesta.toString());
-		return nuevaPropuesta;
+		PropuestaEntity entidad = nuevaPropuesta.toEntity();
+		// Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.	
+		PropuestaEntity nuevaEntity = propuestaLogic.createPropuesta(entidad);
+		// Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.	
+		PropuestaDTO respuestaDTO = new PropuestaDTO(nuevaEntity);		
+		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", respuestaDTO.toString());
+		return respuestaDTO;
 	}
 
 	/**
@@ -78,7 +80,22 @@ public class PropuestaResource
 	@Path("{propuestaId: \\d+}") //Es la forma como se va a reconocer lo contenido en la propuesta, en este caso es 1 o mas numeros.
 	public PropuestaDTO updatePropuesta(@PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws WebApplicationException {
 		// TODO: [updatePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		return null;
+		PropuestaEntity entidadUpdate = propuesta.toEntity(); //Cambia a entity.
+		entidadUpdate.setId(propuestaId); //Cambia la id para actualizar en la BD.
+						
+		PropuestaDTO entidadUpdated = null; //Entidad de respuesta
+		
+		try
+		{
+			entidadUpdated = new PropuestaDTO(propuestaLogic.updatePropuesta(propuestaId, entidadUpdate));
+		}
+		
+		catch(BusinessLogicException e)
+		{
+			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
+		}
+		
+		return entidadUpdated;
 	}
 
 	/**
@@ -90,10 +107,10 @@ public class PropuestaResource
 	public List<PropuestaDTO> getAllPropuestas() {
 		// TODO: [getAllPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 		
-		//LOGGER.info("PropuestaResources getAllPropuestas: input: void");
-		//List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(propuestaLogic.getPropuestas()); Se llama a la logica para que devuelva la lista !
-		//LOGGER.log(Level.INFO, "PropuestaResources getAllPropuestas:: output: {0}", listaPropuestas.toString());
-		return null;
+		LOGGER.info("PropuestaResources getAllPropuestas: input: void");
+		List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(propuestaLogic.getAllPropuestas()); //Se llama a la logica para que devuelva la lista !
+		LOGGER.log(Level.INFO, "PropuestaResources getAllPropuestas:: output: {0}", listaPropuestas.toString());
+		return listaPropuestas;
 	}
 
 	/**
@@ -108,19 +125,21 @@ public class PropuestaResource
 	public PropuestaDTO getPropuesta(@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
 		
 		// TODO: [getPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		//LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", editorialsId);
+		LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", propuestaId);		
+		PropuestaDTO entityBuscada = null; //DTO respuesta.	
 		
-		/**
-		 * Verificacion de que existe
-		PropuestaEntity propuestaEntity = propuestaLogic.getPropuesta(editorialsId);
-		if (propuestaEntity == null) {
-			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
+		try
+		{
+			entityBuscada = new PropuestaDTO(propuestaLogic.getPropuesta(propuestaId));
 		}
-		*/
 		
-		//PropuestaDTO detailDTO = new PropuestaDTO(propuestaEntity);
-		//LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", detailDTO.toString());
-		return null;
+		catch(BusinessLogicException e)
+		{
+			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
+		}					
+		
+		LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", entityBuscada.toString());
+		return entityBuscada;
 	}
 	
 	/**
@@ -138,14 +157,18 @@ public class PropuestaResource
         
 		// TODO: [deletePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 		
-		LOGGER.log(Level.INFO, "PropuestaResources deleteEditorial: input: {0}", propuestaId);
-        
-		/**
-		if (propuestaLogic.getPropuesta(propuestaId) == null) {
-            throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
-        }
-        propuestaLogic.deleteEditorial(propuestaId);
-		*/
+		LOGGER.log(Level.INFO, "PropuestaResources deleteEditorial: input: {0}", propuestaId);        
+		
+		try
+		{
+			propuestaLogic.getPropuesta(propuestaId); //Si no existe salta al catch y manda la excepcion.
+			propuestaLogic.deletePropuesta(propuestaId);
+		}
+		
+		catch(BusinessLogicException e)
+		{
+			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
+		}		
 		
         LOGGER.info("PropuestaResources deleteEditorial: output: void");
     }

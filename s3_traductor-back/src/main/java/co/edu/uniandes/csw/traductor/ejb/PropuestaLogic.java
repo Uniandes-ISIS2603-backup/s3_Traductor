@@ -46,9 +46,7 @@ public class PropuestaLogic
 		if (propuestaEntity.getIdEmpleado() == null)
 		{
 			throw new BusinessLogicException("El id de empleado es un valor nulo"); 
-		}
-		
-		
+		}		
 		
 		else if (propuestaEntity.getCosto() < 0)
 		{
