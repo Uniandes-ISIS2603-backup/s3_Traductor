@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.traductor.ejb;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
 import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,9 +30,6 @@ public class PropuestaLogic
 	@Inject
 	private PropuestaPersistence propuestaPersistence; //Invocación a la tabla de propuesta para trabajar en la base de datos.	
 	
-	@Inject
-	private InvitacionLogic invitacionLogic; //Invocación a la tabla de invitaciones para trabajar en la base de datos.	
-	
 	/**
      * Crea una propuesta en la persistencia.
      * @param propuestaEntity La entidad que representa la propuesta a persistir.
@@ -49,6 +47,8 @@ public class PropuestaLogic
 		{
 			throw new BusinessLogicException("El id de empleado es un valor nulo"); 
 		}
+		
+		
 		
 		else if (propuestaEntity.getCosto() < 0)
 		{

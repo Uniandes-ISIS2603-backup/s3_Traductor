@@ -24,9 +24,9 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  * Clase que implementa el recurso invitacion
- *
  * @author Geovanny Andres Gonzalez
  */
+
 @Path("propuestas")
 @Produces("application/json")
 @Consumes("application/json")
@@ -36,6 +36,10 @@ public class PropuestaResource
 
 	//Logger
 	private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
+	
+	//Inyeccion de la logica
+	@Inject
+	
 
 	/**
 	 * Crea una nueva propuesta con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
@@ -49,14 +53,12 @@ public class PropuestaResource
 	@POST
 	public PropuestaDTO createPropuesta(PropuestaDTO nuevaPropuesta) {
 		
-		// TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-	
-		//Llamado al Logger, no se para que sirve :(
+		// TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
 		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
 
 		// Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-		//PropuestaEntity propuestaEntity = nuevaPropuesta.toEntity();
-		// Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.
+		PropuestaEntity propuestaEntity = nuevaPropuesta.toEntity();
+		// Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.		
 		// Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.		        
 		//PropuestaDTO respuestaDTO = new PropuestaDTO(nuevoEditorialEntity);
 		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", nuevaPropuesta.toString());
