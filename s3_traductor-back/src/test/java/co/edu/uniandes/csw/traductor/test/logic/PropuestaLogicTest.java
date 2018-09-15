@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.test.logic;
 
 import co.edu.uniandes.csw.traductor.ejb.PropuestaLogic;
+import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
@@ -262,8 +263,9 @@ public class PropuestaLogicTest
 		
 		try
 		{
-			propuestaLogic.updatePropuesta(entidad1.getId(), entidad1); //Meter el objeto Invitacion.
-			Assert.assertNotNull("La invitacion no debe de ser nula",propuestaLogic.getPropuesta(entidad1.getId()).getInvitacion());
+			entidad1 = propuestaLogic.updatePropuesta(entidad1.getId(), entidad1); //Meter el objeto Invitacion.
+			InvitacionEntity invitacionBuscada = propuestaLogic.getPropuesta(entidad1.getId()).getInvitacion();
+ 			Assert.assertNotNull("La invitacion no debe de ser nula" , entidad1.getInvitacion());
 			propuestaLogic.deletePropuesta(entidad1.getId());
 			Assert.fail("Deberia haber fallado pues la invitacion no es nula y por ello no se puede borrar");
 		}
