@@ -6,8 +6,9 @@
 package co.edu.uniandes.csw.traductor.test.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
-import co.edu.uniandes.csw.traductor.persistance.TarjetaDeCreditoPersistence;
+import co.edu.uniandes.csw.traductor.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -109,7 +110,8 @@ public class TarjetaDeCreditoPersistenceTest {
      */
 	
     private void clearData() {
-        em.createQuery("delete from PropuestaEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
+        em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
     }
 
     /**
@@ -140,8 +142,30 @@ public class TarjetaDeCreditoPersistenceTest {
         Assert.assertNotNull(result);
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getNumeroTarjetaCredito(), entity.getNumeroTarjetaCredito());
+        Assert.assertEquals(newEntity.getCcv(), entity.getCcv());
+      // Assert.assertEquals(newEntity.getFechaExpiracion(), entity.getFechaExpiracion());
+        Assert.assertEquals(newEntity.getRedBancaria(), entity.getRedBancaria());
+   
     }	
-	
+    /**
+     * Prueba para consultar la lista de tarjetas.
+     */
+    @Test
+    public void getTarjetasDeCreditoTest() {
+        List<TarjetaDeCreditoEntity> list = tarjetaDeCreditoPersistence.findAll();
+       
+        Assert.assertEquals(data.size(), list.size());
+        for (TarjetaDeCreditoEntity ent : list) {
+            boolean found = false;
+            for (TarjetaDeCreditoEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
 	/**
 	 * Permite hacer las pruebas de busqueda de una tarjeta
 	 */
@@ -183,6 +207,19 @@ public class TarjetaDeCreditoPersistenceTest {
         TarjetaDeCreditoEntity deleted = em.find(TarjetaDeCreditoEntity.class, entity.getId());
         Assert.assertNull("La tarjeta se deberia haber borrado satisfactoriamente",deleted);
     }
+	/**
+     * Prueba para consultasr una tarjeta por ISBN.
+     */
+    @Test
+    public void findTarjetaDeCreditoPorNumeroTest() {
+        TarjetaDeCreditoEntity entity = data.get(0);
+        TarjetaDeCreditoEntity newEntity = tarjetaDeCreditoPersistence.findByNumeroTarjeta(entity.getNumeroTarjetaCredito());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNumeroTarjetaCredito(), newEntity.getNumeroTarjetaCredito());
+
+        newEntity = tarjetaDeCreditoPersistence.findByNumeroTarjeta(null);
+        Assert.assertNull(newEntity);
+    }
 	
-	
+
 }

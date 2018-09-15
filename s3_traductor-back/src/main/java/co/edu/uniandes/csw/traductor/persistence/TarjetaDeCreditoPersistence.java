@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.traductor.persistance;
+package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import java.util.List;
@@ -33,9 +33,9 @@ public class TarjetaDeCreditoPersistence {
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
     public TarjetaDeCreditoEntity create(TarjetaDeCreditoEntity tarjetaEntity) {
-        LOGGER.log(Level.INFO, "Creando un libro nuevo");
+        LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(tarjetaEntity);
-        LOGGER.log(Level.INFO, "Libro creado");
+        LOGGER.log(Level.INFO, "Tarjeta creado");
         return tarjetaEntity;
     }
 
@@ -47,7 +47,7 @@ public class TarjetaDeCreditoPersistence {
      * "SELECT * FROM table_name" en SQL.
      */
     public List<TarjetaDeCreditoEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos las tarjetas");
+        LOGGER.log(Level.INFO, "Consultando todas las tarjetas");
         Query q = em.createQuery("select u from TarjetaDeCreditoEntity u");
         return q.getResultList();
     }
@@ -62,12 +62,30 @@ public class TarjetaDeCreditoPersistence {
         LOGGER.log(Level.INFO, "Consultando la tarjeta con id={0}", idTarjeta);
         return em.find(TarjetaDeCreditoEntity.class, idTarjeta);
     }
-
+public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
+        LOGGER.log(Level.INFO, "Consultando tarjetas por numero ", numeroTarjetaCredito);
+        // Se crea un query para buscar libros con el isbn que recibe el método como argumento. ":isbn" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.numeroTarjetaCredito = :numeroTarjetaCredito", TarjetaDeCreditoEntity.class);
+        // Se remplaza el placeholder ":isbn" con el valor del argumento 
+        query = query.setParameter("numeroTarjetaCredito", numeroTarjetaCredito);
+        // Se invoca el query se obtiene la lista resultado
+        List<TarjetaDeCreditoEntity> mismoNumero = query.getResultList();
+        TarjetaDeCreditoEntity result;
+        if (mismoNumero == null) {
+            result = null;
+        } else if (mismoNumero.isEmpty()) {
+            result = null;
+        } else {
+            result = mismoNumero.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar tarjetas por numero ", numeroTarjetaCredito);
+        return result;
+    }
     /**
      * Actualiza una tarjeta.
      *
      * @param tarjetaEntity: la tarjeta que viene con los nuevos cambios. Por ejemplo
-     * el nombre pudo cambiar. En ese caso, se haria uso del método update.
+     * el nombre del titular pudo cambiar(corregir error). En ese caso, se haria uso del método update.
      * @return una tarjeta con los cambios aplicados.
      */
     public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity tarjetaEntity) {
@@ -76,10 +94,7 @@ public class TarjetaDeCreditoPersistence {
     }
 
     /**
-     *
-     * Borra un libro de la base de datos recibiendo como argumento el id del
-     * libro
-     *
+     * Borra un libro de la base de datos recibiendo como argumento el id de la tarjeta
      * @param idTarjeta: id correspondiente a la tarjeta a borrar.
      */
     public void delete(Long idTarjeta) {
