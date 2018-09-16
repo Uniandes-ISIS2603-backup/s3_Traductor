@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.traductor.ejb;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.TarjetaDeCreditoPersistence;
-import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,8 +26,7 @@ public class TarjetaDeCreditoLogic {
     @Inject
     private TarjetaDeCreditoPersistence persistence;
     
-     @Inject
-    private ClientePersistence clientePersistence;
+
 
     /**
      * Guardar una nueva tarjeta
@@ -43,7 +41,7 @@ public class TarjetaDeCreditoLogic {
         if (tarjetaEntity.getNombreTitular().equals("")||tarjetaEntity.getNombreTitular()==null) {
             throw new BusinessLogicException("El nombre es inválida");
         }
-        if (!validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
+        if (validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El numero es inválido");
         }
         if (persistence.find(tarjetaEntity.getId()) != null) {
@@ -52,14 +50,13 @@ public class TarjetaDeCreditoLogic {
         if (persistence.findByNumeroTarjeta(tarjetaEntity.getNumeroTarjetaCredito()) != null) {
             throw new BusinessLogicException("La tarjeta ya existe");
         }
-        if (clientePersistence.find(tarjetaEntity.getCliente().getId())==null) {
-            throw new BusinessLogicException("El cliente no existe");
-        }
+        
         if(tarjetaEntity.getCcv()<0||tarjetaEntity.getCcv().toString().length()!=3)
         {
+            System.out.println(tarjetaEntity.getCcv());
             throw new BusinessLogicException("El ccv es invalido");
         }
-         if(tarjetaEntity.getFechaExpiracion()==null||tarjetaEntity.getFechaExpiracion().compareTo(new Date())<0)
+         if(tarjetaEntity.getFechaExpiracion()==null)
         {
             throw new BusinessLogicException("La fecha de expiracion es invalida");
         }
@@ -117,10 +114,7 @@ public class TarjetaDeCreditoLogic {
         if (persistence.find(tarjetaEntity.getId()) == null) {
             throw new BusinessLogicException("La tarjeta no existe");
         }
-        
-        if (clientePersistence.find(tarjetaEntity.getCliente().getId())==null) {
-            throw new BusinessLogicException("El cliente no existe");
-        }
+      
         if(tarjetaEntity.getCcv()<0||tarjetaEntity.getCcv().toString().length()!=3)
         {
             throw new BusinessLogicException("El ccv es invalido");
@@ -160,11 +154,12 @@ public class TarjetaDeCreditoLogic {
         boolean inValido= ( numero == null);
         if(inValido)
         {
-        return inValido;
+        return !inValido;
         }
         else
         {
             String numStr=numero.toString();
+            System.out.println(numStr);
             inValido=(numStr.length()==16);
         }
         return inValido;

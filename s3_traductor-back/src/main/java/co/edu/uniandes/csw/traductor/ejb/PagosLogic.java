@@ -5,57 +5,76 @@
  */
 package co.edu.uniandes.csw.traductor.ejb;
 
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.entities.PagosEntity;
+import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import co.edu.uniandes.csw.traductor.persistence.PagosPersistence;
+import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author ANDRES
  */
+@Stateless
 public class PagosLogic {
-    private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
+     private static final Logger LOGGER = Logger.getLogger(PagosLogic.class.getName());
 
     @Inject
-    private PagosPersistence persistence;
-    
+    private PagosPersistence pagosPersistence;
+
     @Inject
     private ClientePersistence clientePersistence;
+    
+    @Inject 
+    private PropuestaPersistence propuestaPersistence;
 
     /**
-     * Guardar una nueva tarjeta
+     * Guardar un nuevo Pago
      *
-     * @param pagosEntity La entidad de tipo pago de la nueva tarjeta a persistir.
+     * @param pagosEntity La entidad de tipo pago del nuevo pago a
+     * persistir.
      * @return La entidad luego de persistirla
-     * @throws BusinessLogicException Si el estado de aprobacion no existe
+     * @throws BusinessLogicException si la el cliente o la propuesta no existen
      */
     public PagosEntity createPago(PagosEntity pagosEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación del pago");
-        if (pagosEntity.getPagoAprobado()==null) {
-            throw new BusinessLogicException("El estado de aprobacion del pago es invalido");
+        LOGGER.info("Inicia proceso de creación de pago");
+        if (pagosEntity.getCliente()== null) {
+            throw new BusinessLogicException("El cliente es inválido");
         }
-        if (clientePersistence.find(pagosEntity.getCliente().getId())==null) {
-            throw new BusinessLogicException("El cliente no existe");
+        ClienteEntity clienteEntity = clientePersistence.find(pagosEntity.getCliente().getId());
+        if (clienteEntity == null) {
+            throw new BusinessLogicException("El cliente es inválido");
         }
-        
-        persistence.create(pagosEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación del pago");
+         if (pagosEntity.getPropuesta()== null) {
+            throw new BusinessLogicException("La propuesta es inválida");
+        }
+        PropuestaEntity propuestaEntity = propuestaPersistence.find(pagosEntity.getPropuesta().getId());
+        if (propuestaEntity == null) {
+            throw new BusinessLogicException("La propuesta es inválida");
+        }
+        pagosEntity.setCliente(clienteEntity);
+        pagosEntity.setPropuesta(propuestaEntity);
+        pagosEntity = pagosPersistence.create(pagosEntity);    
+        LOGGER.info("Termina proceso de creación un pago");
         return pagosEntity;
     }
- /**
+
+    /**
      * Devuelve todos los pagos que hay en la base de datos.
      *
      * @return Lista de entidades de tipo pago.
      */
     public List<PagosEntity> getPagos() {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los pagos");
-        List<PagosEntity> pagos = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los pagos");
+        LOGGER.info("Inicia proceso de consultar todos los pagos");
+        List<PagosEntity> pagos = pagosPersistence.findAll();
+        LOGGER.info("Termina proceso de consultar todos los pagos");
         return pagos;
     }
 
@@ -63,50 +82,42 @@ public class PagosLogic {
      * Busca un pago por ID
      *
      * @param idTransaccion El id del pago a buscar
-     * @return El pago encontrada, null si no lo encuentra.
+     * @return El pago encontrado, null si no lo encuentra.
      */
     public PagosEntity getPago(Long idTransaccion) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el pago con id = {0}", idTransaccion);
-        PagosEntity pagosEntity = persistence.find(idTransaccion);
-        if (pagosEntity == null) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar pago con id = {0}", idTransaccion);
+        PagosEntity pago = pagosPersistence.find(idTransaccion);
+        if (pago == null) {
             LOGGER.log(Level.SEVERE, "El pago con el id = {0} no existe", idTransaccion);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el pago con id = {0}", idTransaccion);
-        return pagosEntity;
+        LOGGER.log(Level.INFO, "Termina proceso de consultar pago con id = {0}", idTransaccion);
+        return pago;
     }
 
     /**
      * Actualizar un pago por ID
      *
-     * @param idTarjeta El ID del pago a actualizar
-     * @param pagoEntity La entidad del pago con los cambios deseados
+     * @param idTransaccion El ID del pago a actualizar
+     * @param pagosEntity La entidad del pago con los cambios deseados
      * @return La entidad del pago luego de actualizarla
-     * @throws BusinessLogicException Si el numero de la tarjeta es inválido
      */
-    public PagosEntity updateTarjeta(Long idTarjeta, PagosEntity pagoEntity) throws BusinessLogicException {
-         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0}", idTarjeta);
-       if (pagoEntity.getPagoAprobado()==null) {
-            throw new BusinessLogicException("El estado de aprobacion del pago es invalido");
-        }
-        if (clientePersistence.find(pagoEntity.getCliente().getId())==null) {
-            throw new BusinessLogicException("El cliente no existe");
-        }
-       
-        PagosEntity newEntity = persistence.update(pagoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0}", pagoEntity.getId());
+    public PagosEntity updatePago(Long idTransaccion, PagosEntity pagosEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar pago con id = {0}", idTransaccion);
+        PagosEntity newEntity = pagosPersistence.update(pagosEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar pago con id = {0}", pagosEntity.getId());
         return newEntity;
     }
 
     /**
      * Eliminar un pago por ID
      *
-     * @param idTransaccion El ID de la tarjeta a eliminar
+     * @param idTransaccion El ID del pago a eliminar
+     * @throws BusinessLogicException si el ID del pago no se encuentra.
      */
-    public void deleteTarjeta(Long idTransaccion) {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el pago con id = {0}", idTransaccion);
-        
-        persistence.delete(idTransaccion);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el pago con id = {0}", idTransaccion);
+    public void deletePago(Long idTransaccion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar pago con id = {0}", idTransaccion);
+        pagosPersistence.delete(idTransaccion);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar pago con id = {0}", idTransaccion);
     }
 
 
