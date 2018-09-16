@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -24,7 +25,7 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     private String nombre;
     
     @PodamExclude
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TarjetaDeCreditoEntity> tarjetas;
     
     @PodamExclude
@@ -34,6 +35,32 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(mappedBy = "cliente")
     private List<PagosEntity> pagos;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<InvitacionEntity> invitaciones;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "cliente")
+    private List<PropuestaEntity> propuestas;
+
+    public List<InvitacionEntity> getInvitaciones() {
+        return invitaciones;
+    }
+
+    public void setInvitaciones(List<InvitacionEntity> invitaciones) {
+        this.invitaciones = invitaciones;
+    }
+
+    public List<PropuestaEntity> getPropuestas() {
+        return propuestas;
+    }
+
+    public void setPropuestas(List<PropuestaEntity> propuestas) {
+        this.propuestas = propuestas;
+    }
+    
+    
 
     public List<PagosEntity> getPagos() {
         return pagos;

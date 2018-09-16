@@ -118,4 +118,19 @@ public class PropuestaPersistence
         LOGGER.log(Level.INFO, "Saliendo de las propuestas por costo ", costo);
         return propuestasCosto;
     }
+	
+	/**
+     * Busca las propuestas que existen en la base de datos.          
+     * @return Todas las propuestas existentes en la base de datos.     
+     */
+	
+    public List<PropuestaEntity> getAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las propuestas");
+        // Se crea un query para buscar propuestaes con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From PropuestaEntity e", PropuestaEntity.class); //Quey tipeado para consulta       
+        // Se invoca el query se obtiene la lista resultado
+        List<PropuestaEntity> propuestas = query.getResultList(); //Retorna una lista con las tuplas resultados.        
+        LOGGER.log(Level.INFO, "Retornando todas las propuestas");
+        return propuestas;
+    }
 }

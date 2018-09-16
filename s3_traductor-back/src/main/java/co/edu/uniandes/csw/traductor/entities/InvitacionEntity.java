@@ -21,8 +21,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class InvitacionEntity extends BaseEntity implements Serializable {
 
 	private Long idCliente;
-	private Long idEmpleado;
-	private Long solicitudId;
+	private Long idEmpleado;	
 	private String descripcion;
 	
 	@PodamExclude
@@ -34,6 +33,10 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 	@ManyToOne
 	private EmpleadoEntity empleado;
 	
+        //"Callback a Cliente - Relacion ManyToOne"
+	@PodamExclude
+	@ManyToOne
+	private ClienteEntity cliente;
 	
 	/**
 	 * Constructor
@@ -70,19 +73,8 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 		this.idEmpleado = idEmpleado;
 	}
 
-	/**
-	 * @return the solicitudId
-	 */
-	public Long getSolicitudId() {
-		return solicitudId;
-	}
-
-	/**
-	 * @param solicitudId the solicitudId to set
-	 */
-	public void setSolicitudId(Long solicitudId) {
-		this.solicitudId = solicitudId;
-	}
+	//Atención: 14 de Septiembre 21:57 - Se elimino el atributo solicitudId debido a que según el modelo conceptual
+	//solicitud no se relaciona con la invitacion.
 
 	/**
 	 * @return the descripcion
@@ -96,5 +88,21 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}	
+	}
+        
+        public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
 }

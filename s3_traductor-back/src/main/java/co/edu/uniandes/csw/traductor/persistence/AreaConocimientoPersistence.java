@@ -58,6 +58,27 @@ public class AreaConocimientoPersistence
 		
         return em.find(AreaConocimientoEntity.class, areaId);
     }
+	
+	/**
+     * Busca si hay alguna areaConocimiento con el area que se envía de argumento     
+     * @param areaBusqueda: Es el nombre del area a quien se le va a realizar la busqueda.
+     * @return La areaConocimiento con el area que se recibe por parametro.
+     */
+	
+    public AreaConocimientoEntity findByArea(String areaBusqueda) {
+        LOGGER.log(Level.INFO, "Consultando areaConocimiento con area: {0}", areaBusqueda);		
+		/* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento
+		el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+		Suponga que es algo similar a "select * from AreaConocimientoEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+		 */
+		
+		TypedQuery query = em.createQuery("Select e From AreaConocimientoEntity e where e.area = :area", AreaConocimientoEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("area", areaBusqueda);
+        // Se invoca el query se obtiene la lista resultado
+        List<AreaConocimientoEntity> resultado = query.getResultList();
+		return (resultado == null || resultado.isEmpty()) ? null : resultado.get(0);        
+    }
 
 	 /**
      * Actualiza una areaConocimiento.    
@@ -96,5 +117,20 @@ public class AreaConocimientoPersistence
          Es similar a "delete from AreaConocimientoEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la areaConocimiento con id = {0}", areaId);
-    }    
+    }
+	
+	/**
+     * Busca las areas de conocimiento que existen en la base de datos.          
+     * @return Todas las areas de conocimiento existentes en la base de datos.     
+     */
+	
+    public List<AreaConocimientoEntity> getAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las areas");
+        // Se crea un query para buscar las invitaciones con el nombre que recibe el método como argumento
+        TypedQuery query = em.createQuery("Select e From AreaConocimientoEntity e", AreaConocimientoEntity.class); //Query tipeado para consulta       
+        // Se invoca el query se obtiene la lista resultado
+        List<AreaConocimientoEntity> entidades = query.getResultList(); //Retorna una lista con las tuplas resultados.        
+        LOGGER.log(Level.INFO, "Retornando todas las areas");
+        return entidades;
+    }
 }
