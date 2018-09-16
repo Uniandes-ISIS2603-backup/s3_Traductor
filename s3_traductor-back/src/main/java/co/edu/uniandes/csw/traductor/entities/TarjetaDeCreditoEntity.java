@@ -27,24 +27,26 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaExpiracion;
     private String redBancaria;
+     private String nombreTitular;
+
+    public String getNombreTitular() {
+        return nombreTitular;
+    }
+
+    public void setNombreTitular(String nombreTitular) {
+        this.nombreTitular = nombreTitular;
+    }
+
     
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private ClienteEntity cliente;
 
-    public ClienteEntity getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
-    
+   
     public TarjetaDeCreditoEntity() {
         
     }
-
-
+    
     public Long getNumeroTarjetaCredito() {
         return numeroTarjetaCredito;
     }

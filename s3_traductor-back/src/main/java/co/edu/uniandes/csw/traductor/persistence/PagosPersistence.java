@@ -44,7 +44,7 @@ public class PagosPersistence {
      * PagosEntity;" - "SELECT * FROM table_name" en SQL.
      */
     public List<PagosEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos los idiomas");
+        LOGGER.log(Level.INFO, "Consultando todos los pagos");
         
         TypedQuery query = em.createQuery("select u from PagosEntity u", PagosEntity.class);
         return query.getResultList();
@@ -60,6 +60,10 @@ public class PagosPersistence {
         LOGGER.log(Level.INFO, "Consultando pago con id={0}", idPago);
         return em.find(PagosEntity.class, idPago);
     }
+    public PagosEntity update(PagosEntity pagosEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el pago con id={0}", pagosEntity.getId());
+        return em.merge(pagosEntity);
+    }
     
     
     /**
@@ -73,7 +77,7 @@ public class PagosPersistence {
         LOGGER.log(Level.INFO, "Borrando pago con id = {0}", idPago);
         PagosEntity entity = em.find(PagosEntity.class, idPago);
         em.remove(entity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar el idioma con id = {0}", idPago);
+        LOGGER.log(Level.INFO, "Saliendo de borrar el pago con id = {0}", idPago);
     }
 	
 }
