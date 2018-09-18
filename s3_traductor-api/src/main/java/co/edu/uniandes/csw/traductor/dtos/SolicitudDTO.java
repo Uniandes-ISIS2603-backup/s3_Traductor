@@ -36,21 +36,21 @@ public class SolicitudDTO implements Serializable{
     
     public final static Integer CANCELADO = 0;
     
-    public final static Integer CORECCION = 01;
+    public final static Integer CORECCION = 3;
     
-    public final static Integer TRADUCCION = 02;
+    public final static Integer TRADUCCION = 4;
     
     
     
-	private Long idSolicitud;
-	private Date fechaInicio;
-        private Date fechaEntrega;
-        private Integer estado;
-        private Integer tipoSolicitud;
-        private ClienteDTO cliente;
-        private EmpleadoDTO empleado;
-        private IdiomaDTO idiomaEntrada;
-        private IdiomaDTO idiomaSalida;
+	protected Long idSolicitud;
+	protected Date fechaInicio;
+        protected Date fechaEntrega;
+        protected Integer estado;
+        protected Integer tipoSolicitud;
+        protected ClienteDTO cliente;
+        protected EmpleadoDTO empleado;
+        protected IdiomaDTO idiomaEntrada;
+        protected IdiomaDTO idiomaSalida;
 	
 	/**
 	 * Constructor vacio para que sea llenado por JAX-RS
@@ -69,14 +69,14 @@ public class SolicitudDTO implements Serializable{
      * la entidad que viene de argumento.
      *
      * @param solicitudEntity es la entidad que se va a convertir en DTO
-     * 
+     *  
      */
 	
 	public SolicitudDTO (SolicitudEntity solicitudEntity)
 	{
 		if (solicitudEntity != null)
 		{
-			this.idSolicitud = solicitudEntity.getIdSolicitud();
+			this.idSolicitud = solicitudEntity.getId();
                         this.fechaInicio = solicitudEntity.getFechaInicio();
                         this.fechaEntrega = solicitudEntity.getFechaEntrega();
                         this.estado = solicitudEntity.getEstado();  
@@ -109,6 +109,11 @@ public class SolicitudDTO implements Serializable{
 	{
 		SolicitudEntity solicitudEntity = new SolicitudEntity();
 		solicitudEntity.setId(idSolicitud);
+                solicitudEntity.setEstado(this.estado);
+                solicitudEntity.setTipoSolicitud(this.tipoSolicitud);
+             // solicitudEntity.setCliente(this.cliente.toEntity());
+             // solicitudEntity.setEmpleado(this.empleado.toEntity());
+                
 		return solicitudEntity;
 	}	
 	
