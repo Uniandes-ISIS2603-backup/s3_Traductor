@@ -177,7 +177,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
      * Prueba para crear un Pago con una propuesta nula.
      */
     @Test(expected = BusinessLogicException.class)
-    public void createPrizeConOrganizacionInvalida3Test() throws BusinessLogicException {
+    public void createPaogConPropuestaInvalida3Test() throws BusinessLogicException {
         PagosEntity newEntity = factory.manufacturePojo(PagosEntity.class);
         newEntity.setCliente(clienteData.get(0));
          newEntity.setPropuesta(null);
@@ -188,7 +188,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
      * Prueba para consultar la lista de Pagos.
      */
     @Test
-    public void getPrizesTest() {
+    public void getPagosTest() {
         List<PagosEntity> list = pagosLogic.getPagos();
         Assert.assertEquals(data.size(), list.size());
         for (PagosEntity entity : list) {
@@ -206,7 +206,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
      * Prueba para consultar un Pago.
      */
     @Test
-    public void getPrizeTest() {
+    public void getPagoTest() {
         PagosEntity entity = data.get(0);
         PagosEntity resultEntity = pagosLogic.getPago(entity.getId());
         Assert.assertNotNull(resultEntity);

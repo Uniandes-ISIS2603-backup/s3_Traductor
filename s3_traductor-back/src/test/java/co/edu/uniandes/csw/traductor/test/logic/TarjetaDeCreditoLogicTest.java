@@ -123,7 +123,8 @@ public class TarjetaDeCreditoLogicTest {
     public void createTarjetaTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         newEntity.setCcv(123);
-        newEntity.setFechaExpiracion(new Date());
+        newEntity.setMesExpiracion(3);
+        newEntity.setAnioExpiracion(2023);
         newEntity.setNombreTitular("Andres");
         Long lg = null;
         String tarjeta="123456789123456";
@@ -184,7 +185,7 @@ public class TarjetaDeCreditoLogicTest {
      * Prueba para actualizar una Tarjeta con numero inválido.
      */
     @Test(expected = BusinessLogicException.class)
-    public void updateBookConNumeroTarjetaInvalidoTest() throws BusinessLogicException {
+    public void updateTarjetaConNumeroTarjetaInvalidoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entity = data.get(0);
         TarjetaDeCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         pojoEntity.setNumeroTarjetaCredito(Long.valueOf(1));
