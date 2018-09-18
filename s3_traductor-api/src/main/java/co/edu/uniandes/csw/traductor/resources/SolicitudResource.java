@@ -92,6 +92,7 @@ public class SolicitudResource {
         if (solicitudEntity == null) {
             throw new WebApplicationException("La solicitud /solicitudes/" + id + "no existe.", 404);
         }
+        //COMENTARIO
         solicitudLogic.cambiarEstado(id);
         return new SolicitudDTO(solicitudEntity);
     }
