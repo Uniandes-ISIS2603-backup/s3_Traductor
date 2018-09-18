@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -24,6 +25,11 @@ public class PagosEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
+    
+   @PodamExclude
+   @OneToOne
+   private PropuestaEntity propuesta;
+
 
     public ClienteEntity getCliente() {
         return cliente;
@@ -31,6 +37,14 @@ public class PagosEntity extends BaseEntity implements Serializable {
 
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
+    }
+   
+     public PropuestaEntity getPropuesta() {
+        return propuesta;
+    }
+
+    public void setPropuesta(PropuestaEntity propuesta) {
+        this.propuesta = propuesta;
     }
 
     

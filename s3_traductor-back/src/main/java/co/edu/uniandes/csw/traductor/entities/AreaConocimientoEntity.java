@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase que representa un area de conocimiento en la persistencia y permite su
@@ -19,6 +21,12 @@ import javax.persistence.Entity;
 public class AreaConocimientoEntity extends BaseEntity implements Serializable {
 
 	private String area;
+	
+	//"Callback a Empleado - Relacion ManyToOne"
+	@PodamExclude
+	@ManyToOne
+	private EmpleadoEntity empleado;
+	
 	
 	/**
 	 * @return the area

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -26,24 +27,26 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaExpiracion;
     private String redBancaria;
+     private String nombreTitular;
+
+    public String getNombreTitular() {
+        return nombreTitular;
+    }
+
+    public void setNombreTitular(String nombreTitular) {
+        this.nombreTitular = nombreTitular;
+    }
+
     
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
 
-    public ClienteEntity getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
-    
+   
     public TarjetaDeCreditoEntity() {
         
     }
-
-
+    
     public Long getNumeroTarjetaCredito() {
         return numeroTarjetaCredito;
     }

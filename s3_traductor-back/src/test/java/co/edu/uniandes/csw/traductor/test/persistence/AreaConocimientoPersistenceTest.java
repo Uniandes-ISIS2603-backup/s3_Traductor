@@ -36,7 +36,8 @@ public class AreaConocimientoPersistenceTest
      * Inyección de la dependencia a la clase AreaConocimientoPersistence cuyos métodos
      * se van a probar.
      */
-    @Inject
+    
+	@Inject
     private AreaConocimientoPersistence areaPersistence;
 
     /**
@@ -154,6 +155,23 @@ public class AreaConocimientoPersistenceTest
 	}
 	
 	/**
+	 * Permite encontrar un area de conocimiento por medio de su area.
+	 */
+	
+	@Test
+	public void findByArea()
+	{
+		PodamFactory podam = new PodamFactoryImpl();
+		AreaConocimientoEntity entidad = podam.manufacturePojo(AreaConocimientoEntity.class);
+		entidad.setArea("Matematicas");
+		areaPersistence.create(entidad); //Guardar en la base de datos.
+		AreaConocimientoEntity buscado = areaPersistence.findByArea("Matematicas");
+		Assert.assertNotNull("El area de conocimiento no deberia ser nulo", buscado);
+		Assert.assertEquals("El nombre del area de conocimiento no concuerda", "Matematicas", buscado.getArea());
+	}
+	
+	
+	/**
      * Prueba para actualizar un area de conocimiento.
      */
 	
@@ -178,5 +196,21 @@ public class AreaConocimientoPersistenceTest
         areaPersistence.delete(entity.getId());
         AreaConocimientoEntity deleted = em.find(AreaConocimientoEntity.class, entity.getId());
         Assert.assertNull("El area de conocimiento se deberia haber borrado satisfactoriamente",deleted);
-    }	
+    }
+
+	/**
+	 * Permite consultar todos los elementos en la tabla en la base de datos
+	 */
+	
+	@Test
+	public void getAllTest()
+	{
+		List<AreaConocimientoEntity> entidades = areaPersistence.getAll();
+		Assert.assertEquals("El numero de elementos en la tabla no es el correcto",3 ,entidades.size());
+		PodamFactory podam = new PodamFactoryImpl(); //Crear una nueva entidad.
+		AreaConocimientoEntity nuevaEntidad = podam.manufacturePojo(AreaConocimientoEntity.class);
+		areaPersistence.create(nuevaEntidad);
+		entidades = areaPersistence.getAll(); //Volver a realizar el llamado para obtener el nuevo elemento
+		Assert.assertEquals("El numero de elementos en la tabla no es el correcto", 4, entidades.size());
+	}	
 }

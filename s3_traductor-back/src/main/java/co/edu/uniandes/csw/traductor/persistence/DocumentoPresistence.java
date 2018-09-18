@@ -24,11 +24,13 @@ SOFTWARE.
 package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  * Clase que maneja la persistencia para Documento. Se conecta a través del Entity
@@ -52,9 +54,6 @@ public class DocumentoPresistence {
      */
     public DocumentoEntity create(DocumentoEntity DocumentoEntity) {
         LOGGER.log(Level.INFO, "Creando un autor nuevo");
-        /* Note que hacemos uso de un método propio de EntityManager para persistir el documento en la base de datos.
-        Es similar a "INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);" en SQL.
-         */
         em.persist(DocumentoEntity);
         LOGGER.log(Level.INFO, "Docuemento creado");
         return DocumentoEntity;
@@ -74,22 +73,28 @@ public class DocumentoPresistence {
          */
         return em.find(DocumentoEntity.class, documentoId);
     }
+    /**
+     * Devuelve todos los documentos de la base de datos.
+     *
+     * @return una lista con  todos los documentos que encuentre en la base de
+     * datos, "select u from ClienteEntity u" es como un "select * from
+     * ClienteEntity;" - "SELECT * FROM table_name" en SQL.
+     */
+    public List<DocumentoEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todos los documentos");
+        TypedQuery query = em.createQuery("select u from DocumentoEntity u", DocumentoEntity.class);
+        return query.getResultList();
+    }
 
     /**
      * Actualiza un documento.
      *
-     * @param documentoEntity: el documento que viene con los nuevos cambios. Por
-     * ejemplo el nombre pudo cambiar. En ese caso, se haria uso del método
-     * update.
+     * @param documentoEntity: el documento que viene con los nuevos cambios.
      * @return un documento con los cambios aplicados.
      */
     public DocumentoEntity update(DocumentoEntity documentoEntity) {
-        LOGGER.log(Level.INFO, "Actualizando el author con id={0}", documentoEntity.getId());
-        /* Note que hacemos uso de un método propio del EntityManager llamado merge() que recibe como argumento
-        el documento con los cambios, esto es similar a 
-        "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;" en SQL.
-         */
-        return em.merge(documentoEntity);
+       LOGGER.log(Level.INFO, "Actualizando el author con id={0}", documentoEntity.getId());
+       return em.merge(documentoEntity);
     }
 
     /**
@@ -100,12 +105,8 @@ public class DocumentoPresistence {
      */
     public void delete(Long documentoId) {
 
-        LOGGER.log(Level.INFO, "Borrando el author con id={0}", documentoId);
-        // Se hace uso de mismo método que esta explicado en public DocumentoEntity find(Long id) para obtener el documento a borrar.
+        LOGGER.log(Level.INFO, "Borrando el documento con id={0}", documentoId);
         DocumentoEntity documentoEntity = em.find(DocumentoEntity.class, documentoId);
-        /* Note que una vez obtenido el objeto desde la base de datos llamado "entity", volvemos hacer uso de un método propio del
-        EntityManager para eliminar de la base de datos el objeto que encontramos y queremos borrar.
-        Es similar a "delete from DocumentoEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
         em.remove(documentoEntity);
     }
 }
