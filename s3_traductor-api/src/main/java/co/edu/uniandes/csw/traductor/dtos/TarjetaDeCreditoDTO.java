@@ -19,7 +19,8 @@ public class TarjetaDeCreditoDTO implements Serializable
     private Long idTarjeta;
     private Long numeroTarjetaCredito;
     private Integer ccv;
-    private Date fechaExpiracion;
+    private Integer mesExpiracion;
+     private Integer anioExpiracion;
     private String redBancaria; 
     private String nombreTitular;
 
@@ -28,7 +29,8 @@ public class TarjetaDeCreditoDTO implements Serializable
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
         numeroTarjetaCredito=tarjeta.getNumeroTarjetaCredito();
         ccv=tarjeta.getCcv();
-        fechaExpiracion=tarjeta.getFechaExpiracion();
+        mesExpiracion=tarjeta.getMesExpiracion();
+        anioExpiracion=tarjeta.getAnioExpiracion();
         redBancaria=tarjeta.getRedBancaria();
     }
     
@@ -36,13 +38,13 @@ public class TarjetaDeCreditoDTO implements Serializable
     {
         
     }
-    
+   
 public TarjetaDeCreditoEntity toEntity()
 	{
 		TarjetaDeCreditoEntity tarjetaDeCredito = new TarjetaDeCreditoEntity();
 		tarjetaDeCredito.setCcv(ccv);
-                tarjetaDeCredito.setFechaExpiracion(fechaExpiracion);
-                tarjetaDeCredito.setNumeroTarjetaCredito(numeroTarjetaCredito);
+                tarjetaDeCredito.setMesExpiracion(mesExpiracion);
+                tarjetaDeCredito.setAnioExpiracion(anioExpiracion);
                 tarjetaDeCredito.setRedBancaria(redBancaria);
 		return tarjetaDeCredito;
 	}	
@@ -83,14 +85,6 @@ public TarjetaDeCreditoEntity toEntity()
         this.ccv = ccv;
     }
 
-    public Date getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public void setFechaExpiracion(Date fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
-
     public String getRedBancaria() {
         return redBancaria;
     }
@@ -99,4 +93,20 @@ public TarjetaDeCreditoEntity toEntity()
         this.redBancaria = redBancaria;
     }
     
+    public Integer getMesExpiracion() {
+        return mesExpiracion;
     }
+
+    public void setMesExpiracion(Integer mesExpiracion) {
+        this.mesExpiracion = mesExpiracion;
+    }
+
+    public Integer getAnioExpiracion() {
+        return anioExpiracion;
+    }
+
+    public void setAnioExpiracion(Integer anioExpiracion) {
+        this.anioExpiracion = anioExpiracion;
+    }
+    }
+

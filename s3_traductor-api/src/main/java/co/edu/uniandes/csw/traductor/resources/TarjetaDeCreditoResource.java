@@ -6,12 +6,15 @@
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.TarjetaDeCreditoDTO;
+import co.edu.uniandes.csw.traductor.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
+import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -35,6 +38,14 @@ public class TarjetaDeCreditoResource {
 
     //Logger
     private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
+    
+    @Inject
+    private TarjetaDeCreditoLogic tarjetaLogic;
+    
+    /*
+     @Inject
+    private ClienteTarjetaDeCreditoLogic clienteTarjetaLogic;
+    */
 
     /**
      * Crea una nueva tarjeta con la informacion que se recibe en el cuerpo de
@@ -47,10 +58,11 @@ public class TarjetaDeCreditoResource {
      * @return JSON {@link PropuestaDTO} - La propuesta recibida.
      */
     @POST
-    public TarjetaDeCreditoDTO createTarjeta(TarjetaDeCreditoDTO nuevaTarjeta) {
+    public TarjetaDeCreditoDTO createTarjeta(TarjetaDeCreditoDTO nuevaTarjeta) throws BusinessLogicException {
 
         //Llamado al Logger
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createTarjeta: input: {0}", nuevaTarjeta.toString());
+        TarjetaDeCreditoDTO nuevaTarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.createTarjeta(nuevaTarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createTarjeta: output: {0}", nuevaTarjeta.toString());
 
         return nuevaTarjeta;
@@ -69,14 +81,16 @@ public class TarjetaDeCreditoResource {
      */
     @PUT
     @Path("{idTarjeta: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
-    public TarjetaDeCreditoDTO updateTarjeta(@PathParam("propuestaId") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws WebApplicationException {
+    public TarjetaDeCreditoDTO updateTarjeta(@PathParam("idTarjetaDeCredito") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
 
-       LOGGER.log(Level.INFO, "TarjetaDeCreditoResource modificarTarjeta: input:(0)", idTarjeta);
-        TarjetaDeCreditoDTO modificadoDTO = new TarjetaDeCreditoDTO ();
-        
-        LOGGER.log(Level.INFO,"TarjetaDeCreditosResource modificarTarjeta: output: (0)", modificadoDTO.toString());
-        
-        return modificadoDTO;
+       LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: input: id: {0} , tarjetaDeCredito: {1}", new Object[]{idTarjeta, tarjeta.toString()});
+        tarjeta.setIdTarjeta(idTarjeta);
+        if (tarjetaLogic.getTarjetaDeCredito(idTarjeta) == null) {
+            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+        }
+        TarjetaDeCreditoDTO detailDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(idTarjeta, tarjeta.toEntity()));
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: output: {0}", detailDTO.toString());
+        return detailDTO;
 
     }
 
@@ -88,7 +102,10 @@ public class TarjetaDeCreditoResource {
      */
     @GET
     public List<TarjetaDeCreditoDTO> getTarjetas() {
-        return null;
+       LOGGER.info("TarjetaDeCreditoResource getTarjetas: input: void");
+        List<TarjetaDeCreditoDTO> listaTarjetas = listEntity2DetailDTO(tarjetaLogic.getTarjetas());
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetas: output: {0}", listaTarjetas.toString());
+        return listaTarjetas;
     }
 
     /**
@@ -102,8 +119,14 @@ public class TarjetaDeCreditoResource {
     @GET
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO getTarjeta(@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
-
-        return null;
+LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarjeta);
+        TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(idTarjeta);
+        if (tarjetaEntity == null) {
+            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+        }
+        TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaEntity);
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: output: {0}", tarjetaDTO.toString());
+        return tarjetaDTO;
     }
 
     /**
@@ -117,8 +140,16 @@ public class TarjetaDeCreditoResource {
     @Path("{idTarjeta: \\d+}")
     public void deleteTarjeta(@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
 
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResources deleteTarjeta: input: {0}", idTarjeta);
-        LOGGER.info("TarjetaDeCreditoResources deleteTarjeta: output: void");
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource deleteTarjeta: input: {0}", idTarjeta);
+        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idTarjeta);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+        }
+        /*
+        clienteTarjetaLogic.removeTarjeta(idTarjeta);
+        */
+        tarjetaLogic.deleteTarjeta(idTarjeta);
+        LOGGER.info("BookResource deleteBook: output: void");
     }
 
     /**
