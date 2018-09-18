@@ -15,7 +15,6 @@
     <class>co.edu.uniandes.csw.traductor.entities.ReferenciaEntity</class>
     <class>co.edu.uniandes.csw.traductor.entities.SolicitudEntity</class>
     <class>co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity</class> 
-  </persistence-unit>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
  <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
