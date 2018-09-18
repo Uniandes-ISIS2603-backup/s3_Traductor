@@ -94,10 +94,10 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         }
         solicitudes=new ArrayList<>();
         if(empleado.getSolicitudes()!=null){
-            for(SolicitudEntity solen:empleado.getSolicitudes()){
+            //for(SolicitudEntity solen:empleado.getSolicitudes()){
                 //SolicitudDetailDTO tmpsoli = new SolicitudDetailDTO(solen);
-                break; //TODO
-            }
+                //break; //TODO
+            //}
         }
     }
     

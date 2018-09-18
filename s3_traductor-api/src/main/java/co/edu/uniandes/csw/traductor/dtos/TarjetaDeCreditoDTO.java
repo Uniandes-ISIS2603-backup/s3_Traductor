@@ -21,6 +21,9 @@ public class TarjetaDeCreditoDTO implements Serializable
     private Integer ccv;
     private Date fechaExpiracion;
     private String redBancaria; 
+    private String nombreTitular;
+
+  
 
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
         numeroTarjetaCredito=tarjeta.getNumeroTarjetaCredito();
@@ -33,6 +36,7 @@ public class TarjetaDeCreditoDTO implements Serializable
     {
         
     }
+    
 public TarjetaDeCreditoEntity toEntity()
 	{
 		TarjetaDeCreditoEntity tarjetaDeCredito = new TarjetaDeCreditoEntity();
@@ -46,6 +50,13 @@ public TarjetaDeCreditoEntity toEntity()
 	@Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+      public String getNombreTitular() {
+        return nombreTitular;
+    }
+
+    public void setNombreTitular(String nombreTitular) {
+        this.nombreTitular = nombreTitular;
     }
     
     public Long getIdTarjeta() {

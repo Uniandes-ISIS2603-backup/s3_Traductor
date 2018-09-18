@@ -7,7 +7,9 @@
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.*;
+import co.edu.uniandes.csw.traductor.ejb.AreaConocimientoLogic;
 import co.edu.uniandes.csw.traductor.entities.*;
+import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +40,10 @@ public class AreaConocimientoResource
 	//Logger
 	private static final Logger LOGGER = Logger.getLogger(AreaConocimientoResource.class.getName());
 
+	//Inyeccion de Logic.
+	@Inject
+	private AreaConocimientoLogic areaLogic;
+	
 	/**
 	 * Crea una nueva area de conocimiento con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
 	 *
@@ -48,7 +54,7 @@ public class AreaConocimientoResource
 	 */
 	
 	@POST
-	public AreaConocimientoDTO createArea(AreaConocimientoDTO nuevaArea) {
+	public AreaConocimientoDTO createArea(AreaConocimientoDTO nuevaArea) throws BusinessLogicException {
 		
 		// TODO:[createArea] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 	
@@ -56,12 +62,13 @@ public class AreaConocimientoResource
 		LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: input: {0}", nuevaArea.toString());
 
 		// Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-		//AreaConocimientoEntity areaEntity = nuevaArea.toEntity();
+		AreaConocimientoEntity areaEntity = nuevaArea.toEntity();
 		// Invoca la lógica para crear la area de conocimiento nueva. Ahi abajo debe ir la logica.
+		AreaConocimientoEntity nuevaEntity = areaLogic.createArea(areaEntity);
 		// Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.		        
-		//AreaConocimientoDTO respuestaDTO = new AreaConocimientoDTO(nuevoEditorialEntity);
-		LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: output: {0}", nuevaArea.toString());
-		return nuevaArea;
+		AreaConocimientoDTO respuestaDTO = new AreaConocimientoDTO(nuevaEntity);
+		LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: output: {0}", respuestaDTO.toString());
+		return respuestaDTO;
 	}	
 
 	/**
@@ -72,10 +79,10 @@ public class AreaConocimientoResource
 	@GET
 	public List<AreaConocimientoDTO> getAllAreas() {
 		// TODO: [getAllAreas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
-		//LOGGER.info("AreaConocimientoResources getAllAreas: input: void");
-		//List<AreaConocimientoDTO> listaPropuestas = listEntity2DetailDTO(areaConocimientoLogic.getAreas()); Se llama a la logica para que devuelva la lista !
-		//LOGGER.log(Level.INFO, "AreaConocimientoResources getAllAreas: output: {0}", listaPropuestas.toString());
-		return null;
+		LOGGER.info("AreaConocimientoResources getAllAreas: input: void");
+		List<AreaConocimientoDTO> listaAreas = listEntity2DetailDTO(areaLogic.getAllAreas()); //Se llama a la logica para que devuelva la lista !
+		LOGGER.log(Level.INFO, "AreaConocimientoResources getAllAreas: output: {0}", listaAreas.toString());
+		return listaAreas;
 	}
 
 	/**
@@ -90,19 +97,22 @@ public class AreaConocimientoResource
 	public AreaConocimientoDTO getArea(@PathParam("id") Long id) throws WebApplicationException {
 		
 		// TODO: [getArea] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		//LOGGER.log(Level.INFO, "AreaConocimientoResources getArea: input: {0}", id);
+		LOGGER.log(Level.INFO, "AreaConocimientoResources getArea: input: {0}", id);
 		
-		/**
-		 * Verificacion de que existe
-		AreaConocimientoEntity areaEntity = areaLogic.getArea(editorialsId);
-		if (areaEntity == null) {
+		AreaConocimientoDTO entityBuscada = null; //DTO respuesta.	
+		
+		try
+		{
+			entityBuscada = new AreaConocimientoDTO(areaLogic.getArea(id));
+		}
+		
+		catch(BusinessLogicException e)
+		{
 			throw new WebApplicationException("El recurso /areasConocimiento/" + id + " no existe.", 404);
 		}
-		*/
 		
-		//AreaConocimientoDTO detailDTO = new AreaConocimientoDTO(areaEntity);
-		//LOGGER.log(Level.INFO, "EditorialResource getArea: output: {0}", detailDTO.toString());
-		return null;
+		LOGGER.log(Level.INFO, "EditorialResource getArea: output: {0}", entityBuscada.toString());
+		return entityBuscada;
 	}
 	
 	/**
@@ -122,12 +132,16 @@ public class AreaConocimientoResource
 		
 		LOGGER.log(Level.INFO, "AreaConocimientoResources deleteArea: input: {0}", id);
         
-		/**
-		if (areaLogic.getArea(id) == null) {
-            throw new WebApplicationException("El recurso /areasConocimiento/" + id + " no existe.", 404);
-        }
-        areaLogic.deleteArea(id);
-		*/
+		try
+		{
+			areaLogic.getArea(id); //Si no existe salta al catch y manda la excepcion.
+			areaLogic.deleteArea(id);
+		}
+		
+		catch(BusinessLogicException e)
+		{
+			throw new WebApplicationException("El recurso /areasConocimiento/" + id + " no existe.", 404);
+		}
 		
         LOGGER.info("AreaConocimientoResources deleteArea: output: void");		
     }

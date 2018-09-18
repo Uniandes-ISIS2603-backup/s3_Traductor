@@ -49,12 +49,7 @@ public class InvitacionLogic
 		else if (invitacionEntity.getIdCliente() == null)
 		{
 			throw new BusinessLogicException("El id del cliente que crea la solicitud es un valor nulo"); 
-		}
-        
-		else if (invitacionEntity.getSolicitudId() == null)
-		{
-			throw new BusinessLogicException("El id de la solicitud a quien se le asociar la invitacion es un valor nulo"); 
-		}
+		}		
 		
 		else if (invitacionEntity.getDescripcion().length() == 0 || invitacionEntity.getDescripcion() == null)
 		{
