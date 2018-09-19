@@ -20,7 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Clase que implementa el subrecurso cliente/{idCliente}/invitacion
+ * Clase que implementa el subrecurso cliente/{idCliente}/invitaciones
  * @author Geovanny Andres Gonzalez
  */
 
@@ -33,6 +33,7 @@ public class ClienteInvitacionResource
 	/**
 	 * Guarda una invitacion dentro de un cliente con la info que se recibe por la URL.
 	 * Se devuelve la invitacion que se guarda en el cliente
+	 * @pre Ambos tanto el cliente como la invitacion deben existir.
 	 * @param idCliente Identificador del cliente a quien se le asocia la invitacion
 	 * @param idInvitacion Identificador de la invitacion que se esta asociando al cliente
 	 * @return La invitacion DTO con la informacion recibida por URL.
