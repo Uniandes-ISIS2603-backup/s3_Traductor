@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -47,13 +47,13 @@ public class ClienteLogicTest
     @Inject
     private UserTransaction utx;
 
-    private List<ClienteEntity> data = new ArrayList();
+    private List<ClienteEntity> data = new ArrayList<>();
 
-    private List<SolicitudEntity> solicitudesData = new ArrayList();
+    private List<SolicitudEntity> solicitudesData = new ArrayList<>();
     
-    private List<PropuestaEntity> propuestasData = new ArrayList();
+    private List<PropuestaEntity> propuestasData = new ArrayList<>();
     
-    private List<InvitacionEntity> invitacionesData = new ArrayList();
+    private List<InvitacionEntity> invitacionesData = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -105,30 +105,37 @@ public class ClienteLogicTest
      * pruebas.
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
-            em.persist(solicitudes);
-            solicitudesData.add(solicitudes);
-        }
-        for (int i = 0; i < 3; i++) {
-            InvitacionEntity invitaciones = factory.manufacturePojo(InvitacionEntity.class);
-            em.persist(invitaciones);
-            invitacionesData.add(invitaciones);
-        }
-        for (int i = 0; i < 3; i++) {
-            PropuestaEntity propuestas = factory.manufacturePojo(PropuestaEntity.class);
-            em.persist(propuestas);
-            propuestasData.add(propuestas);
-        }
-        for (int i = 0; i < 3; i++) {
+        
+        for (int i = 0; i < 4; i++) {
             ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
+            entity.setSolicitudes(new ArrayList<>());
+            entity.setPropuestas(new ArrayList<>());
+            entity.setInvitaciones(new ArrayList<>());
+            if(i == 0)
+            {
+                SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
+                em.persist(solicitud);
+                entity.getSolicitudes().add(solicitud);
+                solicitud.setCliente(entity);
+                solicitudesData.add(solicitud);
+            }
+            else if (i == 1)
+            {
+                InvitacionEntity invitacion = factory.manufacturePojo(InvitacionEntity.class);
+                em.persist(invitacion);
+                entity.getInvitaciones().add(invitacion); 
+                invitacion.setCliente(entity);
+                invitacionesData.add(invitacion);
+            }
+            else if (i == 2){
+                PropuestaEntity propuesta = factory.manufacturePojo(PropuestaEntity.class);
+                em.persist(propuesta);
+                entity.getPropuestas().add(propuesta);
+                propuesta.setCliente(entity);
+                propuestasData.add(propuesta);
+            }
             em.persist(entity);
             data.add(entity);
-            if (i == 0) {
-                solicitudesData.get(i).setCliente(entity);
-                propuestasData.get(i).setCliente(entity);
-                invitacionesData.get(i).setCliente(entity);
-            }
         }
     }
 
@@ -138,7 +145,7 @@ public class ClienteLogicTest
     @Test
     public void getClientesTest() {
         List<ClienteEntity> list = clienteLogic.getClientes();
-        Assert.assertEquals(data.size(), list.size());
+        Assert.assertEquals("No tiene el mismo numero de clientes",data.size(), list.size());
         for (ClienteEntity entity : list) {
             boolean found = false;
             for (ClienteEntity storedEntity : data) {
@@ -146,7 +153,7 @@ public class ClienteLogicTest
                     found = true;
                 }
             }
-            Assert.assertTrue(found);
+            Assert.assertTrue("Alguno de los clientes en data no se encontro en la persitencia",found);
         }
     }
     
@@ -211,7 +218,7 @@ public class ClienteLogicTest
      * Prueba para crear un cliente con el mismo correo de un cliente que ya
      * existe.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void createClienteConMismoCorreoTest() throws BusinessLogicException {
@@ -243,7 +250,7 @@ public class ClienteLogicTest
      */
     @Test
     public void deleteClienteTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(1);
+        ClienteEntity entity = data.get(3);
         clienteLogic.deleteCliente(entity.getId());
         ClienteEntity deleted = em.find(ClienteEntity.class, entity.getId());
         Assert.assertNull(deleted);
@@ -267,18 +274,18 @@ public class ClienteLogicTest
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConPropuestasAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+        ClienteEntity entity = data.get(2);
         clienteLogic.deleteCliente(entity.getId());
     }
     
     /**
      * Prueba para eliminar un Cliente con invitaciones asociadas.
      *
-     * @throws Exception
+     * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteConInvitacionesAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+        ClienteEntity entity = data.get(1);
         clienteLogic.deleteCliente(entity.getId());
     }
 }
