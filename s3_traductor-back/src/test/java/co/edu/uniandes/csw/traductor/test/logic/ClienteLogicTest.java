@@ -105,30 +105,38 @@ public class ClienteLogicTest
      * pruebas.
      */
     private void insertData() {
+        
         for (int i = 0; i < 4; i++) {
             ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
-            em.persist(entity);
             entity.setSolicitudes(new ArrayList<>());
             entity.setPropuestas(new ArrayList<>());
             entity.setInvitaciones(new ArrayList<>());
+            if(i == 0)
+            {
+                SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
+                em.persist(solicitud);
+                entity.getSolicitudes().add(solicitud);
+                solicitud.setCliente(entity);
+                solicitudesData.add(solicitud);
+            }
+            else if (i == 1)
+            {
+                InvitacionEntity invitacion = factory.manufacturePojo(InvitacionEntity.class);
+                em.persist(invitacion);
+                entity.getInvitaciones().add(invitacion); 
+                invitacion.setCliente(entity);
+                invitacionesData.add(invitacion);
+            }
+            else if (i == 3){
+                PropuestaEntity propuesta = factory.manufacturePojo(PropuestaEntity.class);
+                em.persist(propuesta);
+                entity.getPropuestas().add(propuesta);
+                propuesta.setCliente(entity);
+                propuestasData.add(propuesta);
+            }
+            em.persist(entity);
             data.add(entity);
         }
-        ClienteEntity cliente = data.get(0);
-        SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
-        solicitud.setCliente(cliente);
-        em.persist(solicitud);
-        cliente.getSolicitudes().add(solicitud);
-        
-        InvitacionEntity invitacion = factory.manufacturePojo(InvitacionEntity.class);
-        invitacion.setCliente(data.get(1));
-        em.persist(invitacion);
-        data.get(1).getInvitaciones().add(invitacion);
-        
-        
-        PropuestaEntity propuesta = factory.manufacturePojo(PropuestaEntity.class);
-        propuesta.setCliente(data.get(2));
-        em.persist(propuesta);
-        data.get(2).getPropuestas().add(propuesta);
     }
 
     /**
@@ -137,7 +145,7 @@ public class ClienteLogicTest
     @Test
     public void getClientesTest() {
         List<ClienteEntity> list = clienteLogic.getClientes();
-        Assert.assertEquals(data.size(), list.size());
+        Assert.assertEquals("No tiene el mismo numero de clientes",data.size(), list.size());
         for (ClienteEntity entity : list) {
             boolean found = false;
             for (ClienteEntity storedEntity : data) {
@@ -145,7 +153,7 @@ public class ClienteLogicTest
                     found = true;
                 }
             }
-            Assert.assertTrue(found);
+            Assert.assertTrue("Alguno de los clientes en data no se encontro en la persitencia",found);
         }
     }
     
