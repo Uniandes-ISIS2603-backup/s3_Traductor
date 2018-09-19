@@ -127,7 +127,7 @@ public class ClienteLogicTest
                 invitacion.setCliente(entity);
                 invitacionesData.add(invitacion);
             }
-            else if (i == 3){
+            else if (i == 2){
                 PropuestaEntity propuesta = factory.manufacturePojo(PropuestaEntity.class);
                 em.persist(propuesta);
                 entity.getPropuestas().add(propuesta);
