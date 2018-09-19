@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
  
 /**
@@ -45,10 +47,16 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private ClienteEntity cliente;
     
+    @PodamExclude
+    @ManyToOne
     private EmpleadoEntity empleado;
     
+    @PodamExclude
+    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
     private IdiomaEntity idiomaSalida;
     
+    @PodamExclude
+    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
     private IdiomaEntity idiomaEntrada;
     
     private ArrayList<DocumentoEntity> documentos = new ArrayList<>();

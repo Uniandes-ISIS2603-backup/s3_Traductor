@@ -17,9 +17,9 @@ import uk.co.jemos.podam.common.PodamExclude;
  *
  * @author Alvaro
  */
-
 @Entity
 public class EmpleadoEntity extends BaseEntity implements Serializable {
+
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------
@@ -30,28 +30,33 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private Integer aniosExperiencia;
     private String trayectoria;
     private String HojaDeVida;
-    private List<CalificacionEntity> calificaciones;    
-    private List<ReferenciaEntity> refLaborales; 
-    private List<ReferenciaEntity> refPersonales;	
-	
-	//Mapeos a mis Entity. Saludos. Geovanny
-	//Alvaro recuerda que debe haber el OneToMany aqui que llame al un atributo en las clases destino de tipo EmpleadoEntity
-	//Es como un "Callback" la relacion de las FK. Por ejemplo, el atributo empleado en mis entities. 
-	
-	@PodamExclude
-	@OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<PropuestaEntity> propuestas ;
-	
-	@PodamExclude
-	@OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
-	private List<InvitacionEntity> invitaciones;
-	
-	@PodamExclude
-	@OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<CalificacionEntity> calificaciones;
+    private List<ReferenciaEntity> refLaborales;
+    private List<ReferenciaEntity> refPersonales;
+
+    //Mapeos a mis Entity. Saludos. Geovanny
+    //Alvaro recuerda que debe haber el OneToMany aqui que llame al un atributo en las clases destino de tipo EmpleadoEntity
+    //Es como un "Callback" la relacion de las FK. Por ejemplo, el atributo empleado en mis entities. 
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<PropuestaEntity> propuestas;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<InvitacionEntity> invitaciones;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AreaConocimientoEntity> areasDeConocimiento;
-	
-	private List<SolicitudEntity> solicitudes;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado")
+    private List<SolicitudEntity> solicitudes;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado")
     private List<IdiomaEntity> idiomas;
+
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
@@ -79,7 +84,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
         this.contrasenia = contrasenia;
     }
 
-        public String getTrayectoria() {
+    public String getTrayectoria() {
         return trayectoria;
     }
 
@@ -94,7 +99,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     public void setHojaDeVida(String HojaDeVida) {
         this.HojaDeVida = HojaDeVida;
     }
-    
+
     public Integer getAniosExperiencia() {
         return aniosExperiencia;
     }
@@ -110,7 +115,6 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
     }
-
 
     public List<CalificacionEntity> getCalificaciones() {
         return calificaciones;

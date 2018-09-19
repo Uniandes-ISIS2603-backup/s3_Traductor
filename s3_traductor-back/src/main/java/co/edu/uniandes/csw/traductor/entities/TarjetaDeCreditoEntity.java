@@ -24,8 +24,8 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
 
     private Long numeroTarjetaCredito;
     private Integer ccv;
-    @Temporal(TemporalType.DATE)
-    private Date fechaExpiracion;
+    private Integer mesExpiracion;
+     private Integer anioExpiracion;
     private String redBancaria;
      private String nombreTitular;
 
@@ -54,7 +54,23 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
         this.numeroTarjetaCredito = numeroTarjetaCredito;
     }
+    
+public Integer getAnioExpiracion() {
+        return anioExpiracion;
+    }
 
+    public void setAnioExpiracion(Integer anioExpiracion) {
+        this.anioExpiracion = anioExpiracion;
+    }
+    
+    public Integer getMesExpiracion() {
+        return mesExpiracion;
+    }
+
+    public void setMesExpiracion(Integer mesExpiracion) {
+        this.mesExpiracion = mesExpiracion;
+    }
+    
     public Integer getCcv() {
         return ccv;
     }
@@ -63,13 +79,7 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
         this.ccv = ccv;
     }
 
-    public Date getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public void setFechaExpiracion(Date fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
+   
 
     public String getRedBancaria() {
         return redBancaria;

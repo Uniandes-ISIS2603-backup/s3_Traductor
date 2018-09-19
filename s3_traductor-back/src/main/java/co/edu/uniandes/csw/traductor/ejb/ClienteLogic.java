@@ -36,7 +36,7 @@ public class ClienteLogic
      *
      * @param clienteEntity La entidad que representa el cliente a
      * persistir.
-     * @return La entiddad del cliente luego de persistirla.
+     * @return La entidad del cliente luego de persistirla.
      * @throws BusinessLogicException Si el cliente a persistir ya existe.
      * (es decir si tiene el mismo nombre usuario, mismo correo electrónico o
      * misma identificación)
