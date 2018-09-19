@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.traductor.ejb;
 
+import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.SolicitudPersistence;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -55,13 +57,29 @@ public class SolicitudLogic {
 
     }
 
+    /**
+     * Obtiene la lista de lso registros de SolicitudEntity.
+     *
+     * @return Collección de objetos de SolicitudEntity.
+     */
+    public List<SolicitudEntity> getSolicitudes() {
+        LOGGER.log(Level.INFO, "Comienza el proceso para consultar los documentos");
+        List<SolicitudEntity> lista = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar ");
+        return lista;
+    }
+
     public void deleteSolicitud(Long id) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de borrar el libro con el id = {0}", id);
         SolicitudEntity solicitudEntity = persistence.find(id);
         if (solicitudEntity.getEstado() == SolicitudEntity.EN_ESPERA) {
             throw new BusinessLogicException("La solicitud con id = " + id + " no se puede eliminar porque esta en espera de una respuesta");
         }
-        persistence.delete(id);
+        if (solicitudEntity != null) {
+            persistence.delete(id);
+        } else {
+            
+        }
     }
 
     public void cambiarEstado(Long id) {
