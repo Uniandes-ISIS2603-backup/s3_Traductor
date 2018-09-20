@@ -1,5 +1,5 @@
 // Se crea este archivo de texto por la posibilidad de que Application config se dañe como siempre
-antes de los merge
+antes de los merge. Solo por si las moscas :)
 
 
 Codigo 
