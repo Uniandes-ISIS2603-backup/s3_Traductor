@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -30,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author Juan Felipe Parra
+ * @author Jhonattan Fonseca
  */
 @RunWith(Arquillian.class)
 public class SolicitudLogicTest {
@@ -169,3 +170,4 @@ public class SolicitudLogicTest {
     }
 
 }
+

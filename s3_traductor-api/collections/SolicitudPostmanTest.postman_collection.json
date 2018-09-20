@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "60a946d1-437a-4870-b3ae-fc4a95edb6a9",
+		"name": "SolicitudPostmanTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CrearSolicitud",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": \"2\",\n    \"tipoSolicitud\": \"3\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearSolicitudEstadoInvalido",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\"estado\" : \"3\",\n\"tipoSolicitud\" : \"2\"\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerSolicitudID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes",
+						"20"
+					]
+				},
+				"description": "151"
+			},
+			"response": []
+		},
+		{
+			"name": "RecursoInexistente",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/276",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes",
+						"276"
+					]
+				},
+				"description": "151"
+			},
+			"response": []
+		},
+		{
+			"name": "BorrarSolicitudIDFallido",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/17",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes",
+						"17"
+					]
+				},
+				"description": "151"
+			},
+			"response": []
+		},
+		{
+			"name": "BorrarSolicitudID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes",
+						"1"
+					]
+				},
+				"description": "151"
+			},
+			"response": []
+		}
+	]
+}
