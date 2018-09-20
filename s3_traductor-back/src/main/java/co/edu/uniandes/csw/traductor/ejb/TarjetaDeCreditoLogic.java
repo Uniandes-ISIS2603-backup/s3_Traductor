@@ -41,7 +41,7 @@ public class TarjetaDeCreditoLogic {
         if (tarjetaEntity.getNombreTitular().equals("")||tarjetaEntity.getNombreTitular()==null) {
             throw new BusinessLogicException("El nombre es inválida");
         }
-        if (validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
+        if (!validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El numero es inválido");
         }
         if (persistence.find(tarjetaEntity.getId()) != null) {

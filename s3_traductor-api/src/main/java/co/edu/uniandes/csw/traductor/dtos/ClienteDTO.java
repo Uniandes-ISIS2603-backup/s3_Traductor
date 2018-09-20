@@ -14,12 +14,12 @@ import java.io.Serializable;
  */
 public class ClienteDTO implements Serializable
 {
-    private Long id;
-    private String nombreUsuario;
-    private String contrasenia;
-    private String correoElectronico;
-    private String nombre;
-    private String identificacion;
+    protected Long id;
+    protected String nombreUsuario;
+    protected String contrasenia;
+    protected String correoElectronico;
+    protected String nombre;
+    protected String identificacion;
 
     /**
      * Da el nombre de un cliente en el sistema
