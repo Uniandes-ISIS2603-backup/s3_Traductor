@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.TarjetaDeCreditoDTO;
+import co.edu.uniandes.csw.traductor.ejb.ClienteTarjetasLogic;
 import co.edu.uniandes.csw.traductor.ejb.TarjetaDeCreditoLogic;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
@@ -42,10 +43,10 @@ public class TarjetaDeCreditoResource {
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
     
-    /*
-     @Inject
-    private ClienteTarjetaDeCreditoLogic clienteTarjetaLogic;
-    */
+    
+    @Inject
+    private ClienteTarjetasLogic clienteTarjetasLogic;
+    
 
     /**
      * Crea una nueva tarjeta con la informacion que se recibe en el cuerpo de
