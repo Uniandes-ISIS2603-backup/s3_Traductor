@@ -30,8 +30,14 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private Integer aniosExperiencia;
     private String trayectoria;
     private String HojaDeVida;
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CalificacionEntity> calificaciones;
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ReferenciaEntity> refLaborales;
+    @PodamExclude
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ReferenciaEntity> refPersonales;
 
     //Mapeos a mis Entity. Saludos. Geovanny
@@ -46,7 +52,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<InvitacionEntity> invitaciones;
 
     @PodamExclude
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "empleado")
     private List<AreaConocimientoEntity> areasDeConocimiento;
 
     @PodamExclude

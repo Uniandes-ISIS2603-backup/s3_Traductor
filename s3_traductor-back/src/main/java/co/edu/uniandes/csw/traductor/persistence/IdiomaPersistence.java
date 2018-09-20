@@ -54,13 +54,22 @@ public class IdiomaPersistence {
      * Busca si hay algun idioma con el id enviado por parametro
      *
      * @param idiomsId: id correspondiente al idioma buscada.
-     * @return una editorial.
+     * @return un idioma.
      */
     public IdiomaEntity find(Long idiomsId) {
         LOGGER.log(Level.INFO, "Consultando idioma con id={0}", idiomsId);
         return em.find(IdiomaEntity.class, idiomsId);
     }
-    
+    /**
+     * Busca si hay algun idioma con el nombre enviado por parametro
+     *
+     * @param idiomName: nombre correspondiente al idioma buscado.
+     * @return un idioma.
+     */
+    public IdiomaEntity find(String idiomName) {
+        LOGGER.log(Level.INFO, "Consultando idioma por nombre", idiomName);
+        return em.find(IdiomaEntity.class, idiomName);
+    }
     
     /**
      *
