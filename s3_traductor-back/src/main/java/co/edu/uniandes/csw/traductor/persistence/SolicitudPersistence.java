@@ -27,10 +27,10 @@ public class SolicitudPersistence
         /**
      * Método para persisitir la entidad en la base de datos.
      *
-     * @param SolicitudEntity objeto solicitud que se creará en la base de datos
+     * @param solicitudEntity solicitud de tipo entidad que será persistida.
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    public SolicitudPersistence create(SolicitudPersistence solicitudEntity) {
+    public SolicitudEntity create(SolicitudEntity solicitudEntity) {
         LOGGER.log(Level.INFO, "Creando una solicitd nueva");
         em.persist(solicitudEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear una solicitud nueva");
@@ -62,5 +62,18 @@ public class SolicitudPersistence
         return em.find(SolicitudEntity.class, calId);
     }
     
+    
+        /**
+     *
+     * Borra una solicitud de la base de datos recibiendo como argumento el id la
+     * solicitud
+     *
+     * @param id: id correspondiente al libro a borrar.
+     */
+    public void delete(Long id) {
+        LOGGER.log(Level.INFO, "Borrando la solicitud con id={0}", id);
+        SolicitudEntity solicitudEntity = em.find(SolicitudEntity.class, id);
+        em.remove(solicitudEntity);
+    }
     
 }
