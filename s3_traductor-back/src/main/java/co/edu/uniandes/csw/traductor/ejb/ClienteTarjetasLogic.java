@@ -24,7 +24,7 @@ import javax.inject.Inject;
 @Stateless
 public class ClienteTarjetasLogic 
 {
-     private static final Logger LOGGER = Logger.getLogger(ClienteTarjetasLogic.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ClienteTarjetasLogic.class.getName());
 
     @Inject
     private ClientePersistence clientePersistence;
