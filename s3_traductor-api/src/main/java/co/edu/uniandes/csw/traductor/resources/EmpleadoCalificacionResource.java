@@ -7,8 +7,9 @@ package co.edu.uniandes.csw.traductor.resources;
 
 /**
  *
- * @author Alvaro
+ * @author Juan Felipe Parra
  */
+
 public class EmpleadoCalificacionResource {
-    //TODO implementar
+   
 }
