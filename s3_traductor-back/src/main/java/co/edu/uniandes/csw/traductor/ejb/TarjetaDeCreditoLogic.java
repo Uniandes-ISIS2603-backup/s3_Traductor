@@ -185,7 +185,7 @@ public class TarjetaDeCreditoLogic {
      * @return true si el numero es valido.
      */
     private boolean validateNumber(Long numero) {
-        boolean inValido= ( numero == null);
+        boolean inValido = ( numero == null);
         if(inValido)
         {
         return !inValido;
