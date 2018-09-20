@@ -21,12 +21,13 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class TarjetaDeCreditoPersistence {
+
     private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoPersistence.class.getName());
 
     @PersistenceContext(unitName = "PrometeusPU")
     protected EntityManager em;
-    
-     /**
+
+    /**
      * Método para persisitir la entidad en la base de datos.
      *
      * @param tarjetaEntity objeto tarjeta que se creará en la base de datos
@@ -42,9 +43,9 @@ public class TarjetaDeCreditoPersistence {
     /**
      * Devuelve todas las tarjetas de la base de datos.
      *
-     * @return una lista con todas las tarjetas que encuentre en la base de datos,
-     * "select u from TarjetaDeCreditoEntity u" es como un "select * from TarjetaDeCreditoEntity;" -
-     * "SELECT * FROM table_name" en SQL.
+     * @return una lista con todas las tarjetas que encuentre en la base de
+     * datos, "select u from TarjetaDeCreditoEntity u" es como un "select * from
+     * TarjetaDeCreditoEntity;" - "SELECT * FROM table_name" en SQL.
      */
     public List<TarjetaDeCreditoEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todas las tarjetas");
@@ -62,7 +63,8 @@ public class TarjetaDeCreditoPersistence {
         LOGGER.log(Level.INFO, "Consultando la tarjeta con id={0}", idTarjeta);
         return em.find(TarjetaDeCreditoEntity.class, idTarjeta);
     }
-public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
+
+    public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
         LOGGER.log(Level.INFO, "Consultando tarjetas por numero ", numeroTarjetaCredito);
         // Se crea un query para buscar libros con el isbn que recibe el método como argumento. ":isbn" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.numeroTarjetaCredito = :numeroTarjetaCredito", TarjetaDeCreditoEntity.class);
@@ -81,11 +83,13 @@ public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
         LOGGER.log(Level.INFO, "Saliendo de consultar tarjetas por numero ", numeroTarjetaCredito);
         return result;
     }
+
     /**
      * Actualiza una tarjeta.
      *
-     * @param tarjetaEntity: la tarjeta que viene con los nuevos cambios. Por ejemplo
-     * el nombre del titular pudo cambiar(corregir error). En ese caso, se haria uso del método update.
+     * @param tarjetaEntity: la tarjeta que viene con los nuevos cambios. Por
+     * ejemplo el nombre del titular pudo cambiar(corregir error). En ese caso,
+     * se haria uso del método update.
      * @return una tarjeta con los cambios aplicados.
      */
     public TarjetaDeCreditoEntity update(TarjetaDeCreditoEntity tarjetaEntity) {
@@ -94,7 +98,9 @@ public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
     }
 
     /**
-     * Borra un libro de la base de datos recibiendo como argumento el id de la tarjeta
+     * Borra un libro de la base de datos recibiendo como argumento el id de la
+     * tarjeta
+     *
      * @param idTarjeta: id correspondiente a la tarjeta a borrar.
      */
     public void delete(Long idTarjeta) {
@@ -103,5 +109,4 @@ public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
         em.remove(bookEntity);
     }
 
-    
 }

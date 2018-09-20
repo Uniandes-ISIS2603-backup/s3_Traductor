@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,12 +21,27 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class SolicitudEntity extends BaseEntity implements Serializable {
 
+    public final static Integer EN_ESPERA = 2;
+    
+    public final static Integer COMPLETADO = 1;
+    
+    public final static Integer CANCELADO = 0;
+    
+    public final static Integer CORECCION = 3;
+    
+    public final static Integer TRADUCCION = 4;
+    
+    
+    
+    
     //Atributos
     private Long idSolicitud;
     private Date fechaInicio;
     private Date fechaEntrega;
     private Integer estado;
     private Integer tipoSolicitud;
+   
+    
     
     @PodamExclude
     @ManyToOne
@@ -42,11 +58,25 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
     private IdiomaEntity idiomaEntrada;
+    
+    private ArrayList<DocumentoEntity> documentos = new ArrayList<>();
+
+    public ArrayList<DocumentoEntity> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(ArrayList<DocumentoEntity> documentos) {
+        this.documentos = documentos;
+    }
+
+   
+    
+    
+
+   
    
 
-    public Long getIdSolicitud() {
-        return idSolicitud;
-    }
+   
 
     public Date getFechaInicio() {
         return fechaInicio;
