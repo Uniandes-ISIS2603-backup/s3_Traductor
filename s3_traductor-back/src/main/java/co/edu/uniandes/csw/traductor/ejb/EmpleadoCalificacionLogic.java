@@ -11,12 +11,14 @@ import co.edu.uniandes.csw.traductor.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author Juan Felipe Parra
  */
+@Stateless
 public class EmpleadoCalificacionLogic {
     private final static Logger LOGGER=Logger.getLogger(EmpleadoCalificacionLogic.class.getName());
     
