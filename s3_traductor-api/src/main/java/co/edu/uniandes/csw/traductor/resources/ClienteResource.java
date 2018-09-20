@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.ClienteDTO;
 import co.edu.uniandes.csw.traductor.dtos.ClienteDetailDTO;
+import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class ClienteResource
 {
     private static final Logger LOGGER = Logger.getLogger(ClienteResource.class.getName());
     
-    //TODO: inyección de la dependencia de lógica: clienteLogic
+    //Inyección de la dependencia de lógica: clienteLogic
+    private ClienteLogic clienteLogic;
     
     /**
      * Crea un cliente con la informacion que se recibe en formato JSON
@@ -50,17 +52,15 @@ public class ClienteResource
     @POST
     public ClienteDTO createCliente(ClienteDTO cliente) throws BusinessLogicException
     {
-        //TODO: Completar cascaron.
          LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", cliente.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-        //ClienteEntity clienteEntity = cliente.toEntity();
+        ClienteEntity clienteEntity = cliente.toEntity();
         // Invoca la lógica para crear la editorial nueva
-        //ClienteEntity nuevoClienteEntity = clienteLogic.createCliente(clienteEntity);
+        ClienteEntity nuevoClienteEntity = clienteLogic.createCliente(clienteEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
-        //ClienteDTO nuevoClienteDTO = new ClienteDTO(nuevoClienteEntity);
-        //LOGGER.log(Level.INFO, "EditorialResource createEditorial: output: {0}", nuevoClienteDTO.toString());
-        //return nuevoClienteDTO;
-        return cliente;
+        ClienteDTO nuevoClienteDTO = new ClienteDTO(nuevoClienteEntity);
+        LOGGER.log(Level.INFO, "EditorialResource createEditorial: output: {0}", nuevoClienteDTO.toString());
+        return nuevoClienteDTO;  
     }
     
     /**
@@ -72,12 +72,10 @@ public class ClienteResource
     @GET
     public List<ClienteDetailDTO> getClientes()
     {
-        //TODO: Finalizar cascaron
         LOGGER.info("ClienteResource getClientes: input: void");
-        //List<ClienteDetailDTO> listaClientes = listEntity2DetailDTO(clienteLogic.getEditorials());
-        //LOGGER.log(Level.INFO, "EditorialResource getEditorials: output: {0}", listaClientes.toString());
-        //return listaClientes;
-        return null;
+        List<ClienteDetailDTO> listaClientes = listEntity2DetailDTO(clienteLogic.getClientes());
+        LOGGER.log(Level.INFO, "ClienteResource getClientes: output: {0}", listaClientes.toString());
+        return listaClientes;
     }
     
     /**
@@ -93,14 +91,13 @@ public class ClienteResource
     @Path("{clientesId: \\d+}")
     public ClienteDetailDTO getCliente(@PathParam("clientesId") Long clientesId) throws WebApplicationException
     {
-        //TODO: finalizar cascaron.
         LOGGER.log(Level.INFO, "ClienteResource getCliente: input: {0}", clientesId);
-        //ClienteEntity clienteEntity = clienteLogic.getCliente(clientesId);
-        //if (clienteEntity == null) {
-        //    throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
-        //}
-        //ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteEntity);
-        //LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO.toString());
+        ClienteEntity clienteEntity = clienteLogic.getCliente(clientesId);
+        if (clienteEntity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteEntity);
+        LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO.toString());
         return null;
     }
     
@@ -122,14 +119,13 @@ public class ClienteResource
     public ClienteDetailDTO updateCliente(@PathParam("clientesId") Long clientesId, ClienteDetailDTO cliente) throws WebApplicationException
     {
         LOGGER.log(Level.INFO, "ClienteResouce updateCliente: input: id:{0} , cliente: {1}", new Object[]{clientesId, cliente.toString()});
-        //cliente.setId(clientesId);
-        //if (clienteLogic.getCliente(clientesId) == null) {
-        //    throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
-        //}
-        //ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteLogic.updateCliente(clientesId, cliente.toEntity()));
-        //LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", detailDTO.toString());
-        //return detailDTO;
-        return null;
+        cliente.setId(clientesId);
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteLogic.updateCliente(clientesId, cliente.toEntity()));
+        LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", detailDTO.toString());
+        return detailDTO;
     }
     
     /**
@@ -146,13 +142,12 @@ public class ClienteResource
     @Path("{clientesId: \\d+}")
     public void deleteCliente(@PathParam("clientesId") Long clientesId) throws BusinessLogicException 
     {
-        //TODO: Finalizar cascaron
         LOGGER.log(Level.INFO, "ClienteResource deleteCliente: input: {0}", clientesId);
-//        if (clienteLogic.getCliente(clientesId) == null) {
-//            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
-//        }
-//        clienteLogic.deleteCliente(clientesId);
-//        LOGGER.info("ClienteResource deleteCliente: output: void");
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        clienteLogic.deleteCliente(clientesId);
+        LOGGER.info("ClienteResource deleteCliente: output: void");
     }
     
     /**
@@ -172,10 +167,102 @@ public class ClienteResource
     @Path("{clientesId: \\d+}/solicitudes")
     public Class<ClienteSolicitudesResource> getClienteSolicitudesResource(@PathParam("clientesId") Long clientesId) 
     {
-//        if (clienteLogic.getCliente(clientesId) == null) {
-//            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
-//        }
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
         return ClienteSolicitudesResource.class;
+    }
+    
+    /**
+     * Conexión con el servicio propuesta para un cliente.
+     * {@link ClientePropuestaResource}
+     *
+     * Este método conecta la ruta de /clientes con las rutas de /propuestas que
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las propuestas de un cliente.
+     *
+     * @param clientesId El ID del cliente con respecto al  cual se
+     * accede al servicio.
+     * @return El servicio de propuestas para este cliente en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el cliente.
+     */
+    @Path("{clientesId: \\d+}/propuestas")
+    public Class<ClientePropuestaResource> getClientePropuestaResource(@PathParam("clientesId") Long clientesId) 
+    {
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        return ClientePropuestaResource.class;
+    }
+    
+    /**
+     * Conexión con el servicio invitaciones para un cliente.
+     * {@link ClienteInvitacionResource}
+     *
+     * Este método conecta la ruta de /clientes con las rutas de /invitaciones que
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las propuestas de un cliente.
+     *
+     * @param clientesId El ID del cliente con respecto al  cual se
+     * accede al servicio.
+     * @return El servicio de invitaciones para este cliente en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el cliente.
+     */
+    @Path("{clientesId: \\d+}/invitaciones")
+    public Class<ClienteInvitacionResource> getClienteInvitacionResource(@PathParam("clientesId") Long clientesId) 
+    {
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        return ClienteInvitacionResource.class;
+    }
+    
+    /**
+     * Conexión con el servicio pagos para un cliente.
+     * {@link ClientePagosResource}
+     *
+     * Este método conecta la ruta de /clientes con las rutas de /pagos que
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los pagos de un cliente.
+     *
+     * @param clientesId El ID del cliente con respecto al  cual se
+     * accede al servicio.
+     * @return El servicio de pagos para este cliente en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el cliente.
+     */
+    @Path("{clientesId: \\d+}/pagos")
+    public Class<ClientePagosResource> getClientePagosResource(@PathParam("clientesId") Long clientesId) 
+    {
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        return ClientePagosResource.class;
+    }
+    
+    /**
+     * Conexión con el servicio tarjetas para un cliente.
+     * {@link ClienteTarjetasResource}
+     *
+     * Este método conecta la ruta de /clientes con las rutas de /tarjetasDeCredito que
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los pagos de un cliente.
+     *
+     * @param clientesId El ID del cliente con respecto al  cual se
+     * accede al servicio.
+     * @return El servicio de tarjetas para este cliente en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el cliente.
+     */
+    @Path("{clientesId: \\d+}/tarjetasDeCredito")
+    public Class<ClienteTarjetasResource> getClienteTarjetasResource(@PathParam("clientesId") Long clientesId) 
+    {
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        return ClienteTarjetasResource.class;
     }
     
     /**

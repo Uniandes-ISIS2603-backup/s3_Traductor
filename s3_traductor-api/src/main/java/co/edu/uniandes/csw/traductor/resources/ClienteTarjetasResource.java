@@ -19,7 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Clase que representa el recurso "clientes/{id}/solicitudes"
+ * Clase que representa el recurso "clientes/{id}/tarjetasDeCredito"
  * @author Santiago Salazar
  */
 @Consumes(MediaType.APPLICATION_JSON)
