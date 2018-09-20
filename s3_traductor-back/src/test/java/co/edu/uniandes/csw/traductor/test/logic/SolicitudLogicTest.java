@@ -30,7 +30,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Juan Felipe Parra
  */
 @RunWith(Arquillian.class)
 public class SolicitudLogicTest {
