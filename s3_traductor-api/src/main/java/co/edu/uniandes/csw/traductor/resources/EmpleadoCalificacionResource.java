@@ -7,7 +7,13 @@ package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.CalificacionDTO;
 import co.edu.uniandes.csw.traductor.ejb.CalificacionLogic;
+import co.edu.uniandes.csw.traductor.ejb.EmpleadoCalificacionLogic;
+import co.edu.uniandes.csw.traductor.entities.CalificacionEntity;
+import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,6 +21,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -25,10 +32,13 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class EmpleadoCalificacionResource {
    
+    	private static final Logger LOGGER = Logger.getLogger(EmpleadoCalificacionResource.class.getName());
     //@Inject
     //private EmpleadoLogic empleadoLogic
     @Inject 
     private CalificacionLogic calificacionLogic;
+    @Inject
+    private EmpleadoCalificacionLogic empleadoCalificacionLogic;
     /**
      * agregar una calificaicon corespondiente al empleado
      * @param empleadoId identificador del empleado al que se le agregara la calificacion
@@ -39,14 +49,40 @@ public class EmpleadoCalificacionResource {
    @Path("(calificacionId: \\d+")
    
    public CalificacionDTO addCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId){
-       return null;
+       LOGGER.log(Level.INFO, "EmpleadoCalificacion addCalificacion: input: empleadoId {0}, calificaionId: {1}",new Object[]{empleadoId,calificacionId});
+      // try
+       //{
+           //if(empleadoLogic.getEmpleado(empleadoId)==null)
+             //  throw new WebApplicationException("El recurso /empleado/"+empleadoId+" no existe",404);
+       //}
+      // catch (BusinessLogicException b)
+       //{
+           //vacio TODO esperar a q este empleado
+       //}
+       CalificacionDTO calififacion=new CalificacionDTO(empleadoCalificacionLogic.addCalificaion(empleadoId,calificacionId));
+       LOGGER.log(Level.INFO,"EmpleadoCalificacion addCalificaion: output: {0}", calififacion.toString());
+       return calififacion;
    }
    /**
     * Obtener las calificaciones asociadas a un empleado
     * @return lista de los dto de las calififcaciones asignadas a un empleado
     */
    @GET
-   public List<CalificacionDTO> getCalificaciones(){
+   public List<CalificacionDTO> getCalificaciones(@PathParam("id") Long empleadoId){
+       LOGGER.log(Level.INFO,"EmpleadoCalificacionResource getCalificaciones: input: {0}",empleadoId);
+       //List<CalificacionDTO> calificaciones= calificaciones(empleadoLogic.getCalificaciones(empleadoId));
+       //LOGGER.log(Level.INFO,"EmpleadoCalificacionResource getCalificaciones: output: {0}",calififcaciones.toString());
+       //return calificaciones;
+       
        return null;
    }
+   
+   private List<CalificacionDTO> calificaciones(List<CalificacionEntity> listaEntities){
+       List<CalificacionDTO> lista=new ArrayList<>();
+       for( CalificacionEntity a:listaEntities){
+           lista.add(new CalificacionDTO(a));
+       }
+       return lista;
+   }
+           
 }
