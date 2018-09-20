@@ -56,9 +56,22 @@ public class TarjetaDeCreditoLogic {
             System.out.println(tarjetaEntity.getCcv());
             throw new BusinessLogicException("El ccv es invalido");
         }
-         if(tarjetaEntity.getFechaExpiracion()==null)
+         if(tarjetaEntity.getAnioExpiracion()==null)
         {
-            throw new BusinessLogicException("La fecha de expiracion es invalida");
+            throw new BusinessLogicException("El año de expiracion es invalido");
+        }
+         if(tarjetaEntity.getMesExpiracion()==null)
+        {
+            throw new BusinessLogicException("El mes de expiracion es invalido");
+        }
+         Date fechaActual=new Date();
+          if(tarjetaEntity.getAnioExpiracion()<fechaActual.getYear())
+        {
+            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+        }
+          if(tarjetaEntity.getAnioExpiracion()==fechaActual.getYear()&&tarjetaEntity.getMesExpiracion()<fechaActual.getMonth())
+        {
+            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
         }
           if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
             throw new BusinessLogicException("La red bancaria es invalida");
@@ -119,9 +132,30 @@ public class TarjetaDeCreditoLogic {
         {
             throw new BusinessLogicException("El ccv es invalido");
         }
-         if(tarjetaEntity.getFechaExpiracion()==null||tarjetaEntity.getFechaExpiracion().compareTo(new Date())<0)
+         if(tarjetaEntity.getAnioExpiracion()==null)
         {
-            throw new BusinessLogicException("La fecha de expiracion es invalida");
+            throw new BusinessLogicException("El año de expiracion es invalido");
+        }
+         if(tarjetaEntity.getMesExpiracion()==null)
+        {
+            throw new BusinessLogicException("El mes de expiracion es invalido");
+        }
+         Date fechaActual=new Date();
+          if(tarjetaEntity.getAnioExpiracion()<fechaActual.getYear())
+        {
+            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+        }
+          if(tarjetaEntity.getAnioExpiracion()==fechaActual.getYear()&&tarjetaEntity.getMesExpiracion()<fechaActual.getMonth())
+        {
+            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+        }
+          if(tarjetaEntity.getMesExpiracion()>12)
+        {
+            throw new BusinessLogicException("El fecha de expiracion es invalida");
+        }
+          if(tarjetaEntity.getMesExpiracion()<1)
+        {
+            throw new BusinessLogicException("El fecha de expiracion es invalida");
         }
           if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
             throw new BusinessLogicException("La red bancaria es invalida");
@@ -151,7 +185,7 @@ public class TarjetaDeCreditoLogic {
      * @return true si el numero es valido.
      */
     private boolean validateNumber(Long numero) {
-        boolean inValido= ( numero == null);
+        boolean inValido = ( numero == null);
         if(inValido)
         {
         return !inValido;
