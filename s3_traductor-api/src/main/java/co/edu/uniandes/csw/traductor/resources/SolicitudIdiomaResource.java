@@ -24,14 +24,26 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class SolicitudIdiomaResource {
-    private static final Logger LOGGER = Logger.getLogger(SolicitudIdiomaResource.class.getName());
-    
+  /**
+   * 
+   */
+   private static final Logger LOGGER = Logger.getLogger(SolicitudIdiomaResource.class.getName());
+    /**
+     * logica inyectada de una solicitud
+     */
    @Inject
    private SolicitudLogic solicitudLogic;
-   
+   /**
+    * logica inyectada de un idioma
+    */
   @Inject
   private IdiomaLogic idiomaLogic;
-  
+  /**
+   * obtener el idioma con el cual se va a a tramitar la solicitud
+   * @param solicitudId identificador de la solicitud a obtener el idioma
+   * @param idiomaId identificador del idioma a buscar
+   * @return dto del idioma asignado
+   */
   @GET
   @Path("{idiomaId: \\d+}")
   public IdiomaDTO getIdioma(@PathParam("solicitudId") Long solicitudId,@PathParam ("idiomaId") Long idiomaId)
