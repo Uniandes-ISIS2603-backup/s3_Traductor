@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase del DTO de calificacion para la persistencia.
@@ -18,7 +20,17 @@ public class CalificacionEntity extends BaseEntity implements Serializable
     private Long idEmpleado;
     private String comentario;
     private Integer valorCalificacion;
+    @PodamExclude
+    @ManyToOne
+    private EmpleadoEntity empleado;
 
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
     public Long getIdEmpleado() {
         return idEmpleado;
     }

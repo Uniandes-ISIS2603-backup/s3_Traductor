@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -15,7 +17,19 @@ public class ReferenciaEntity implements Serializable{
     private String nombre;
     private Long id;
     private Integer numeroDeTelefono;
+    
+    @PodamExclude
+    @ManyToOne
+    private EmpleadoEntity empleado;
 
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
+    
     /**
      * @return the nombre
      */
