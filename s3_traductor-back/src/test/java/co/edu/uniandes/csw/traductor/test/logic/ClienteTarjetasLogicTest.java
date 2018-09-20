@@ -94,8 +94,8 @@ public class ClienteTarjetasLogicTest
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from ClienteEntity").executeUpdate();
         em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
     }
 
     /**
@@ -106,16 +106,51 @@ public class ClienteTarjetasLogicTest
 
         cliente = factory.manufacturePojo(ClienteEntity.class);
         cliente.setId(1L);
+        cliente.setNombre("Andres");
         cliente.setTarjetas(new ArrayList<>());
         em.persist(cliente);
 
-        for (int i = 0; i < 3; i++) {
-            TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-            entity.setCliente(cliente);
-            em.persist(entity);
-            data.add(entity);
-            cliente.getTarjetas().add(entity);
-        }
+        TarjetaDeCreditoEntity t1 = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        t1.setCcv(123);
+        t1.setMesExpiracion(3);
+        t1.setAnioExpiracion(2023);
+        t1.setNombreTitular("Andres");
+        Long lg = null;
+        String tarjeta="1234567891234560";
+        t1.setNumeroTarjetaCredito(lg.valueOf(tarjeta));
+        t1.setRedBancaria("visa");
+        t1.setCliente(cliente);
+        em.persist(t1);
+        data.add(t1);
+        cliente.getTarjetas().add(t1);
+        
+        TarjetaDeCreditoEntity t2 = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        t2.setCcv(124);
+        t2.setMesExpiracion(3);
+        t2.setAnioExpiracion(2022);
+        t2.setNombreTitular("Andres");
+        lg = null;
+        tarjeta="1222567891234560";
+        t2.setNumeroTarjetaCredito(lg.valueOf(tarjeta));
+        t2.setRedBancaria("mastercard");
+        t2.setCliente(cliente);
+        em.persist(t2);
+        data.add(t2);
+        cliente.getTarjetas().add(t2);
+        
+        TarjetaDeCreditoEntity t3 = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+        t3.setCcv(125);
+        t3.setMesExpiracion(3);
+        t3.setAnioExpiracion(2021);
+        t3.setNombreTitular("Andres");
+        lg = null;
+        tarjeta="1224447891234560";
+        t3.setNumeroTarjetaCredito(lg.valueOf(tarjeta));
+        t3.setRedBancaria("visa");
+        t3.setCliente(cliente);
+        em.persist(t3);
+        data.add(t3);
+        cliente.getTarjetas().add(t3);
     }
 
     /**
@@ -127,8 +162,17 @@ public class ClienteTarjetasLogicTest
     @Test
     public void addTarjetaTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity newTarjeta = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-        newTarjeta.setNumeroTarjetaCredito(new Long(000000010000001));
-        newTarjeta.setCcv(331);
+        newTarjeta.setCcv(125);
+        newTarjeta.setMesExpiracion(3);
+        newTarjeta.setAnioExpiracion(2025);
+        newTarjeta.setNombreTitular("Andres");
+        Long lg = null;
+        String tarjeta="1224445551234550";
+        newTarjeta.setNumeroTarjetaCredito(lg.valueOf(tarjeta));
+        newTarjeta.setRedBancaria("Falabella");
+        newTarjeta.setCliente(cliente);
+//        em.persist(newTarjeta);
+        
         tarjetaLogic.createTarjeta(newTarjeta);
         TarjetaDeCreditoEntity tarjetaEntity = clienteTarjetasLogic.addTarjeta(cliente.getId(), newTarjeta.getId());
         Assert.assertNotNull(tarjetaEntity);
