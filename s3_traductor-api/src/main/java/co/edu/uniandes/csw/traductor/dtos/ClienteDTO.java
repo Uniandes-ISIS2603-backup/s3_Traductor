@@ -154,6 +154,7 @@ public class ClienteDTO implements Serializable
             this.contrasenia = clienteEntity.getContrasenia();
             this.nombre = clienteEntity.getNombre();
             this.identificacion = clienteEntity.getIdentificacion();
+            this.tipoCliente = clienteEntity.getTipoCliente();
         }
     }
     
@@ -170,6 +171,7 @@ public class ClienteDTO implements Serializable
         clienteEntity.setContrasenia(this.contrasenia);
         clienteEntity.setNombre(this.nombre);
         clienteEntity.setIdentificacion(this.identificacion);
+        clienteEntity.setTipoCliente(this.tipoCliente);
         return clienteEntity;
     }
 }
