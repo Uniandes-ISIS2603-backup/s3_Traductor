@@ -61,11 +61,13 @@ public class IdiomaLogic {
      * @param idiomaID id que identifica el idioma a representar
      * @return La entidad que representa al idioma que llega por parametro
      */
-    public IdiomaEntity getIdioma(Long idiomaID){
+    public IdiomaEntity getIdioma(Long idiomaID)throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia la consulta de idioma segun el id "+idiomaID);
         IdiomaEntity idiomaEntity=persistence.find(idiomaID);
-        if(idiomaEntity==null)
+        if(idiomaEntity==null){
             LOGGER.log(Level.SEVERE,"El idioma con el id = {0} no existe", idiomaID);
+            throw new BusinessLogicException("El idioma no existe");
+        }
         LOGGER.log(Level.INFO, "Termina el proceso de consulta de un idioma con el id={0}",idiomaID);
         return idiomaEntity;
     }
