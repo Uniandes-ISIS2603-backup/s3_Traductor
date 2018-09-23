@@ -57,7 +57,7 @@ public class ClientePropuestaResource
      */
     @POST
     @Path("{propuestaId: \\d+}")
-    public PropuestaDTO addPropuesta(@PathParam("id") Long clienteId, @PathParam("propuestaId") Long propuestaId)
+    public PropuestaDTO addPropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId)
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
 		try
@@ -86,7 +86,7 @@ public class ClientePropuestaResource
      * cliente. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<PropuestaDTO> getAllPropuestas(@PathParam("id") Long clienteId) {
+    public List<PropuestaDTO> getAllPropuestas(@PathParam("clientesId") Long clienteId) {
         LOGGER.log(Level.INFO, "ClientePropuestaResource getAllPropuestas: input: {0}", clienteId);
         List<PropuestaDTO> listaObjetos = propuestasADTO(clientePropuestaLogic.getPropuestas(clienteId));		
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos.toString());
@@ -108,7 +108,7 @@ public class ClientePropuestaResource
      */
     @GET
     @Path("{propuestaId: \\d+}")
-    public PropuestaDTO getPropuesta(@PathParam("id") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException
+    public PropuestaDTO getPropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
         if (propuestaLogic.getPropuesta(propuestaId) == null) {

@@ -118,7 +118,7 @@ public class ClienteResource
         }
         ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteEntity);
         LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO.toString());
-        return null;
+        return detailDTO; //Estaba retornando null, se te paso aqui Salo.
     }
     
     /**
