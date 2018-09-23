@@ -43,9 +43,9 @@ public class ClientePropuestaLogic
         LOGGER.log(Level.INFO, "Inicia proceso de asociarle una propuesta al cliente con id = {0}", clienteId);
         ClienteEntity entidadPadre = clientePersistence.find(clienteId);
         PropuestaEntity entidadHija = propuestaPersistence.find(propuestaId);
-        entidadPadre.getPropuestas().add(entidadHija);
+        entidadHija.setCliente(entidadPadre); // Se asocia la propuesta al cliente como ManyToOne según ejemplo.
         LOGGER.log(Level.INFO, "Termina proceso de asociarle una propuesta al cliente con id = {0}", propuestaId);
-        return propuestaPersistence.find(propuestaId);
+        return entidadHija;
     }
 
 	/**
@@ -71,14 +71,14 @@ public class ClientePropuestaLogic
 	
     public PropuestaEntity getPropuesta(Long clienteId, Long propuestaId) throws BusinessLogicException
 	{
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la propuesta con id = {0} del autor con id = " + clienteId, propuestaId);
-        List<PropuestaEntity> entidadPadre = clientePersistence.find(clienteId).getPropuestas();
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la propuesta con id = {0} del cliente con id = " + clienteId, propuestaId);
+        List<PropuestaEntity> entidadesHijasPadre = clientePersistence.find(clienteId).getPropuestas();
         PropuestaEntity entidadHija = propuestaPersistence.find(propuestaId);
-        int index = entidadPadre.indexOf(entidadHija);
+        int index = entidadesHijasPadre.indexOf(entidadHija);
         LOGGER.log(Level.INFO, "Termina proceso de consultar la propuesta con id = {0} del cliente con id = " + clienteId, propuestaId);
         
 		if (index >= 0) {
-            return entidadPadre.get(index);
+            return entidadesHijasPadre.get(index);
         }
         throw new BusinessLogicException("La propuesta no esta asociada con el cliente");
     }	
