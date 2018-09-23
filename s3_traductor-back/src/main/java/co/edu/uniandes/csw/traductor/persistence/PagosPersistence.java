@@ -53,12 +53,25 @@ public class PagosPersistence {
     /**
      * Busca si hay algun pago con el id enviado por parametro
      *
-     * @param idPago: id correspondiente al pago buscado.
+     * @param idTransaccion: id correspondiente al pago buscado.
      * @return una editorial.
      */
-    public PagosEntity find(Long idPago) {
-        LOGGER.log(Level.INFO, "Consultando pago con id={0}", idPago);
-        return em.find(PagosEntity.class, idPago);
+    public PagosEntity find(Long idCliente,Long idTransaccion) {
+       LOGGER.log(Level.INFO, "Consultando el pago con id = {0} del cliente con id = " + idCliente, idTransaccion);
+        TypedQuery<PagosEntity> q = em.createQuery("select p from PagosEntity p where (p.cliente.id = :idCliente) and (p.id = :idPago)", PagosEntity.class);
+        q.setParameter("idCliente", idCliente);
+        q.setParameter("idPago", idTransaccion);
+        List<PagosEntity> results = q.getResultList();
+        PagosEntity pago = null;
+        if (results == null) {
+            pago = null;
+        } else if (results.isEmpty()) {
+            pago = null;
+        } else if (results.size() >= 1) {
+            pago = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el pago con id = {0} del cliente con id =" + idTransaccion, idCliente);
+        return pago;
     }
     public PagosEntity update(PagosEntity pagosEntity) {
         LOGGER.log(Level.INFO, "Actualizando el pago con id={0}", pagosEntity.getId());

@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.traductor.test.persistence;
 
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.traductor.persistence.TarjetaDeCreditoPersistence;
 import java.util.ArrayList;
@@ -64,6 +65,8 @@ public class TarjetaDeCreditoPersistenceTest {
      */
 	
     private List<TarjetaDeCreditoEntity> data = new ArrayList<TarjetaDeCreditoEntity>();
+    
+     private List<ClienteEntity> clienteData = new ArrayList<ClienteEntity>();
 	
 	/**
      *
@@ -110,8 +113,8 @@ public class TarjetaDeCreditoPersistenceTest {
      */
 	
     private void clearData() {
-        em.createQuery("delete from ClienteEntity").executeUpdate();
         em.createQuery("delete from TarjetaDeCreditoEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
     }
 
     /**
@@ -122,11 +125,18 @@ public class TarjetaDeCreditoPersistenceTest {
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
-        for (int i = 0; i < 3; i++)
-		{
-            TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);			
-            em.persist(entity); //Hace el insert en la base de datos de las tablas.
-            data.add(entity); //Agrega a la lista la entidad insertada para que se realicen validaciones luego.
+       for (int i = 0; i < 3; i++) {
+            ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
+            em.persist(entity);
+            clienteData.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
+            TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
+            if (i == 0) {
+                entity.setCliente(clienteData.get(0));
+            }
+            em.persist(entity);
+            data.add(entity);
         }
     }
 	
@@ -143,7 +153,6 @@ public class TarjetaDeCreditoPersistenceTest {
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getNumeroTarjetaCredito(), entity.getNumeroTarjetaCredito());
         Assert.assertEquals(newEntity.getCcv(), entity.getCcv());
-      // Assert.assertEquals(newEntity.getFechaExpiracion(), entity.getFechaExpiracion());
         Assert.assertEquals(newEntity.getRedBancaria(), entity.getRedBancaria());
    
     }	
@@ -172,14 +181,13 @@ public class TarjetaDeCreditoPersistenceTest {
 	@Test
 	public void searchTarjetaTest()
 	{
-		TarjetaDeCreditoEntity busqueda = tarjetaDeCreditoPersistence.find(Long.MIN_VALUE); //Intenta buscar una tarjeta que no existe.
-		Assert.assertNull("La tarjeta no deberia existir en la base de datos pues está vacia", busqueda);
-		TarjetaDeCreditoEntity tarjetaEntity = data.get(0); //Toma una tarjeta de la lista.
-		TarjetaDeCreditoEntity result = tarjetaDeCreditoPersistence.create(tarjetaEntity); //Guarda la nueva tarjeta en la base de datos para ser buscada.		
-		TarjetaDeCreditoEntity busqueda2 = tarjetaDeCreditoPersistence.find(tarjetaEntity.getId());
-		Assert.assertNotNull("La tarjeta deberia existir en la base de datos", busqueda2);
-		Assert.assertEquals("El numero deberia ser el mismo", busqueda2.getNumeroTarjetaCredito(), tarjetaEntity.getNumeroTarjetaCredito());
-	}
+		TarjetaDeCreditoEntity entity = data.get(0);
+        TarjetaDeCreditoEntity newEntity = tarjetaDeCreditoPersistence.find(clienteData.get(0).getId(), entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getNumeroTarjetaCredito(), entity.getNumeroTarjetaCredito());
+        Assert.assertEquals(newEntity.getCcv(), entity.getCcv());
+        Assert.assertEquals(newEntity.getRedBancaria(), entity.getRedBancaria());
+    }
 	
 	/**
      * Prueba para actualizar una tarjeta.
