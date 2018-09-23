@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.TarjetaDeCreditoDTO;
 import co.edu.uniandes.csw.traductor.ejb.TarjetaDeCreditoLogic;
+import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.LinkedList;
@@ -39,7 +40,8 @@ public class TarjetaDeCreditoResource {
     
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
-    
+   
+   
 
     /**
      * Crea una nueva tarjeta con la informacion que se recibe en el cuerpo de
@@ -52,11 +54,11 @@ public class TarjetaDeCreditoResource {
      * @return JSON {@link PropuestaDTO} - La propuesta recibida.
      */
     @POST
-    public TarjetaDeCreditoDTO createTarjeta(TarjetaDeCreditoDTO nuevaTarjeta) throws BusinessLogicException {
+    public TarjetaDeCreditoDTO createTarjeta(@PathParam("idCliente") Long idCliente,TarjetaDeCreditoDTO nuevaTarjeta) throws BusinessLogicException {
 
         //Llamado al Logger
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createTarjeta: input: {0}", nuevaTarjeta.toString());
-        TarjetaDeCreditoDTO nuevaTarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.createTarjeta(nuevaTarjeta.toEntity()));
+        TarjetaDeCreditoDTO nuevaTarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.createTarjeta(idCliente,nuevaTarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createTarjeta: output: {0}", nuevaTarjeta.toString());
 
         return nuevaTarjetaDTO;
@@ -75,16 +77,20 @@ public class TarjetaDeCreditoResource {
      */
     @PUT
     @Path("{idTarjeta: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
-    public TarjetaDeCreditoDTO updateTarjeta(@PathParam("idTarjetaDeCredito") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
+    public TarjetaDeCreditoDTO updateTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjetaDeCredito") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
 
        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: input: id: {0} , tarjetaDeCredito: {1}", new Object[]{idTarjeta, tarjeta.toString()});
-        tarjeta.setIdTarjeta(idTarjeta);
-        if (tarjetaLogic.getTarjetaDeCredito(idTarjeta) == null) {
-            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+         if (idTarjeta.equals(tarjeta.getIdTarjeta())) {
+            throw new BusinessLogicException("Los ids de la tarjeta no coinciden.");
         }
-        TarjetaDeCreditoDTO detailDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(idTarjeta, tarjeta.toEntity()));
-        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: output: {0}", detailDTO.toString());
-        return detailDTO;
+        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente, idTarjeta);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /cliente/" + idCliente + "/idTarjeta/" + idTarjeta + " no existe.", 404);
+
+        }
+        TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(idCliente, tarjeta.toEntity()));
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: output: {0}", tarjetaDTO.toString());
+        return tarjetaDTO;
 
     }
 
@@ -95,9 +101,9 @@ public class TarjetaDeCreditoResource {
      * empleado Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<TarjetaDeCreditoDTO> getTarjetas() {
+    public List<TarjetaDeCreditoDTO> getTarjetas(@PathParam("idCliente") Long idCliente) {
        LOGGER.info("TarjetaDeCreditoResource getTarjetas: input: void");
-        List<TarjetaDeCreditoDTO> listaTarjetas = listEntity2DetailDTO(tarjetaLogic.getTarjetas());
+        List<TarjetaDeCreditoDTO> listaTarjetas = listEntity2DetailDTO(tarjetaLogic.getTarjetas(idCliente));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetas: output: {0}", listaTarjetas.toString());
         return listaTarjetas;
     }
@@ -112,9 +118,9 @@ public class TarjetaDeCreditoResource {
      */
     @GET
     @Path("{idTarjeta: \\d+}")
-    public TarjetaDeCreditoDTO getTarjeta(@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
+    public TarjetaDeCreditoDTO getTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
 LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarjeta);
-        TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(idTarjeta);
+        TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (tarjetaEntity == null) {
             throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
         }
@@ -132,13 +138,13 @@ LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarj
      */
     @DELETE
     @Path("{idTarjeta: \\d+}")
-    public void deleteTarjeta(@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
+    public void deleteTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
 
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource deleteTarjeta: input: {0}", idTarjeta);
-        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idTarjeta);
+        TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
-        }
+            throw new WebApplicationException("El recurso /cliente/" + idCliente + "/idTarjeta/" + idTarjeta + " no existe.", 404);
+       }
         /*
         clienteTarjetaLogic.removeTarjeta(idTarjeta);
         */

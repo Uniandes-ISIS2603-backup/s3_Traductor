@@ -8,7 +8,10 @@ package co.edu.uniandes.csw.traductor.resources;
 import co.edu.uniandes.csw.traductor.dtos.PagosDTO;
 import co.edu.uniandes.csw.traductor.dtos.PropuestaDTO;
 import co.edu.uniandes.csw.traductor.dtos.SolicitudDTO;
+import co.edu.uniandes.csw.traductor.ejb.PagoPropuestaLogic;
 import co.edu.uniandes.csw.traductor.ejb.PagosLogic;
+import co.edu.uniandes.csw.traductor.ejb.PropuestaLogic;
+import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -24,7 +27,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author ANDRES
  */
-@Path("pagos/{idTransaccion: \\d+}/propuesta")
+@Path("clientes/{idCliente: \\d+}/pagos/{idTransaccion: \\d+}/propuesta")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PagoPropuestaResource {
@@ -33,13 +36,14 @@ public class PagoPropuestaResource {
 
     @Inject
     private PagosLogic pagosLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-/*
-    @Inject
-    private PagoPropuestaLogic pagoPropuestaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @Inject
+    private PagoPropuestaLogic pagoPropuestaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    
+    
+    @Inject
     private PropuestaLogic propuestaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-     */
+     
 
     /**
      * Remplaza la instancia de Editorial asociada a un Book.
@@ -54,22 +58,21 @@ public class PagoPropuestaResource {
      * libro.
      */
     @PUT
-    public PagosDTO updateEstadoTerminado(@PathParam("idTransaccion") Long idTransaccion, PropuestaDTO propuesta) {
+    public PagosDTO updateEstadoTerminado(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion, PropuestaDTO propuesta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "PagoSolicitudResource updateEstadoTerminado: input: idTransaccion{0} , Solicitud:{1}", new Object[]{idTransaccion, propuesta.toString()});
-        if (pagosLogic.getPago(idTransaccion) == null) {
-            throw new WebApplicationException("El recurso /books/" + idTransaccion + " no existe.", 404);
+        if (pagosLogic.getPago(idCliente,idTransaccion) == null) {
+            throw new WebApplicationException("El recurso /clentes/" + idCliente+"/pagos/"+idTransaccion + " no existe.", 404);
         }
-        /*
-        if (propuestaLogic.getPropuesta(propuesta.getId()) == null) {
-            throw new WebApplicationException("El recurso /propuesta/" + propuesta.getId() + " no existe.", 404);
+        
+        if (propuestaLogic.getPropuesta(propuesta.getPropuestaId()) == null) {
+            throw new WebApplicationException("El recurso /propuesta/" + propuesta.getPropuestaId()+ " no existe.", 404);
         }
-         
-        PagosDTO pagosDTO = new PagosDTO(pagoPropuestaLogic.updateEstadoTerminado(idTransaccion, propuesta.getIdPropuesta()));
+        
+        PagosDTO pagosDTO = new PagosDTO(pagoPropuestaLogic.replacePropuesta(idCliente,idTransaccion, propuesta.getPropuestaId()));
          
         LOGGER.log(Level.INFO, "PagoSolicitudResource updateEstadoTerminado: output: {0}", pagosDTO.toString());
         return pagosDTO;
-*/
-        return null;
+
 
     }
 }

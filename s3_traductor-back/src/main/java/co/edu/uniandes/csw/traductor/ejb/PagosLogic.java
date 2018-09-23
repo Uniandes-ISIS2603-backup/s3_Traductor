@@ -31,9 +31,6 @@ public class PagosLogic {
 
     @Inject
     private ClientePersistence clientePersistence;
-    
-    @Inject 
-    private PropuestaPersistence propuestaPersistence;
 
     /**
      * Guardar un nuevo Pago
@@ -43,24 +40,17 @@ public class PagosLogic {
      * @return La entidad luego de persistirla
      * @throws BusinessLogicException si la el cliente o la propuesta no existen
      */
-    public PagosEntity createPago(PagosEntity pagosEntity) throws BusinessLogicException {
+    public PagosEntity createPago(Long idCliente,Long idPropuesta,PagosEntity pagosEntity) throws BusinessLogicException {
         LOGGER.info("Inicia proceso de creación de pago");
         if (pagosEntity.getCliente()== null) {
             throw new BusinessLogicException("El cliente es inválido");
         }
-        ClienteEntity clienteEntity = clientePersistence.find(pagosEntity.getCliente().getId());
+        ClienteEntity clienteEntity = clientePersistence.find(idCliente);
         if (clienteEntity == null) {
             throw new BusinessLogicException("El cliente es inválido");
         }
-         if (pagosEntity.getPropuesta()== null) {
-            throw new BusinessLogicException("La propuesta es inválida");
-        }
-        PropuestaEntity propuestaEntity = propuestaPersistence.find(pagosEntity.getPropuesta().getId());
-        if (propuestaEntity == null) {
-            throw new BusinessLogicException("La propuesta es inválida");
-        }
+     
         pagosEntity.setCliente(clienteEntity);
-        pagosEntity.setPropuesta(propuestaEntity);
         pagosEntity = pagosPersistence.create(pagosEntity);    
         LOGGER.info("Termina proceso de creación un pago");
         return pagosEntity;
@@ -71,11 +61,11 @@ public class PagosLogic {
      *
      * @return Lista de entidades de tipo pago.
      */
-    public List<PagosEntity> getPagos() {
+    public List<PagosEntity> getPagos(Long idCliente) {
         LOGGER.info("Inicia proceso de consultar todos los pagos");
-        List<PagosEntity> pagos = pagosPersistence.findAll();
+        ClienteEntity cliente = clientePersistence.find(idCliente);
         LOGGER.info("Termina proceso de consultar todos los pagos");
-        return pagos;
+        return cliente.getPagos();
     }
 
     /**
@@ -84,9 +74,9 @@ public class PagosLogic {
      * @param idTransaccion El id del pago a buscar
      * @return El pago encontrado, null si no lo encuentra.
      */
-    public PagosEntity getPago(Long idTransaccion) {
+    public PagosEntity getPago(Long idCliente,Long idTransaccion) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar pago con id = {0}", idTransaccion);
-        PagosEntity pago = pagosPersistence.find(idTransaccion);
+        PagosEntity pago = pagosPersistence.find(idCliente,idTransaccion);
         if (pago == null) {
             LOGGER.log(Level.SEVERE, "El pago con el id = {0} no existe", idTransaccion);
         }
@@ -114,8 +104,12 @@ public class PagosLogic {
      * @param idTransaccion El ID del pago a eliminar
      * @throws BusinessLogicException si el ID del pago no se encuentra.
      */
-    public void deletePago(Long idTransaccion) throws BusinessLogicException {
+    public void deletePago(Long idCliente,Long idTransaccion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar pago con id = {0}", idTransaccion);
+        PagosEntity old=getPago(idCliente, idTransaccion);
+        if (old == null) {
+            throw new BusinessLogicException("El pago con id = " + idTransaccion + " no esta asociado a el cliente con id = " + idCliente);
+        }
         pagosPersistence.delete(idTransaccion);
         LOGGER.log(Level.INFO, "Termina proceso de borrar pago con id = {0}", idTransaccion);
     }
