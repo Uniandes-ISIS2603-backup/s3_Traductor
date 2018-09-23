@@ -77,6 +77,22 @@ public class ClienteLogic
 
     /**
      *
+     * Obtener todos los clientes existentes segun el tipo
+     * de cliente del parametro.
+     *
+     * @param tipo El tipo de clientes a buscar.
+     * @return una lista de clientes de ese tipo.
+     */
+    public List<ClienteEntity> getClientesByTipo(ClienteEntity.TipoCliente tipo) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los clientes del tipo: {0}", tipo);
+        // Note que, por medio de la inyección de dependencias se llama al método "findAllByTipo()" que se encuentra en la persistencia.
+        List<ClienteEntity> clientes = persistence.findAllByTipo(tipo);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los clientes del tipo: {0}", tipo);
+        return clientes;
+    }
+    
+    /**
+     *
      * Obtener un cliente por medio de su id.
      *
      * @param clientesId: id del cliente para ser buscada.

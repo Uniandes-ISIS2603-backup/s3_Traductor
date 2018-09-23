@@ -79,6 +79,23 @@ public class ClienteResource
     }
     
     /**
+     * Busca y devuelve todos los clientes que existen en la aplicacion
+     * del tipo buscado.
+     *
+     * @param tipo El tipo de clientes a buscar
+     * @return JSONArray {@link ClienteDetailDTO} - Los clientes
+     * encontrados en la aplicación de ese tipo. Si no hay ninguno retorna una lista vacía.
+     */
+    @GET
+    public List<ClienteDetailDTO> getClientesDeUnTipo(ClienteEntity.TipoCliente tipo)
+    {
+        LOGGER.info("ClienteResource getClientesDeUnTipo: input: void");
+        List<ClienteDetailDTO> listaClientes = listEntity2DetailDTO(clienteLogic.getClientesByTipo(tipo));
+        LOGGER.log(Level.INFO, "ClienteResource getClientesDeUnTipo: output: {0}", listaClientes.toString());
+        return listaClientes;
+    }
+    
+    /**
      * Busca el cliente con el id asociado recibido en la URL y la devuelve.
      *
      * @param clientesId Identificador del cliente que se esta buscando.

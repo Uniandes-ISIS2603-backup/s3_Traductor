@@ -52,6 +52,23 @@ public class ClientePersistence
         TypedQuery query = em.createQuery("select u from ClienteEntity u", ClienteEntity.class);
         return query.getResultList();
     }
+    
+    /**
+     * Devuelve todos los clientes de la base de datos de un tipo de cliente especificado.
+     *
+     * @param tipoCliente El tipo de cliente por el cual se buscará a los clientes.
+     * @return una lista con todas todos los clientes que encuentre en la base de
+     * datos, "select u from ClienteEntity u where u.tipoCliente = :tipoCliente" es como un "select * from
+     * ClienteEntity;" - "SELECT * FROM table_name" en SQL.
+     */
+    public List<ClienteEntity> findAllByTipo(ClienteEntity.TipoCliente tipoCliente) {
+        LOGGER.log(Level.INFO, "Consultando todos los clientes del tipo: {0}", tipoCliente);
+
+        TypedQuery query = em.createQuery("select u from ClienteEntity u where u.tipoCliente = :tipoCliente", ClienteEntity.class);
+        query = query.setParameter("tipoCliente", tipoCliente);
+        
+        return query.getResultList();
+    }
 	
     /**
      * Busca si hay algun cliente con el id enviado por parametro

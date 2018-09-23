@@ -111,6 +111,7 @@ public class ClienteLogicTest
             entity.setSolicitudes(new ArrayList<>());
             entity.setPropuestas(new ArrayList<>());
             entity.setInvitaciones(new ArrayList<>());
+            entity.setTipoCliente(ClienteEntity.TipoCliente.EMPRESA);
             if(i == 0)
             {
                 SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
@@ -155,6 +156,27 @@ public class ClienteLogicTest
             }
             Assert.assertTrue("Alguno de los clientes en data no se encontro en la persitencia",found);
         }
+    }
+    
+    /**
+     * Prueba para consultar la lista de Clientes
+     * de un mismo tipo.
+     */
+    @Test
+    public void getClientesDeUnTipoTest() {
+        List<ClienteEntity> list = clienteLogic.getClientesByTipo(ClienteEntity.TipoCliente.EMPRESA);
+        Assert.assertEquals("No tiene el mismo numero de clientes",data.size(), list.size());
+        for (ClienteEntity entity : list) {
+            boolean found = false;
+            for (ClienteEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue("Alguno de los clientes en data no se encontro en la persitencia",found);
+        }
+        list = clienteLogic.getClientesByTipo(ClienteEntity.TipoCliente.PERSONA_NATURAL);
+        Assert.assertEquals("El tamanio de la lista respuesta no fue 0", 0, list.size());
     }
     
     /**

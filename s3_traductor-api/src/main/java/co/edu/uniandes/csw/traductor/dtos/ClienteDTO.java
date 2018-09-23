@@ -20,6 +20,7 @@ public class ClienteDTO implements Serializable
     protected String correoElectronico;
     protected String nombre;
     protected String identificacion;
+    protected ClienteEntity.TipoCliente tipoCliente;
 
     /**
      * Da el nombre de un cliente en el sistema
@@ -115,6 +116,22 @@ public class ClienteDTO implements Serializable
      */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    /**
+     * Da el tipo del cliente en cuestion
+     * @return El tipo de cliente
+     */
+    public ClienteEntity.TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    /**
+     * Cambia el tipo de cliente por el parametro
+     * @param tipoCliente En nuevo tipo de cliente
+     */
+    public void setTipoCliente(ClienteEntity.TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
     
     /**
