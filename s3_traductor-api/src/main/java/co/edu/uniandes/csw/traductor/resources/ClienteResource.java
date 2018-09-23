@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.traductor.dtos.ClienteDTO;
 import co.edu.uniandes.csw.traductor.dtos.ClienteDetailDTO;
 import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,23 @@ public class ClienteResource
         LOGGER.log(Level.INFO, "ClienteResource getClientes: output: {0}", listaClientes.toString());
         return listaClientes;
     }
+    
+//    /**
+//     * Busca y devuelve todos los clientes que existen en la aplicacion
+//     * del tipo buscado.
+//     *
+//     * @param tipo El tipo de clientes a buscar
+//     * @return JSONArray {@link ClienteDetailDTO} - Los clientes
+//     * encontrados en la aplicación de ese tipo. Si no hay ninguno retorna una lista vacía.
+//     */
+//    @GET
+//    public List<ClienteDetailDTO> getClientesDeUnTipo(TipoCliente tipo)
+//    {
+//        LOGGER.info("ClienteResource getClientesDeUnTipo: input: void");
+//        List<ClienteDetailDTO> listaClientes = listEntity2DetailDTO(clienteLogic.getClientesByTipo(tipo));
+//        LOGGER.log(Level.INFO, "ClienteResource getClientesDeUnTipo: output: {0}", listaClientes.toString());
+//        return listaClientes;
+//    }
     
     /**
      * Busca el cliente con el id asociado recibido en la URL y la devuelve.
