@@ -72,14 +72,18 @@ public class SolicitudLogic {
     public void deleteSolicitud(Long id) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de borrar el libro con el id = {0}", id);
         SolicitudEntity solicitudEntity = persistence.find(id);
-        if (solicitudEntity.getEstado() == SolicitudEntity.EN_ESPERA) {
+		//Se arregla el bug aparecido en Sonarcube debido a la confirmacion de un null inutil.
+		//Geovanny Gonzalez.
+		
+		if (solicitudEntity == null)
+		{
+            throw new WebApplicationException("No se encontro la solicitud con el id:" + id, 404);
+        }
+		else if (SolicitudEntity.EN_ESPERA.intValue() == solicitudEntity.getEstado().intValue()) {
             throw new BusinessLogicException("La solicitud con id = " + id + " no se puede eliminar porque esta en espera de una respuesta");
         }
-        if (solicitudEntity != null) {
-            persistence.delete(id);
-        } else {
-            
-        }
+        
+		persistence.delete(id);        
     }
 
     public void cambiarEstado(Long id) {
