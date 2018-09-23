@@ -74,7 +74,7 @@ public class ClientePropuestaResource
 		}
         
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.addPropuesta(clienteId, propuestaId));
-        LOGGER.log(Level.INFO, "EditorialBooksResource addBook: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta.toString());
         return respuesta;
     }
 	
@@ -82,7 +82,7 @@ public class ClientePropuestaResource
      * Busca y devuelve todos las propuestas que existen en un cliente.     *
      * @param clienteId Identificador del cliente que se esta buscando.
      * Este debe ser una cadena de dígitos.
-     * @return JSONArray {@link BookDetailDTO} - Las propuestas encontradas en el
+     * @return JSONArray {@link PropuestasDTO} - Las propuestas encontradas en el
      * cliente. Si no hay ninguno retorna una lista vacía.
      */
     @GET
@@ -100,15 +100,14 @@ public class ClientePropuestaResource
      * Este debe ser una cadena de dígitos.
      * @param propuestaId Identificador de la propuesta que se esta buscando. Este debe
      * ser una cadena de dígitos.
-     * @return JSON {@link BookDetailDTO} - La propuesta buscada
+     * @return JSON {@link PropuestaDTO} - La propuesta buscada
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
+     * Error de lógica que se genera cuando no se encuentra la propuesta.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro en la
-     * editorial.
+     * Error de lógica que se genera cuando no se encuentra la propuesta en el cliente.
      */
     @GET
-    @Path("{booksId: \\d+}")
+    @Path("{propuestaId: \\d+}")
     public PropuestaDTO getPropuesta(@PathParam("id") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
