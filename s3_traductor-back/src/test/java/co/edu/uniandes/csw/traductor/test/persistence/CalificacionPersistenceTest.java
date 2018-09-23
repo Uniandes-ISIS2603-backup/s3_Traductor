@@ -101,5 +101,17 @@ public class CalificacionPersistenceTest {
         Assert.assertEquals(newEntity.getComentario(),entity.getComentario());
         
     }
-   
+    @Test
+    public void getAllTest(){
+        List<CalificacionEntity> result= calificacionPersistance.findAll();
+        for(CalificacionEntity i:result){
+            Assert.assertTrue("El elemento consultado no esta en lo ingresado al sistema"
+                    , data.contains(i));
+        }
+    }
+    @Test
+    public void findByIDTest(){
+        CalificacionEntity e=data.get(0);
+        Assert.assertEquals("El obejto deberia ser el mismo", e.getId(),(calificacionPersistance.find(data.get(0).getId()).getId()));
+    }
 }
