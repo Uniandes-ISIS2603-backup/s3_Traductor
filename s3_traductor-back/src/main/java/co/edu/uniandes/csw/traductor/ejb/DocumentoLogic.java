@@ -6,10 +6,10 @@
 package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
-import co.edu.uniandes.csw.traductor.entities.IdiomaEntity;
 import javax.ejb.Stateless;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.traductor.persistence.DocumentoPresistence;
+import co.edu.uniandes.csw.traductor.persistence.DocumentoPersistence;
+import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +27,9 @@ public class DocumentoLogic {
      * injeccion de persistencia para conectar con la base de datos
      */
     @Inject
-    private DocumentoPresistence persistence; 
-    
+    private DocumentoPersistence persistence; 
+    @Inject
+    private PropuestaPersistence propers;
     /**
      * encargado de persistir un idioma en la base de datos
      * @param documentoEntity entidad que representa un Documento, DocumentoEntity !=null
