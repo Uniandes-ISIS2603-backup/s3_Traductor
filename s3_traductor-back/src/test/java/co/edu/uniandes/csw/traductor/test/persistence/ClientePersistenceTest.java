@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.test.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +129,7 @@ public class ClientePersistenceTest {
     @Test
     public void getClientesByTipoTest()
     {
-        List<ClienteEntity> list = clientePersistence.findAllByTipo(ClienteEntity.TipoCliente.PERSONA_NATURAL);
+        List<ClienteEntity> list = clientePersistence.findAllByTipo(TipoCliente.PERSONA_NATURAL);
         Assert.assertEquals(data.size(), list.size());
         for (ClienteEntity ent : list) {
             boolean found = false;
@@ -139,7 +140,7 @@ public class ClientePersistenceTest {
             }
             Assert.assertTrue(found);
         }
-        list = clientePersistence.findAllByTipo(ClienteEntity.TipoCliente.EMPRESA);
+        list = clientePersistence.findAllByTipo(TipoCliente.EMPRESA);
         Assert.assertEquals(0, list.size());
     }
     
@@ -248,7 +249,7 @@ public class ClientePersistenceTest {
 
             ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
 
-            entity.setTipoCliente(ClienteEntity.TipoCliente.PERSONA_NATURAL);
+            entity.setTipoCliente(TipoCliente.PERSONA_NATURAL);
             em.persist(entity);
 
             data.add(entity);

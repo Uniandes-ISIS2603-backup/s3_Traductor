@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +62,7 @@ public class ClientePersistence
      * datos, "select u from ClienteEntity u where u.tipoCliente = :tipoCliente" es como un "select * from
      * ClienteEntity;" - "SELECT * FROM table_name" en SQL.
      */
-    public List<ClienteEntity> findAllByTipo(ClienteEntity.TipoCliente tipoCliente) {
+    public List<ClienteEntity> findAllByTipo(TipoCliente tipoCliente) {
         LOGGER.log(Level.INFO, "Consultando todos los clientes del tipo: {0}", tipoCliente);
 
         TypedQuery query = em.createQuery("select u from ClienteEntity u where u.tipoCliente = :tipoCliente", ClienteEntity.class);

@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.traductor.test.logic;
 
 import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
@@ -111,7 +112,7 @@ public class ClienteLogicTest
             entity.setSolicitudes(new ArrayList<>());
             entity.setPropuestas(new ArrayList<>());
             entity.setInvitaciones(new ArrayList<>());
-            entity.setTipoCliente(ClienteEntity.TipoCliente.EMPRESA);
+            entity.setTipoCliente(TipoCliente.EMPRESA);
             if(i == 0)
             {
                 SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
@@ -164,7 +165,7 @@ public class ClienteLogicTest
      */
     @Test
     public void getClientesDeUnTipoTest() {
-        List<ClienteEntity> list = clienteLogic.getClientesByTipo(ClienteEntity.TipoCliente.EMPRESA);
+        List<ClienteEntity> list = clienteLogic.getClientesByTipo(TipoCliente.EMPRESA);
         Assert.assertEquals("No tiene el mismo numero de clientes",data.size(), list.size());
         for (ClienteEntity entity : list) {
             boolean found = false;
@@ -175,7 +176,7 @@ public class ClienteLogicTest
             }
             Assert.assertTrue("Alguno de los clientes en data no se encontro en la persitencia",found);
         }
-        list = clienteLogic.getClientesByTipo(ClienteEntity.TipoCliente.PERSONA_NATURAL);
+        list = clienteLogic.getClientesByTipo(TipoCliente.PERSONA_NATURAL);
         Assert.assertEquals("El tamanio de la lista respuesta no fue 0", 0, list.size());
     }
     

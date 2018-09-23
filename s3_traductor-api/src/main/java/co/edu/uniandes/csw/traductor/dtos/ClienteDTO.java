@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import java.io.Serializable;
 
 /**
@@ -20,7 +21,7 @@ public class ClienteDTO implements Serializable
     protected String correoElectronico;
     protected String nombre;
     protected String identificacion;
-    protected ClienteEntity.TipoCliente tipoCliente;
+    protected TipoCliente tipoCliente;
 
     /**
      * Da el nombre de un cliente en el sistema

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
@@ -83,7 +84,7 @@ public class ClienteLogic
      * @param tipo El tipo de clientes a buscar.
      * @return una lista de clientes de ese tipo.
      */
-    public List<ClienteEntity> getClientesByTipo(ClienteEntity.TipoCliente tipo) {
+    public List<ClienteEntity> getClientesByTipo(TipoCliente tipo) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los clientes del tipo: {0}", tipo);
         // Note que, por medio de la inyección de dependencias se llama al método "findAllByTipo()" que se encuentra en la persistencia.
         List<ClienteEntity> clientes = persistence.findAllByTipo(tipo);
