@@ -122,6 +122,28 @@ public class ClientePersistenceTest {
     }
     
     /**
+     * Prueba para consultar una lista de clientes 
+     * segun un tipo de cliente en particular.
+     */
+    @Test
+    public void getClientesByTipoTest()
+    {
+        List<ClienteEntity> list = clientePersistence.findAllByTipo(ClienteEntity.TipoCliente.PERSONA_NATURAL);
+        Assert.assertEquals(data.size(), list.size());
+        for (ClienteEntity ent : list) {
+            boolean found = false;
+            for (ClienteEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+        list = clientePersistence.findAllByTipo(ClienteEntity.TipoCliente.EMPRESA);
+        Assert.assertEquals(0, list.size());
+    }
+    
+    /**
      * Prueba para consultar un cliente.
      */
     @Test
@@ -226,6 +248,7 @@ public class ClientePersistenceTest {
 
             ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
 
+            entity.setTipoCliente(ClienteEntity.TipoCliente.PERSONA_NATURAL);
             em.persist(entity);
 
             data.add(entity);
