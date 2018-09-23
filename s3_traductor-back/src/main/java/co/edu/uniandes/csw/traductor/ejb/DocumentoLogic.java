@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
-import co.edu.uniandes.csw.traductor.entities.IdiomaEntity;
 import javax.ejb.Stateless;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.DocumentoPresistence;
