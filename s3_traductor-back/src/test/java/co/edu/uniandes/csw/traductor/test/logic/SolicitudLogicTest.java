@@ -160,11 +160,12 @@ public class SolicitudLogicTest {
     /**
      * Prueba para eliminar una Solicitud.
      *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * @throws BusinessLogicException
      */
     @Test
-    public void deleteAuthorTest() throws BusinessLogicException {
+    public void deleteSolicitudTest() throws BusinessLogicException {
         SolicitudEntity entity = data.get(0);
+        solicitudLogic.deleteSolicitud(entity.getId());
         SolicitudEntity deleted = em.find(SolicitudEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
