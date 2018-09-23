@@ -39,9 +39,9 @@ import javax.persistence.TypedQuery;
  * @author Alvaro
  */
 @Stateless
-public class DocumentoPresistence {
+public class DocumentoPersistence {
 
-    private static final Logger LOGGER = Logger.getLogger(DocumentoPresistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DocumentoPersistence.class.getName());
 
     @PersistenceContext(unitName = "PrometeusPU")
     protected EntityManager em;
