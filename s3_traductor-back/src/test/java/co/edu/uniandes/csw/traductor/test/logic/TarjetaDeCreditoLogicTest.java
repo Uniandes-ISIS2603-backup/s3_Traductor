@@ -127,7 +127,7 @@ public class TarjetaDeCreditoLogicTest {
         newEntity.setAnioExpiracion(2023);
         newEntity.setNombreTitular("Andres");
         Long lg = null;
-        String tarjeta="123456789123456";
+        String tarjeta="1234567891234560";
         newEntity.setNumeroTarjetaCredito(lg.valueOf(tarjeta));
         newEntity.setRedBancaria("visa");
         TarjetaDeCreditoEntity result = tarjetaLogic.createTarjeta(newEntity);
