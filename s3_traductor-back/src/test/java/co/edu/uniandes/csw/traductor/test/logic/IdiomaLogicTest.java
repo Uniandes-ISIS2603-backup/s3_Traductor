@@ -95,21 +95,13 @@ public class IdiomaLogicTest {
             data.add(idiom);
         }
     }
-    /**
-     * @Test
+    
+      @Test
     public void createCalificacionTest(){
         IdiomaEntity entity=factory.manufacturePojo(IdiomaEntity.class);
-        entity.setIdioma(null);
-        // generacion de error ya que hay null en la entidad
-        try{
-            idiomaLogic.createIdioma(entity);
-            Assert.fail("No deberia crear un idioma con un idioma Nulo");
-        }
-        catch(BusinessLogicException e){
-            Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);
-        }
         // creacion satisfactoria
         entity.setIdioma("ingles");
+        entity.setId(Long.MAX_VALUE);
         try{
             idiomaLogic.createIdioma(entity);
             Assert.assertNotNull("El idioma debió persistir", idiomaLogic.getIdioma(entity.getId()));
@@ -128,7 +120,7 @@ public class IdiomaLogicTest {
         }
         
     }
-     */
+     
     /**
      * verificar la obtencion de una calificacion
      */
