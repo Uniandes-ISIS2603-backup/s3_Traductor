@@ -29,14 +29,14 @@ public class CalificacionLogic {
      * @return la misma entidad que es persistida en el metodo
      * @throws BusinessLogicException  si ya existe una calificacion con ese mismo id
      */
-    public CalificacionEntity createIdioma(CalificacionEntity calificacionEntity)throws BusinessLogicException
+    public CalificacionEntity createCalificacion(CalificacionEntity calificacionEntity)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO,"Inicia el proceso de creacion de un idioma");
         
-        if(persistence.find(calificacionEntity.getId()) !=null)
+        if(persistence.find(calificacionEntity.getId()) !=null){
             throw new BusinessLogicException("Esta calificacion ya existe en el sistema");
-        // TODO no se si verificar si el empleado existe, o eso es en el subrecurso
-        //if()
+            
+        }
         persistence.create(calificacionEntity);
         LOGGER.log(Level.INFO,"Termina el proceso de creacion de la calificacion");
         return calificacionEntity;
@@ -56,11 +56,13 @@ public class CalificacionLogic {
      * @param calificacionID identifiacdor mediante el cual se va  buscar la informacion de la entidad a retornar
      * @return la entidad que representa la informacion de la calificacion buscada
      */
-    public CalificacionEntity getCalificacion(Long calificacionID){
+    public CalificacionEntity getCalificacion(Long calificacionID)throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia la consulta de calificacion segun el id "+calificacionID);
         CalificacionEntity calificacionEntity=persistence.find(calificacionID);
-        if(calificacionEntity==null)
-            LOGGER.log(Level.SEVERE,"La calificacion con el id = {0} no existe", calificacionID);
+        if(calificacionEntity==null){
+                        LOGGER.log(Level.SEVERE,"La calificacion con el id = {0} no existe", calificacionID);
+                        throw new BusinessLogicException("La calificacion con el id: "+calificacionID+" no existe");
+        }
         LOGGER.log(Level.INFO, "Termina el proceso de consulta de una calificacion con el id={0}",calificacionID);
         return calificacionEntity;
     }

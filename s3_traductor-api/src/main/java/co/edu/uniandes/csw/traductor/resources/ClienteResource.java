@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,6 +40,7 @@ public class ClienteResource
     private static final Logger LOGGER = Logger.getLogger(ClienteResource.class.getName());
     
     //Inyección de la dependencia de lógica: clienteLogic
+    @Inject
     private ClienteLogic clienteLogic;
     
     /**
@@ -60,7 +62,7 @@ public class ClienteResource
         ClienteEntity nuevoClienteEntity = clienteLogic.createCliente(clienteEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         ClienteDTO nuevoClienteDTO = new ClienteDTO(nuevoClienteEntity);
-        LOGGER.log(Level.INFO, "EditorialResource createEditorial: output: {0}", nuevoClienteDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteResource createCliente: output: {0}", nuevoClienteDTO.toString());
         return nuevoClienteDTO;  
     }
     
