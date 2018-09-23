@@ -20,7 +20,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\"}"
+							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\",\"tipoCliente\":\"PERSONA_NATURAL\"}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/s3_traductor-api/api/clientes",
