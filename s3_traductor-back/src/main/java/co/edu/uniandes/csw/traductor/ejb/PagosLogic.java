@@ -31,6 +31,9 @@ public class PagosLogic {
 
     @Inject
     private ClientePersistence clientePersistence;
+    
+     @Inject
+    private PropuestaPersistence propuestaPersistence;
 
     /**
      * Guardar un nuevo Pago
@@ -42,15 +45,19 @@ public class PagosLogic {
      */
     public PagosEntity createPago(Long idCliente,Long idPropuesta,PagosEntity pagosEntity) throws BusinessLogicException {
         LOGGER.info("Inicia proceso de creación de pago");
-        if (pagosEntity.getCliente()== null) {
-            throw new BusinessLogicException("El cliente es inválido");
-        }
+        
         ClienteEntity clienteEntity = clientePersistence.find(idCliente);
         if (clienteEntity == null) {
             throw new BusinessLogicException("El cliente es inválido");
         }
+        
+        PropuestaEntity propEntity = propuestaPersistence.find(idPropuesta);
+        if (propEntity == null) {
+            throw new BusinessLogicException("La propuesta es inválida");
+        }
      
         pagosEntity.setCliente(clienteEntity);
+        pagosEntity.setPropuesta(propEntity);
         pagosEntity = pagosPersistence.create(pagosEntity);    
         LOGGER.info("Termina proceso de creación un pago");
         return pagosEntity;
