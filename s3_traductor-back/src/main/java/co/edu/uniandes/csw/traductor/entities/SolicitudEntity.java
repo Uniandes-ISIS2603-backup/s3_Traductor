@@ -8,9 +8,11 @@ package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
  
@@ -58,8 +60,9 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
     private IdiomaEntity idiomaEntrada;
+    
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "solicitud", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private ArrayList<DocumentoEntity> documentos = new ArrayList<>();
 
     public ArrayList<DocumentoEntity> getDocumentos() {
