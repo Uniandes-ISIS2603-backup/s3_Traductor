@@ -165,12 +165,12 @@ public class ClienteResource
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
     @Path("{clientesId: \\d+}/solicitudes")
-    public Class<ClienteSolicitudesResource> getClienteSolicitudesResource(@PathParam("clientesId") Long clientesId) 
+    public Class<SolicitudResource> getSolicitudResource(@PathParam("clientesId") Long clientesId) 
     {
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
-        return ClienteSolicitudesResource.class;
+        return SolicitudResource.class;
     }
     
     /**
@@ -198,7 +198,7 @@ public class ClienteResource
     
     /**
      * Conexión con el servicio invitaciones para un cliente.
-     * {@link ClienteInvitacionResource}
+     * {@link InvitacionResource}
      *
      * Este método conecta la ruta de /clientes con las rutas de /invitaciones que
      * dependen del cliente, es una redirección al servicio que maneja el
@@ -211,17 +211,17 @@ public class ClienteResource
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
     @Path("{clientesId: \\d+}/invitaciones")
-    public Class<ClienteInvitacionResource> getClienteInvitacionResource(@PathParam("clientesId") Long clientesId) 
+    public Class<InvitacionResource> getInvitacionResource(@PathParam("clientesId") Long clientesId) 
     {
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
-        return ClienteInvitacionResource.class;
+        return InvitacionResource.class;
     }
     
     /**
      * Conexión con el servicio pagos para un cliente.
-     * {@link ClientePagosResource}
+     * {@link PagosResource}
      *
      * Este método conecta la ruta de /clientes con las rutas de /pagos que
      * dependen del cliente, es una redirección al servicio que maneja el
@@ -234,19 +234,19 @@ public class ClienteResource
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
     @Path("{clientesId: \\d+}/pagos")
-    public Class<ClientePagosResource> getClientePagosResource(@PathParam("clientesId") Long clientesId) 
+    public Class<PagosResource> getPagosResource(@PathParam("clientesId") Long clientesId) 
     {
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
-        return ClientePagosResource.class;
+        return PagosResource.class;
     }
     
     /**
      * Conexión con el servicio tarjetas para un cliente.
-     * {@link ClienteTarjetasResource}
+     * {@link TarjetaDeCreditoResource}
      *
-     * Este método conecta la ruta de /clientes con las rutas de /tarjetasDeCredito que
+     * Este método conecta la ruta de /clientes con las rutas de /tarjetas que
      * dependen del cliente, es una redirección al servicio que maneja el
      * segmento de la URL que se encarga de los pagos de un cliente.
      *
@@ -256,13 +256,13 @@ public class ClienteResource
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
-    @Path("{clientesId: \\d+}/tarjetasDeCredito")
-    public Class<ClienteTarjetasResource> getClienteTarjetasResource(@PathParam("clientesId") Long clientesId) 
+    @Path("{clientesId: \\d+}/tarjetas")
+    public Class<TarjetaDeCreditoResource> getTarjetasResource(@PathParam("clientesId") Long clientesId) 
     {
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
-        return ClienteTarjetasResource.class;
+        return TarjetaDeCreditoResource.class;
     }
     
     /**

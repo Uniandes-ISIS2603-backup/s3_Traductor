@@ -30,10 +30,8 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author ANDRES
  */
-@Path("tarjetasDeCredito")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 
 public class TarjetaDeCreditoResource {
 
@@ -42,10 +40,6 @@ public class TarjetaDeCreditoResource {
     
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
-    
-    
-    @Inject
-    private ClienteTarjetasLogic clienteTarjetasLogic;
     
 
     /**
@@ -66,7 +60,7 @@ public class TarjetaDeCreditoResource {
         TarjetaDeCreditoDTO nuevaTarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.createTarjeta(nuevaTarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createTarjeta: output: {0}", nuevaTarjeta.toString());
 
-        return nuevaTarjeta;
+        return nuevaTarjetaDTO;
     }
 
     /**
@@ -75,7 +69,7 @@ public class TarjetaDeCreditoResource {
      *
      * @param idTarjeta id de la tarjeta
      * @param tarjeta tarjeta a actualizar
-     * @return JSON {@link PropuestaDTO} - La editorial guardada.
+     * @return JSON {@link TarjetaDeCreditoDTO} - La editorial guardada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la tarjeta a
      * actualizar.
@@ -98,7 +92,7 @@ public class TarjetaDeCreditoResource {
     /**
      * Busca y devuelve todas las tarjetas que posee el cliente.
      *
-     * @return JSONArray {@link PropuestaDTO} - Las tarjetas que posee el
+     * @return JSONArray {@link TarjetaDeCreditoDTO} - Las tarjetas que posee el
      * empleado Si no hay ninguna retorna una lista vacía.
      */
     @GET
