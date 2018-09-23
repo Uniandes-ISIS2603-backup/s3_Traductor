@@ -26,10 +26,8 @@ import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
  *
  * @author Alvaro
  */
-@Path("documentos")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class DocumentoResource {
    //Logger
 	private static final Logger LOGGER = Logger.getLogger(DocumentoResource.class.getName());
@@ -86,7 +84,6 @@ public class DocumentoResource {
 	 */
 	
 	@GET
-	@Path("{DocumentoId: \\d+}")
 	public DocumentoDTO getDocumento(@PathParam("DocumentoId") Long documentoId) throws WebApplicationException {
 		
 		// TODO: [getDocumento] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.

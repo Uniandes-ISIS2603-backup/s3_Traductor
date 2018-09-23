@@ -58,7 +58,8 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
     private IdiomaEntity idiomaEntrada;
-    
+    @PodamExclude
+    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
     private ArrayList<DocumentoEntity> documentos = new ArrayList<>();
 
     public ArrayList<DocumentoEntity> getDocumentos() {
