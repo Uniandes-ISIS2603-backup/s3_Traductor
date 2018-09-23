@@ -108,7 +108,7 @@ public class TarjetaDeCreditoLogicTest {
         }
         for (int i = 0; i < 3; i++) {
             TarjetaDeCreditoEntity entity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
-
+entity.setCliente(clienteData.get(1));
             em.persist(entity);
             data.add(entity);
         }
@@ -130,7 +130,7 @@ public class TarjetaDeCreditoLogicTest {
         String tarjeta="1234567891234560";
         newEntity.setNumeroTarjetaCredito(lg.valueOf(tarjeta));
         newEntity.setRedBancaria("visa");
-        TarjetaDeCreditoEntity result = tarjetaLogic.createTarjeta(newEntity);
+        TarjetaDeCreditoEntity result = tarjetaLogic.createTarjeta(clienteData.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         TarjetaDeCreditoEntity entity = em.find(TarjetaDeCreditoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -147,7 +147,7 @@ public class TarjetaDeCreditoLogicTest {
     public void createTarjetaTestConNumeroInvalido() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         newEntity.setNumeroTarjetaCredito(Long.valueOf(1));
-        tarjetaLogic.createTarjeta(newEntity);
+        tarjetaLogic.createTarjeta(clienteData.get(1).getId(),newEntity);
     }
 
     /**
@@ -157,7 +157,7 @@ public class TarjetaDeCreditoLogicTest {
     public void createTarjetaTestConNumeroInvalido2() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         newEntity.setNumeroTarjetaCredito(null);
-        tarjetaLogic.createTarjeta(newEntity);
+        tarjetaLogic.createTarjeta(clienteData.get(1).getId(),newEntity);
     }
     
 
@@ -168,7 +168,7 @@ public class TarjetaDeCreditoLogicTest {
     public void createTarjetaConNumeroExistente() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         newEntity.setNumeroTarjetaCredito(data.get(0).getNumeroTarjetaCredito());
-        tarjetaLogic.createTarjeta(newEntity);
+        tarjetaLogic.createTarjeta(clienteData.get(1).getId(),newEntity);
     }
 
     /**
@@ -178,8 +178,7 @@ public class TarjetaDeCreditoLogicTest {
     public void createTarjetaTestConClienteInexistente() throws BusinessLogicException {
         TarjetaDeCreditoEntity newEntity = factory.manufacturePojo(TarjetaDeCreditoEntity.class);
         ClienteEntity clienteEntity = new ClienteEntity();
-        clienteEntity.setId(Long.MIN_VALUE);
-        tarjetaLogic.createTarjeta(newEntity);
+        tarjetaLogic.createTarjeta(Long.MIN_VALUE,newEntity);
     }
  /**
      * Prueba para actualizar una Tarjeta con numero inválido.

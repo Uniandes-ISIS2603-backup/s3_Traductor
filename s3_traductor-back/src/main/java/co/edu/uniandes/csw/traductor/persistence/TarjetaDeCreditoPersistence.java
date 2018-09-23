@@ -56,12 +56,25 @@ public class TarjetaDeCreditoPersistence {
     /**
      * Busca si hay alguna tarjeta con el id que se envía de argumento
      *
-     * @param idTarjeta: id correspondiente de la tarjeta buscada.
+     * @param idTarjetaDeCredito: id correspondiente de la tarjeta buscada.
      * @return una tarjeta.
      */
-    public TarjetaDeCreditoEntity find(Long idTarjeta) {
-        LOGGER.log(Level.INFO, "Consultando la tarjeta con id={0}", idTarjeta);
-        return em.find(TarjetaDeCreditoEntity.class, idTarjeta);
+    public TarjetaDeCreditoEntity find(Long idCliente,Long idTarjetaDeCredito) {
+        LOGGER.log(Level.INFO, "Consultando la tarjeta con id={0}", idTarjetaDeCredito);
+       TypedQuery<TarjetaDeCreditoEntity> q = em.createQuery("select p from TarjetaDeCreditoEntity p where (p.cliente.id = :idCliente) and (p.id = :idTarjetaDeCredito)", TarjetaDeCreditoEntity.class);
+        q.setParameter("idCliente", idCliente);
+        q.setParameter("idTarjetaDeCredito", idTarjetaDeCredito);
+        List<TarjetaDeCreditoEntity> results = q.getResultList();
+        TarjetaDeCreditoEntity review = null;
+        if (results == null) {
+            review = null;
+        } else if (results.isEmpty()) {
+            review = null;
+        } else if (results.size() >= 1) {
+            review = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta con id = {0} del cliente con id =" + idCliente, idTarjetaDeCredito);
+        return review;
     }
 
     public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {

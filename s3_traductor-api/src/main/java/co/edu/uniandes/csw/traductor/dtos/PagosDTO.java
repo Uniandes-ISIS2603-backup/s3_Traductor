@@ -18,15 +18,7 @@ public class PagosDTO implements Serializable {
     private Long idTransaccion;
     private PropuestaDTO propuestaDto;
 
-    public PropuestaDTO getPropuestaDto() {
-        return propuestaDto;
-    }
-
-    public void setPropuestaDto(PropuestaDTO propuestaDto) {
-        this.propuestaDto = propuestaDto;
-    }
-
-    public Long getId() {
+        public Long getId() {
         return idTransaccion;
     }
 
@@ -58,5 +50,13 @@ public class PagosDTO implements Serializable {
 
     public void setPagoAprobado(Boolean pagoAprobado) {
         this.pagoAprobado = pagoAprobado;
+    }
+    
+    public PropuestaDTO getPropuestaDto() {
+        return propuestaDto;
+    }
+
+    public void setPropuestaDto(PropuestaDTO propuestaDto) {
+        this.propuestaDto = propuestaDto;
     }
 }

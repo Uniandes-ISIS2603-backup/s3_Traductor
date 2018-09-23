@@ -67,16 +67,7 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
 
     public void setDocumentos(ArrayList<DocumentoEntity> documentos) {
         this.documentos = documentos;
-    }
-
-   
-    
-    
-
-   
-   
-
-   
+    }   
 
     public Date getFechaInicio() {
         return fechaInicio;

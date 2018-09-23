@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PagosEntity;
+import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import java.io.Serializable;
@@ -24,6 +26,32 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
     private List<TarjetaDeCreditoDTO> tarjetas;
     private List<SolicitudDTO> solicitudes;
     private List<PagosDTO> pagos;
+    private List<InvitacionDTO> invitaciones;
+    private List<PropuestaDTO> propuestas;
+
+    public List<TarjetaDeCreditoDTO> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<TarjetaDeCreditoDTO> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
+
+    public List<InvitacionDTO> getInvitaciones() {
+        return invitaciones;
+    }
+
+    public void setInvitaciones(List<InvitacionDTO> invitaciones) {
+        this.invitaciones = invitaciones;
+    }
+
+    public List<PropuestaDTO> getPropuestas() {
+        return propuestas;
+    }
+
+    public void setPropuestas(List<PropuestaDTO> propuestas) {
+        this.propuestas = propuestas;
+    }
 
     public List<PagosDTO> getPagos() {
         return pagos;
@@ -84,6 +112,18 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
                     pagos.add(new PagosDTO(entityPagos));
                 }
             }
+            if (clienteEntity.getInvitaciones()!= null) {
+                invitaciones = new ArrayList<>();
+                for (InvitacionEntity entityInvitacion : clienteEntity.getInvitaciones()) {
+                    invitaciones.add(new InvitacionDTO(entityInvitacion));
+                }
+            }
+            if (clienteEntity.getPropuestas()!= null) {
+                propuestas = new ArrayList<>();
+                for (PropuestaEntity entityPropuesta : clienteEntity.getPropuestas()) {
+                    propuestas.add(new PropuestaDTO(entityPropuesta));
+                }
+            }
         }
     }
     
@@ -115,6 +155,20 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
                 tarjetasEntity.add(dtoTarjeta.toEntity());
             }
             clienteEntity.setTarjetas(tarjetasEntity);
+        }
+        if (invitaciones != null) {
+            List<InvitacionEntity> invitacionesEntity = new ArrayList<>();
+            for (InvitacionDTO dtoInvitacion : getInvitaciones()) {
+                invitacionesEntity.add(dtoInvitacion.toEntity());
+            }
+            clienteEntity.setInvitaciones(invitacionesEntity);
+        }
+        if (propuestas != null) {
+            List<PropuestaEntity> propuestasEntity = new ArrayList<>();
+            for (PropuestaDTO dtoPropuesta : getPropuestas()) {
+                propuestasEntity.add(dtoPropuesta.toEntity());
+            }
+            clienteEntity.setPropuestas(propuestasEntity);
         }
         return clienteEntity;
     }

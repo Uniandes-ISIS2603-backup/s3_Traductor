@@ -1,7 +1,9 @@
 package co.edu.uniandes.csw.traductor.test.persistence;
 
 
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.entities.PagosEntity;
+import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import co.edu.uniandes.csw.traductor.persistence.PagosPersistence;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -38,7 +40,8 @@ public class PagoPersistenceTest {
      */
     @Inject
     private PagosPersistence pagosPersistence;
-
+    
+     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
@@ -59,6 +62,8 @@ public class PagoPersistenceTest {
      */
 	
     private List<PagosEntity> data = new ArrayList<PagosEntity>();
+    
+        private List<ClienteEntity> clienteData = new ArrayList<ClienteEntity>();
 	
 	/**
      *
@@ -105,7 +110,8 @@ public class PagoPersistenceTest {
      */
 	
     private void clearData() {
-        em.createQuery("delete from PropuestaEntity").executeUpdate();
+        em.createQuery("delete from PagosEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
     }
 
     /**
@@ -116,11 +122,18 @@ public class PagoPersistenceTest {
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
-        for (int i = 0; i < 3; i++)
-		{
-            PagosEntity entity = factory.manufacturePojo(PagosEntity.class);			
-            em.persist(entity); //Hace el insert en la base de datos de las tablas.
-            data.add(entity); //Agrega a la lista la entidad insertada para que se realicen validaciones luego.
+      for (int i = 0; i < 3; i++) {
+            ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
+            em.persist(entity);
+            clienteData.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
+            PagosEntity entity = factory.manufacturePojo(PagosEntity.class);
+            if (i == 0) {
+                entity.setCliente(clienteData.get(0));
+            }
+            em.persist(entity);
+            data.add(entity);
         }
     }
 	
@@ -142,17 +155,13 @@ public class PagoPersistenceTest {
 	 * Permite hacer las pruebas de busqueda de un pago
 	 */
 	@Test
-	public void searchPagoTest()
+	public void getPagoTest()
 	{
-		PagosEntity busqueda = pagosPersistence.find(Long.MIN_VALUE); //Intenta buscar un pago que no existe.
-		Assert.assertNull("El pago no deberia existir en la base de datos pues está vacia", busqueda);
-		PagosEntity pagoEntity = data.get(0); //Toma un pago de la lista.
-		PagosEntity result = pagosPersistence.create(pagoEntity); //Guarda el nuevo pago en la base de datos para ser buscada.		
-		PagosEntity busqueda2 = pagosPersistence.find(pagoEntity.getId());
-		Assert.assertNotNull("El pago deberia existir en la base de datos", busqueda2);
-		Assert.assertEquals("El numero deberia ser el mismo", busqueda2.getId(), pagoEntity.getId());
-	}
-	
+        PagosEntity entity = data.get(0);
+        PagosEntity newEntity = pagosPersistence.find(clienteData.get(0).getId(), entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getId(), newEntity.getId());
+        }
 	
 	/**
      * Prueba para eliminar un pago.
