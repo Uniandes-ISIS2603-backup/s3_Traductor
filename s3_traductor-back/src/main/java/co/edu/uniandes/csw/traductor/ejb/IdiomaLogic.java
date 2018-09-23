@@ -40,8 +40,6 @@ public class IdiomaLogic {
         
         if(persistence.find(idiomaEntity.getId()) !=null)
             throw new BusinessLogicException("Este idioma ya existe en el sistema");
-        if(persistence.find(idiomaEntity.getIdioma())!=null)
-            throw new BusinessLogicException("ya existe un idioma con el nombre\""+idiomaEntity.getIdioma() +"\"" );
         persistence.create(idiomaEntity);
         LOGGER.log(Level.INFO,"Termina el proceso de creacion del idioma");
         return idiomaEntity;
