@@ -39,10 +39,18 @@ public class PagosDTO implements Serializable {
     }
 
     public PagosDTO(PagosEntity entity) {
-        if(entity!=null){
-            pagoAprobado=entity.getPagoAprobado();
+        if (entity != null) {
+            this.idTransaccion = entity.getId();
+            this.pagoAprobado = entity.getPagoAprobado();
         }
-            }
+    }
+     public PagosEntity toEntity()
+     {
+        PagosEntity pagoEntity = new PagosEntity();
+        pagoEntity.setId(this.idTransaccion);
+        pagoEntity.setPagoAprobado(this.pagoAprobado);
+        return pagoEntity;
+     }
 
     public Boolean getPagoAprobado() {
         return pagoAprobado;
@@ -51,6 +59,4 @@ public class PagosDTO implements Serializable {
     public void setPagoAprobado(Boolean pagoAprobado) {
         this.pagoAprobado = pagoAprobado;
     }
-
-   
 }

@@ -53,6 +53,7 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
      * Constructor por defecto
      */
     public ClienteDetailDTO(){
+        super();
     }
     
     /**
@@ -86,6 +87,37 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
         }
     }
     
+    /**
+     * Transformar el DTO a una entidad
+     *
+     * @return La entidad que representa el libro.
+     */
+    @Override
+    public ClienteEntity toEntity() {
+        ClienteEntity clienteEntity = super.toEntity();
+        if (pagos != null) {
+            List<PagosEntity> pagosEntity = new ArrayList<>();
+            for (PagosDTO dtoPago : getPagos()) {
+                pagosEntity.add(dtoPago.toEntity());
+            }
+            clienteEntity.setPagos(pagosEntity);
+        }
+        if (solicitudes != null) {
+            List<SolicitudEntity> solicitudesEntity = new ArrayList<>();
+            for (SolicitudDTO dtoSolicitud : getSolicitudes()) {
+                solicitudesEntity.add(dtoSolicitud.toEntity());
+            }
+            clienteEntity.setSolicitudes(solicitudesEntity);
+        }
+        if (tarjetas != null) {
+            List<TarjetaDeCreditoEntity> tarjetasEntity = new ArrayList<>();
+            for (TarjetaDeCreditoDTO dtoTarjeta : getTarjetasDeCredito()) {
+                tarjetasEntity.add(dtoTarjeta.toEntity());
+            }
+            clienteEntity.setTarjetas(tarjetasEntity);
+        }
+        return clienteEntity;
+    }
     
     @Override
     public String toString() {
