@@ -129,7 +129,7 @@ public class InvitacionLogic
     public void deleteInvitacion(Long clienteId, Long invitacionId) throws BusinessLogicException 
 	{
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la invitacion con id = {0}", invitacionId);
-		InvitacionEntity entidadEliminar = getInvitacion(invitacionId, invitacionId);
+		InvitacionEntity entidadEliminar = getInvitacion(clienteId, invitacionId);
 		if (entidadEliminar == null){
 			throw new BusinessLogicException("La invitacion con id = " + invitacionId + " no esta asociado a el cliente con id = " + clienteId);
 		}
