@@ -60,9 +60,9 @@ public class PagosLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<PagosEntity> data = new ArrayList<PagosEntity>();
+    private List<PagosEntity> data = new ArrayList<>();
 
-    private List<ClienteEntity> clienteData = new ArrayList();
+    private List<ClienteEntity> clienteData = new ArrayList<>();
     
 
    @Deployment

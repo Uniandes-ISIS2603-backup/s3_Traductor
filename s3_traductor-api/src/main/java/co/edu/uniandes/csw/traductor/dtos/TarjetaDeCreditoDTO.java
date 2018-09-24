@@ -27,6 +27,7 @@ public class TarjetaDeCreditoDTO implements Serializable
   
 
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
+        idTarjeta=tarjeta.getId();
         numeroTarjetaCredito=tarjeta.getNumeroTarjetaCredito();
         ccv=tarjeta.getCcv();
         mesExpiracion=tarjeta.getMesExpiracion();
@@ -42,6 +43,7 @@ public class TarjetaDeCreditoDTO implements Serializable
 public TarjetaDeCreditoEntity toEntity()
 	{
 		TarjetaDeCreditoEntity tarjetaDeCredito = new TarjetaDeCreditoEntity();
+                tarjetaDeCredito.setId(idTarjeta);
 		tarjetaDeCredito.setCcv(ccv);
                 tarjetaDeCredito.setMesExpiracion(mesExpiracion);
                 tarjetaDeCredito.setAnioExpiracion(anioExpiracion);
