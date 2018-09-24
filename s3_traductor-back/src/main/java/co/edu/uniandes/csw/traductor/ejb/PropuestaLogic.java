@@ -29,6 +29,10 @@ public class PropuestaLogic
 	
 	@Inject
 	private PropuestaPersistence propuestaPersistence; //Invocación a la tabla de propuesta para trabajar en la base de datos.	
+		
+	@Inject
+	private EmpleadoPersistence empleadoPersistence;
+	
 	
 	/**
      * Crea una propuesta en la persistencia.
