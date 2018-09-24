@@ -192,7 +192,51 @@
 					"response": []
 				},
 				{
-					"name": "retornar los clientes",
+					"name": "Crear un cliente con misma identificacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4fe2da9-68f9-4524-b10a-6207e5940232",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No crea con la misma identificacion\"] = responseCode.code === 412;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un cliente con la identificacion \\\"12346572\\\"\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"nuevouser\",\n\t\"contrasenia\":\"elpassseguro\",\n\t\"correoElectronico\":\"lacuenta@fake.com\",\n\t\"nombre\":\"El Nuevo cliente\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Intenta crear un cliente con una identificación ya existente. Por ende, no debe crear el cliente."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los clientes",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -206,24 +250,24 @@
 							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\",\"tipoCliente\":\"PERSONA_NATURAL\"}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
 								"clientes"
 							]
 						},
-						"description": "Se encarga de retornar todos los clientes de la aplicacion"
+						"description": "Se encarga de retornar todos los clientes de la aplicacion.\nRecibe un JSON con un arreglo de clientes.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
 				{
-					"name": "retornar cliente con id",
+					"name": "Obtener un cliente",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -232,52 +276,79 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes/id",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
 								"clientes",
-								"id"
+								"{{new_id_o}}"
 							]
 						},
-						"description": "Retorna el cliente que tiene el id indicado en el parametro"
+						"description": "Retorna el cliente que tiene el id indicado en el parametro.\nSe recibe un JSON con el cliente encontrado que existe y está en la base de datos.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
 				{
-					"name": "borrar cliente con id especificado",
+					"name": "Obtener un cliente inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44f599d0-f178-4562-9bff-1d35308ac03b",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No se puede obtener un cliente que no existe\"] = responseCode.code === 404;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+								]
+							}
+						}
+					],
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes/id",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
 								"clientes",
-								"id"
+								"0"
 							]
 						},
-						"description": "Borra de la aplicacion al cliente con el id especificado"
+						"description": "Intenta obtener un cliente que no existe en la base de datos de la aplicación, por lo que debería fallar.\n\n**Código Http esperado: 404**"
 					},
 					"response": []
 				},
 				{
-					"name": "actualizar info cliente",
+					"name": "Editar un cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "92bd9bab-9227-46f0-b60c-26b8d6a89f90",
+								"type": "text/javascript",
+								"exec": [
+									"console.log(responseBody);",
+									"var data = JSON.parse(responseBody);",
+									"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -288,23 +359,148 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"nombreUsuario\":\"pepito123\",\"contrasenia\":\"pepE\",\"correo\":\"pepe@fake.com\",\"nombre\":\"pedro\",\"identificacion\":\"12346572\"}"
+							"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"nuevaClaveCambiada\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes/id",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
 								"clientes",
-								"id"
+								"{{new_id_o}}"
 							]
 						},
-						"description": "Se encarga de actualizar la informacion de un cliente, a partir de su id"
+						"description": "Se encarga de actualizar la informacion de un cliente, a partir de su id.\nSe recibe un JSON con la información del cliente nueva a actualizar.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar un cliente inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e041d4b0-6694-4151-9e71-b8d108d4a793",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No se puede editar cliente que no existe.\"] = responseCode.code === 404;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"elNoExsite\",\n\t\"contrasenia\":\"laclave\",\n\t\"correoElectronico\":\"lol@fake.com\",\n\t\"nombre\":\"No Existo\",\n\t\"identificacion\":\"12523556\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"0"
+							]
+						},
+						"description": "Intenta editar un cliente inexistente en la aplicacion. No debería editar nada y debería fallar.\n\n**Código Http esperado: 404**"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0cdc869-2a0e-4e43-9051-cdbc437a5d56",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_o}}"
+							]
+						},
+						"description": "Borra de la aplicacion al cliente con el id especificado.\nSe ingresa el id del cliente especificado y no se retorna nada.\n\n**Código Http esperado: 204**"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un cliente inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "940fc779-c4a4-4760-9c05-68066f029db7",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No debería borrar algo que no existe\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"0"
+							]
+						},
+						"description": "Intenta borrar un cliente que no existe en la aplicacion.\nPor ende, esto debe fallar.\n**Código Http esperado: 404**"
 					},
 					"response": []
 				}
