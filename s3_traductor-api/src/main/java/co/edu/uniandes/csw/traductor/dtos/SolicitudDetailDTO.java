@@ -17,26 +17,52 @@ import java.util.List;
  */
 public class SolicitudDetailDTO extends SolicitudDTO implements Serializable {
 
+    /**
+     * Relacion de uno o muchos
+     */
     private List<DocumentoDTO> documentos;
 
     public SolicitudDetailDTO() {
+        super();
     }
 
+    /**
+     * Constructor para transformar un Entity a un DTO
+     * @param solicitudEntity 
+     */
     public SolicitudDetailDTO(SolicitudEntity solicitudEntity) {
-        super();
-        if(solicitudEntity != null)
-        {
-            if(solicitudEntity.getDocumentos() != null)
-            {
+        super(solicitudEntity);
+        if (solicitudEntity != null) {
+            if (solicitudEntity.getDocumentos() != null) {
                 documentos = new ArrayList<>();
-                for(DocumentoEntity docu : solicitudEntity.getDocumentos())
-                {
+                for (DocumentoEntity docu : solicitudEntity.getDocumentos()) {
                     documentos.add(new DocumentoDTO(docu));
                 }
             }
         }
     }
 
+    
+        /**
+     * Transformar el DTO a una entidad
+     *
+     * @return La entidad que representa el libro.
+     */
+    @Override
+    public SolicitudEntity toEntity() {
+        SolicitudEntity solicitudEnity = super.toEntity();
+        if (documentos != null) {
+            List<DocumentoEntity> documentosEntity = new ArrayList<>();
+            for (DocumentoDTO docu : getDocumentos()) {
+                documentosEntity.add(docu.toEntity());
+            }
+            solicitudEnity.setDocumentos((ArrayList<DocumentoEntity>) documentosEntity);
+        }
+      
+        return solicitudEnity;
+    }
+    
+    
     public List<DocumentoDTO> getDocumentos() {
         return documentos;
     }
