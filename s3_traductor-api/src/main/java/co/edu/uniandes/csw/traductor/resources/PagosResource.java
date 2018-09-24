@@ -48,11 +48,11 @@ public class PagosResource {
      * @return JSON {@link PropuestaDTO} - La propuesta recibida.
      */
     @POST
-    public PagosDTO createPago(@PathParam("clientesId") Long idCliente,Long idPropuesta,PagosDTO nuevoPago) throws BusinessLogicException {
+    public PagosDTO createPago(@PathParam("idCliente") Long idCliente,PagosDTO nuevoPago) throws BusinessLogicException {
 
         //Llamado al Logger
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createPago: input: {0}", nuevoPago.toString());
-       PagosDTO nuevoPagoDTO = new PagosDTO(pagosLogic.createPago(idCliente, idPropuesta,nuevoPago.toEntity()));
+       PagosDTO nuevoPagoDTO = new PagosDTO(pagosLogic.createPago(idCliente, nuevoPago.getPropuestaDto().getPropuestaId(),nuevoPago.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createPago: output: {0}", nuevoPago.toString());
 
         return nuevoPagoDTO;
@@ -71,7 +71,7 @@ public class PagosResource {
      */
     @PUT
     @Path("{idTransaccion: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
-    public PagosDTO updatePago(@PathParam("clientesId") Long idCliente,@PathParam("idTransaccion") Long idTransaccion, PagosDTO pago) throws WebApplicationException, BusinessLogicException {
+    public PagosDTO updatePago(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion, PagosDTO pago) throws WebApplicationException, BusinessLogicException {
 
      LOGGER.log(Level.INFO, "PagosResource modificarTPago: input:(0)", idTransaccion);
         
@@ -118,7 +118,7 @@ public class PagosResource {
      */
     @GET
     @Path("{idTransaccion: \\d+}")
-    public PagosDTO getPago(@PathParam("idClientes") Long idCliente,@PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException {
+    public PagosDTO getPago(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException {
 LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
         PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {
@@ -138,7 +138,7 @@ LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
      */
     @DELETE
     @Path("{idTransaccion: \\d+}")
-    public void deletePago(@PathParam("idClientes") Long idCliente,@PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException, BusinessLogicException {
+    public void deletePago(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException, BusinessLogicException {
 
          PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {

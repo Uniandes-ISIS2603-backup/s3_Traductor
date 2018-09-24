@@ -48,6 +48,8 @@ public TarjetaDeCreditoEntity toEntity()
                 tarjetaDeCredito.setMesExpiracion(mesExpiracion);
                 tarjetaDeCredito.setAnioExpiracion(anioExpiracion);
                 tarjetaDeCredito.setRedBancaria(redBancaria);
+                tarjetaDeCredito.setNombreTitular(nombreTitular);
+                tarjetaDeCredito.setNumeroTarjetaCredito(numeroTarjetaCredito);
 		return tarjetaDeCredito;
 	}	
 	

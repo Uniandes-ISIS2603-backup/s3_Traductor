@@ -276,7 +276,7 @@ public class ClienteResource
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
-    @Path("{clientesId: \\d+}/tarjetas")
+    @Path("{clientesId: \\d+}/tarjetasDeCredito")
     public Class<TarjetaDeCreditoResource> getTarjetasResource(@PathParam("clientesId") Long clientesId) 
     {
         if (clienteLogic.getCliente(clientesId) == null) {

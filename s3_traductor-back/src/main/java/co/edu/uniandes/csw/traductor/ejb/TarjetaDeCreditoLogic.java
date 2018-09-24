@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.TarjetaDeCreditoPersistence;
 import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,6 +42,7 @@ public class TarjetaDeCreditoLogic {
      */
     public TarjetaDeCreditoEntity createTarjeta(Long idCliente,TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
+        System.out.println(tarjetaEntity.getNombreTitular());
         if (tarjetaEntity.getNombreTitular().equals("")||tarjetaEntity.getNombreTitular()==null) {
             throw new BusinessLogicException("El nombre es inválida");
         }
@@ -81,6 +83,9 @@ public class TarjetaDeCreditoLogic {
         }
            ClienteEntity cliente = clientePersistence.find(idCliente);
            tarjetaEntity.setCliente(cliente);
+          List<TarjetaDeCreditoEntity> tarjetas=cliente.getTarjetas();
+          tarjetas.add(tarjetaEntity);
+          cliente.setTarjetas(tarjetas);
         persistence.create(tarjetaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return tarjetaEntity;
