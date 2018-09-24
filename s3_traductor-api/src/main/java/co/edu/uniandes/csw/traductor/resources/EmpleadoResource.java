@@ -143,7 +143,7 @@ public class EmpleadoResource {
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
-    @Path("{clientesId: \\d+}/propuestas")
+    @Path("{empleadoId: \\d+}/propuestas")
     public Class<PropuestaResource> getPropuestaResource(@PathParam("clientesId") Long clientesId) 
     {
         if (empleadoLogic.getEmpleado(clientesId) == null) {

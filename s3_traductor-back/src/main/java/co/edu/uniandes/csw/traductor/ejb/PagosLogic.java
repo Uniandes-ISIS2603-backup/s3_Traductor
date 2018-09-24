@@ -51,7 +51,7 @@ public class PagosLogic {
             throw new BusinessLogicException("El cliente es inválido");
         }
         
-        PropuestaEntity propEntity = propuestaPersistence.find(idPropuesta);
+        PropuestaEntity propEntity = propuestaPersistence.findSoloId(idPropuesta);
         if (propEntity == null) {
             throw new BusinessLogicException("La propuesta es inválida");
         }

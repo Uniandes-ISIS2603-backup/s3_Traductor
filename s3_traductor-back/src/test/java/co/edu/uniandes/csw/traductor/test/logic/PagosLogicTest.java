@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.traductor.entities.PagosEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.PagosPersistence;
+import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,9 @@ public class PagosLogicTest {
      
      @Inject
     private PropuestaLogic propuestaLogic;
+	 
+	 @Inject
+	private PropuestaPersistence propuestaPersistence; //Lo forzo debido a que se hicieron cambios de ultima hora. Geovanny.
 
     @PersistenceContext
     private EntityManager em;
@@ -132,8 +136,8 @@ public class PagosLogicTest {
         PagosEntity newEntity = factory.manufacturePojo(PagosEntity.class);
         ClienteEntity newClienteEntity = factory.manufacturePojo(ClienteEntity.class);
         PropuestaEntity newPropuestaEntity = factory.manufacturePojo(PropuestaEntity.class);
-newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
-        newPropuestaEntity = propuestaLogic.createPropuesta(newPropuestaEntity);
+		newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
+        newPropuestaEntity = propuestaPersistence.create(newPropuestaEntity);
         newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
         newClienteEntity = clienteLogic.createCliente(newClienteEntity);
         newEntity.setCliente(newClienteEntity);

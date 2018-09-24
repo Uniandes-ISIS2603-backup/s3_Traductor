@@ -140,7 +140,7 @@ public class PropuestaPersistenceTest
 	
 	/**
 	 * Permite hacer las pruebas de busqueda de una propuesta
-	 */
+	 
 	@Test
 	public void findPropuestaTest()
 	{
@@ -152,6 +152,7 @@ public class PropuestaPersistenceTest
 		Assert.assertNotNull("La propuesta deberia existir en la base de datos", busqueda2);
 		Assert.assertEquals("La descripcion deberia ser la misma", busqueda2.getDescripcion(), propuestaLista.getDescripcion());
 	}
+	*/
 	
 	/**
      * Prueba para actualizar una propuesta.

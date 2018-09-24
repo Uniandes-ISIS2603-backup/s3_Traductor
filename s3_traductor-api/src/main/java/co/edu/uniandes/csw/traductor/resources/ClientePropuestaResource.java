@@ -60,18 +60,9 @@ public class ClientePropuestaResource
     public PropuestaDTO addPropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId)
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
-		try
-		{
-			if (propuestaLogic.getPropuesta(propuestaId) == null)
-			{
+		if (propuestaLogic.getPropuestaSoloId(propuestaId) == null){
 				throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
-			}
-		}
-		
-		catch(BusinessLogicException e)
-		{
-			//No hacer nada, la excepción se controla en el bloque del try.
-		}
+		}		
         
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.addPropuesta(clienteId, propuestaId));
         LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta.toString());
@@ -111,7 +102,7 @@ public class ClientePropuestaResource
     public PropuestaDTO getPropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
-        if (propuestaLogic.getPropuesta(propuestaId) == null) {
+        if (propuestaLogic.getPropuestaSoloId(propuestaId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clienteId + "/propuestas/" + propuestaId + " no existe.", 404);
         }
 		
