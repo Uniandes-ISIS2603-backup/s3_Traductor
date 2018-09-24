@@ -79,6 +79,8 @@ public class TarjetaDeCreditoLogic {
           if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
             throw new BusinessLogicException("La red bancaria es invalida");
         }
+           ClienteEntity cliente = clientePersistence.find(idCliente);
+           tarjetaEntity.setCliente(cliente);
         persistence.create(tarjetaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return tarjetaEntity;
@@ -163,6 +165,8 @@ public class TarjetaDeCreditoLogic {
           if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
             throw new BusinessLogicException("La red bancaria es invalida");
         }
+          ClienteEntity cliente = clientePersistence.find(idCliente);
+           tarjetaEntity.setCliente(cliente);
         TarjetaDeCreditoEntity newEntity = persistence.update(tarjetaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta con id = {0}", tarjetaEntity.getId());
         return newEntity;
@@ -173,9 +177,12 @@ public class TarjetaDeCreditoLogic {
      *
      * @param idTarjeta El ID de la tarjeta a eliminar
      */
-    public void deleteTarjeta(Long idTarjeta) {
+    public void deleteTarjeta(Long idCliente,Long idTarjeta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id = {0}", idTarjeta);
-        
+         TarjetaDeCreditoEntity old = getTarjetaDeCredito(idCliente, idTarjeta);
+        if (old == null) {
+            throw new BusinessLogicException("La tarjeta con id = " + idTarjeta + " no esta asociado a el cliente con id = " + idCliente);
+        }
         persistence.delete(idTarjeta);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id = {0}", idTarjeta);
     }

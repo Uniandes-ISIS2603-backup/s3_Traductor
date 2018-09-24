@@ -36,6 +36,11 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 	@PodamExclude
 	@OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
 	private InvitacionEntity invitacion;
+        
+        @PodamExclude
+	@OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY, optional = true) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
+	private PagosEntity pago;
+
 	
 	//"Callback a Empleado - Relacion ManyToOne"
 	@PodamExclude
@@ -162,5 +167,14 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
+    }
+    
+    
+    public PagosEntity getPago() {
+        return pago;
+    }
+
+    public void setPago(PagosEntity pago) {
+        this.pago = pago;
     }
 }
