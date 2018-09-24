@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -100,7 +101,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setTarjetas(List<TarjetaDeCreditoEntity> tarjetas) {
         this.tarjetas = tarjetas;
     }
-
+   
     public String getNombre() {
         return nombre;
     }
