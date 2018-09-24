@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
+import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import java.io.Serializable;
 
 /**
@@ -14,12 +15,13 @@ import java.io.Serializable;
  */
 public class ClienteDTO implements Serializable
 {
-    private Long id;
-    private String nombreUsuario;
-    private String contrasenia;
-    private String correoElectronico;
-    private String nombre;
-    private String identificacion;
+    protected Long id;
+    protected String nombreUsuario;
+    protected String contrasenia;
+    protected String correoElectronico;
+    protected String nombre;
+    protected String identificacion;
+    protected TipoCliente tipoCliente;
 
     /**
      * Da el nombre de un cliente en el sistema
@@ -116,6 +118,22 @@ public class ClienteDTO implements Serializable
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
+
+    /**
+     * Da el tipo del cliente en cuestion
+     * @return El tipo de cliente
+     */
+    public ClienteEntity.TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    /**
+     * Cambia el tipo de cliente por el parametro
+     * @param tipoCliente En nuevo tipo de cliente
+     */
+    public void setTipoCliente(ClienteEntity.TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
     
     /**
      * Constructor por defecto
@@ -137,6 +155,7 @@ public class ClienteDTO implements Serializable
             this.contrasenia = clienteEntity.getContrasenia();
             this.nombre = clienteEntity.getNombre();
             this.identificacion = clienteEntity.getIdentificacion();
+            this.tipoCliente = clienteEntity.getTipoCliente();
         }
     }
     
@@ -153,6 +172,7 @@ public class ClienteDTO implements Serializable
         clienteEntity.setContrasenia(this.contrasenia);
         clienteEntity.setNombre(this.nombre);
         clienteEntity.setIdentificacion(this.identificacion);
+        clienteEntity.setTipoCliente(this.tipoCliente);
         return clienteEntity;
     }
 }

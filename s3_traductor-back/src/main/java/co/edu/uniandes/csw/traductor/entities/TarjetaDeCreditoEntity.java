@@ -42,6 +42,14 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private ClienteEntity cliente;
 
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
    
     public TarjetaDeCreditoEntity() {
         

@@ -1,158 +1,10 @@
 {
 	"info": {
-		"_postman_id": "bed89bfc-9e75-4c35-a976-dfaeef05ed5b",
+		"_postman_id": "eab08bf0-f9a6-43e0-97ad-281b337b624c",
 		"name": "Pruebas_resources_JuanParra",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Cliente",
-			"item": [
-				{
-					"name": "retornar los clientes",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\"}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"s3_traductor-api",
-								"api",
-								"clientes"
-							]
-						},
-						"description": "Se encarga de retornar todos los clientes de la aplicacion"
-					},
-					"response": []
-				},
-				{
-					"name": "crear cliente",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"id\":\"12sad1a5\",\"nombreUsuario\":\"pepito123\",\"contrasenia\":\"pepE\",\"correo\":\"pepe@fake.com\",\"nombre\":\"pedro\",\"identificacion\":\"12346572\"}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"s3_traductor-api",
-								"api",
-								"clientes"
-							]
-						},
-						"description": "Se crean un nuevo cliente con el json dejado como parametro"
-					},
-					"response": []
-				},
-				{
-					"name": "retornar cliente con id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes/id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"s3_traductor-api",
-								"api",
-								"clientes",
-								"id"
-							]
-						},
-						"description": "Retorna el cliente que tiene el id indicado en el parametro"
-					},
-					"response": []
-				},
-				{
-					"name": "borrar cliente con id especificado",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes/id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"s3_traductor-api",
-								"api",
-								"clientes",
-								"id"
-							]
-						},
-						"description": "Borra de la aplicacion al cliente con el id especificado"
-					},
-					"response": []
-				},
-				{
-					"name": "actualizar info cliente",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"nombreUsuario\":\"pepito123\",\"contrasenia\":\"pepE\",\"correo\":\"pepe@fake.com\",\"nombre\":\"pedro\",\"identificacion\":\"12346572\"}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/clientes/id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"s3_traductor-api",
-								"api",
-								"clientes",
-								"id"
-							]
-						},
-						"description": "Se encarga de actualizar la informacion de un cliente, a partir de su id"
-					},
-					"response": []
-				}
-			],
-			"description": "Pruebas para el funcionamiento de los servicios de cliente"
-		},
 		{
 			"name": "Idioma",
 			"item": [
@@ -161,7 +13,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:8080/s3_traductor-api/api/idiomas",
 							"protocol": "http",
@@ -184,7 +39,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:8080/s3_traductor-api/api/idiomas/id",
 							"protocol": "http",
@@ -245,7 +103,10 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:8080/s3_traductor-api/api/calificaciones",
 							"protocol": "http",
@@ -268,7 +129,10 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:8080/s3_traductor-api/api/calificaciones/id",
 							"protocol": "http",

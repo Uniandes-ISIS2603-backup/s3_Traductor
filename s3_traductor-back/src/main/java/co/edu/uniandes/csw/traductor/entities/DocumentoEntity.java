@@ -7,22 +7,36 @@ package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.File;
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Alvaro
  */
+@Entity
 public class DocumentoEntity extends BaseEntity implements Serializable{
     
     private String Descripcion;
     private Integer numeroPalabras;
     private File archivoAdjunto;
-
+    @PodamExclude
+    @ManyToOne
+    private SolicitudEntity solicitud;
    
     
     public DocumentoEntity() {
     }
 
+    public SolicitudEntity getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(SolicitudEntity solicitud) {
+        this.solicitud = solicitud;
+    }
+    
     public String getDescripcion() {
         return Descripcion;
     }

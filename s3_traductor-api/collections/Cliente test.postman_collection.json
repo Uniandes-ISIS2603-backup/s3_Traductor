@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "97be34e4-bd4e-46d3-a9d5-e32dc26a3a12",
+		"name": "Cliente test",
+		"description": "Coleccion de pruebas sobre el recurso Author",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "Crear un cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b132ce6f-76c4-468e-bf75-b73c58e5520e",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_o\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"pepE\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Se crean un nuevo cliente con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\nLos atributos de nombreUsuario, correoElectronico e identificacion deben ser únicos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un cliente 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6967c244-d97e-4b6d-acf5-ca48044307ba",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_o2\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"salitoLOL\",\n\t\"contrasenia\":\"sasabestpass\",\n\t\"correoElectronico\":\"salito@me.com\",\n\t\"nombre\":\"Santiago Salazar\",\n\t\"identificacion\":\"44325232\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Se crean un nuevo cliente con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\nLos atributos de nombreUsuario, correoElectronico e identificacion deben ser únicos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un cliente con mismo nombreUsuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f5fe76b9-bdac-4b20-b69e-d6282e51300a",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No crea con el mismo nombre de usuario\"] = responseCode.code === 412;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un cliente con el nombre de usuario \\\"pepito123\\\"\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"fffasf\",\n\t\"correoElectronico\":\"new@fake.com\",\n\t\"nombre\":\"pedro manito\",\n\t\"identificacion\":\"003523515\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Intenta crear un cliente con el mismo nombre de usuario que uno ya existente, por lo que debe fallat el test.\n\n**Código Http esperado: 412**"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un clente con mismo correoElectronico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ba59e59-06e3-4d85-8dd0-3d1b9540cc71",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No crea con el mismo correo\"] = responseCode.code === 412;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un cliente con el correo electronico \\\"pepe@fake.com\\\"\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"manito123\",\n\t\"contrasenia\":\"bestpass123\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"el manito nuevo\",\n\t\"identificacion\":\"523526242\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Intenta crear un cliente nuevo con un correo electrónico ya existente, por loq ue debe fallar.\n\n**Código Http esperado: 412**"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un cliente con misma identificacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4fe2da9-68f9-4524-b10a-6207e5940232",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No crea con la misma identificacion\"] = responseCode.code === 412;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un cliente con la identificacion \\\"12346572\\\"\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"nuevouser\",\n\t\"contrasenia\":\"elpassseguro\",\n\t\"correoElectronico\":\"lacuenta@fake.com\",\n\t\"nombre\":\"El Nuevo cliente\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Intenta crear un cliente con una identificación ya existente. Por ende, no debe crear el cliente."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los clientes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\",\"tipoCliente\":\"PERSONA_NATURAL\"}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Se encarga de retornar todos los clientes de la aplicacion.\nRecibe un JSON con un arreglo de clientes.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_o}}"
+							]
+						},
+						"description": "Retorna el cliente que tiene el id indicado en el parametro.\nSe recibe un JSON con el cliente encontrado que existe y está en la base de datos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un cliente inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44f599d0-f178-4562-9bff-1d35308ac03b",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No se puede obtener un cliente que no existe\"] = responseCode.code === 404;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"0"
+							]
+						},
+						"description": "Intenta obtener un cliente que no existe en la base de datos de la aplicación, por lo que debería fallar.\n\n**Código Http esperado: 404**"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar un cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "92bd9bab-9227-46f0-b60c-26b8d6a89f90",
+								"type": "text/javascript",
+								"exec": [
+									"console.log(responseBody);",
+									"var data = JSON.parse(responseBody);",
+									"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"nuevaClaveCambiada\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_o}}"
+							]
+						},
+						"description": "Se encarga de actualizar la informacion de un cliente, a partir de su id.\nSe recibe un JSON con la información del cliente nueva a actualizar.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar un cliente inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e041d4b0-6694-4151-9e71-b8d108d4a793",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No se puede editar cliente que no existe.\"] = responseCode.code === 404;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"elNoExsite\",\n\t\"contrasenia\":\"laclave\",\n\t\"correoElectronico\":\"lol@fake.com\",\n\t\"nombre\":\"No Existo\",\n\t\"identificacion\":\"12523556\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"0"
+							]
+						},
+						"description": "Intenta editar un cliente inexistente en la aplicacion. No debería editar nada y debería fallar.\n\n**Código Http esperado: 404**"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0cdc869-2a0e-4e43-9051-cdbc437a5d56",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_o}}"
+							]
+						},
+						"description": "Borra de la aplicacion al cliente con el id especificado.\nSe ingresa el id del cliente especificado y no se retorna nada.\n\n**Código Http esperado: 204**"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un cliente inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "940fc779-c4a4-4760-9c05-68066f029db7",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No debería borrar algo que no existe\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"0"
+							]
+						},
+						"description": "Intenta borrar un cliente que no existe en la aplicacion.\nPor ende, esto debe fallar.\n**Código Http esperado: 404**"
+					},
+					"response": []
+				}
+			],
+			"description": "Pruebas para el funcionamiento de los servicios de cliente"
+		}
+	]
+}

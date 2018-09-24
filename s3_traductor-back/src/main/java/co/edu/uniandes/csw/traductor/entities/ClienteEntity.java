@@ -14,32 +14,41 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Entidad de DTO Cliente para la persistencia.
+ *
  * @author Santi Salazar
  */
 @Entity
-public class ClienteEntity extends BaseEntity implements Serializable{
+public class ClienteEntity extends BaseEntity implements Serializable {
+
+    //Enum que se encarga de determinar el tipo de cliente.
+    public enum TipoCliente {
+        EMPRESA,
+        PERSONA_NATURAL
+    }
 
     private String nombreUsuario;
     private String correoElectronico;
     private String contrasenia;
     private String nombre;
-    
+    private String identificacion;
+    private TipoCliente tipoCliente;
+
     @PodamExclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TarjetaDeCreditoEntity> tarjetas;
-    
+
     @PodamExclude
     @OneToMany(mappedBy = "cliente")
     private List<SolicitudEntity> solicitudes;
-    
+
     @PodamExclude
     @OneToMany(mappedBy = "cliente")
     private List<PagosEntity> pagos;
-    
+
     @PodamExclude
     @OneToMany(mappedBy = "cliente")
     private List<InvitacionEntity> invitaciones;
-    
+
     @PodamExclude
     @OneToMany(mappedBy = "cliente")
     private List<PropuestaEntity> propuestas;
@@ -59,8 +68,14 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     public void setPropuestas(List<PropuestaEntity> propuestas) {
         this.propuestas = propuestas;
     }
-    
-    
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
 
     public List<PagosEntity> getPagos() {
         return pagos;
@@ -77,7 +92,6 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     public void setSolicitudes(List<SolicitudEntity> solicitudes) {
         this.solicitudes = solicitudes;
     }
-    
 
     public List<TarjetaDeCreditoEntity> getTarjetas() {
         return tarjetas;
@@ -102,7 +116,6 @@ public class ClienteEntity extends BaseEntity implements Serializable{
     public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
     }
-    private String identificacion;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -126,5 +139,5 @@ public class ClienteEntity extends BaseEntity implements Serializable{
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }  
+    }
 }

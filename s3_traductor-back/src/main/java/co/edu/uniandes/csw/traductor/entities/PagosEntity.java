@@ -26,10 +26,11 @@ public class PagosEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private ClienteEntity cliente;
     
-   @PodamExclude
+     @PodamExclude
    @OneToOne
    private PropuestaEntity propuesta;
 
+    
 
     public ClienteEntity getCliente() {
         return cliente;
@@ -39,14 +40,6 @@ public class PagosEntity extends BaseEntity implements Serializable {
         this.cliente = cliente;
     }
    
-     public PropuestaEntity getPropuesta() {
-        return propuesta;
-    }
-
-    public void setPropuesta(PropuestaEntity propuesta) {
-        this.propuesta = propuesta;
-    }
-
     
     public PagosEntity() {
 
@@ -58,6 +51,14 @@ public class PagosEntity extends BaseEntity implements Serializable {
 
     public void setPagoAprobado(Boolean pagoAprobado) {
         this.pagoAprobado = pagoAprobado;
+    }
+    
+     public PropuestaEntity getPropuesta() {
+        return propuesta;
+    }
+
+    public void setPropuesta(PropuestaEntity propuesta) {
+        this.propuesta = propuesta;
     }
 
 

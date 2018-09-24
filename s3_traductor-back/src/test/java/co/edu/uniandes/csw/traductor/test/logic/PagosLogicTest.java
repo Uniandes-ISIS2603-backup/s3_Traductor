@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.traductor.entities.PagosEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.PagosPersistence;
+import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,9 @@ public class PagosLogicTest {
      
      @Inject
     private PropuestaLogic propuestaLogic;
+	 
+	 @Inject
+	private PropuestaPersistence propuestaPersistence; //Lo forzo debido a que se hicieron cambios de ultima hora. Geovanny.
 
     @PersistenceContext
     private EntityManager em;
@@ -60,11 +64,10 @@ public class PagosLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<PagosEntity> data = new ArrayList<PagosEntity>();
+    private List<PagosEntity> data = new ArrayList<>();
 
-    private List<ClienteEntity> clienteData = new ArrayList();
+    private List<ClienteEntity> clienteData = new ArrayList<>();
     
-    private List<PropuestaEntity> propuestaData = new ArrayList();
 
    @Deployment
     public static JavaArchive createDeployment() {
@@ -103,6 +106,7 @@ public class PagosLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from PagosEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
     }
 
     /**
@@ -116,11 +120,9 @@ public class PagosLogicTest {
             PropuestaEntity propuestaEntity = factory.manufacturePojo(PropuestaEntity.class);
             em.persist(propuestaEntity);
             em.persist(clienteEntity);
-            entity.setPropuesta(propuestaEntity);
             entity.setCliente(clienteEntity);
             em.persist(entity);
             data.add(entity);
-            propuestaData.add(propuestaEntity);
             clienteData.add(clienteEntity);
         }
       
@@ -134,18 +136,16 @@ public class PagosLogicTest {
         PagosEntity newEntity = factory.manufacturePojo(PagosEntity.class);
         ClienteEntity newClienteEntity = factory.manufacturePojo(ClienteEntity.class);
         PropuestaEntity newPropuestaEntity = factory.manufacturePojo(PropuestaEntity.class);
-newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
-        newPropuestaEntity = propuestaLogic.createPropuesta(newPropuestaEntity);
+		newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
+        newPropuestaEntity = propuestaPersistence.create(newPropuestaEntity);
         newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
-        newEntity.setPropuesta(newPropuestaEntity);
         newClienteEntity = clienteLogic.createCliente(newClienteEntity);
         newEntity.setCliente(newClienteEntity);
-        PagosEntity result = pagosLogic.createPago(newEntity);
+        PagosEntity result = pagosLogic.createPago(newClienteEntity.getId(), newPropuestaEntity.getId(), newEntity);
         Assert.assertNotNull(result);
         PagosEntity entity = em.find(PagosEntity.class, result.getId());
        Assert.assertEquals(entity.getId(), newEntity.getId());
         Assert.assertEquals(entity.getCliente(), newEntity.getCliente());
-        Assert.assertEquals(entity.getPropuesta(), newEntity.getPropuesta());
     }
 
     /**
@@ -155,8 +155,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
     public void createPagoConClienteYPropuestaInvalida() throws BusinessLogicException {
         PagosEntity newEntity = factory.manufacturePojo(PagosEntity.class);
         newEntity.setCliente(null);
-        newEntity.setPropuesta(null);
-        pagosLogic.createPago(newEntity);
+        pagosLogic.createPago(Long.MIN_VALUE, Long.MIN_VALUE, newEntity);
     }
 
     /**
@@ -169,8 +168,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
         PropuestaEntity propuesta=new PropuestaEntity();
         cliente.setId(Long.MIN_VALUE);
         newEntity.setCliente(cliente);
-        newEntity.setPropuesta(propuesta);
-        pagosLogic.createPago(newEntity);
+        pagosLogic.createPago(cliente.getId(), propuesta.getId(), newEntity);
     }
 
     /**
@@ -180,8 +178,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
     public void createPaogConPropuestaInvalida3Test() throws BusinessLogicException {
         PagosEntity newEntity = factory.manufacturePojo(PagosEntity.class);
         newEntity.setCliente(clienteData.get(0));
-         newEntity.setPropuesta(null);
-        pagosLogic.createPago(newEntity);
+        pagosLogic.createPago(clienteData.get(0).getId(), Long.MIN_VALUE, newEntity);
     }
 
     /**
@@ -189,8 +186,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
      */
     @Test
     public void getPagosTest() {
-        List<PagosEntity> list = pagosLogic.getPagos();
-        Assert.assertEquals(data.size(), list.size());
+        List<PagosEntity> list = pagosLogic.getPagos(clienteData.get(0).getId()); 
         for (PagosEntity entity : list) {
             boolean found = false;
             for (PagosEntity storedEntity : data) {
@@ -208,11 +204,10 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
     @Test
     public void getPagoTest() {
         PagosEntity entity = data.get(0);
-        PagosEntity resultEntity = pagosLogic.getPago(entity.getId());
+        PagosEntity resultEntity = pagosLogic.getPago(clienteData.get(0).getId(),entity.getId());
         Assert.assertNotNull(resultEntity);
        Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getCliente(), resultEntity.getCliente());
-        Assert.assertEquals(entity.getPropuesta(), resultEntity.getPropuesta());
     }
 
     /**
@@ -231,7 +226,6 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getCliente(), resp.getCliente());
-        Assert.assertEquals(pojoEntity.getPropuesta(), resp.getPropuesta());
     }
 
     /**
@@ -239,7 +233,7 @@ newPropuestaEntity.setCosto(Math.abs(newPropuestaEntity.getCosto()));
     */
     
     public void deletePagoTest() throws BusinessLogicException {
-        PagosEntity entity = data.get(2);
-        pagosLogic.deletePago(entity.getId());
+        PagosEntity entity = data.get(0);
+        pagosLogic.deletePago(clienteData.get(0).getId(),entity.getId());
     }
 }

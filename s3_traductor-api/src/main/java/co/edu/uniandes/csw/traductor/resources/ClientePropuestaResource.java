@@ -57,24 +57,15 @@ public class ClientePropuestaResource
      */
     @POST
     @Path("{propuestaId: \\d+}")
-    public PropuestaDTO addPropuesta(@PathParam("id") Long clienteId, @PathParam("propuestaId") Long propuestaId)
+    public PropuestaDTO addPropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId)
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
-		try
-		{
-			if (propuestaLogic.getPropuesta(propuestaId) == null)
-			{
+		if (propuestaLogic.getPropuestaSoloId(propuestaId) == null){
 				throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
-			}
-		}
-		
-		catch(BusinessLogicException e)
-		{
-			//No hacer nada, la excepción se controla en el bloque del try.
-		}
+		}		
         
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.addPropuesta(clienteId, propuestaId));
-        LOGGER.log(Level.INFO, "EditorialBooksResource addBook: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta.toString());
         return respuesta;
     }
 	
@@ -82,11 +73,11 @@ public class ClientePropuestaResource
      * Busca y devuelve todos las propuestas que existen en un cliente.     *
      * @param clienteId Identificador del cliente que se esta buscando.
      * Este debe ser una cadena de dígitos.
-     * @return JSONArray {@link BookDetailDTO} - Las propuestas encontradas en el
+     * @return JSONArray {@link PropuestasDTO} - Las propuestas encontradas en el
      * cliente. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<PropuestaDTO> getAllPropuestas(@PathParam("id") Long clienteId) {
+    public List<PropuestaDTO> getAllPropuestas(@PathParam("clientesId") Long clienteId) {
         LOGGER.log(Level.INFO, "ClientePropuestaResource getAllPropuestas: input: {0}", clienteId);
         List<PropuestaDTO> listaObjetos = propuestasADTO(clientePropuestaLogic.getPropuestas(clienteId));		
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos.toString());
@@ -100,19 +91,18 @@ public class ClientePropuestaResource
      * Este debe ser una cadena de dígitos.
      * @param propuestaId Identificador de la propuesta que se esta buscando. Este debe
      * ser una cadena de dígitos.
-     * @return JSON {@link BookDetailDTO} - La propuesta buscada
+     * @return JSON {@link PropuestaDTO} - La propuesta buscada
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
+     * Error de lógica que se genera cuando no se encuentra la propuesta.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro en la
-     * editorial.
+     * Error de lógica que se genera cuando no se encuentra la propuesta en el cliente.
      */
     @GET
-    @Path("{booksId: \\d+}")
-    public PropuestaDTO getPropuesta(@PathParam("id") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException
+    @Path("{propuestaId: \\d+}")
+    public PropuestaDTO getPropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException
 	{
         LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: input: clienteId: {0} , propuestaId: {1}", new Object[]{clienteId, propuestaId});
-        if (propuestaLogic.getPropuesta(propuestaId) == null) {
+        if (propuestaLogic.getPropuestaSoloId(propuestaId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clienteId + "/propuestas/" + propuestaId + " no existe.", 404);
         }
 		
