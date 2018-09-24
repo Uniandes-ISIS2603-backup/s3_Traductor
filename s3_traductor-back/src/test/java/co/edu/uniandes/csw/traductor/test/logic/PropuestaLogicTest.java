@@ -137,6 +137,7 @@ public class PropuestaLogicTest {
 	@Test
 	public void createPropuestaTest() throws BusinessLogicException {
 		PropuestaEntity newEntity = factory.manufacturePojo(PropuestaEntity.class);
+                newEntity.setCosto(102340);
 		newEntity.setEmpleado(dataBook.get(1));
 		PropuestaEntity result = reviewLogic.createPropuesta(dataBook.get(1).getId(), newEntity);
 		Assert.assertNotNull(result);
