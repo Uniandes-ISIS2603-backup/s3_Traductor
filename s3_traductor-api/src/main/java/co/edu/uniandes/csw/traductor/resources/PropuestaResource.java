@@ -54,7 +54,7 @@ public class PropuestaResource {
      * @return JSON {@link PropuestaDTO} - La propuesta recibida.
      */
     @POST
-    public PropuestaDTO createPropuesta(@PathParam("empleadosId") Long empleadosId, PropuestaDTO nuevaPropuesta) throws BusinessLogicException {
+    public PropuestaDTO createPropuesta(@PathParam("empleadoId") Long empleadosId, PropuestaDTO nuevaPropuesta) throws BusinessLogicException {
 
         // TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
         LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
@@ -84,7 +84,7 @@ public class PropuestaResource {
      */
     @PUT
     @Path("{propuestaId: \\d+}") //Es la forma como se va a reconocer lo contenido en la propuesta, en este caso es 1 o mas numeros.
-    public PropuestaDTO updatePropuesta(@PathParam("empleadosId") Long empleadosId, @PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws BusinessLogicException {
+    public PropuestaDTO updatePropuesta(@PathParam("empleadoId") Long empleadosId, @PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws BusinessLogicException {
         // TODO: [updatePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         LOGGER.log(Level.INFO, "propuestaResource updatePropuesta: input: empleadosId: {0} , propuestaId: {1} , review:{2}", new Object[]{empleadosId, propuestaId, propuesta.toString()});
         if (propuestaId.equals(propuesta.getPropuestaId())) {
@@ -135,7 +135,7 @@ public class PropuestaResource {
         LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", propuestaId);
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId); //DTO respuesta.	
 		if (entity == null){
-				throw new WebApplicationException("El recurso /empleados/" + empleadoId+ "/invitaciones/" + propuestaId + " no existe.", 404);
+			throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/invitaciones/" + propuestaId + " no existe.", 404);
 		}	
 		
 		PropuestaDTO entityBuscada = new PropuestaDTO(entity);

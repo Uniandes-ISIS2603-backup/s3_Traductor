@@ -67,7 +67,7 @@ public class EmpleadoLogic {
      */
     public EmpleadoEntity getEmpleado(Long docID){
         LOGGER.log(Level.INFO, "Inicia la consulta de empleado segun el id "+docID);
-        EmpleadoEntity EmpleadoEntity=persistence.find(docID);
+        EmpleadoEntity EmpleadoEntity = persistence.find(docID);
         if(EmpleadoEntity==null)
             LOGGER.log(Level.SEVERE,"El empleado con el id = {0} no existe", docID);
         LOGGER.log(Level.INFO, "Termina el proceso de consulta de un empleado con el id={0}",docID);

@@ -137,17 +137,17 @@ public class EmpleadoResource {
      * dependen del cliente, es una redirección al servicio que maneja el
      * segmento de la URL que se encarga de los pagos de un cliente.
      *
-     * @param clientesId El ID del cliente con respecto al  cual se
+     * @param empleadoId El ID del cliente con respecto al  cual se
      * accede al servicio.
      * @return El servicio de propuestas para este cliente en paricular.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el cliente.
      */
     @Path("{empleadoId: \\d+}/propuestas")
-    public Class<PropuestaResource> getPropuestaResource(@PathParam("clientesId") Long clientesId) 
+    public Class<PropuestaResource> getPropuestaResource(@PathParam("empleadoId") Long empleadoId) 
     {
-        if (empleadoLogic.getEmpleado(clientesId) == null) {
-            throw new WebApplicationException("El recurso /empleados/" + clientesId + " no existe.", 404);
+        if (empleadoLogic.getEmpleado(empleadoId) == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
         }
         return PropuestaResource.class;
     }
