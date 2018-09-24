@@ -86,7 +86,7 @@ public class PropuestaLogic
 	
 	/**
      * Obtener una propuesta por medio de su id.
-	 * @param empleadoId Identificacion del empleado
+     * @param empleadoId Identificacion del empleado
      * @param propuestaId: id de la propuesta para ser buscada.
      * @return la propuesta solicitada por medio de su id.	 
      */

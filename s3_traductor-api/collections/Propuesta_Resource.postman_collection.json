@@ -1,13 +1,109 @@
 {
 	"info": {
-		"_postman_id": "d74b8984-4e3c-4ecd-858e-f2992aef1a69",
+		"_postman_id": "7c97176a-4b05-403f-a136-7d3a15f573b8",
 		"name": "Propuesta_Resource",
 		"description": "Se acomodan los resources en carpetas unicas. Autor: Geovanny",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET /propuestas",
+			"name": "Crea un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04ac5980-df30-4eee-878d-964ead423457",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_e\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreEmpleado\":\"SoyDanny\",\n\t\"correoElectronico\":\"danny@gmail.com\",\n\t\"aniosExperiencia\":3,\n\t\"nombreUsuario\":\"danielinPinguin\",\n\t\"contrasenia\":\"123456abc\",\n\t\"trayectoria\":\"Experto en Italiano\",\n\t\"hojaDeVida\":\"soy el mejor en lo que hago siempre que lo intento.\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				},
+				"description": "Crea el empleado para la prueba con la prupuesta."
+			},
+			"response": []
+		},
+		{
+			"name": "Crea una propuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13e44413-9277-413a-9fb7-bb5d58c47e6f",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_pro\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\":{{id_e}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{id_e}}",
+						"propuestas"
+					]
+				},
+				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtiene todas las propuestas",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -21,17 +117,17 @@
 					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Probando\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"1",
+						"{{id_e}}",
 						"propuestas"
 					]
 				},
@@ -40,74 +136,7 @@
 			"response": []
 		},
 		{
-			"name": "POST /propuestas",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"idEmpleado\": 1, \"estado\" : \"Prueba\", \"descripcion\" : \"Prueba subrecursos\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_traductor-api",
-						"api",
-						"empleados",
-						"1",
-						"propuestas"
-					]
-				},
-				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
-			},
-			"response": []
-		},
-		{
-			"name": "PUT /propuestas",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"CULMINADA\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas/7",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_traductor-api",
-						"api",
-						"empleados",
-						"1",
-						"propuestas",
-						"7"
-					]
-				},
-				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null"
-			},
-			"response": []
-		},
-		{
-			"name": "GET /propuestas/1",
+			"name": "Obtiene una propuesta",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -121,31 +150,7 @@
 					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/propuestas/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_traductor-api",
-						"api",
-						"propuestas",
-						"1"
-					]
-				},
-				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null. Valor especifico"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE /propuestas",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas/45",
+					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -155,9 +160,98 @@
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"1",
+						"{{id_e}}",
 						"propuestas",
-						"45"
+						"{{id_pro}}"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null. Valor especifico"
+			},
+			"response": []
+		},
+		{
+			"name": "Edita una propuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6561971e-0bab-464b-b865-e0b220fc37c2",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"CULMINADA\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\":{{id_e}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{id_e}}",
+						"propuestas",
+						"{{id_pro}}"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null"
+			},
+			"response": []
+		},
+		{
+			"name": "Borra una propuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c1ceaf2-32e1-4f6c-a5d2-b7e37fc6c6b2",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{id_e}}",
+						"propuestas",
+						"{{id_pro}}"
 					]
 				},
 				"description": "Prueba DELETE para una propuesta en especifico"

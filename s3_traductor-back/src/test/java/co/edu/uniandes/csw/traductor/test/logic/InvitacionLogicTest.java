@@ -121,7 +121,8 @@ public class InvitacionLogicTest {
 
 		for (int i = 0; i < 3; i++) {
 			InvitacionEntity entity = factory.manufacturePojo(InvitacionEntity.class);
-			entity.setCliente(dataBook.get(1));
+                       
+                        entity.setCliente(dataBook.get(1));
 			em.persist(entity);
 			data.add(entity);
 		}
@@ -210,7 +211,7 @@ public class InvitacionLogicTest {
 	
 	/**
 	 * Prueba para eliminarle un review a un book del cual no pertenece.	 *
-	 * @throws co.edu.uniandes.csw.traducto.exceptions.BusinessLogicException
+	 * @throws BusinessLogicException
 	 */
 	@Test(expected = BusinessLogicException.class)
 	public void deleteInvitacionConClienteNoAsociadoTest() throws BusinessLogicException {
