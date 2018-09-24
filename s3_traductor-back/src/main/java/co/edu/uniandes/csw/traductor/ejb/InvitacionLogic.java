@@ -99,7 +99,7 @@ public class InvitacionLogic
 	 
 	public InvitacionEntity getInvitacion(Long clienteId,Long invitacionId)
 	{
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la invitacion con id = {0} del cliente: " + clienteId, invitacionId);
+       LOGGER.log(Level.INFO, "Inicia proceso de consultar la invitacion con id = {0} del cliente: " + clienteId, invitacionId);
         // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
        return invitacionPersistence.find(clienteId, invitacionId);       
     }

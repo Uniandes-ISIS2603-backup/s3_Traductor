@@ -25,151 +25,145 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Clase que implementa el recurso invitacion
+ * Clase que implementa el recurso propuesta
+ *
  * @author Geovanny Andres Gonzalez
  */
-
-@Path("propuestas")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
-public class PropuestaResource
-{
+public class PropuestaResource {
 
-	//Logger
-	private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
-	
-	//Inyeccion de la logica
-	@Inject
-	private PropuestaLogic propuestaLogic;
+    //Logger
+    private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
 
-	/**
-	 * Crea una nueva propuesta con la informacion que se recibe en el cuerpo de la petición y se regresa un objeto identico con un id auto-generado por la base de datos.
-	 *
-	 * Agosto 27 - 2018: Esta operacion solo esta puesta para retornar lo recibido. Geovanny.
-	 *
-	 * @param nuevaPropuesta {@link PropuestaDTO} - La propuesta que se desea guardar.
-	 * @return JSON {@link PropuestaDTO} - La propuesta recibida.
-	 */
-	
-	@POST
-	public PropuestaDTO createPropuesta(PropuestaDTO nuevaPropuesta) throws BusinessLogicException {
-		
-		// TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
-		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
-		// Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-		PropuestaEntity entidad = nuevaPropuesta.toEntity();
-		// Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.	
-		PropuestaEntity nuevaEntity = propuestaLogic.createPropuesta(entidad);
-		// Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.	
-		PropuestaDTO respuestaDTO = new PropuestaDTO(nuevaEntity);		
-		LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", respuestaDTO.toString());
-		return respuestaDTO;
-	}
+    //Inyeccion de la logica
+    @Inject
+    private PropuestaLogic propuestaLogic;
 
-	/**
-	 * Actualiza la propuesta con el id recibido en la URL con la informacion que se recibe en el cuerpo de la petición.
-	 *
-	 * @param propuestaId Identificador de la propuesta que se desea actualizar. Este debe ser una cadena de dígitos.
-	 * @param propuesta {@link PropuestaDTO} La propuesta que se desea guardar.
-	 * @return JSON {@link PropuestaDTO} - La editorial guardada.
-	 * @throws WebApplicationException {@link WebApplicationExceptionMapper} - Error de lógica que se genera cuando no se encuentra la propuesta a actualizar.
-	 */
-	
-	@PUT
-	@Path("{propuestaId: \\d+}") //Es la forma como se va a reconocer lo contenido en la propuesta, en este caso es 1 o mas numeros.
-	public PropuestaDTO updatePropuesta(@PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws WebApplicationException {
-		// TODO: [updatePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		PropuestaEntity entidadUpdate = propuesta.toEntity(); //Cambia a entity.
-		entidadUpdate.setId(propuestaId); //Cambia la id para actualizar en la BD.
-						
-		PropuestaDTO entidadUpdated = null; //Entidad de respuesta
-		
-		try
-		{
-			entidadUpdated = new PropuestaDTO(propuestaLogic.updatePropuesta(propuestaId, entidadUpdate));
-		}
-		
-		catch(BusinessLogicException e)
-		{
-			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
-		}
-		
-		return entidadUpdated;
-	}
-
-	/**
-	 * Busca y devuelve todas las propuesta que posee el empleado.
-	 * @return JSONArray {@link PropuestaDTO} - Las propuestas que posee el empleado Si no hay ninguna retorna una lista vacía.
-	 */
-	
-	@GET
-	public List<PropuestaDTO> getAllPropuestas() {
-		// TODO: [getAllPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		
-		LOGGER.info("PropuestaResources getAllPropuestas: input: void");
-		List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(propuestaLogic.getAllPropuestas()); //Se llama a la logica para que devuelva la lista !
-		LOGGER.log(Level.INFO, "PropuestaResources getAllPropuestas:: output: {0}", listaPropuestas.toString());
-		return listaPropuestas;
-	}
-
-	/**
-	 * Busca la propuesta con el id asociado recibido en la URL y la devuelve.
-	 * @param propuestaId Identificador de la propuesta que se esta buscando. Este debe ser una cadena de dígitos.
-	 * @return JSON {@link PropuestaDTO} - La editorial buscada
-	 * @throws WebApplicationException {@link WebApplicationExceptionMapper} - Error de lógica que se genera cuando no se encuentra la editorial.
-	 */
-	
-	@GET
-	@Path("{propuestaId: \\d+}")
-	public PropuestaDTO getPropuesta(@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
-		
-		// TODO: [getPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", propuestaId);		
-		PropuestaDTO entityBuscada = null; //DTO respuesta.	
-		
-		try
-		{
-			entityBuscada = new PropuestaDTO(propuestaLogic.getPropuesta(propuestaId));
-		}
-		
-		catch(BusinessLogicException e)
-		{
-			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
-		}					
-		
-		LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", entityBuscada.toString());
-		return entityBuscada;
-	}
-	
-	/**
-     * Borra la propuesta con el id asociado recibido en la URL.
+    /**
+     * Crea una nueva propuesta con la informacion que se recibe en el cuerpo de
+     * la petición y se regresa un objeto identico con un id auto-generado por
+     * la base de datos.
      *
-     * @param propuestaId Identificador de la propuesta que se desea borrar.
-     * Este debe ser una cadena de dígitos.     
+     * Agosto 27 - 2018: Esta operacion solo esta puesta para retornar lo
+     * recibido. Geovanny.
+     *
+     * @param empleadosId El id del empleado a mirar los recursos
+     * @param nuevaPropuesta {@link PropuestaDTO} - La propuesta que se desea
+     * guardar.
+     * @return JSON {@link PropuestaDTO} - La propuesta recibida.
+     */
+    @POST
+    public PropuestaDTO createPropuesta(@PathParam("empleadosId") Long empleadosId, PropuestaDTO nuevaPropuesta) throws BusinessLogicException {
+
+        // TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
+        LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
+        // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
+        PropuestaEntity entidad = nuevaPropuesta.toEntity();
+        // Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.	
+        PropuestaEntity nuevaEntity = propuestaLogic.createPropuesta(empleadosId, entidad);
+        // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.	
+        PropuestaDTO respuestaDTO = new PropuestaDTO(nuevaEntity);
+        LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", respuestaDTO.toString());
+        return respuestaDTO;
+    }
+
+    /**
+     * Actualiza la propuesta con el id recibido en la URL con la informacion
+     * que se recibe en el cuerpo de la petición.
+     *
+     * @param empleadosId El empleado que tiene esas propuestas.
+     * @param propuestaId Identificador de la propuesta que se desea actualizar.
+     * Este debe ser una cadena de dígitos.
+     * @param propuesta {@link PropuestaDTO} La propuesta que se desea guardar.
+     * @return JSON {@link PropuestaDTO} - La editorial guardada.
+     * @throws BusinessLogicException
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la propuesta a
+     * actualizar.
+     */
+    @PUT
+    @Path("{propuestaId: \\d+}") //Es la forma como se va a reconocer lo contenido en la propuesta, en este caso es 1 o mas numeros.
+    public PropuestaDTO updatePropuesta(@PathParam("empleadosId") Long empleadosId, @PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws BusinessLogicException {
+        // TODO: [updatePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+        LOGGER.log(Level.INFO, "propuestaResource updatePropuesta: input: empleadosId: {0} , propuestaId: {1} , review:{2}", new Object[]{empleadosId, propuestaId, propuesta.toString()});
+        if (propuestaId.equals(propuesta.getPropuestaId())) {
+            throw new BusinessLogicException("Los ids de la propuesta no coinciden.");
+        }
+        PropuestaEntity entity = propuestaLogic.getPropuesta(empleadosId, propuestaId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /empleado/" + empleadosId + "/propuestas/" + propuestaId + " no existe.", 404);
+
+        }
+        PropuestaDTO propuestaDTO = new PropuestaDTO(propuestaLogic.updatePropuesta(propuestaId, propuesta.toEntity()));
+        LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", propuestaDTO.toString());
+        return propuestaDTO;
+    }
+
+    /**
+     * Busca y devuelve todas las propuesta que posee el empleado.
+     *
+	 * @param empleadoId Identificacion del empleado.
+     * @return JSONArray {@link PropuestaDTO} - Las propuestas que posee el
+     * empleado Si no hay ninguna retorna una lista vacía.
+     */
+    @GET
+    public List<PropuestaDTO> getAllPropuestas(@PathParam("empleadoId") Long empleadoId) {
+        // TODO: [getAllPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+
+        LOGGER.info("PropuestaResources getAllPropuestas: input: void");
+        List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(propuestaLogic.getAllPropuestas(empleadoId)); //Se llama a la logica para que devuelva la lista !
+        LOGGER.log(Level.INFO, "PropuestaResources getAllPropuestas:: output: {0}", listaPropuestas.toString());
+        return listaPropuestas;
+    }
+
+    /**
+     * Busca la propuesta con el id asociado recibido en la URL y la devuelve.
+     *
+	 * @param empleadoId Identificacion del empleado
+     * @param propuestaId Identificador de la propuesta que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link PropuestaDTO} - La editorial buscada
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la editorial.
      */
-	
+    @GET
+    @Path("{propuestaId: \\d+}")
+    public PropuestaDTO getPropuesta(@PathParam("empleadoid") Long empleadoId,@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
+
+        // TODO: [getPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+        LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", propuestaId);
+        PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId); //DTO respuesta.	
+		if (entity == null){
+				throw new WebApplicationException("El recurso /empleados/" + empleadoId+ "/invitaciones/" + propuestaId + " no existe.", 404);
+		}	
+		
+		PropuestaDTO entityBuscada = new PropuestaDTO(entity);
+        LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", entityBuscada.toString());
+        return entityBuscada;
+    }
+
+    /**
+     * Borra la propuesta con el id asociado recibido en la URL.
+     *
+	 * @param empleadoId Identificador del empleado.
+     * @param propuestaId Identificador de la propuesta que se desea borrar.
+     * Este debe ser una cadena de dígitos.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la editorial.
+     */
     @DELETE
     @Path("{propuestaId: \\d+}")
-    public void deletePropuesta(@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
-        
-		// TODO: [deletePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		
-		LOGGER.log(Level.INFO, "PropuestaResources deleteEditorial: input: {0}", propuestaId);        
-		
-		try
-		{
-			propuestaLogic.getPropuesta(propuestaId); //Si no existe salta al catch y manda la excepcion.
-			propuestaLogic.deletePropuesta(propuestaId);
-		}
-		
-		catch(BusinessLogicException e)
-		{
-			throw new WebApplicationException("El recurso /propuestas/" + propuestaId + " no existe.", 404);
-		}		
-		
+    public void deletePropuesta(@PathParam ("empleadoId") Long empleadoId,@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
+
+        // TODO: [deletePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+        LOGGER.log(Level.INFO, "PropuestaResources deleteEditorial: input: {0}", propuestaId);
+
+       PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/propuestas/" + propuestaId + " no existe.", 404);
+        }
+
         LOGGER.info("PropuestaResources deleteEditorial: output: void");
     }
 
@@ -183,7 +177,6 @@ public class PropuestaResource
      * que vamos a convertir a DTO.
      * @return la lista de editoriales en forma DTO (json)
      */
-	
     private List<PropuestaDTO> listEntity2DetailDTO(List<PropuestaEntity> propuestaList) {
         List<PropuestaDTO> list = new LinkedList<>();
         for (PropuestaEntity entity : propuestaList) {

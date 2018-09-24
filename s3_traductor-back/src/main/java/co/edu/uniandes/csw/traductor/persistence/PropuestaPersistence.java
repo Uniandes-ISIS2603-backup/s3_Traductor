@@ -46,18 +46,47 @@ public class PropuestaPersistence
 	
 	/**
      * Busca si hay alguna propuesta con el id que se envía de argumento     
-     * @param propuestasId: id correspondiente a la propuesta buscada.
+     * @param propuestaId: id correspondiente a la propuesta buscada.
      * @return La propuesta con el id que se recibe por parametro.
      */
 	
-    public PropuestaEntity find(Long propuestasId) {
-        LOGGER.log(Level.INFO, "Consultando propuesta con id={0}", propuestasId);
+    public PropuestaEntity find(Long empleadoId, Long propuestaId) {
+        LOGGER.log(Level.INFO, "Consultando propuesta con id={0}", propuestaId);
         /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
         el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
         Suponga que es algo similar a "select * from PropuestaEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
          */
 		
-        return em.find(PropuestaEntity.class, propuestasId);
+        TypedQuery<PropuestaEntity> q = em.createQuery("select p from PropuestaEntity p where (p.empleado.id = :empleadoId) and (p.id = :propuestaId)", PropuestaEntity.class);
+        q.setParameter("empleadoId", empleadoId);
+        q.setParameter("propuestaId", propuestaId);
+        List<PropuestaEntity> results = q.getResultList();
+        PropuestaEntity review = null;
+        if (results == null) {
+            review = null;
+        } else if (results.isEmpty()) {
+            review = null;
+        } else if (results.size() >= 1) {
+            review = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar la propueta con id = {0} del empleado con id =" + empleadoId, propuestaId);
+        return review; 
+    }
+	
+	/**
+     * Busca si hay alguna propuesta con el id que se envía de argumento     
+     * @param propuestaId: id correspondiente a la propuesta buscada.
+     * @return La propuesta con el id que se recibe por parametro.
+     */
+	
+    public PropuestaEntity findSoloId(Long propuestaId) {
+        LOGGER.log(Level.INFO, "Consultando propuesta con id={0}", propuestaId);
+        /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
+        el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+        Suponga que es algo similar a "select * from PropuestaEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+         */
+		LOGGER.log(Level.INFO, "Finalizando consulta propuesta con id={0}", propuestaId);
+		return em.find(PropuestaEntity.class, propuestaId);
     }
 
 	 /**

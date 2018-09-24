@@ -42,7 +42,7 @@ public class ClientePropuestaLogic
 	{
         LOGGER.log(Level.INFO, "Inicia proceso de asociarle una propuesta al cliente con id = {0}", clienteId);
         ClienteEntity entidadPadre = clientePersistence.find(clienteId);
-        PropuestaEntity entidadHija = propuestaPersistence.find(propuestaId);
+        PropuestaEntity entidadHija = propuestaPersistence.findSoloId(propuestaId);
         entidadHija.setCliente(entidadPadre); // Se asocia la propuesta al cliente como ManyToOne según ejemplo.
         LOGGER.log(Level.INFO, "Termina proceso de asociarle una propuesta al cliente con id = {0}", propuestaId);
         return entidadHija;
@@ -73,7 +73,7 @@ public class ClientePropuestaLogic
 	{
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la propuesta con id = {0} del cliente con id = " + clienteId, propuestaId);
         List<PropuestaEntity> entidadesHijasPadre = clientePersistence.find(clienteId).getPropuestas();
-        PropuestaEntity entidadHija = propuestaPersistence.find(propuestaId);
+        PropuestaEntity entidadHija = propuestaPersistence.findSoloId(propuestaId);
         int index = entidadesHijasPadre.indexOf(entidadHija);
         LOGGER.log(Level.INFO, "Termina proceso de consultar la propuesta con id = {0} del cliente con id = " + clienteId, propuestaId);
         
