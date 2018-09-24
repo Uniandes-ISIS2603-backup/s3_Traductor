@@ -138,7 +138,7 @@ LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarj
      */
     @DELETE
     @Path("{idTarjeta: \\d+}")
-    public void deleteTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
+    public void deleteTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException, BusinessLogicException {
 
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource deleteTarjeta: input: {0}", idTarjeta);
         TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
@@ -148,8 +148,8 @@ LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarj
         /*
         clienteTarjetaLogic.removeTarjeta(idTarjeta);
         */
-        tarjetaLogic.deleteTarjeta(idTarjeta);
-        LOGGER.info("BookResource deleteBook: output: void");
+        tarjetaLogic.deleteTarjeta(idCliente, idTarjeta);
+        LOGGER.info("BookResource deleteTarjeta: output: void");
     }
 
     /**

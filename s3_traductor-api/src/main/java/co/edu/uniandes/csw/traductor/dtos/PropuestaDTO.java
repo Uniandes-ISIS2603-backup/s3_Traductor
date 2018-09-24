@@ -40,6 +40,7 @@ public class PropuestaDTO implements Serializable{
     private String estado;
     private Long idEmpleado;	
     private Date tiempoEstimado;
+
 	
 	/**
 	 * Asociacion de cardinalidad 1 con invitacion 
@@ -47,6 +48,9 @@ public class PropuestaDTO implements Serializable{
 	
 	private InvitacionDTO invitacion;	
 	
+            private PagosDTO pago;
+
+   
 	/**
 	 * Constructor vacio para que sea llenado por JAX-RS
 	 */
@@ -210,6 +214,14 @@ public class PropuestaDTO implements Serializable{
 	public void setInvitacion(InvitacionDTO invitacion) {
 		this.invitacion = invitacion;
 	}
+        
+         public PagosDTO getPago() {
+        return pago;
+    }
+
+    public void setPago(PagosDTO pago) {
+        this.pago = pago;
+    }
 	
 	@Override
     public String toString() {

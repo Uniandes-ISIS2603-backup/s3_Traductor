@@ -210,7 +210,7 @@ entity.setCliente(clienteData.get(1));
     @Test
     public void deleteTarjetaDeCreditoTest() throws BusinessLogicException {
         TarjetaDeCreditoEntity entity = data.get(0);
-        tarjetaLogic.deleteTarjeta(entity.getId());
+        tarjetaLogic.deleteTarjeta(clienteData.get(1).getId(),entity.getId());
         TarjetaDeCreditoEntity deleted = em.find(TarjetaDeCreditoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -218,9 +218,9 @@ entity.setCliente(clienteData.get(1));
     /**
      * Prueba para eliminar una Tarjeta.
      */
-    public void deleteTarjetaDeCreditoTest2()  {
+    public void deleteTarjetaDeCreditoTest2() throws BusinessLogicException  {
         TarjetaDeCreditoEntity entity = data.get(1);
-        tarjetaLogic.deleteTarjeta(entity.getId());
+        tarjetaLogic.deleteTarjeta(clienteData.get(1).getId(),entity.getId());
     }
     
    
