@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "6db594d8-0267-4a5f-b763-6a6a29684be9",
+		"name": "AreaConocimiento_Resource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /areasConocimiento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/areasConocimiento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"areasConocimiento"
+					]
+				},
+				"description": "Permite devolver todas las areas de conocimientos existentes en el sistema"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /areasConocimiento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"area\":\"Desarrollo de Software en Equipo\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/areasConocimiento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"areasConocimiento"
+					]
+				},
+				"description": "Permite crear una nueva area de conocimiento en el sistema"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /areasConocimiento/id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"area\":\"Lenguajes y Maquinas\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/areasConocimiento/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"areasConocimiento",
+						"1"
+					]
+				},
+				"description": "Permite obtener un area de conocimiento en especifico del sistema"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /areasConocimiento/id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/areasConocimiento/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"areasConocimiento",
+						"2"
+					]
+				},
+				"description": "Permite eliminar un area de conocimiento en especifico del sistema"
+			},
+			"response": []
+		}
+	]
+}

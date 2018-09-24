@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "d74b8984-4e3c-4ecd-858e-f2992aef1a69",
+		"name": "Propuesta_Resource",
+		"description": "Se acomodan los resources en carpetas unicas. Autor: Geovanny",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /propuestas",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Probando\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"1",
+						"propuestas"
+					]
+				},
+				"description": "Prueba Get para PropuestaResource"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /propuestas",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idEmpleado\": 1, \"estado\" : \"Prueba\", \"descripcion\" : \"Prueba subrecursos\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"1",
+						"propuestas"
+					]
+				},
+				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /propuestas",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"CULMINADA\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"1",
+						"propuestas",
+						"7"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /propuestas/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/propuestas/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"propuestas",
+						"1"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null. Valor especifico"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /propuestas",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/1/propuestas/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"1",
+						"propuestas",
+						"45"
+					]
+				},
+				"description": "Prueba DELETE para una propuesta en especifico"
+			},
+			"response": []
+		}
+	]
+}

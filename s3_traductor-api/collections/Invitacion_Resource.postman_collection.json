@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "5b06eb50-2331-4003-a69e-311643a6f4df",
+		"name": "Invitacion_Resource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /invitaciones",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Probando\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"1",
+						"invitaciones"
+					]
+				},
+				"description": "Prueba Get para InvitacionResource"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /invitaciones",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idCliente\" : 1, \"descripcion\" : \"Prueba1\", \"idEmpleado\" : 1}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"1",
+						"invitaciones",
+						""
+					]
+				},
+				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /invitaciones",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idCliente\" : 1, \"descripcion\" : \"Cambiando descripcion\", \"idEmpleado\" : 1, \"idInvitacion\": 5}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"1",
+						"invitaciones",
+						"5"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /invitaciones/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"1",
+						"invitaciones",
+						"5"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null. Valor especifico"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /invitaciones",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"1",
+						"invitaciones",
+						"45"
+					]
+				},
+				"description": "Prueba DELETE para una propuesta en especifico"
+			},
+			"response": []
+		}
+	]
+}
