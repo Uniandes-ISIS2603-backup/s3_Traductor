@@ -49,12 +49,13 @@ public class InvitacionResource
 	 *
 	 * Agosto 27 - 2018: Esta operacion solo esta puesta para retornar lo recibido. Geovanny.
 	 *
+	 * @param clienteId Es el identificador del cliente a agregar la invitacion.
 	 * @param nuevaInvitacion {@link InvitacionDTO} - La invitacion que se desea guardar.
 	 * @return JSON {@link InvitacionDTO} - La invitacion recibida.
 	 */
 	
 	@POST
-	public InvitacionDTO createInvitacion(InvitacionDTO nuevaInvitacion) throws BusinessLogicException {
+	public InvitacionDTO createInvitacion(@PathParam("clientesId") Long clienteId, InvitacionDTO nuevaInvitacion) throws BusinessLogicException {
 		
 		// TODO:[createInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 	
@@ -64,7 +65,7 @@ public class InvitacionResource
 		// Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
 		InvitacionEntity invitacionEntity = nuevaInvitacion.toEntity();
 		// Invoca la lógica para crear la invitacion nueva. Ahi abajo debe ir la logica.
-		InvitacionEntity nuevaEntity = invitacionLogic.createInvitacion(invitacionEntity);
+		InvitacionEntity nuevaEntity = invitacionLogic.createInvitacion(clienteId,invitacionEntity);
 		// Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.		        
 		InvitacionDTO respuestaDTO = new InvitacionDTO(nuevaEntity);
 		LOGGER.log(Level.INFO, "InvitacionResources createInvitacion: output: {0}", respuestaDTO.toString());
@@ -74,74 +75,71 @@ public class InvitacionResource
 	/**
 	 * Actualiza la invitacion con el id recibido en la URL con la informacion que se recibe en el cuerpo de la petición.
 	 *
+	 * @param clienteId Identificacion del cliente.
 	 * @param idInvitacion Identificador de la invitacion que se desea actualizar. Este debe ser una cadena de dígitos.
 	 * @param invitacion {@link InvitacionDTO} La invitacion que se desea guardar.
 	 * @return JSON {@link InvitacionDTO} - La editorial guardada.
+	 * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException Si hay errores en los datos de entrada.
 	 * @throws WebApplicationException {@link WebApplicationExceptionMapper} - Error de lógica que se genera cuando no se encuentra la invitacion a actualizar.
 	 */
 	
 	@PUT
 	@Path("{idInvitacion: \\d+}") //Es la forma como se va a reconocer lo contenido en la invitacion, en este caso es 1 o mas numeros.
-	public InvitacionDTO updateInvitacion(@PathParam("idInvitacion") Long idInvitacion, InvitacionDTO invitacion) throws WebApplicationException {
+	public InvitacionDTO updateInvitacion(@PathParam("clientesId") Long clienteId, @PathParam("idInvitacion") Long idInvitacion, InvitacionDTO invitacion) throws BusinessLogicException
+	{
 		// TODO: [updateInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		InvitacionEntity entidadUpdate = invitacion.toEntity(); //Cambia a entity.
-		entidadUpdate.setId(idInvitacion); //Cambia la id para actualizar en la BD.
-						
-		InvitacionDTO entidadUpdated = null; //Entidad de respuesta
+		LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: input: clienteId: {0} , invitacionId: {1} , review:{2}", new Object[]{clienteId, idInvitacion, invitacion.toString()});
 		
-		try
-		{
-			entidadUpdated = new InvitacionDTO(invitacionLogic.updateInvitacion(idInvitacion, entidadUpdate));
+		if(!idInvitacion.equals(invitacion.getIdInvitacion())) {
+			throw new BusinessLogicException("Los ids de la invitacion no coinciden");
 		}
 		
-		catch(BusinessLogicException e)
-		{
-			throw new WebApplicationException("El recurso /invitaciones/" + idInvitacion + " no existe.", 404);
-		}
 		
-		return entidadUpdated;
+		InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, idInvitacion);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/invitaciones/" + idInvitacion + " no existe.", 404);
+        }
+		
+        InvitacionDTO reviewDTO = new InvitacionDTO(invitacionLogic.updateInvitacion(clienteId, invitacion.toEntity()));
+        LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", reviewDTO.toString());
+        return reviewDTO;
 	}
 
 	/**
 	 * Busca y devuelve todas las invitaciones que posee el empleado.
+	 * @param clienteId Es el identificador del cliente a agregar la invitacion.
 	 * @return JSONArray {@link InvitacionDTO} - Las invitaciones que posee el empleado. Si no hay ninguna retorna una lista vacía.
 	 */
 	
 	@GET
-	public List<InvitacionDTO> getAllInvitaciones() {
+	public List<InvitacionDTO> getAllInvitaciones(@PathParam("clientesId") Long clienteId) {
 		// TODO: [getAllInvitaciones] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
 		LOGGER.info("InvitacionResources getAllInvitaciones: input: void");
-		List<InvitacionDTO> listaInvitaciones = listEntity2DetailDTO(invitacionLogic.getAllInvitaciones()); //Se llama a la logica para que devuelva la lista !
+		List<InvitacionDTO> listaInvitaciones = listEntity2DetailDTO(invitacionLogic.getAllInvitaciones(clienteId)); //Se llama a la logica para que devuelva la lista !
 		LOGGER.log(Level.INFO, "InvitacionResources getAllInvitaciones: output: {0}", listaInvitaciones.toString());
 		return listaInvitaciones;
 	}
 
 	/**
 	 * Busca la invitacion con el id asociado recibido en la URL y la devuelve.
+	 * @param clienteId Identificador del cliente.
 	 * @param invitacionId Identificador de la invitacion que se esta buscando. Este debe ser una cadena de dígitos.
 	 * @return JSON {@link InvitacionDTO} - La editorial buscada
 	 * @throws WebApplicationException {@link WebApplicationExceptionMapper} - Error de lógica que se genera cuando no se encuentra la editorial.
 	 */
 	
 	@GET
-	@Path("{invitacionId: \\d+}")
-	public InvitacionDTO getInvitacion(@PathParam("invitacionId") Long invitacionId) throws WebApplicationException {
+	@Path("{idInvitacion: \\d+}")
+	public InvitacionDTO getInvitacion(@PathParam("clientesId") Long clienteId ,@PathParam("idInvitacion") Long invitacionId) throws WebApplicationException {
 		
 		// TODO: [getInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
 		
 		LOGGER.log(Level.INFO, "InvitacionResources getInvitacion: input: {0}", invitacionId);		
-		InvitacionDTO entityBuscada = null; //DTO respuesta.	
-		
-		try
-		{
-			entityBuscada = new InvitacionDTO(invitacionLogic.getInvitacion(invitacionId));
-		}
-		
-		catch(BusinessLogicException e)
-		{
-			throw new WebApplicationException("El recurso /invitaciones/" + invitacionId + " no existe.", 404);
-		}					
-		
+		InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, invitacionId); //DTO respuesta.	
+		if (entity == null){
+				throw new WebApplicationException("El recurso /cliente/" + clienteId+"/invitaciones/" + invitacionId + " no existe.", 404);
+		}	
+		InvitacionDTO entityBuscada = new InvitacionDTO(entity);
 		LOGGER.log(Level.INFO, "InvitacionResources getInvitacion: output: {0}", entityBuscada.toString());
 		return entityBuscada;
 	}
@@ -149,31 +147,25 @@ public class InvitacionResource
 	/**
      * Borra la invitacion con el id asociado recibido en la URL.
      *
+	 * @param clienteId Identificador del cliente.
      * @param invitacionId Identificador de la invitacion que se desea borrar.
      * Este debe ser una cadena de dígitos.     
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la editorial.
+     * @throws BusinessLogicException Error de lógica que se genera cuando no se encuentra la editorial.
      */
 	
     @DELETE
-    @Path("{invitacionId: \\d+}")
-    public void deleteInvitacion(@PathParam("invitacionId") Long invitacionId) throws WebApplicationException {
+    @Path("{idInvitacion: \\d+}")
+    public void deleteInvitacion(@PathParam("clientesId") Long clienteId, @PathParam("idInvitacion") Long invitacionId) throws BusinessLogicException {
         
-		// TODO: [deleteInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-		
+		// TODO: [deleteInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
 		LOGGER.log(Level.INFO, "InvitacionResources deleteInvitacion: input: {0}", invitacionId);
         
-		try
-		{
-			invitacionLogic.getInvitacion(invitacionId); //Si no existe salta al catch y manda la excepcion.
-			invitacionLogic.deleteInvitacion(invitacionId);
-		}
+		InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, invitacionId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/invitaciones/" + invitacionId + " no existe.", 404);
+        }
 		
-		catch(BusinessLogicException e)
-		{
-			throw new WebApplicationException("El recurso /invitaciones/" + invitacionId + " no existe.", 404);
-		}	
-		
+        invitacionLogic.deleteInvitacion(clienteId, invitacionId);		
         LOGGER.info("InvitacionResources deleteInvitacion: output: void");
     }
 
