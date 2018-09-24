@@ -37,10 +37,15 @@ public class EmpleadoLogic {
      */
     public EmpleadoEntity createEmpleado(EmpleadoEntity EmpleadoEntity)throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO,"Inicia el proceso de creacion de un Empleado");
-        
-        if(persistence.find(EmpleadoEntity.getId()) !=null)
+        LOGGER.log(Level.INFO,"Inicia el proceso de creacion de un Empleado");        
+		
+		/**
+		 * Alvaro esta restriccion no va a pasar, recuerda que siempre los ID´s son diferentes pues son autogenerados.
+        if(persistence.find(EmpleadoEntity.getId()) !=null){
+			System.out.println("[EmpleadoLogic] VA A LANZARSE EXCEPCION");
             throw new BusinessLogicException("Este Empleado ya existe en el sistema");
+		}
+		*/
         persistence.create(EmpleadoEntity);
         LOGGER.log(Level.INFO,"Termina el proceso de creacion del Empleado");
         return EmpleadoEntity;
