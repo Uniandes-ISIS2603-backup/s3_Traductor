@@ -18,12 +18,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/idiomas",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
@@ -44,12 +44,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/idiomas/id",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas/id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
@@ -76,12 +76,12 @@
 							"raw": "{\"id\":\"21sa451d\",\"idioma\":\"ruso\"}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/idiomas",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
@@ -108,12 +108,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/calificaciones",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/calificaciones",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",
@@ -134,12 +134,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_traductor-api/api/calificaciones/id",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/calificaciones/id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_traductor-api",
 								"api",

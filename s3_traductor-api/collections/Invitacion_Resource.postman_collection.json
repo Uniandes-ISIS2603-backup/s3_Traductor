@@ -20,12 +20,12 @@
 					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Probando\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/1/invitaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -53,12 +53,12 @@
 					"raw": "{\"idCliente\" : 1, \"descripcion\" : \"Prueba1\", \"idEmpleado\" : 1}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/1/invitaciones/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -87,12 +87,12 @@
 					"raw": "{\"idCliente\" : 1, \"descripcion\" : \"Cambiando descripcion\", \"idEmpleado\" : 1, \"idInvitacion\": 5}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/5",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/1/invitaciones/5",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -121,12 +121,12 @@
 					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/5",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/1/invitaciones/5",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -147,12 +147,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/clientes/1/invitaciones/45",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/1/invitaciones/45",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",

@@ -20,12 +20,12 @@
 					"raw": "{\n    \"estado\": \"2\",\n    \"tipoSolicitud\": \"3\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -50,12 +50,12 @@
 					"raw": "{\n\n\"estado\" : \"3\",\n\"tipoSolicitud\" : \"2\"\n\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -80,12 +80,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/20",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes/20",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -112,12 +112,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/276",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes/276",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -144,12 +144,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/17",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes/17",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
@@ -176,12 +176,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/solicitudes/1",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",

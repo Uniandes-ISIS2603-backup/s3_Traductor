@@ -150,12 +150,12 @@
 					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_traductor-api",
 						"api",
