@@ -29,7 +29,8 @@ public class InvitacionDTO implements Serializable{
 
 	private Long idInvitacion;
 	private Long idCliente;
-	private Long idEmpleado;	
+	private Long idEmpleado;
+	private Long solicitudId;	
 	private String descripcion;
 	
 	/**
@@ -58,6 +59,7 @@ public class InvitacionDTO implements Serializable{
 			this.idCliente = invitacionEntity.getIdCliente();			
 			this.descripcion = invitacionEntity.getDescripcion();
 			this.idEmpleado = invitacionEntity.getIdEmpleado();
+			this.solicitudId = invitacionEntity.getSolicitudId();
 		}
 	}
 	
@@ -71,7 +73,8 @@ public class InvitacionDTO implements Serializable{
 		InvitacionEntity invitacionEntity = new InvitacionEntity();
 		invitacionEntity.setIdCliente(idCliente);		
 		invitacionEntity.setDescripcion(descripcion);
-		invitacionEntity.setIdEmpleado(idEmpleado);		
+		invitacionEntity.setIdEmpleado(idEmpleado);
+		invitacionEntity.setSolicitudId(solicitudId);
 		return invitacionEntity;
 	}
 	
@@ -138,5 +141,13 @@ public class InvitacionDTO implements Serializable{
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}	
+	}
+	
+	public Long getSoliciutdId() {
+		return solicitudId;
+	}
+
+	public void setSoliciutdId(Long soliciutdId) {
+		this.solicitudId = soliciutdId;
+	}
 }

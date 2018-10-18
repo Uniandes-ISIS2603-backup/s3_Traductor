@@ -22,7 +22,8 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 
 	private Long idCliente;
 	private Long idEmpleado;	
-	private String descripcion;
+	private String descripcion;	
+	private Long solicitudId;
 	
 	@PodamExclude
 	@OneToOne
@@ -105,4 +106,20 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
     }
+	
+	public Long getSolicitudId() {
+		return solicitudId;
+	}
+
+	public void setSolicitudId(Long solicitudId) {
+		this.solicitudId = solicitudId;
+	}
+
+	public PropuestaEntity getPropuesta() {
+		return propuesta;
+	}
+
+	public void setPropuesta(PropuestaEntity propuesta) {
+		this.propuesta = propuesta;
+	}
 }
