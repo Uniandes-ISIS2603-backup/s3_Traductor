@@ -166,6 +166,8 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         nemen.setContrasenia(this.contrasenia);
         nemen.setTrayectoria(this.trayectoria);
         nemen.setTipoEmpleado(this.tipoEmpleado);
+        nemen.setEstudios(this.estudios);
+        nemen.setReferencias(this.referencias);
         if(this.calificaciones!=null){
             List<CalificacionEntity> listCal=new ArrayList<>();
             for(CalificacionDTO tmpcal: this.calificaciones){

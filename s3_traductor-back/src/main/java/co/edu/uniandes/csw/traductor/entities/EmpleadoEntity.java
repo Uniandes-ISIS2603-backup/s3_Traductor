@@ -33,6 +33,8 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private String trayectoria;
     private String HojaDeVida;
     private Integer tipoEmpleado;
+    private String estudios;
+    private String referencias;
     @PodamExclude
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CalificacionEntity> calificaciones;
@@ -63,11 +65,27 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     //getters and setters
     //----------------------------------------------------
 
+    public String getEstudios() {
+        return estudios;
+    }
+
+    public void setEstudios(String estudios) {
+        this.estudios = estudios;
+    }
+
+    public String getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(String referencias) {
+        this.referencias = referencias;
+    }
+    
     public int getTipoEmpleado() {
         return tipoEmpleado;
     }
 
-    public void setTipoEmpleado(int tipoEmpleado) {
+    public void setTipoEmpleado(Integer tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
     
