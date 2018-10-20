@@ -78,10 +78,10 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         }
         solicitudes=new ArrayList<>();
         if(empleado.getSolicitudes()!=null){
-            //for(SolicitudEntity solen:empleado.getSolicitudes()){
-                //SolicitudDetailDTO tmpsoli = new SolicitudDetailDTO(solen);
-                //break; //TODO
-            //}
+            for(SolicitudEntity solen:empleado.getSolicitudes()){
+                SolicitudDetailDTO tmpsoli = new SolicitudDetailDTO(solen);
+                solicitudes.add(tmpsoli);
+            }
         }
     }
     
@@ -113,13 +113,12 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         this.propuestas = propuestas;
     }
 
-    public List<SolicitudDTO> getSolicitudes() {
-        return null;//TODO
+    public List<SolicitudDetailDTO> getSolicitudes() {
+        return solicitudes;
     }
 
-    public void setSolicitudes(List<SolicitudDTO> solicitudes) {
-        //this.solicitudes = solicitudes;
-        //TODO
+    public void setSolicitudes(List<SolicitudDetailDTO> solicitudes) {
+        this.solicitudes = solicitudes;
     }
 
     public List<AreaConocimientoDTO> getAreasDeConocimiento() {
