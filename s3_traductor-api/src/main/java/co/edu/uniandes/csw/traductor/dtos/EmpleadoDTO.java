@@ -29,8 +29,10 @@ public class EmpleadoDTO implements Serializable{
     protected String nombreUsuario;
     protected String contrasenia;
     protected String trayectoria;
-    protected String hojaDeVida; 
+    protected String hojaDeVida;
     protected Integer tipoEmpleado;
+    protected String estudios;
+    protected String referencias;
     
     //----------------------------------------------------
     //constructores
@@ -46,20 +48,36 @@ public class EmpleadoDTO implements Serializable{
         this.trayectoria = empleado.getTrayectoria();
         this.hojaDeVida = empleado.getHojaDeVida();
         this.tipoEmpleado= empleado.getTipoEmpleado();
-        
+        this.estudios= empleado.getEstudios();
+        this.referencias= empleado.getReferencias();
     }
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
 
+    public String getEstudios() {
+        return estudios;
+    }
+
+    public void setEstudios(String estudios) {
+        this.estudios = estudios;
+    }
+
+    public String getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(String referencias) {
+        this.referencias = referencias;
+    }
+    
     public int getTipoEmpleado() {
         return tipoEmpleado;
     }
 
-    public void setTipoEmpleado(int tipoEmpleado) {
+    public void setTipoEmpleado(Integer tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
-   
     
     /**
     * obtiene la trayectoria de un empleado 
@@ -169,6 +187,7 @@ public class EmpleadoDTO implements Serializable{
         this.contrasenia = contrasenia;
     }
     
+    
 
     //----------------------------------------------------
     //Metodos adicionales
@@ -197,6 +216,8 @@ public class EmpleadoDTO implements Serializable{
         nemen.setTrayectoria(this.trayectoria);
         nemen.setHojaDeVida(this.hojaDeVida);
         nemen.setTipoEmpleado(this.tipoEmpleado);
+        nemen.setEstudios(this.estudios);
+        nemen.setReferencias(this.referencias);
         return nemen;
     }
 }
