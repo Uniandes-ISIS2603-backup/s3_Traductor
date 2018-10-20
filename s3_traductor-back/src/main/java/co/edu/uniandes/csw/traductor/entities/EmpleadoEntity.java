@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,7 +18,10 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class EmpleadoEntity extends BaseEntity implements Serializable {
-
+    //Constantes
+    private final static Integer TRADUCTOR=1;
+    private final static Integer CORRECTOR=2;
+    private final static Integer CORRECTOR_TRADUCOR=3;
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------
@@ -30,16 +32,10 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private Integer aniosExperiencia;
     private String trayectoria;
     private String HojaDeVida;
+    private Integer tipoEmpleado;
     @PodamExclude
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CalificacionEntity> calificaciones;
-    @PodamExclude
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ReferenciaEntity> refLaborales;
-    @PodamExclude
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ReferenciaEntity> refPersonales;
-
     //Mapeos a mis Entity. Saludos. Geovanny
     //Alvaro recuerda que debe haber el OneToMany aqui que llame al un atributo en las clases destino de tipo EmpleadoEntity
     //Es como un "Callback" la relacion de las FK. Por ejemplo, el atributo empleado en mis entities. 
@@ -66,6 +62,15 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
+
+    public int getTipoEmpleado() {
+        return tipoEmpleado;
+    }
+
+    public void setTipoEmpleado(int tipoEmpleado) {
+        this.tipoEmpleado = tipoEmpleado;
+    }
+    
     public String getCorreoElectronico() {
         return correoElectronico;
     }
@@ -130,28 +135,12 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
         this.calificaciones = calificaciones;
     }
 
-    public List<ReferenciaEntity> getRefPersonales() {
-        return refPersonales;
-    }
-
-    public void setRefPersonales(List<ReferenciaEntity> refPersonales) {
-        this.refPersonales = refPersonales;
-    }
-
     public List<InvitacionEntity> getInvitaciones() {
         return invitaciones;
     }
 
     public void setInvitaciones(List<InvitacionEntity> invitaciones) {
         this.invitaciones = invitaciones;
-    }
-
-    public List<ReferenciaEntity> getRefLaborales() {
-        return refLaborales;
-    }
-
-    public void setRefLaborales(List<ReferenciaEntity> refLaborales) {
-        this.refLaborales = refLaborales;
     }
 
     public List<PropuestaEntity> getPropuestas() {

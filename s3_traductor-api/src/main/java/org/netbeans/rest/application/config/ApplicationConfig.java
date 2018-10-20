@@ -32,12 +32,6 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.uniandes.csw.traductor.mappers.BusinessLogicExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.traductor.mappers.WebApplicationExceptionMapper.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.AreaConocimientoResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.CalificacionResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.ClientePropuestaResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.ClienteResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.DocumentoResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoCalificacionResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoSolicitudResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.IdiomaResource.class);
@@ -47,6 +41,12 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudIdiomaResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.TarjetaDeCreditoResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.AreaConocimientoResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.CalificacionResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.ClientePropuestaResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.ClienteResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.DocumentoResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoCalificacionResource.class);
 }
     
 }
