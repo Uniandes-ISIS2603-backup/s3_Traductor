@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.traductor.entities.IdiomaEntity;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
-import co.edu.uniandes.csw.traductor.entities.ReferenciaEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,8 +27,6 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
     //----------------------------------------------------    
     private List<CalificacionDTO> calificaciones ;
     private List<InvitacionDTO> invitaciones ;
-    private List<ReferenciaDTO> refLaborales;
-    private List<ReferenciaDTO> refPersonales;
     private List<PropuestaDTO> propuestas;
     private List<SolicitudDetailDTO> solicitudes;
     private List<AreaConocimientoDTO> areasDeConocimiento;
@@ -57,20 +54,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
                 this.invitaciones.add(tmpInv);
             }
         }
-        refLaborales = new ArrayList<>();
-        if(empleado.getRefLaborales()!=null){
-            for (ReferenciaEntity entRefUno : empleado.getRefLaborales()) {
-                ReferenciaDTO tmpRef=new ReferenciaDTO(entRefUno);
-                this.refLaborales.add(tmpRef);
-            }
-        }
-        refPersonales = new ArrayList<>();
-        if(empleado.getRefPersonales()!=null){
-            for (ReferenciaEntity entRefDos : empleado.getRefPersonales()) {
-                ReferenciaDTO tmpRefDos=new ReferenciaDTO(entRefDos);
-                this.refPersonales.add(tmpRefDos);
-            }
-        }
+
         propuestas = new ArrayList<>();
         if (empleado.getPropuestas()!=null) {
             for (PropuestaEntity entPro : empleado.getPropuestas()) {
@@ -119,22 +103,6 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
 
     public void setInvitaciones(List<InvitacionDTO> invitaciones) {
         this.invitaciones = invitaciones;
-    }
-
-    public List<ReferenciaDTO> getRefLaborales() {
-        return refLaborales;
-    }
-
-    public void setRefLaborales(List<ReferenciaDTO> refLaborales) {
-        this.refLaborales = refLaborales;
-    }
-
-    public List<ReferenciaDTO> getRefPersonales() {
-        return refPersonales;
-    }
-
-    public void setRefPersonales(List<ReferenciaDTO> refPersonales) {
-        this.refPersonales = refPersonales;
     }
 
     public List<PropuestaDTO> getPropuestas() {
@@ -197,6 +165,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         nemen.setNombreUsuario(this.nombreUsuario);
         nemen.setContrasenia(this.contrasenia);
         nemen.setTrayectoria(this.trayectoria);
+        nemen.setTipoEmpleado(this.tipoEmpleado);
         if(this.calificaciones!=null){
             List<CalificacionEntity> listCal=new ArrayList<>();
             for(CalificacionDTO tmpcal: this.calificaciones){
@@ -212,20 +181,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
             }
             nemen.setInvitaciones(listInv);
         }
-        if(this.refLaborales!=null){
-            List<ReferenciaEntity> listRefl=new ArrayList<>();
-            for(ReferenciaDTO tmprefp: this.refLaborales){
-                listRefl.add(tmprefp.toEntity());
-            }
-            nemen.setRefPersonales(listRefl);
-        }
-        if(this.refPersonales!=null){
-            List<ReferenciaEntity> listRefp=new ArrayList<>();
-            for(ReferenciaDTO tmprefp: this.refPersonales){
-                listRefp.add(tmprefp.toEntity());
-            }
-            nemen.setRefPersonales(listRefp);
-        }
+
          if(this.propuestas!=null){
             List<PropuestaEntity> listProp=new ArrayList<>();
             for(PropuestaDTO tmpprop: this.propuestas){

@@ -15,6 +15,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Alvaro
  */
 public class EmpleadoDTO implements Serializable{
+    //Constantes
+    private final static Integer TRADUCTOR=1;
+    private final static Integer CORRECTOR=2;
+    private final static Integer CORRECTOR_TRADUCOR=3;
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------
@@ -25,8 +29,8 @@ public class EmpleadoDTO implements Serializable{
     protected String nombreUsuario;
     protected String contrasenia;
     protected String trayectoria;
-    private String hojaDeVida; 
-
+    protected String hojaDeVida; 
+    protected Integer tipoEmpleado;
     
     //----------------------------------------------------
     //constructores
@@ -41,12 +45,22 @@ public class EmpleadoDTO implements Serializable{
         this.contrasenia=empleado.getContrasenia();
         this.trayectoria = empleado.getTrayectoria();
         this.hojaDeVida = empleado.getHojaDeVida();
+        this.tipoEmpleado= empleado.getTipoEmpleado();
         
     }
     //----------------------------------------------------
     //getters and setters
     //----------------------------------------------------
+
+    public int getTipoEmpleado() {
+        return tipoEmpleado;
+    }
+
+    public void setTipoEmpleado(int tipoEmpleado) {
+        this.tipoEmpleado = tipoEmpleado;
+    }
    
+    
     /**
     * obtiene la trayectoria de un empleado 
     * @return trayectoria
@@ -182,7 +196,7 @@ public class EmpleadoDTO implements Serializable{
         nemen.setContrasenia(this.contrasenia);
         nemen.setTrayectoria(this.trayectoria);
         nemen.setHojaDeVida(this.hojaDeVida);
-      
+        nemen.setTipoEmpleado(this.tipoEmpleado);
         return nemen;
     }
 }
