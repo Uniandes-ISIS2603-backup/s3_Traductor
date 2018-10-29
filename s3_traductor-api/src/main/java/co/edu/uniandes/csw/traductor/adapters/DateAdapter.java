@@ -42,7 +42,7 @@ public class DateAdapter extends XmlAdapter<String, Date> {
     private static final ThreadLocal<DateFormat> DATE_FORMAT_TL = new ThreadLocal<DateFormat>() {
         @Override
         protected DateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd");
+            return new SimpleDateFormat("dd/MM/yyyy");
         }
     };
 
