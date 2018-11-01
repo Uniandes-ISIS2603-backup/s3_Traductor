@@ -130,18 +130,18 @@ public class EmpleadoResource {
     }
     
     /**
-     * Conexión con el servicio propuestas para un cliente.
+     * Conexión con el servicio propuestas para un empleado.
      * {@link PropuestaResource}
      *
-     * Este método conecta la ruta de /clientes con las rutas de /propuestas que
-     * dependen del cliente, es una redirección al servicio que maneja el
-     * segmento de la URL que se encarga de los pagos de un cliente.
+     * Este método conecta la ruta de /empleados con las rutas de /propuestas que
+     * dependen del empleado, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los pagos de un empleado.
      *
-     * @param empleadoId El ID del cliente con respecto al  cual se
+     * @param empleadoId El ID del empleado con respecto al  cual se
      * accede al servicio.
-     * @return El servicio de propuestas para este cliente en paricular.
+     * @return El servicio de propuestas para este empleado en paricular.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el cliente.
+     * Error de lógica que se genera cuando no se encuentra el empleado.
      */
     @Path("{empleadoId: \\d+}/propuestas")
     public Class<PropuestaResource> getPropuestaResource(@PathParam("empleadoId") Long empleadoId) 

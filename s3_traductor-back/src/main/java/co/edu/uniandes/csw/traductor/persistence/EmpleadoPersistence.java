@@ -33,17 +33,17 @@ public class EmpleadoPersistence {
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
     public EmpleadoEntity create(EmpleadoEntity empleado) {
-        LOGGER.log(Level.INFO, "Creando un autor nuevo");
+        LOGGER.log(Level.INFO, "Creando un empleado nuevo");
         em.persist(empleado);
-        LOGGER.log(Level.INFO, "Docuemento creado");
+        LOGGER.log(Level.INFO, "empleado creado");
         return empleado;
     }
     /**
      * Devuelve todos los empleados de la base de datos.
      *
-     * @return una lista con todas todos los clientes que encuentre en la base de
-     * datos, "select u from ClienteEntity u" es como un "select * from
-     * ClienteEntity;" - "SELECT * FROM table_name" en SQL.
+     * @return una lista con todas todos los empleados que encuentre en la base de
+     * datos, "select u from EmpleadoEntory u" es como un "select * from
+     * EmpleadoEntity;" - "SELECT * FROM table_name" en SQL.
      */
     public List<EmpleadoEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todos los empleados");
@@ -82,5 +82,84 @@ public class EmpleadoPersistence {
         LOGGER.log(Level.INFO, "Borrando el documento con id={0}", empId);
         EmpleadoEntity empleadoTmp = em.find(EmpleadoEntity.class, empId);
         em.remove(empleadoTmp);
+    }
+    
+    /**
+     * Busca si hay algun empleado con la identificacion que se envía de argumento
+     *
+     * @param identificacion: Identificación del empleado que se está buscando
+     * @return null si no existe ningun empleado con la identificación del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public EmpleadoEntity findByIdentificacion(String identificacion) {
+        LOGGER.log(Level.INFO, "Consultando empleados por identificacion ", identificacion);
+        // Se crea un query para buscar empleados con la identificacion que recibe el método como argumento. ":identificacion" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From EmpleadoEntity e where e.identificacion = :identificacion", EmpleadoEntity.class);
+        // Se remplaza el placeholder ":identificacion" con el valor del argumento 
+        query = query.setParameter("identificacion", identificacion);
+        // Se invoca el query se obtiene la lista resultado
+        List<EmpleadoEntity> sameIdentificacion = query.getResultList();
+        EmpleadoEntity result;
+        if (sameIdentificacion == null) {
+            result = null;
+        } else if (sameIdentificacion.isEmpty()) {
+            result = null;
+        } else {
+            result = sameIdentificacion.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar empleados por identificacion ", identificacion);
+        return result;
+    }
+    /**
+     * Busca si hay algun empleado con el nombre de usuario que se envía de argumento
+     *
+     * @param nombreUsuario: el nombre de usuario del empleado que se está buscando
+     * @return null si no existe ningun empleado con la identificación del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public EmpleadoEntity findByNombreUsuario(String nombreUsuario) {
+        LOGGER.log(Level.INFO, "Consultando empleados por nombre de usuario ", nombreUsuario);
+        // Se crea un query para buscar empleados con el nombre de usuario que recibe el método como argumento. ":nombreUsuario" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From EmpleadoEntiry e where e.nombreUsuario = :nombreUsuario", EmpleadoEntity.class);
+        // Se remplaza el placeholder ":nombreUsuario" con el valor del argumento 
+        query = query.setParameter("nombreUsuario", nombreUsuario);
+        // Se invoca el query se obtiene la lista resultado
+        List<EmpleadoEntity> sameNombreUsuario = query.getResultList();
+        EmpleadoEntity result;
+        if (sameNombreUsuario == null) {
+            result = null;
+        } else if (sameNombreUsuario.isEmpty()) {
+            result = null;
+        } else {
+            result = sameNombreUsuario.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar empleados por nombre de usuario ", nombreUsuario);
+        return result;
+    }
+    /**
+     * Busca si hay algun Empleado con el correo que se envía de argumento
+     *
+     * @param correoElectronico: correo del Empleado que se está buscando
+     * @return null si no existe ningun Empleado con el correo del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public EmpleadoEntity findByCorreo(String correoElectronico) {
+        LOGGER.log(Level.INFO, "Consultando empleados por correo electronico ", correoElectronico);
+        // Se crea un query para buscar empleados con el correo que recibe el método como argumento. ":correoElectronico" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From EmpleadoEntity e where e.correoElectronico = :correoElectronico", EmpleadoEntity.class);
+        // Se remplaza el placeholder ":correoElectronico" con el valor del argumento 
+        query = query.setParameter("correoElectronico", correoElectronico);
+        // Se invoca el query se obtiene la lista resultado
+        List<EmpleadoEntity> sameCorreoElectronico = query.getResultList();
+        EmpleadoEntity result;
+        if (sameCorreoElectronico == null) {
+            result = null;
+        } else if (sameCorreoElectronico.isEmpty()) {
+            result = null;
+        } else {
+            result = sameCorreoElectronico.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar Empleados por correo electronico ", correoElectronico);
+        return result;
     }
 }
