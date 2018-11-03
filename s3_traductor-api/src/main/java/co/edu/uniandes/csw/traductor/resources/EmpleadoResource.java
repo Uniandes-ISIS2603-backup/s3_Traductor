@@ -94,11 +94,11 @@ public class EmpleadoResource {
      */
     @GET
     @Path("{empleadoId: \\d+}")
-    public EmpleadoDTO getEmpleado(@PathParam("empleadoId") Long empleadoId) throws WebApplicationException {
+    public EmpleadoDetailDTO getEmpleado(@PathParam("empleadoId") Long empleadoId) throws WebApplicationException {
 
         // TODO: [getEmpleado] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         LOGGER.log(Level.INFO, "empleadoResources getempleado: input: {0}", empleadoId);
-        EmpleadoDTO entityBuscada = null; //DTO respuesta.	
+        EmpleadoDetailDTO entityBuscada = null; //DTO respuesta.	
         entityBuscada = new EmpleadoDetailDTO(empleadoLogic.getEmpleado(empleadoId));
 
         LOGGER.log(Level.INFO, "empleadoResources getempleado: output: {0}", entityBuscada.toString());

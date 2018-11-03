@@ -85,32 +85,6 @@ public class EmpleadoPersistence {
     }
     
     /**
-     * Busca si hay algun empleado con la identificacion que se envía de argumento
-     *
-     * @param identificacion: Identificación del empleado que se está buscando
-     * @return null si no existe ningun empleado con la identificación del argumento. Si
-     * existe alguno devuelve el primero.
-     */
-    public EmpleadoEntity findByIdentificacion(String identificacion) {
-        LOGGER.log(Level.INFO, "Consultando empleados por identificacion ", identificacion);
-        // Se crea un query para buscar empleados con la identificacion que recibe el método como argumento. ":identificacion" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From EmpleadoEntity e where e.identificacion = :identificacion", EmpleadoEntity.class);
-        // Se remplaza el placeholder ":identificacion" con el valor del argumento 
-        query = query.setParameter("identificacion", identificacion);
-        // Se invoca el query se obtiene la lista resultado
-        List<EmpleadoEntity> sameIdentificacion = query.getResultList();
-        EmpleadoEntity result;
-        if (sameIdentificacion == null) {
-            result = null;
-        } else if (sameIdentificacion.isEmpty()) {
-            result = null;
-        } else {
-            result = sameIdentificacion.get(0);
-        }
-        LOGGER.log(Level.INFO, "Saliendo de consultar empleados por identificacion ", identificacion);
-        return result;
-    }
-    /**
      * Busca si hay algun empleado con el nombre de usuario que se envía de argumento
      *
      * @param nombreUsuario: el nombre de usuario del empleado que se está buscando
@@ -120,7 +94,7 @@ public class EmpleadoPersistence {
     public EmpleadoEntity findByNombreUsuario(String nombreUsuario) {
         LOGGER.log(Level.INFO, "Consultando empleados por nombre de usuario ", nombreUsuario);
         // Se crea un query para buscar empleados con el nombre de usuario que recibe el método como argumento. ":nombreUsuario" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From EmpleadoEntiry e where e.nombreUsuario = :nombreUsuario", EmpleadoEntity.class);
+        TypedQuery query = em.createQuery("Select e From EmpleadoEntity e where e.nombreUsuario = :nombreUsuario", EmpleadoEntity.class);
         // Se remplaza el placeholder ":nombreUsuario" con el valor del argumento 
         query = query.setParameter("nombreUsuario", nombreUsuario);
         // Se invoca el query se obtiene la lista resultado
