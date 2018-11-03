@@ -96,13 +96,14 @@ public class EmpleadoResource {
     @Path("{empleadoId: \\d+}")
     public EmpleadoDetailDTO getEmpleado(@PathParam("empleadoId") Long empleadoId) throws WebApplicationException {
 
-        // TODO: [getEmpleado] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-        LOGGER.log(Level.INFO, "empleadoResources getempleado: input: {0}", empleadoId);
-        EmpleadoDetailDTO entityBuscada = null; //DTO respuesta.	
-        entityBuscada = new EmpleadoDetailDTO(empleadoLogic.getEmpleado(empleadoId));
-
-        LOGGER.log(Level.INFO, "empleadoResources getempleado: output: {0}", entityBuscada.toString());
-        return entityBuscada;
+       LOGGER.log(Level.INFO, "EmpleadoResource getEmpleado: input: {0}", empleadoId);
+        EmpleadoEntity empleadoEntity = empleadoLogic.getEmpleado(empleadoId);
+        if (empleadoEntity == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
+        }
+        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(empleadoEntity);
+        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleado: output: {0}", detailDTO.toString());
+        return detailDTO; //Estaba retornando null, se te paso aqui Salo.
     }
 
     /**
