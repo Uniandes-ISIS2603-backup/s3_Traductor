@@ -98,4 +98,21 @@ public class EmpleadoLogic {
         persistence.delete(empID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar un Empleado id={0}", empID);
     }
+    /**
+     *
+     * Actualizar un empleado.
+     *
+     * @param empleadoId: id del empleado para buscarla en la base de
+     * datos.
+     * @param empleadoEntity: empleado con los cambios para ser actualizada,
+     * por ejemplo el nombre.
+     * @return El empleado con los cambios actualizados en la base de datos.
+     */
+    public EmpleadoEntity updateEmpleado(Long empleadoId, EmpleadoEntity empleadoEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el empleado con id = {0}", empleadoId);
+        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
+        EmpleadoEntity newEntity = persistence.update(empleadoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el emplado con id = {0}", empleadoEntity.getId());
+        return newEntity;
+    }
 }

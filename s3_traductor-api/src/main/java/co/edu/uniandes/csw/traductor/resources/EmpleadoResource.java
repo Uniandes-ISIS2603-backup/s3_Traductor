@@ -103,32 +103,32 @@ public class EmpleadoResource
         return detailDTO; //Estaba retornando null, se te paso aqui Salo.
     }
     
-//    /**
-//     * Actualiza el empleado con el id recibido en la URL con la informacion
-//     * que se recibe en el cuerpo de la petición.
-//     *
-//     * @param empleadoId Identificador del empleado que se desea
-//     * actualizar. Este debe ser una cadena de dígitos.
-//     * @param empleadoId {@link EmpleadoDetailDTO} El empleado que se desea
-//     * guardar.
-//     * @return JSON {@link EmpleadoDetailDTO} - El empleado guardado.
-//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra el empleado a
-//     * actualizar.
-//     */
-//    @PUT
-//    @Path("{empleadoId: \\d+}")
-//    public EmpleadoDetailDTO updateEmpleado(@PathParam("empleadoId") Long empleadoId, EmpleadoDetailDTO empleado) throws WebApplicationException
-//    {
-//        LOGGER.log(Level.INFO, "EmpleadoResouce updateEmpleado: input: id:{0} , empleado: {1}", new Object[]{empleadoId, empleado.toString()});
-//        empleado.setId(empleadoId);
-//        if (logic.getEmpleado(empleadoId) == null) {
-//            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
-//        }
-//        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(logic.updateEmpleado(empleadoId, empleado.toEntity()));
-//        LOGGER.log(Level.INFO, "empleadoResource updateEmpleado: output: {0}", detailDTO.toString());
-//        return detailDTO;
-//    }
+    /**
+     * Actualiza el empleado con el id recibido en la URL con la informacion
+     * que se recibe en el cuerpo de la petición.
+     *
+     * @param empleadoId Identificador del empleado que se desea
+     * actualizar. Este debe ser una cadena de dígitos.
+     * @param empleado {@link EmpleadoDetailDTO} El empleado que se desea
+     * guardar.
+     * @return JSON {@link EmpleadoDetailDTO} - El empleado guardado.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el empleado a
+     * actualizar.
+     */
+    @PUT
+    @Path("{empleadoId: \\d+}")
+    public EmpleadoDetailDTO updateEmpleado(@PathParam("empleadoId") Long empleadoId, EmpleadoDetailDTO empleado) throws WebApplicationException
+    {
+        LOGGER.log(Level.INFO, "EmpleadoResouce updateEmpleado: input: id:{0} , empleado: {1}", new Object[]{empleadoId, empleado.toString()});
+        empleado.setId(empleadoId);
+        if (logic.getEmpleado(empleadoId) == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
+        }
+        EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(logic.updateEmpleado(empleadoId, empleado.toEntity()));
+        LOGGER.log(Level.INFO, "empleadoResource updateEmpleado: output: {0}", detailDTO.toString());
+        return detailDTO;
+    }
     
     /**
      * Borra el empleado con el id asociado recibido en la URL.
