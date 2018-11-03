@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.traductor.test.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
-import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
+import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity.TipoEmpleado;
 import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -212,7 +212,7 @@ public class EmpleadoPersistenceTest {
 
             EmpleadoEntity entity = factory.manufacturePojo(EmpleadoEntity.class);
 
-            entity.setTipoEmpleado(1);
+            entity.setTipoEmpleado(TipoEmpleado.TRADUCTOR);
             em.persist(entity);
 
             data.add(entity);

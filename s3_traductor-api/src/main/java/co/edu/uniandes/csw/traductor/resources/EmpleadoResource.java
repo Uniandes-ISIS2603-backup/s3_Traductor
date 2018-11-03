@@ -54,7 +54,7 @@ public class EmpleadoResource
     @POST
     public EmpleadoDTO createEmpleado(EmpleadoDTO empleado) throws BusinessLogicException
     {
-         LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: input: {0}", empleado.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: input: {0}", empleado.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         EmpleadoEntity empleadoEntity = empleado.toEntity();
         // Invoca la lógica para crear la editorial nueva

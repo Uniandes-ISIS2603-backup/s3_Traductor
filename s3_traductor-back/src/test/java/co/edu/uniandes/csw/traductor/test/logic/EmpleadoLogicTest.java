@@ -8,7 +8,7 @@ package co.edu.uniandes.csw.traductor.test.logic;
 
 import co.edu.uniandes.csw.traductor.ejb.EmpleadoLogic;
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
-
+import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity.TipoEmpleado;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
@@ -113,7 +113,7 @@ public class EmpleadoLogicTest
             entity.setSolicitudes(new ArrayList<>());
             entity.setPropuestas(new ArrayList<>());
             entity.setInvitaciones(new ArrayList<>());
-            entity.setTipoEmpleado(1);
+            entity.setTipoEmpleado(TipoEmpleado.TRADUCTOR);
             if(i == 0)
             {
                 SolicitudEntity solicitud = factory.manufacturePojo(SolicitudEntity.class);
@@ -257,7 +257,7 @@ public class EmpleadoLogicTest
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void deleteClienteConInvitacionesAsociadasTest() throws BusinessLogicException {
+    public void deleteEmpleadoConInvitacionesAsociadasTest() throws BusinessLogicException {
         EmpleadoEntity entity = data.get(1);
         empleadoLogic.deleteEmpleado(entity.getId());
     }
