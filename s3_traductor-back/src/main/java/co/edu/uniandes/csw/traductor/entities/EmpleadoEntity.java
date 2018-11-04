@@ -18,21 +18,23 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class EmpleadoEntity extends BaseEntity implements Serializable {
-    //Constantes
-    private final static Integer TRADUCTOR=1;
-    private final static Integer CORRECTOR=2;
-    private final static Integer CORRECTOR_TRADUCOR=3;
+    //Enum que se encarga de determinar el tipo de empleado.
+    public enum TipoEmpleado {
+        CORRECTOR,
+        TRADUCTOR,
+        CORRECTOR_TRADUCTOR
+    }
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------
     private String nombreEmpleado;
     private String correoElectronico;
+    private Integer aniosExperiencia;
     private String nombreUsuario;
     private String contrasenia;
-    private Integer aniosExperiencia;
     private String trayectoria;
-    private String HojaDeVida;
-    private Integer tipoEmpleado;
+    private String hojaDeVida;
+    private TipoEmpleado tipoEmpleado;
     private String estudios;
     private String referencias;
     @PodamExclude
@@ -81,11 +83,11 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
         this.referencias = referencias;
     }
     
-    public int getTipoEmpleado() {
+    public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
     }
 
-    public void setTipoEmpleado(Integer tipoEmpleado) {
+    public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
     
@@ -122,11 +124,11 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     }
 
     public String getHojaDeVida() {
-        return HojaDeVida;
+        return hojaDeVida;
     }
 
     public void setHojaDeVida(String HojaDeVida) {
-        this.HojaDeVida = HojaDeVida;
+        this.hojaDeVida = HojaDeVida;
     }
 
     public Integer getAniosExperiencia() {
