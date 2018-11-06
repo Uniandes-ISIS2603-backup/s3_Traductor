@@ -40,13 +40,14 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.traductor.resources.DocumentoResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoCalificacionResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoSolicitudResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.IdiomaResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.InvitacionResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.PagosResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.PropuestaResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudIdiomaResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudResource.class);
-        resources.add(co.edu.uniandes.csw.traductor.resources.TarjetaDeCreditoResource.class);
+		resources.add(co.edu.uniandes.csw.traductor.resources.TarjetaDeCreditoResource.class);
 }
     
 }
