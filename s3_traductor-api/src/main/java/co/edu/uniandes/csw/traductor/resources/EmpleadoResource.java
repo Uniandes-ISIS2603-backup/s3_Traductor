@@ -151,6 +151,17 @@ public class EmpleadoResource
         logic.deleteEmpleado(empleadoId);
         LOGGER.info("EmpleadoResource deleteEmpleado: output: void");
     }
+	
+	//Llamado a propuestas
+	
+	@Path("{empleadoId: \\d+}/propuestas")
+    public Class<PropuestaResource> getPropuestaResource(@PathParam("empleadoId") Long empleadoId) 
+    {
+        if (logic.getEmpleado(empleadoId) == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
+        }
+        return PropuestaResource.class;
+    }
 
     /**
      * Convierte una lista de entidades a DTO.
