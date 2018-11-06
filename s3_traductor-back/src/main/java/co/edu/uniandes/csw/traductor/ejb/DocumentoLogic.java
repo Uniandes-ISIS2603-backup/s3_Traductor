@@ -65,7 +65,7 @@ public class DocumentoLogic {
         LOGGER.log(Level.INFO, "Inicia la consulta de idioma segun el id "+docID);
         DocumentoEntity documentoEntity=persistence.find(docID);
         if(documentoEntity==null)
-            LOGGER.log(Level.SEVERE,"El idioma con el id = {0} no existe", docID);
+        LOGGER.log(Level.SEVERE,"El idioma con el id = {0} no existe", docID);
         LOGGER.log(Level.INFO, "Termina el proceso de consulta de un idioma con el id={0}",docID);
         return documentoEntity;
     }

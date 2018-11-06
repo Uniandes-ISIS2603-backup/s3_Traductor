@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.traductor.ejb;
 
 
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
+import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
+import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
+import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import javax.ejb.Stateless;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
@@ -35,20 +38,21 @@ public class EmpleadoLogic {
      * @return El mismo empleadoEntity luego de persistirlo
      * @throws BusinessLogicException si ya existe un Empleado en el sistema con ese mismo id o nombre
      */
-    public EmpleadoEntity createEmpleado(EmpleadoEntity EmpleadoEntity)throws BusinessLogicException
+    public EmpleadoEntity createEmpleado(EmpleadoEntity empleadoEntity)throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO,"Inicia el proceso de creacion de un Empleado");        
-		
-		/**
-		 * Alvaro esta restriccion no va a pasar, recuerda que siempre los ID´s son diferentes pues son autogenerados.
-        if(persistence.find(EmpleadoEntity.getId()) !=null){
-			System.out.println("[EmpleadoLogic] VA A LANZARSE EXCEPCION");
-            throw new BusinessLogicException("Este Empleado ya existe en el sistema");
-		}
-		*/
-        persistence.create(EmpleadoEntity);
-        LOGGER.log(Level.INFO,"Termina el proceso de creacion del Empleado");
-        return EmpleadoEntity;
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del empleado");
+        // Verifica la regla de negocio que dice que no puede haber 2 empleados con el mismo nombre de usuario.
+        if (persistence.findByNombreUsuario(empleadoEntity.getNombreUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un empleado con el nombre de usuario \"" + empleadoEntity.getNombreUsuario()+ "\"");
+        }
+        // Verifica la regla de negocio que dice que no puede haber 2 empleados con el mismo correo electronico.
+        if (persistence.findByCorreo(empleadoEntity.getCorreoElectronico()) != null) {
+            throw new BusinessLogicException("Ya existe un empleados con el correo electronico \"" + empleadoEntity.getCorreoElectronico()+ "\"");
+        }
+        // Invoca la persistencia para crear el empleado
+        persistence.create(empleadoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del empleado");
+        return empleadoEntity;
     }
     /**
      * entrega una lista con todos los Empleados almacenados en el sistema
@@ -75,13 +79,40 @@ public class EmpleadoLogic {
     }
     /**
      * encargado de eliminar de la persistencia un Empleado 
-     * @param docID id que identifica el Empleado a eliminar del sistema
+     * @param empID id que identifica el Empleado a eliminar del sistema
      * @throws BusinessLogicException  si el Empleado identificado con el id del parametro no existe
      */
-    public void deleteEmpleado(Long docID)throws BusinessLogicException{
-        if(this.getEmpleado(docID)==null)
-            throw new BusinessLogicException("El Empleado con id= "+docID+" no existe, por lo tanto no se puede borrar");
-        persistence.delete(docID);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar un Empleado id={0}", docID);
+    public void deleteEmpleado(Long empID)throws BusinessLogicException{
+        List<SolicitudEntity> solicitudes = getEmpleado(empID).getSolicitudes();
+        if (solicitudes != null && !solicitudes.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el empleado con id = " + empID + " porque tiene solicitudes asociadas");
+        }
+        List<PropuestaEntity> propuestas = getEmpleado(empID).getPropuestas();
+        if (propuestas != null && !propuestas.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el empleado con id = " + empID + " porque tiene propuestas asociadas");
+        }
+        List<InvitacionEntity> invitaciones = getEmpleado(empID).getInvitaciones();
+        if (invitaciones != null && !invitaciones.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el clinte con id = " + empID + " porque tiene invitaciones asociadas");
+        }
+        persistence.delete(empID);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar un Empleado id={0}", empID);
+    }
+    /**
+     *
+     * Actualizar un empleado.
+     *
+     * @param empleadoId: id del empleado para buscarla en la base de
+     * datos.
+     * @param empleadoEntity: empleado con los cambios para ser actualizada,
+     * por ejemplo el nombre.
+     * @return El empleado con los cambios actualizados en la base de datos.
+     */
+    public EmpleadoEntity updateEmpleado(Long empleadoId, EmpleadoEntity empleadoEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el empleado con id = {0}", empleadoId);
+        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
+        EmpleadoEntity newEntity = persistence.update(empleadoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el emplado con id = {0}", empleadoEntity.getId());
+        return newEntity;
     }
 }
