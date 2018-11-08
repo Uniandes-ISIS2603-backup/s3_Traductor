@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
+import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity.TipoEmpleado;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -15,10 +16,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Alvaro
  */
 public class EmpleadoDTO implements Serializable{
-    //Constantes
-    private final static Integer TRADUCTOR=1;
-    private final static Integer CORRECTOR=2;
-    private final static Integer CORRECTOR_TRADUCOR=3;
     //----------------------------------------------------
     //Atributos
     //----------------------------------------------------
@@ -30,7 +27,7 @@ public class EmpleadoDTO implements Serializable{
     protected String contrasenia;
     protected String trayectoria;
     protected String hojaDeVida;
-    protected Integer tipoEmpleado;
+    protected TipoEmpleado tipoEmpleado;
     protected String estudios;
     protected String referencias;
     
@@ -71,11 +68,11 @@ public class EmpleadoDTO implements Serializable{
         this.referencias = referencias;
     }
     
-    public int getTipoEmpleado() {
+    public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
     }
 
-    public void setTipoEmpleado(Integer tipoEmpleado) {
+    public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
     
