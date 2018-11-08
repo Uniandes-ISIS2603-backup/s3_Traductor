@@ -7,14 +7,12 @@ package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.TarjetaDeCreditoDTO;
 import co.edu.uniandes.csw.traductor.ejb.TarjetaDeCreditoLogic;
-import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,7 +30,6 @@ import javax.ws.rs.WebApplicationException;
  */
 @Produces("application/json")
 @Consumes("application/json")
-
 public class TarjetaDeCreditoResource {
 
     //Logger
@@ -50,11 +47,13 @@ public class TarjetaDeCreditoResource {
      *
      * Por ahora solo retorna lo que recibe.
      *
-     * @param nuevaTarjeta
+     * @param idCliente El id del cliente a crearle la tarjeta
+     * @param nuevaTarjeta El objeto DTO de la nueva tarjeta a crearle al cliente
      * @return JSON {@link PropuestaDTO} - La propuesta recibida.
+     * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
      */
     @POST
-    public TarjetaDeCreditoDTO createTarjeta(@PathParam("idCliente") Long idCliente,TarjetaDeCreditoDTO nuevaTarjeta) throws BusinessLogicException {
+    public TarjetaDeCreditoDTO createTarjeta(@PathParam("clientesId") Long idCliente,TarjetaDeCreditoDTO nuevaTarjeta) throws BusinessLogicException {
 
         //Llamado al Logger
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createTarjeta: input: {0}", nuevaTarjeta.toString());
@@ -68,16 +67,18 @@ public class TarjetaDeCreditoResource {
      * Actualiza la propuesta con el id recibido en la URL con la informacion
      * que se recibe en el cuerpo de la petición.
      *
+     * @param idCliente id del cliente que tiene la tarjeta a actualizar
      * @param idTarjeta id de la tarjeta
      * @param tarjeta tarjeta a actualizar
      * @return JSON {@link TarjetaDeCreditoDTO} - La editorial guardada.
+     * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la tarjeta a
      * actualizar.
      */
     @PUT
     @Path("{idTarjeta: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
-    public TarjetaDeCreditoDTO updateTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjetaDeCredito") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
+    public TarjetaDeCreditoDTO updateTarjeta(@PathParam("clientesId") Long idCliente, @PathParam("idTarjeta") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
 
        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: input: id: {0} , tarjetaDeCredito: {1}", new Object[]{idTarjeta, tarjeta.toString()});
          if (idTarjeta.equals(tarjeta.getIdTarjeta())) {
@@ -85,7 +86,7 @@ public class TarjetaDeCreditoResource {
         }
         TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente, idTarjeta);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /cliente/" + idCliente + "/idTarjeta/" + idTarjeta + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
 
         }
         TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(idCliente, tarjeta.toEntity()));
@@ -97,11 +98,12 @@ public class TarjetaDeCreditoResource {
     /**
      * Busca y devuelve todas las tarjetas que posee el cliente.
      *
+     * @param idCliente - El id del cliente a buscar
      * @return JSONArray {@link TarjetaDeCreditoDTO} - Las tarjetas que posee el
      * empleado Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<TarjetaDeCreditoDTO> getTarjetas(@PathParam("idCliente") Long idCliente) {
+    public List<TarjetaDeCreditoDTO> getTarjetas(@PathParam("clientesId") Long idCliente) {
        LOGGER.info("TarjetaDeCreditoResource getTarjetas: input: void");
         List<TarjetaDeCreditoDTO> listaTarjetas = listEntity2DetailDTO(tarjetaLogic.getTarjetas(idCliente));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjetas: output: {0}", listaTarjetas.toString());
@@ -111,6 +113,7 @@ public class TarjetaDeCreditoResource {
     /**
      * Busca la tarjeta con el id asociado recibido en la URL y la devuelve.
      *
+     * @param idCliente El id del cliente a dar la tarjeta.
      * @param idTarjeta id de la tarjeta a buscar
      * @return JSON {@link PropuestaDTO} - La editorial buscada
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
@@ -118,7 +121,7 @@ public class TarjetaDeCreditoResource {
      */
     @GET
     @Path("{idTarjeta: \\d+}")
-    public TarjetaDeCreditoDTO getTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
+    public TarjetaDeCreditoDTO getTarjeta(@PathParam("clientesId") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
 LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarjeta);
         TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (tarjetaEntity == null) {
@@ -132,18 +135,20 @@ LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarj
     /**
      * Borra la tarjeta con el id asociado recibido en la URL.
      *
+     * @param idCliente El id del cliente a eliminarle la tarjeta dicha
      * @param idTarjeta id de la tarjeta que se quiere eliminar
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la editorial.
+     * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
      */
     @DELETE
     @Path("{idTarjeta: \\d+}")
-    public void deleteTarjeta(@PathParam("idCliente") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException, BusinessLogicException {
+    public void deleteTarjeta(@PathParam("clientesId") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException, BusinessLogicException {
 
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource deleteTarjeta: input: {0}", idTarjeta);
         TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /cliente/" + idCliente + "/idTarjeta/" + idTarjeta + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
        }
         /*
         clienteTarjetaLogic.removeTarjeta(idTarjeta);
@@ -164,7 +169,7 @@ LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarj
      */
     private List<TarjetaDeCreditoDTO> listEntity2DetailDTO(List<TarjetaDeCreditoEntity> listaTarjetas) {
         List<TarjetaDeCreditoDTO> tarjetas = new LinkedList<>();
-        for(TarjetaDeCreditoEntity entity : listaTarjetas) {
+        for (TarjetaDeCreditoEntity entity : listaTarjetas) {
             tarjetas.add(new TarjetaDeCreditoDTO(entity));
         }
         return tarjetas;
