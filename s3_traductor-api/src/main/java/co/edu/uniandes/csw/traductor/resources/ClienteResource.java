@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.traductor.dtos.ClienteDTO;
 import co.edu.uniandes.csw.traductor.dtos.ClienteDetailDTO;
 import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
-import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
+//import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
