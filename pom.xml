@@ -6,7 +6,7 @@
     
     <groupId>co.edu.uniandes.csw</groupId>
     <artifactId>s3_prometeus</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
     <packaging>pom</packaging>
     <name>s3_prometeus</name>
  
