@@ -19,7 +19,7 @@ public class TarjetaDeCreditoDTO implements Serializable
     private Long numeroTarjetaCredito;
     private Integer ccv;
     private Integer mesExpiracion;
-     private Integer anioExpiracion;
+    private Integer anioExpiracion;
     private String redBancaria; 
     private String nombreTitular;
 
@@ -32,11 +32,11 @@ public class TarjetaDeCreditoDTO implements Serializable
         mesExpiracion=tarjeta.getMesExpiracion();
         anioExpiracion=tarjeta.getAnioExpiracion();
         redBancaria=tarjeta.getRedBancaria();
+        nombreTitular=tarjeta.getNombreTitular();
     }
     
     public TarjetaDeCreditoDTO()
     {
-        
     }
    
 public TarjetaDeCreditoEntity toEntity()
