@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4a1728e0-a7a3-4d33-bc45-4aa556b223bd",
+		"_postman_id": "6b05cdf9-0af0-44a1-969d-39eebdc4bbd5",
 		"name": "Pruebas_Resources_Tarjeta_y_Pagos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -62,22 +62,20 @@
 							"listen": "prerequest",
 							"script": {
 								"id": "f2bd0a6e-8569-4aa2-9e6b-5c27027ee111",
-								"type": "text/javascript",
 								"exec": [
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "test",
 							"script": {
 								"id": "902675fe-737c-4e3d-9c8f-0cceb8115fc5",
-								"type": "text/javascript",
 								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_t\",data.id);",
 									"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -118,12 +116,10 @@
 							"listen": "test",
 							"script": {
 								"id": "65b24229-89f0-43eb-8efa-f8f561b8a9da",
-								"type": "text/javascript",
 								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_t\",data.id);",
-									"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-								]
+									"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -159,12 +155,10 @@
 							"listen": "test",
 							"script": {
 								"id": "02d2bd2d-0c3d-466e-8fef-0bbfc8eabde4",
-								"type": "text/javascript",
 								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_t\",data.id);",
-									"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-								]
+									"tests[\"no genera error en el Get de uno\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -201,12 +195,12 @@
 							"listen": "test",
 							"script": {
 								"id": "d4360b95-346e-44cb-a437-7eb4f275cccb",
-								"type": "text/javascript",
 								"exec": [
+									"console.log(responseBody);",
 									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_t\",data.id);",
-									"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-								]
+									"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -220,7 +214,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"numeroTarjetaCredito\": 9876543211234567,\n\"ccv\": 368, \n\"mesExpiracion\": 09,\n\"anioExpiracion\": 2022,\n\"redBancaria\": \"Discover\",\n\"nombreTitular\":\"Andres Manrique\"}"
+							"raw": "{\n\t\"numeroTarjetaCredito\": 9876543211234567,\n\t\"ccv\": 368, \n\t\"mesExpiracion\": 09,\n\t\"anioExpiracion\": 2022,\n\t\"redBancaria\": \"Discover\",\n\t\"nombreTitular\":\"Andres Manrique\"\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_clien}}/tarjetasDeCredito/{{new_id_t}}",
@@ -248,12 +242,12 @@
 							"listen": "test",
 							"script": {
 								"id": "b5ee6e61-ec4a-4cb7-9cbe-cc618f4aa122",
-								"type": "text/javascript",
 								"exec": [
+									"console.log(responseBody);",
 									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_t\",data.id);",
-									"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-								]
+									"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
