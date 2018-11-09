@@ -61,7 +61,7 @@ public class TarjetaDeCreditoPersistence {
      */
     public TarjetaDeCreditoEntity find(Long idCliente,Long idTarjetaDeCredito) {
         LOGGER.log(Level.INFO, "Consultando la tarjeta con id={0}", idTarjetaDeCredito);
-       TypedQuery<TarjetaDeCreditoEntity> q = em.createQuery("select p from TarjetaDeCreditoEntity p where (p.cliente_id = :idCliente) and (p.id = :idTarjeta)", TarjetaDeCreditoEntity.class);
+       TypedQuery<TarjetaDeCreditoEntity> q = em.createQuery("select p from TarjetaDeCreditoEntity p where (p.cliente.id = :idCliente) and (p.id = :idTarjeta)", TarjetaDeCreditoEntity.class);
         q.setParameter("idCliente", idCliente);
         q.setParameter("idTarjeta", idTarjetaDeCredito);
         List<TarjetaDeCreditoEntity> results = q.getResultList();
