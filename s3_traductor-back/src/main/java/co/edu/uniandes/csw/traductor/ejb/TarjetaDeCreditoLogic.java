@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.TarjetaDeCreditoPersistence;
 import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -127,21 +126,20 @@ public class TarjetaDeCreditoLogic {
      * @throws BusinessLogicException Si el numero de la tarjeta es inválido
      */
     public TarjetaDeCreditoEntity updateTarjeta(Long idCliente, TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
-         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id = {0}", tarjetaEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id = {0}", tarjetaEntity.getId());
         if (tarjetaEntity.getNombreTitular().equals("")||tarjetaEntity.getNombreTitular()==null) {
-            throw new BusinessLogicException("El nombre es inválida");
+            throw new BusinessLogicException("El nombre es inválido");
         }
         if (!validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El numero es inválido");
         }
-        if (persistence.find(idCliente,tarjetaEntity.getId()) == null) {
-            throw new BusinessLogicException("La tarjeta no existe");
-        }
-      
         if(tarjetaEntity.getCcv()<0||tarjetaEntity.getCcv().toString().length()!=3)
         {
             throw new BusinessLogicException("El ccv es invalido");
         }
+//        if (persistence.find(idCliente,tarjetaEntity.getId()) == null) {
+//            throw new BusinessLogicException("La tarjeta no existe");
+//        }
          if(tarjetaEntity.getAnioExpiracion()==null)
         {
             throw new BusinessLogicException("El año de expiracion es invalido");
@@ -170,8 +168,9 @@ public class TarjetaDeCreditoLogic {
           if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
             throw new BusinessLogicException("La red bancaria es invalida");
         }
-          ClienteEntity cliente = clientePersistence.find(idCliente);
-           tarjetaEntity.setCliente(cliente);
+          
+        ClienteEntity cliente = clientePersistence.find(idCliente);
+        tarjetaEntity.setCliente(cliente);
         TarjetaDeCreditoEntity newEntity = persistence.update(tarjetaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta con id = {0}", tarjetaEntity.getId());
         return newEntity;

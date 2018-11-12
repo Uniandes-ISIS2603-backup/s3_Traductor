@@ -63,7 +63,7 @@ public class SolicitudResource {
         LOGGER.log(Level.INFO, "SolicitudResource getSolicitud: input: {0}", SolicitudId);
         SolicitudEntity solicitudEntity = solicitudLogic.getSolicitud(SolicitudId);
         if (solicitudEntity == null) {
-            throw new WebApplicationException("El recurso /books/" + SolicitudId + "no existe.", 404);
+            throw new WebApplicationException("El recurso /solicitudes/" + SolicitudId + "no existe.", 404);
         }
         SolicitudDTO obtenido = new SolicitudDTO(solicitudEntity);
         LOGGER.log(Level.INFO, "SolicitudResource getSolicitud: onput: {0}", SolicitudId);

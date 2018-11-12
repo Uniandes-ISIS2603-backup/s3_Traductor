@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.traductor.dtos.ClienteDTO;
 import co.edu.uniandes.csw.traductor.dtos.ClienteDetailDTO;
 import co.edu.uniandes.csw.traductor.ejb.ClienteLogic;
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
-import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
+//import co.edu.uniandes.csw.traductor.entities.ClienteEntity.TipoCliente;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +55,10 @@ public class ClienteResource
     @POST
     public ClienteDTO createCliente(ClienteDTO cliente) throws BusinessLogicException
     {
-         LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", cliente.toString());
+        LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", cliente.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ClienteEntity clienteEntity = cliente.toEntity();
-        // Invoca la lógica para crear la editorial nueva
+        // Invoca la lógica para crear el cliente nueva
         ClienteEntity nuevoClienteEntity = clienteLogic.createCliente(clienteEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         ClienteDTO nuevoClienteDTO = new ClienteDTO(nuevoClienteEntity);
@@ -118,7 +118,7 @@ public class ClienteResource
         }
         ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteEntity);
         LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO.toString());
-        return detailDTO; //Estaba retornando null, se te paso aqui Salo.
+        return detailDTO;
     }
     
     /**

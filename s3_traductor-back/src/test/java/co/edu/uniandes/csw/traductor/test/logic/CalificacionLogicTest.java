@@ -126,20 +126,11 @@ public class CalificacionLogicTest {
      */
     @Test
     public void getCalificacionTest(){
-        try{
-            calificacionLogic.getCalificacion(Long.MAX_VALUE);
-            Assert.fail("La calificacion no debería existir");
-        }
-        catch(BusinessLogicException e){
-            Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);
-        }
-        CalificacionEntity a=null;
-        try{
-            a=calificacionLogic.getCalificacion(data.get(1).getId());
-        }
-        catch(BusinessLogicException e){
-            Assert.assertTrue("Deberia haber un mensaje de excepcion", e.getMessage().length() != 0);
-        }
+        CalificacionEntity i = calificacionLogic.getCalificacion(Long.MAX_VALUE);
+        Assert.assertNull("La calificacion no debería existir", i);
+
+        CalificacionEntity a = calificacionLogic.getCalificacion(data.get(1).getId());
+
         Assert.assertNotNull("La calififcacion buscada no es nula, pues si existe",a);
         Assert.assertEquals("La calificacion no es la esperada",a.getComentario(),data.get(1).getComentario());
     }

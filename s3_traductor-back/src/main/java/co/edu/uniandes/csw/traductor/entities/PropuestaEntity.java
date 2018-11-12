@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.entities;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -20,140 +21,147 @@ import javax.persistence.TemporalType;
  *
  * @author Geovanny Andres Gonzalez
  */
-
 @Entity
 public class PropuestaEntity extends BaseEntity implements Serializable {
 
-	private String descripcion;
+    private String descripcion;
     private Integer costo;
     private String estado;
     private Long idEmpleado;
 
-	@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date tiempoEstimado;
-	
-	//Asociacion de cardinalidad 1 con Invitacion
-	@PodamExclude
-	@OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
-	private InvitacionEntity invitacion;
-        
-        @PodamExclude
-	@OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY, optional = true) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
-	private PagosEntity pago;
 
-	
-	//"Callback a Empleado - Relacion ManyToOne"
-	@PodamExclude
-	@ManyToOne
-	private EmpleadoEntity empleado;	
-	
+    //Asociacion de cardinalidad 1 con Invitacion
+    @PodamExclude
+    @OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
+    private InvitacionEntity invitacion;
+
+    @PodamExclude
+    @OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY, optional = true) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
+    private PagosEntity pago;
+
+    //"Callback a Empleado - Relacion ManyToOne"
+    @PodamExclude
+    @ManyToOne
+    private EmpleadoEntity empleado;
+
     //"Callback a Cliente - Relacion ManyToOne"
-	@PodamExclude
-	@ManyToOne
-	private ClienteEntity cliente;
-        
-	/*
+    @PodamExclude
+    @ManyToOne
+    private ClienteEntity cliente;
+
+    /*
 		Constructor
-	*/
-	
-	public PropuestaEntity() {
-	}	
-	
-	/**
-	 * Descripcion de la propuesta
-	 * @return the descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
+     */
+    public PropuestaEntity() {
+    }
 
-	/**
-	 * Cambia la descripcion de la propuesta
-	 * @param descripcion the descripcion to set
-	 */
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    /**
+     * Descripcion de la propuesta
+     *
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	/**
-	 * Costo de la realizacion del trabajo
-	 * @return the costo
-	 */
-	public Integer getCosto() {
-		return costo;
-	}
+    /**
+     * Cambia la descripcion de la propuesta
+     *
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	/**
-	 * Cambia el costo del trabajo
-	 * @param costo the costo to set
-	 */
-	public void setCosto(Integer costo) {
-		this.costo = costo;
-	}
+    /**
+     * Costo de la realizacion del trabajo
+     *
+     * @return the costo
+     */
+    public Integer getCosto() {
+        return costo;
+    }
 
-	/**
-	 * Estado de progreso del trabajo
-	 * @return the estado
-	 */
-	public String getEstado() {
-		return estado;
-	}
+    /**
+     * Cambia el costo del trabajo
+     *
+     * @param costo the costo to set
+     */
+    public void setCosto(Integer costo) {
+        this.costo = costo;
+    }
 
-	/**
-	 * Cambia el estado del trabajo a medida que se va progresando
-	 * @param estado the estado to set
-	 */
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    /**
+     * Estado de progreso del trabajo
+     *
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
 
-	/**
-	 * Retorna el ID del empleado que va a realizar el trabajo.
-	 * @return the idEmpleado
-	 */
-	public Long getIdEmpleado() {
-		return idEmpleado;
-	}
+    /**
+     * Cambia el estado del trabajo a medida que se va progresando
+     *
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	/**
-	 * Cambia el ID del empleado que va a realizar el trabajo.
-	 * @param idEmpleado the idEmpleado to set
-	 */
-	public void setIdEmpleado(Long idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    /**
+     * Retorna el ID del empleado que va a realizar el trabajo.
+     *
+     * @return the idEmpleado
+     */
+    public Long getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	/**
-	 * Retorna la fecha estimada de entrega
-	 * @return the fecha
-	 */
-	public Date getTiempoEstimado() {
-		return tiempoEstimado;
-	}
+    /**
+     * Cambia el ID del empleado que va a realizar el trabajo.
+     *
+     * @param idEmpleado the idEmpleado to set
+     */
+    public void setIdEmpleado(Long idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	/**
-	 * Cambia la fecha estimada de entrega
-	 * @param tiempoEstimado the fecha to set
-	 */
-	public void setTiempoEstimado(Date tiempoEstimado) {
-		this.tiempoEstimado = tiempoEstimado;
-	}	
-	
-	/**
-	 * @return the invitacion
-	 */
-	public InvitacionEntity getInvitacion() {
-		return invitacion;
-	}
+    /**
+     * Retorna la fecha estimada de entrega
+     *
+     * @return the fecha
+     */
+    public Date getTiempoEstimado() {
+        return tiempoEstimado;
+    }
 
-	/**
-	 * @param invitacion the invitacion to set
-	 */
-	public void setInvitacion(InvitacionEntity invitacion) {
-		this.invitacion = invitacion;
-	}
-        
-        public EmpleadoEntity getEmpleado() {
+    /**
+     * Cambia la fecha estimada de entrega
+     *
+     * @param tiempoEstimado the fecha to set
+     */
+    public void setTiempoEstimado(Date tiempoEstimado) {
+        this.tiempoEstimado = tiempoEstimado;
+    }
+
+    /**
+     * @return the invitacion
+     */
+    public InvitacionEntity getInvitacion() {
+        return invitacion;
+    }
+
+    /**
+     * @param invitacion the invitacion to set
+     */
+    public void setInvitacion(InvitacionEntity invitacion) {
+        this.invitacion = invitacion;
+    }
+
+    public EmpleadoEntity getEmpleado() {
         return empleado;
     }
 
@@ -168,8 +176,7 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
     }
-    
-    
+
     public PagosEntity getPago() {
         return pago;
     }
