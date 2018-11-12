@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.dtos;
+
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,57 +14,56 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author ANDRES
  */
-public class TarjetaDeCreditoDTO implements Serializable
-{
+public class TarjetaDeCreditoDTO implements Serializable {
+
     private Long idTarjeta;
     private Long numeroTarjetaCredito;
     private Integer ccv;
     private Integer mesExpiracion;
     private Integer anioExpiracion;
-    private String redBancaria; 
+    private String redBancaria;
     private String nombreTitular;
 
-  
-
     public TarjetaDeCreditoDTO(TarjetaDeCreditoEntity tarjeta) {
-        idTarjeta=tarjeta.getId();
-        numeroTarjetaCredito=tarjeta.getNumeroTarjetaCredito();
-        ccv=tarjeta.getCcv();
-        mesExpiracion=tarjeta.getMesExpiracion();
-        anioExpiracion=tarjeta.getAnioExpiracion();
-        redBancaria=tarjeta.getRedBancaria();
-        nombreTitular=tarjeta.getNombreTitular();
+        if (tarjeta != null) {
+            idTarjeta = tarjeta.getId();
+            numeroTarjetaCredito = tarjeta.getNumeroTarjetaCredito();
+            ccv = tarjeta.getCcv();
+            mesExpiracion = tarjeta.getMesExpiracion();
+            anioExpiracion = tarjeta.getAnioExpiracion();
+            redBancaria = tarjeta.getRedBancaria();
+            nombreTitular = tarjeta.getNombreTitular();
+        }
     }
-    
-    public TarjetaDeCreditoDTO()
-    {
+
+    public TarjetaDeCreditoDTO() {
     }
-   
-public TarjetaDeCreditoEntity toEntity()
-	{
-		TarjetaDeCreditoEntity tarjetaDeCredito = new TarjetaDeCreditoEntity();
-                tarjetaDeCredito.setId(idTarjeta);
-		tarjetaDeCredito.setCcv(ccv);
-                tarjetaDeCredito.setMesExpiracion(mesExpiracion);
-                tarjetaDeCredito.setAnioExpiracion(anioExpiracion);
-                tarjetaDeCredito.setRedBancaria(redBancaria);
-                tarjetaDeCredito.setNombreTitular(nombreTitular);
-                tarjetaDeCredito.setNumeroTarjetaCredito(numeroTarjetaCredito);
-		return tarjetaDeCredito;
-	}	
-	
-	@Override
+
+    public TarjetaDeCreditoEntity toEntity() {
+        TarjetaDeCreditoEntity tarjetaDeCredito = new TarjetaDeCreditoEntity();
+        tarjetaDeCredito.setId(idTarjeta);
+        tarjetaDeCredito.setCcv(ccv);
+        tarjetaDeCredito.setMesExpiracion(mesExpiracion);
+        tarjetaDeCredito.setAnioExpiracion(anioExpiracion);
+        tarjetaDeCredito.setRedBancaria(redBancaria);
+        tarjetaDeCredito.setNombreTitular(nombreTitular);
+        tarjetaDeCredito.setNumeroTarjetaCredito(numeroTarjetaCredito);
+        return tarjetaDeCredito;
+    }
+
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-      public String getNombreTitular() {
+
+    public String getNombreTitular() {
         return nombreTitular;
     }
 
     public void setNombreTitular(String nombreTitular) {
         this.nombreTitular = nombreTitular;
     }
-    
+
     public Long getIdTarjeta() {
         return idTarjeta;
     }
@@ -95,7 +95,7 @@ public TarjetaDeCreditoEntity toEntity()
     public void setRedBancaria(String redBancaria) {
         this.redBancaria = redBancaria;
     }
-    
+
     public Integer getMesExpiracion() {
         return mesExpiracion;
     }
@@ -111,5 +111,4 @@ public TarjetaDeCreditoEntity toEntity()
     public void setAnioExpiracion(Integer anioExpiracion) {
         this.anioExpiracion = anioExpiracion;
     }
-    }
-
+}

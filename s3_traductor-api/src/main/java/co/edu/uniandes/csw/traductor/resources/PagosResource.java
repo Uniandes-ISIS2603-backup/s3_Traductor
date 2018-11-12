@@ -31,13 +31,14 @@ import javax.ws.rs.WebApplicationException;
  */
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class PagosResource {
-     //Logger
+    //Logger
+
     private static final Logger LOGGER = Logger.getLogger(PropuestaResource.class.getName());
 
     @Inject
     private PagosLogic pagosLogic;
+
     /**
      * Crea una nueva tarjeta con la informacion que se recibe en el cuerpo de
      * la petición y se regresa un objeto identico con un id auto-generado por
@@ -49,11 +50,11 @@ public class PagosResource {
      * @return JSON {@link PropuestaDTO} - La propuesta recibida.
      */
     @POST
-    public PagosDTO createPago(@PathParam("idCliente") Long idCliente,PagosDTO nuevoPago) throws BusinessLogicException {
+    public PagosDTO createPago(@PathParam("clientesId") Long idCliente, PagosDTO nuevoPago) throws BusinessLogicException {
 
         //Llamado al Logger
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createPago: input: {0}", nuevoPago.toString());
-       PagosDTO nuevoPagoDTO = new PagosDTO(pagosLogic.createPago(idCliente, nuevoPago.getPropuestaDto().getPropuestaId(),nuevoPago.toEntity()));
+        PagosDTO nuevoPagoDTO = new PagosDTO(pagosLogic.createPago(idCliente, nuevoPago.getPropuestaDto().getPropuestaId(), nuevoPago.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createPago: output: {0}", nuevoPago.toString());
 
         return nuevoPagoDTO;
@@ -72,37 +73,35 @@ public class PagosResource {
      */
     @PUT
     @Path("{idTransaccion: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
-    public PagosDTO updatePago(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion, PagosDTO pago) throws WebApplicationException, BusinessLogicException {
+    public PagosDTO updatePago(@PathParam("clientesId") Long idCliente, @PathParam("idTransaccion") Long idTransaccion, PagosDTO pago) throws WebApplicationException, BusinessLogicException {
 
-     LOGGER.log(Level.INFO, "PagosResource modificarTPago: input:(0)", idTransaccion);
-        
-     if (!idTransaccion.equals(pago.getId())) {
+        LOGGER.log(Level.INFO, "PagosResource modificarPago: input:(0)", idTransaccion);
+
+        if (!(idTransaccion.equals(pago.getIdTransaccion()))) {
             throw new BusinessLogicException("Los ids del pago no coinciden.");
         }
-     
-    PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
+
+        PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
 
         }
         PagosDTO pagoDTO = new PagosDTO(pagosLogic.updatePago(idCliente, pago.toEntity()));
-       
-        
-        LOGGER.log(Level.INFO,"PagosResource updatePago: output: (0)", pagoDTO.toString());
-        
+
+        LOGGER.log(Level.INFO, "PagosResource updatePago: output: (0)", pagoDTO.toString());
+
         return pagoDTO;
     }
 
     /**
      * Busca y devuelve todas los pagos que posee la tarjeta
      *
-     * @param <error>
-     * @param <error>
+     * @param idCliente - El id del cliente a mostrar los pagos
      * @return JSONArray {@link PropuestaDTO} - Las tarjetas que posee el
      * empleado Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<PagosDTO> getPagos(@PathParam("idCliente")Long idCliente) {
+    public List<PagosDTO> getPagos(@PathParam("clientesId") Long idCliente) {
         LOGGER.log(Level.INFO, "PagosResource getPagos: input: {0}", idCliente);
         List<PagosDTO> listaDTOs = listEntity2DetailDTO(pagosLogic.getPagos(idCliente));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs.toString());
@@ -119,8 +118,8 @@ public class PagosResource {
      */
     @GET
     @Path("{idTransaccion: \\d+}")
-    public PagosDTO getPago(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException {
-LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
+    public PagosDTO getPago(@PathParam("clientesId") Long idCliente, @PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
         PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
@@ -139,9 +138,9 @@ LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
      */
     @DELETE
     @Path("{idTransaccion: \\d+}")
-    public void deletePago(@PathParam("idCliente") Long idCliente,@PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException, BusinessLogicException {
+    public void deletePago(@PathParam("clientesId") Long idCliente, @PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException, BusinessLogicException {
 
-         PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
+        PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
         }
@@ -154,13 +153,13 @@ LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
      * Este método convierte una lista de objetos PropuestaEntity a una lista de
      * objetos PropuestaDTO (json)
      *
-     * @param listaPagos corresponde a la lista de pagos de tipo Entity
-     * que vamos a convertir a DTO.
+     * @param listaPagos corresponde a la lista de pagos de tipo Entity que
+     * vamos a convertir a DTO.
      * @return la lista de pagos en forma DTO (json)
      */
     private List<PagosDTO> listEntity2DetailDTO(List<PagosEntity> listaPagos) {
         List<PagosDTO> pagos = new LinkedList<>();
-        for(PagosEntity entity : listaPagos) {
+        for (PagosEntity entity : listaPagos) {
             pagos.add(new PagosDTO(entity));
         }
         return pagos;

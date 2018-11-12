@@ -18,16 +18,15 @@ public class PagosDTO implements Serializable {
     private Long idTransaccion;
     private PropuestaDTO propuestaDto;
 
-        public Long getId() {
+    public Long getIdTransaccion() {
         return idTransaccion;
     }
 
-    public void setId(Long id) {
+    public void setIdTransaccion(Long id) {
         this.idTransaccion = id;
     }
 
     public PagosDTO() {
-
     }
 
     public PagosDTO(PagosEntity entity) {
@@ -36,13 +35,13 @@ public class PagosDTO implements Serializable {
             this.pagoAprobado = entity.getPagoAprobado();
         }
     }
-     public PagosEntity toEntity()
-     {
+
+    public PagosEntity toEntity() {
         PagosEntity pagoEntity = new PagosEntity();
         pagoEntity.setId(this.idTransaccion);
         pagoEntity.setPagoAprobado(this.pagoAprobado);
         return pagoEntity;
-     }
+    }
 
     public Boolean getPagoAprobado() {
         return pagoAprobado;
@@ -51,7 +50,7 @@ public class PagosDTO implements Serializable {
     public void setPagoAprobado(Boolean pagoAprobado) {
         this.pagoAprobado = pagoAprobado;
     }
-    
+
     public PropuestaDTO getPropuestaDto() {
         return propuestaDto;
     }

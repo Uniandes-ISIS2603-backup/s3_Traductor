@@ -25,9 +25,9 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     private Long numeroTarjetaCredito;
     private Integer ccv;
     private Integer mesExpiracion;
-     private Integer anioExpiracion;
+    private Integer anioExpiracion;
     private String redBancaria;
-     private String nombreTitular;
+    private String nombreTitular;
 
     public String getNombreTitular() {
         return nombreTitular;
@@ -37,7 +37,6 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
         this.nombreTitular = nombreTitular;
     }
 
-    
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
@@ -50,11 +49,6 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
         this.cliente = cliente;
     }
 
-   
-    public TarjetaDeCreditoEntity() {
-        
-    }
-    
     public Long getNumeroTarjetaCredito() {
         return numeroTarjetaCredito;
     }
@@ -62,15 +56,15 @@ public class TarjetaDeCreditoEntity extends BaseEntity implements Serializable {
     public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
         this.numeroTarjetaCredito = numeroTarjetaCredito;
     }
-    
-public Integer getAnioExpiracion() {
+
+    public Integer getAnioExpiracion() {
         return anioExpiracion;
     }
 
     public void setAnioExpiracion(Integer anioExpiracion) {
         this.anioExpiracion = anioExpiracion;
     }
-    
+
     public Integer getMesExpiracion() {
         return mesExpiracion;
     }
@@ -78,7 +72,7 @@ public Integer getAnioExpiracion() {
     public void setMesExpiracion(Integer mesExpiracion) {
         this.mesExpiracion = mesExpiracion;
     }
-    
+
     public Integer getCcv() {
         return ccv;
     }
@@ -87,8 +81,6 @@ public Integer getAnioExpiracion() {
         this.ccv = ccv;
     }
 
-   
-
     public String getRedBancaria() {
         return redBancaria;
     }
@@ -96,6 +88,5 @@ public Integer getAnioExpiracion() {
     public void setRedBancaria(String redBancaria) {
         this.redBancaria = redBancaria;
     }
-    
-   
+
 }

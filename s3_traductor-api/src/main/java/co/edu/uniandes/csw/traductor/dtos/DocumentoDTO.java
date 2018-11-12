@@ -4,28 +4,33 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.dtos;
+
 import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
 import java.io.Serializable;
 import java.io.File;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  *
  * @author Alvaro
  */
-public class DocumentoDTO implements Serializable{
+public class DocumentoDTO implements Serializable {
+
     private Long id;
     private String Descripcion;
     private Integer numeroPalabras;
     private File archivoAdjunto;
+
     //===================================================
     //Constructores
     //===================================================
     /**
-    * Constructor vacio para que sea llenado por JAX-RS
+     * Constructor vacio para que sea llenado por JAX-RS
      */
     public DocumentoDTO() {
     }
+
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
@@ -33,13 +38,16 @@ public class DocumentoDTO implements Serializable{
      * @param entity: Es la entidad que se va a convertir a DTO
      */
 
-    public DocumentoDTO(DocumentoEntity entity){
-        this.id=entity.getId();
-        this.Descripcion=entity.getDescripcion();
-        this.numeroPalabras=entity.getNumeroPalabras();
-        this.archivoAdjunto=entity.getArchivoAdjunto();
-                
+    public DocumentoDTO(DocumentoEntity entity) {
+        if (entity != null) {
+            this.id = entity.getId();
+            this.Descripcion = entity.getDescripcion();
+            this.numeroPalabras = entity.getNumeroPalabras();
+            this.archivoAdjunto = entity.getArchivoAdjunto();
+        }
+
     }
+
     //===================================================
     //Getters and setters
     //===================================================
@@ -77,27 +85,30 @@ public class DocumentoDTO implements Serializable{
     //===================================================
     //Transformation
     //===================================================
-    
+
     /**
-     * Conviertir DTO a Entity (Crea un nuevo Entity con los valores que posee el DTO).
+     * Conviertir DTO a Entity (Crea un nuevo Entity con los valores que posee
+     * el DTO).
+     *
      * @return Un DocumentoEntity con los valores que posee el DTO.
      */
-    public DocumentoEntity toEntity(){
+    public DocumentoEntity toEntity() {
         DocumentoEntity newEntity = new DocumentoEntity();
         newEntity.setId(this.id);
         newEntity.setDescripcion(this.Descripcion);
         newEntity.setNumeroPalabras(this.numeroPalabras);
-        if(this.archivoAdjunto != null)
+        if (this.archivoAdjunto != null) {
             newEntity.setArchivoAdjunto(this.archivoAdjunto);
+        }
         return newEntity;
     }
+
     /**
-    *Convierte la clase a string para el logger
-    */
+     * Convierte la clase a string para el logger
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-   
 
 }

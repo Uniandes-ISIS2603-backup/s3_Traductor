@@ -61,14 +61,6 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
         this.pagos = pagos;
     }
 
-    public List<TarjetaDeCreditoDTO> getTarjetasDeCredito() {
-        return tarjetas;
-    }
-
-    public void setTarjetasDeCredito(List<TarjetaDeCreditoDTO> tarjetasDeCredito) {
-        this.tarjetas = tarjetasDeCredito;
-    }
-
     public List<SolicitudDTO> getSolicitudes() {
         return solicitudes;
     }
@@ -151,7 +143,7 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable
         }
         if (tarjetas != null) {
             List<TarjetaDeCreditoEntity> tarjetasEntity = new ArrayList<>();
-            for (TarjetaDeCreditoDTO dtoTarjeta : getTarjetasDeCredito()) {
+            for (TarjetaDeCreditoDTO dtoTarjeta : getTarjetas()) {
                 tarjetasEntity.add(dtoTarjeta.toEntity());
             }
             clienteEntity.setTarjetas(tarjetasEntity);

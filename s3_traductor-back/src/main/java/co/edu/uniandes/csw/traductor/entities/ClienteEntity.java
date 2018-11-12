@@ -35,7 +35,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private TipoCliente tipoCliente;
 
     @PodamExclude
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TarjetaDeCreditoEntity> tarjetas;
 
     @PodamExclude
