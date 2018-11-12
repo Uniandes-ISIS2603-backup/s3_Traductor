@@ -64,13 +64,13 @@ public class TarjetaDeCreditoResource {
     }
 
     /**
-     * Actualiza la propuesta con el id recibido en la URL con la informacion
+     * Actualiza la tarjeta con el id recibido en la URL con la informacion
      * que se recibe en el cuerpo de la petición.
      *
      * @param idCliente id del cliente que tiene la tarjeta a actualizar
      * @param idTarjeta id de la tarjeta
      * @param tarjeta tarjeta a actualizar
-     * @return JSON {@link TarjetaDeCreditoDTO} - La editorial guardada.
+     * @return JSON {@link TarjetaDeCreditoDTO} - La tarjeta actualizada.
      * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la tarjeta a
@@ -80,14 +80,13 @@ public class TarjetaDeCreditoResource {
     @Path("{idTarjeta: \\d+}") //Es la forma como se va a reconocer la Tarjeta que en este caso va a ser con un numero decimal largo.
     public TarjetaDeCreditoDTO updateTarjeta(@PathParam("clientesId") Long idCliente, @PathParam("idTarjeta") Long idTarjeta, TarjetaDeCreditoDTO tarjeta) throws BusinessLogicException {
 
-       LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: input: id: {0} , tarjetaDeCredito: {1}", new Object[]{idTarjeta, tarjeta.toString()});
-         if (idTarjeta.equals(tarjeta.getIdTarjeta())) {
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: input: id: {0} , tarjetaDeCredito: {1}", new Object[]{idTarjeta, tarjeta.toString()});
+        if (!(idTarjeta.equals(tarjeta.getIdTarjeta()))) {
             throw new BusinessLogicException("Los ids de la tarjeta no coinciden.");
         }
         TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente, idTarjeta);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
-
         }
         TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(idCliente, tarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: output: {0}", tarjetaDTO.toString());
@@ -122,7 +121,7 @@ public class TarjetaDeCreditoResource {
     @GET
     @Path("{idTarjeta: \\d+}")
     public TarjetaDeCreditoDTO getTarjeta(@PathParam("clientesId") Long idCliente,@PathParam("idTarjeta") Long idTarjeta) throws WebApplicationException {
-LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarjeta);
+        LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarjeta);
         TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (tarjetaEntity == null) {
             throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
