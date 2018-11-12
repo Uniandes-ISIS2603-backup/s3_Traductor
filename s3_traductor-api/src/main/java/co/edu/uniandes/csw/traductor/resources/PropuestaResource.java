@@ -93,7 +93,6 @@ public class PropuestaResource {
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadosId, propuestaId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /empleados/" + empleadosId + "/propuestas/" + propuestaId + " no existe.", 404);
-
         }
         PropuestaDTO propuestaDTO = new PropuestaDTO(propuestaLogic.updatePropuesta(empleadosId, propuesta.toEntity()));
         LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", propuestaDTO.toString());

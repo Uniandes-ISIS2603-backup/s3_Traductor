@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7c97176a-4b05-403f-a136-7d3a15f573b8",
+		"_postman_id": "b8f7530e-6bec-4a4e-adf6-1de556d8ed1e",
 		"name": "Propuesta_Resource",
 		"description": "Se acomodan los resources en carpetas unicas. Autor: Geovanny",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -13,14 +13,14 @@
 					"listen": "test",
 					"script": {
 						"id": "04ac5980-df30-4eee-878d-964ead423457",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"id_e\",data.id);",
+							"postman.setGlobalVariable(\"id_emp_prop\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
 							"console.log(data.id);",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -34,7 +34,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombreEmpleado\":\"SoyDanny\",\n\t\"correoElectronico\":\"danny@gmail.com\",\n\t\"aniosExperiencia\":3,\n\t\"nombreUsuario\":\"danielinPinguin\",\n\t\"contrasenia\":\"123456abc\",\n\t\"trayectoria\":\"Experto en Italiano\",\n\t\"hojaDeVida\":\"soy el mejor en lo que hago siempre que lo intento.\"\n}"
+					"raw": "{\n\t\"nombreEmpleado\":\"SoyDanny\",\n\t\"correoElectronico\":\"danny@gmail.com\",\n\t\"aniosExperiencia\":3,\n\t\"nombreUsuario\":\"danielinPinguin\",\n\t\"contrasenia\":\"123456abc\",\n\t\"trayectoria\":\"Experto en Italiano\",\n\t\"hojaDeVida\":\"soy el mejor en lo que hago siempre que lo intento.\",\n\t\"tipoEmpleado\": \"TRADUCTOR\",\n\t\"estudios\": \"Pregrado, maestria y doctorado en Oxford en lengua italiana\",\n\t\"referencias\": \"Profesor Jones: El mejor en lo que hace, lo recomiendo!\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
@@ -60,14 +60,14 @@
 					"listen": "test",
 					"script": {
 						"id": "13e44413-9277-413a-9fb7-bb5d58c47e6f",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"id_pro\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
 							"console.log(data.id);",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -81,10 +81,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\":{{id_e}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+					"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\": {{id_emp_prop}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop}}/propuestas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -94,7 +94,7 @@
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"{{id_e}}",
+						"{{id_emp_prop}}",
 						"propuestas"
 					]
 				},
@@ -104,6 +104,18 @@
 		},
 		{
 			"name": "Obtiene todas las propuestas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87d9ea4d-4efd-4e4a-bcea-fe2a7948fe7b",
+						"exec": [
+							"tests[\"No genera error e el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [
@@ -114,10 +126,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Probando\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop}}/propuestas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -127,7 +139,7 @@
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"{{id_e}}",
+						"{{id_emp_prop}}",
 						"propuestas"
 					]
 				},
@@ -137,6 +149,18 @@
 		},
 		{
 			"name": "Obtiene una propuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8a80cd5-fbf0-412c-afb0-47fe64ed8b50",
+						"exec": [
+							"tests[\"No genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [
@@ -147,10 +171,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"idEmpleado\": 1358, \"estado\" : \"Prueba\", \"descripcion\" : \"Papitas\",\"costo\" : 1, \"tiempoEstimado\" : \"12/05/05\"}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop}}/propuestas/{{id_pro}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -160,7 +184,7 @@
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"{{id_e}}",
+						"{{id_emp_prop}}",
 						"propuestas",
 						"{{id_pro}}"
 					]
@@ -176,12 +200,12 @@
 					"listen": "test",
 					"script": {
 						"id": "6561971e-0bab-464b-b865-e0b220fc37c2",
-						"type": "text/javascript",
 						"exec": [
 							"console.log(responseBody);",
 							"var data = JSON.parse(responseBody);",
 							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -195,10 +219,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"estado\" : \"CULMINADA\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\":{{id_e}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+					"raw": "{\n\t\"estado\" : \"CULMINADA\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\":{{id_emp_prop}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop}}/propuestas/{{id_pro}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -208,7 +232,7 @@
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"{{id_e}}",
+						"{{id_emp_prop}}",
 						"propuestas",
 						"{{id_pro}}"
 					]
@@ -224,10 +248,10 @@
 					"listen": "test",
 					"script": {
 						"id": "8c1ceaf2-32e1-4f6c-a5d2-b7e37fc6c6b2",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -239,7 +263,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_e}}/propuestas/{{id_pro}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop}}/propuestas/{{id_pro}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -249,7 +273,7 @@
 						"s3_traductor-api",
 						"api",
 						"empleados",
-						"{{id_e}}",
+						"{{id_emp_prop}}",
 						"propuestas",
 						"{{id_pro}}"
 					]
