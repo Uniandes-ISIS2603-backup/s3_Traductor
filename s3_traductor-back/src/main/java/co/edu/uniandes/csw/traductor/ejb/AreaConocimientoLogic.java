@@ -61,13 +61,10 @@ public class AreaConocimientoLogic {
      * @param areaEntity Entidad con la informacion a actualizar en la base de
      * datos.
      * @return La areaConocimiento con la información actualizada.
-     * @throws BusinessLogicException en dado caso de que la areaConocimiento a
-     * actualizar no exista !
      */
-    public AreaConocimientoEntity updateArea(Long areaId, AreaConocimientoEntity areaEntity) throws BusinessLogicException {
+    public AreaConocimientoEntity updateArea(Long areaId, AreaConocimientoEntity areaEntity) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la areaConocimiento con el id = {0}", areaId);
         // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.		
-        getArea(areaId); //Busca en primer lugar si la areaConocimiento existe
         AreaConocimientoEntity actualizado = areaPersistence.update(areaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la areaConocimiento con id = {0}", areaEntity.getId());
         return actualizado;

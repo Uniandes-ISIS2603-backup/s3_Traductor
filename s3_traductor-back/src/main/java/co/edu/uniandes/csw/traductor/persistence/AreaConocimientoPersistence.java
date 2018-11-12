@@ -101,7 +101,6 @@ public class AreaConocimientoPersistence {
         la propuesta con los cambios, esto es similar a 
         "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;" en SQL.
          */
-        LOGGER.log(Level.INFO, "Saliendo de actualizar la areaConocimiento con id = {0}", areaEntity.getId());
         return em.merge(areaEntity);
     }
 
