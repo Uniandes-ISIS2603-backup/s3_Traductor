@@ -12,15 +12,17 @@ import co.edu.uniandes.csw.traductor.persistence.SolicitudPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Clase que implementa la conecion con la persostencia para la entidad
+ * Clase que implementa la conexion con la persistencia para la entidad
  * Solicitud.
  *
  * @author Jhonattan Fonseca
  */
+@Stateless
 public class SolicitudLogic {
 
     private static final Logger LOGGER = Logger.getLogger(SolicitudLogic.class.getName());

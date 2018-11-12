@@ -32,7 +32,7 @@ public class EmpleadoCalificacionLogic {
      * @param calificacionId identificador del id a asignar
      * @return la entidad encontrada luego de la persistencia
      */
-    public   CalificacionEntity  addCalificaion(Long empleadoId,Long calificacionId){
+    public   CalificacionEntity  addCalificacion(Long empleadoId,Long calificacionId){
         LOGGER.log(Level.INFO,"Inicia proceso de asocicacion de calificacion a un empleado con id {0}",empleadoId);
         //EmpleadoEntity entidadSuperior=empleadoPersistence.find(clienteId);
         CalificacionEntity entidadInferior=calificacionPersistence.find(calificacionId);

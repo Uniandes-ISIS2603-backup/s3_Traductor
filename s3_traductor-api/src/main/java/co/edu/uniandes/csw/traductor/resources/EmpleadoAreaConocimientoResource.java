@@ -5,10 +5,15 @@
  */
 package co.edu.uniandes.csw.traductor.resources;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+
 /**
  *
  * @author Alvaro
  */
+@Produces("application/json")
+@Consumes("application/json")
 public class EmpleadoAreaConocimientoResource {
     //TODO implementar
 }

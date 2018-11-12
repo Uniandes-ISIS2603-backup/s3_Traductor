@@ -155,18 +155,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
      */
     @Override
     public EmpleadoEntity toEntity(){
-        //nemen = newEmpleadoEntity
-        EmpleadoEntity nemen = new EmpleadoEntity();
-        nemen.setId(this.id);
-        nemen.setNombreEmpleado(this.nombreEmpleado);
-        nemen.setCorreoElectronico(this.correoElectronico);
-        nemen.setAniosExperiencia(this.aniosExperiencia);
-        nemen.setNombreUsuario(this.nombreUsuario);
-        nemen.setContrasenia(this.contrasenia);
-        nemen.setTrayectoria(this.trayectoria);
-        nemen.setTipoEmpleado(this.tipoEmpleado);
-        nemen.setEstudios(this.estudios);
-        nemen.setReferencias(this.referencias);
+        EmpleadoEntity nemen = super.toEntity();
         if(this.calificaciones!=null){
             List<CalificacionEntity> listCal=new ArrayList<>();
             for(CalificacionDTO tmpcal: this.calificaciones){
