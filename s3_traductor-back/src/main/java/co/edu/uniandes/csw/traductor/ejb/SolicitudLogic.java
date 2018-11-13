@@ -86,14 +86,14 @@ public class SolicitudLogic {
         persistence.delete(id);
     }
 
-    public void cambiarEstado(Long id) {
+    public void cambiarEstado(Long id, Integer estado) {
 
         LOGGER.log(Level.INFO, "Inicia el proceso de cambiar de estado la solicitud con el id: " + id);
         SolicitudEntity solicitudACambiar = persistence.find(id);
         if (solicitudACambiar == null) {
             throw new WebApplicationException("No se encontro la solicitud con el id:" + id, 404);
         }
-        solicitudACambiar.setEstado(SolicitudEntity.CANCELADO);
+        solicitudACambiar.setEstado(estado);
         LOGGER.log(Level.INFO, "Se cambio el estado de la solicitud con id: " + id + "satisfactoriamente");
     }
 }

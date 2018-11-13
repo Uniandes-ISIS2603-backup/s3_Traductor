@@ -54,7 +54,7 @@ public class PagosResource {
 
         //Llamado al Logger
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createPago: input: {0}", nuevoPago.toString());
-        PagosDTO nuevoPagoDTO = new PagosDTO(pagosLogic.createPago(idCliente, nuevoPago.getPropuestaDto().getPropuestaId(), nuevoPago.toEntity()));
+        PagosDTO nuevoPagoDTO = new PagosDTO(pagosLogic.createPago(idCliente, nuevoPago.getPropuestaDto().getId(), nuevoPago.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResources createPago: output: {0}", nuevoPago.toString());
 
         return nuevoPagoDTO;

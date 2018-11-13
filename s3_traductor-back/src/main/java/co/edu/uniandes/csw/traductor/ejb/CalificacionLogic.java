@@ -36,13 +36,9 @@ public class CalificacionLogic {
      * mismo id, o si la calificacion se pasa de su valor máximo
      */
     public CalificacionEntity createCalificacion(CalificacionEntity calificacionEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia el proceso de creacion de un idioma");
-
-        if (persistence.find(calificacionEntity.getId()) != null) {
-            throw new BusinessLogicException("Esta calificacion ya existe en el sistema");
-        }
-        if (calificacionEntity.getValorCalificacion() < 0 || calificacionEntity.getValorCalificacion() > 10)
-        {
+        LOGGER.log(Level.INFO, "Inicia el proceso de creacion de una calificacion");
+        //Verifica regla de negocio de que la calificación deve tener su valor entre 0 y 10.
+        if (calificacionEntity.getValorCalificacion() < 0 || calificacionEntity.getValorCalificacion() > 10) {
             throw new BusinessLogicException("La calificacion posee un valor inválido");
         }
         persistence.create(calificacionEntity);

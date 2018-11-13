@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "adb49d66-b9f4-441e-a824-4f66d7c7fac2",
+		"name": "Empleado Test",
+		"description": "Coleccion de pruebas sobre el recurso Author",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Empleado",
+			"item": [
+				{
+					"name": "Crear un Empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b132ce6f-76c4-468e-bf75-b73c58e5520e",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_emp\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"nombreEmpleado\":\"Kaitlyn\",\n\"correoElectronico\":\"kdoohan0@bigcartel.com\",\n\"aniosExperiencia\":12,\n\"nombreUsuario\":\"kewles0\",\n\"contrasenia\":\"zq0rUN4N\",\n\"trayectoria\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"HojaDeVida\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"tipoEmpleado\":\"TRADUCTOR\",\n\"estudios\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"referencias\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados"
+							]
+						},
+						"description": "Se crean un nuevo empleado con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un Empleado 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6967c244-d97e-4b6d-acf5-ca48044307ba",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_emp2\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"nombreEmpleado\":\"Kaitlun\",\n\"correoElectronico\":\"kutlin@itch.com\",\n\"aniosExperiencia\":13,\n\"nombreUsuario\":\"MiMaMI123\",\n\"contrasenia\":\"zq0rUN4N\",\n\"trayectoria\":\"Trato de ser cada día mejor persona.\",\n\"HojaDeVida\":\"Trato de ser cada día mejor persona.\",\n\"tipoEmpleado\":\"TRADUCTOR\",\n\"estudios\":\"Trato de ser cada día mejor persona.\",\n\"referencias\":\"Trato de ser cada día mejor persona.\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados"
+							]
+						},
+						"description": "Se crean un nuevo empleado con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Empleados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c9a7a99-609c-4958-a551-41ac304446c3",
+								"exec": [
+									"tests[\"no genera error en el get all\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados"
+							]
+						},
+						"description": "Se encarga de retornar todos los empleados de la aplicacion.\nRecibe un JSON con un arreglo de empleados.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un Empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0f73283-f928-4ff1-92a5-2a1569d915de",
+								"exec": [
+									"tests[\"No genera error en el get de uno\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_emp}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_id_emp}}"
+							]
+						},
+						"description": "Retorna el empleado que tiene el id indicado en el parametro.\nSe recibe un JSON con el empleado encontrado que existe y está en la base de datos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un Empleado inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44f599d0-f178-4562-9bff-1d35308ac03b",
+								"exec": [
+									"tests[\"No se puede obtener un empleado que no existe\"] = responseCode.code === 404;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /empleados/0 no existe.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"0"
+							]
+						},
+						"description": "Intenta obtener un empleado que no existe en la base de datos de la aplicación, por lo que debería fallar.\n\n**Código Http esperado: 404**"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar un empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "92bd9bab-9227-46f0-b60c-26b8d6a89f90",
+								"exec": [
+									"console.log(responseBody);",
+									"var data = JSON.parse(responseBody);",
+									"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombreEmpleado\": \"Kaitlyn\",\n    \"correoElectronico\": \"kdoohan0@bigcartel.com\",\n    \"aniosExperiencia\": 12,\n    \"nombreUsuario\": \"kewles0\",\n    \"contrasenia\": \"NuevaPass\",\n    \"trayectoria\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"HojaDeVida\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"referencias\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_emp}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_id_emp}}"
+							]
+						},
+						"description": "Se encarga de actualizar la informacion de un empleado, a partir de su id.\nSe recibe un JSON con la información del cliente nueva a actualizar.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar un empleado inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e041d4b0-6694-4151-9e71-b8d108d4a793",
+								"exec": [
+									"tests[\"No se puede editar empleado que no existe.\"] = responseCode.code === 404;",
+									"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /empleados/0 no existe.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombreEmpleado\": \"Noexiste\",\n    \"correoElectronico\": \"noexiste@fake.com\",\n    \"aniosExperiencia\": 13,\n    \"nombreUsuario\": \"12323fsdf\",\n    \"contrasenia\": \"asdf\",\n    \"trayectoria\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"HojaDeVida\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"tipoEmpleado\": \"CORRECTOR\",\n    \"estudios\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"referencias\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"0"
+							]
+						},
+						"description": "Intenta editar un empleado inexistente en la aplicacion. No debería editar nada y debería fallar.\n\n**Código Http esperado: 404**"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0cdc869-2a0e-4e43-9051-cdbc437a5d56",
+								"exec": [
+									"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_emp}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_id_emp}}"
+							]
+						},
+						"description": "Borra de la aplicacion al empleado con el id especificado.\nSe ingresa el id del empleado especificado y no se retorna nada.\n\n**Código Http esperado: 204**"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un emplado inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "940fc779-c4a4-4760-9c05-68066f029db7",
+								"exec": [
+									"tests[\"No debería borrar algo que no existe\"] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/0",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"0"
+							]
+						},
+						"description": "Intenta borrar un empleado que no existe en la aplicacion.\nPor ende, esto debe fallar.\n\n**Código Http esperado: 404**"
+					},
+					"response": []
+				}
+			],
+			"description": "Pruebas para el funcionamiento de los servicios de cliente"
+		}
+	]
+}

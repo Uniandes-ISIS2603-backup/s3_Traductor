@@ -8,14 +8,17 @@ package co.edu.uniandes.csw.traductor.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
- 
+
 /**
  *
  * @author jhonattanfonseca
@@ -24,54 +27,50 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class SolicitudEntity extends BaseEntity implements Serializable {
 
     public final static Integer EN_ESPERA = 2;
-    
+
     public final static Integer COMPLETADO = 1;
-    
+
     public final static Integer CANCELADO = 0;
-    
+
     public final static Integer CORECCION = 3;
-    
+
     public final static Integer TRADUCCION = 4;
-    
-    
-    
-    
+
     //Atributos
-    private Long idSolicitud;
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
+    @Temporal(TemporalType.DATE)
     private Date fechaEntrega;
     private Integer estado;
     private Integer tipoSolicitud;
-   
-    
-    
+
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
-    
+
     @PodamExclude
     @ManyToOne
     private EmpleadoEntity empleado;
-    
+
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
     private IdiomaEntity idiomaSalida;
-    
+
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
     private IdiomaEntity idiomaEntrada;
-    
+
     @PodamExclude
     @OneToMany(mappedBy = "solicitud", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ArrayList<DocumentoEntity> documentos = new ArrayList<>();
+    private List<DocumentoEntity> documentos;
 
-    public ArrayList<DocumentoEntity> getDocumentos() {
+    public List<DocumentoEntity> getDocumentos() {
         return documentos;
     }
 
-    public void setDocumentos(ArrayList<DocumentoEntity> documentos) {
+    public void setDocumentos(List<DocumentoEntity> documentos) {
         this.documentos = documentos;
-    }   
+    }
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -103,13 +102,6 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
 
     public IdiomaEntity getIdiomaEntrada() {
         return idiomaEntrada;
-    }
-
-    
-    
-    
-    public void setIdSolicitud(Long idSolicitud) {
-        this.idSolicitud = idSolicitud;
     }
 
     public void setFechaInicio(Date fechaInicio) {
@@ -144,6 +136,4 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
         this.idiomaEntrada = idiomaEntrada;
     }
 
-    
-    
 }

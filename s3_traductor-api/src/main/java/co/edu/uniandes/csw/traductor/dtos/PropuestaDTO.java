@@ -34,7 +34,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class PropuestaDTO implements Serializable {
 
-    private Long propuestaId;
+    private Long id;
     private String descripcion;
     private Integer costo;
     private String estado;
@@ -66,7 +66,7 @@ public class PropuestaDTO implements Serializable {
      */
     public PropuestaDTO(PropuestaEntity propuestaEntity) {
         if (propuestaEntity != null) {
-            this.propuestaId = propuestaEntity.getId();
+            this.id = propuestaEntity.getId();
             this.descripcion = propuestaEntity.getDescripcion();
             this.costo = propuestaEntity.getCosto();
             this.estado = propuestaEntity.getEstado();
@@ -104,17 +104,17 @@ public class PropuestaDTO implements Serializable {
      *
      * @return the propuestaId
      */
-    public Long getPropuestaId() {
-        return propuestaId;
+    public Long getId() {
+        return id;
     }
 
     /**
      * Cambia el ID de la propuesta.
      *
-     * @param propuestaId the propuestaId to set
+     * @param id the propuestaId to set
      */
-    public void setPropuestaId(Long propuestaId) {
-        this.propuestaId = propuestaId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
