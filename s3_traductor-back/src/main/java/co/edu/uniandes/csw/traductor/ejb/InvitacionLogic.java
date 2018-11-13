@@ -51,7 +51,7 @@ public class InvitacionLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la invitacion");
 
         // Verifica la regla de negocio. Verificacion de los datos del Entity.
-        Long idEmpleado = invitacionEntity.getIdCliente();
+        Long idEmpleado = invitacionEntity.getIdEmpleado();
         if (idEmpleado == null) {
             throw new BusinessLogicException("El id de empleado es un valor nulo");
         } else if (empleadoPersistence.find(idEmpleado) == null) {
