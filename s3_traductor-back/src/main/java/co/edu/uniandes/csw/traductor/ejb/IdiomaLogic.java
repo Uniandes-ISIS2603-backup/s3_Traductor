@@ -40,7 +40,7 @@ public class IdiomaLogic {
     public IdiomaEntity createIdioma(IdiomaEntity idiomaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creacion de un idioma");
 
-        if (persistence.find(idiomaEntity.getId()) != null) {
+        if (persistence.findByName(idiomaEntity.getIdioma()) != null) {
             throw new BusinessLogicException("Este idioma ya existe en el sistema");
         }
         persistence.create(idiomaEntity);

@@ -102,7 +102,7 @@ public class PropuestaResource {
     /**
      * Busca y devuelve todas las propuesta que posee el empleado.
      *
-	 * @param empleadoId Identificacion del empleado.
+     * @param empleadoId Identificacion del empleado.
      * @return JSONArray {@link PropuestaDTO} - Las propuestas que posee el
      * empleado Si no hay ninguna retorna una lista vacía.
      */
@@ -119,7 +119,7 @@ public class PropuestaResource {
     /**
      * Busca la propuesta con el id asociado recibido en la URL y la devuelve.
      *
-	 * @param empleadoId Identificacion del empleado
+     * @param empleadoId Identificacion del empleado
      * @param propuestaId Identificador de la propuesta que se esta buscando.
      * Este debe ser una cadena de dígitos.
      * @return JSON {@link PropuestaDTO} - La editorial buscada
@@ -128,16 +128,16 @@ public class PropuestaResource {
      */
     @GET
     @Path("{propuestaId: \\d+}")
-    public PropuestaDTO getPropuesta(@PathParam("empleadoId") Long empleadoId,@PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
+    public PropuestaDTO getPropuesta(@PathParam("empleadoId") Long empleadoId, @PathParam("propuestaId") Long propuestaId) throws WebApplicationException {
 
         // TODO: [getPropuestas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", propuestaId);
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId); //DTO respuesta.	
-		if (entity == null){
-			throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/invitaciones/" + propuestaId + " no existe.", 404);
-		}	
-		
-		PropuestaDTO entityBuscada = new PropuestaDTO(entity);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/invitaciones/" + propuestaId + " no existe.", 404);
+        }
+
+        PropuestaDTO entityBuscada = new PropuestaDTO(entity);
         LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", entityBuscada.toString());
         return entityBuscada;
     }
@@ -145,7 +145,7 @@ public class PropuestaResource {
     /**
      * Borra la propuesta con el id asociado recibido en la URL.
      *
-	 * @param empleadoId Identificador del empleado.
+     * @param empleadoId Identificador del empleado.
      * @param propuestaId Identificador de la propuesta que se desea borrar.
      * Este debe ser una cadena de dígitos.
      * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
@@ -154,12 +154,12 @@ public class PropuestaResource {
      */
     @DELETE
     @Path("{propuestaId: \\d+}")
-    public void deletePropuesta(@PathParam ("empleadoId") Long empleadoId,@PathParam("propuestaId") Long propuestaId) throws BusinessLogicException {
+    public void deletePropuesta(@PathParam("empleadoId") Long empleadoId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException {
 
         // TODO: [deletePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         LOGGER.log(Level.INFO, "PropuestaResources deletePropuesta: input: {0}", propuestaId);
 
-       PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId);
+        PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/propuestas/" + propuestaId + " no existe.", 404);
         }
