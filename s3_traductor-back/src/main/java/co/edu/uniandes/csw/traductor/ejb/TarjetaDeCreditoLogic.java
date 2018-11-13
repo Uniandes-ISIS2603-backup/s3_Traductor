@@ -23,80 +23,78 @@ import javax.inject.Inject;
  */
 @Stateless
 public class TarjetaDeCreditoLogic {
-      private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(TarjetaDeCreditoLogic.class.getName());
 
     @Inject
     private TarjetaDeCreditoPersistence persistence;
-    
-@Inject
+
+    @Inject
     private ClientePersistence clientePersistence;
 
     /**
      * Guardar una nueva tarjeta
      *
-     * @param tarjetaEntity La entidad de tipo tarjeta de la nueva tarjeta a persistir.
+     * @param tarjetaEntity La entidad de tipo tarjeta de la nueva tarjeta a
+     * persistir.
      * @return La entidad luego de persistirla
-     * @throws BusinessLogicException Si el numero de la tarjeta es inválido o ya existe en la
-     * persistencia.
+     * @throws BusinessLogicException Si el numero de la tarjeta es inválido o
+     * ya existe en la persistencia.
      */
-    public TarjetaDeCreditoEntity createTarjeta(Long idCliente,TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
+    public TarjetaDeCreditoEntity createTarjeta(Long idCliente, TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
         System.out.println(tarjetaEntity.getNombreTitular());
-        if (tarjetaEntity.getNombreTitular().equals("")||tarjetaEntity.getNombreTitular()==null) {
+        if (tarjetaEntity.getNombreTitular().equals("") || tarjetaEntity.getNombreTitular() == null) {
             throw new BusinessLogicException("El nombre es inválida");
         }
         if (!validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El numero es inválido");
         }
-        if (persistence.find(idCliente,tarjetaEntity.getId()) != null) {
+        if (persistence.find(idCliente, tarjetaEntity.getId()) != null) {
             throw new BusinessLogicException("La tarjeta ya existe");
         }
         if (persistence.findByNumeroTarjeta(tarjetaEntity.getNumeroTarjetaCredito()) != null) {
             throw new BusinessLogicException("La tarjeta ya existe");
         }
-        
-        if(tarjetaEntity.getCcv()<0||tarjetaEntity.getCcv().toString().length()!=3)
-        {
+
+        if (tarjetaEntity.getCcv() < 0 || tarjetaEntity.getCcv().toString().length() != 3) {
             System.out.println(tarjetaEntity.getCcv());
             throw new BusinessLogicException("El ccv es invalido");
         }
-         if(tarjetaEntity.getAnioExpiracion()==null)
-        {
+        if (tarjetaEntity.getAnioExpiracion() == null) {
             throw new BusinessLogicException("El año de expiracion es invalido");
         }
-         if(tarjetaEntity.getMesExpiracion()==null)
-        {
+        if (tarjetaEntity.getMesExpiracion() == null) {
             throw new BusinessLogicException("El mes de expiracion es invalido");
         }
-         Date fechaActual=new Date();
-          if(tarjetaEntity.getAnioExpiracion()<fechaActual.getYear())
-        {
+        Date fechaActual = new Date();
+        if (tarjetaEntity.getAnioExpiracion() < fechaActual.getYear()) {
             throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
         }
-          if(tarjetaEntity.getAnioExpiracion()==fechaActual.getYear()&&tarjetaEntity.getMesExpiracion()<fechaActual.getMonth())
-        {
+        if (tarjetaEntity.getAnioExpiracion() == fechaActual.getYear() && tarjetaEntity.getMesExpiracion() < fechaActual.getMonth()) {
             throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
         }
-          if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
+        if (tarjetaEntity.getRedBancaria().equals("") || tarjetaEntity.getRedBancaria() == null) {
             throw new BusinessLogicException("La red bancaria es invalida");
         }
-           ClienteEntity cliente = clientePersistence.find(idCliente);
-           tarjetaEntity.setCliente(cliente);
-          List<TarjetaDeCreditoEntity> tarjetas=cliente.getTarjetas();
-          tarjetas.add(tarjetaEntity);
-          cliente.setTarjetas(tarjetas);
+        ClienteEntity cliente = clientePersistence.find(idCliente);
+        tarjetaEntity.setCliente(cliente);
+        List<TarjetaDeCreditoEntity> tarjetas = cliente.getTarjetas();
+        tarjetas.add(tarjetaEntity);
+        cliente.setTarjetas(tarjetas);
         persistence.create(tarjetaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return tarjetaEntity;
     }
- /**
+
+    /**
      * Devuelve todos las tarjetas que hay en la base de datos.
      *
      * @return Lista de entidades de tipo tarjeta.
      */
     public List<TarjetaDeCreditoEntity> getTarjetas(Long idCliente) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las tarjetas");
-       ClienteEntity cliente = clientePersistence.find(idCliente);
+        ClienteEntity cliente = clientePersistence.find(idCliente);
         LOGGER.log(Level.INFO, "Termina proceso de consultar todas las tarjetas");
         return cliente.getTarjetas();
     }
@@ -107,9 +105,9 @@ public class TarjetaDeCreditoLogic {
      * @param idTarjeta El id de la tarjeta a buscar
      * @return La tarjeta encontrada, null si no lo encuentra.
      */
-    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long idCliente,Long idTarjeta) {
+    public TarjetaDeCreditoEntity getTarjetaDeCredito(Long idCliente, Long idTarjeta) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0}", idTarjeta);
-        TarjetaDeCreditoEntity tarjetaEntity = persistence.find(idCliente,idTarjeta);
+        TarjetaDeCreditoEntity tarjetaEntity = persistence.find(idCliente, idTarjeta);
         if (tarjetaEntity == null) {
             LOGGER.log(Level.SEVERE, "La tarjeta con el id = {0} no existe", idTarjeta);
         }
@@ -127,48 +125,41 @@ public class TarjetaDeCreditoLogic {
      */
     public TarjetaDeCreditoEntity updateTarjeta(Long idCliente, TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id = {0}", tarjetaEntity.getId());
-        if (tarjetaEntity.getNombreTitular().equals("")||tarjetaEntity.getNombreTitular()==null) {
+        if (tarjetaEntity.getNombreTitular().equals("") || tarjetaEntity.getNombreTitular() == null) {
             throw new BusinessLogicException("El nombre es inválido");
         }
         if (!validateNumber(tarjetaEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El numero es inválido");
         }
-        if(tarjetaEntity.getCcv()<0||tarjetaEntity.getCcv().toString().length()!=3)
-        {
+        if (tarjetaEntity.getCcv() < 0 || tarjetaEntity.getCcv().toString().length() != 3) {
             throw new BusinessLogicException("El ccv es invalido");
         }
 //        if (persistence.find(idCliente,tarjetaEntity.getId()) == null) {
 //            throw new BusinessLogicException("La tarjeta no existe");
 //        }
-         if(tarjetaEntity.getAnioExpiracion()==null)
-        {
+        if (tarjetaEntity.getAnioExpiracion() == null) {
             throw new BusinessLogicException("El año de expiracion es invalido");
         }
-         if(tarjetaEntity.getMesExpiracion()==null)
-        {
+        if (tarjetaEntity.getMesExpiracion() == null) {
             throw new BusinessLogicException("El mes de expiracion es invalido");
         }
-         Date fechaActual=new Date();
-          if(tarjetaEntity.getAnioExpiracion()<fechaActual.getYear())
-        {
+        Date fechaActual = new Date();
+        if (tarjetaEntity.getAnioExpiracion() < fechaActual.getYear()) {
             throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
         }
-          if(tarjetaEntity.getAnioExpiracion()==fechaActual.getYear()&&tarjetaEntity.getMesExpiracion()<fechaActual.getMonth())
-        {
+        if (tarjetaEntity.getAnioExpiracion() == fechaActual.getYear() && tarjetaEntity.getMesExpiracion() < fechaActual.getMonth()) {
             throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
         }
-          if(tarjetaEntity.getMesExpiracion()>12)
-        {
+        if (tarjetaEntity.getMesExpiracion() > 12) {
             throw new BusinessLogicException("El fecha de expiracion es invalida");
         }
-          if(tarjetaEntity.getMesExpiracion()<1)
-        {
+        if (tarjetaEntity.getMesExpiracion() < 1) {
             throw new BusinessLogicException("El fecha de expiracion es invalida");
         }
-          if (tarjetaEntity.getRedBancaria().equals("")||tarjetaEntity.getRedBancaria()==null) {
+        if (tarjetaEntity.getRedBancaria().equals("") || tarjetaEntity.getRedBancaria() == null) {
             throw new BusinessLogicException("La red bancaria es invalida");
         }
-          
+
         ClienteEntity cliente = clientePersistence.find(idCliente);
         tarjetaEntity.setCliente(cliente);
         TarjetaDeCreditoEntity newEntity = persistence.update(tarjetaEntity);
@@ -181,9 +172,9 @@ public class TarjetaDeCreditoLogic {
      *
      * @param idTarjeta El ID de la tarjeta a eliminar
      */
-    public void deleteTarjeta(Long idCliente,Long idTarjeta) throws BusinessLogicException {
+    public void deleteTarjeta(Long idCliente, Long idTarjeta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id = {0}", idTarjeta);
-         TarjetaDeCreditoEntity old = getTarjetaDeCredito(idCliente, idTarjeta);
+        TarjetaDeCreditoEntity old = getTarjetaDeCredito(idCliente, idTarjeta);
         if (old == null) {
             throw new BusinessLogicException("La tarjeta con id = " + idTarjeta + " no esta asociado a el cliente con id = " + idCliente);
         }
@@ -191,7 +182,6 @@ public class TarjetaDeCreditoLogic {
         LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id = {0}", idTarjeta);
     }
 
-    
     /**
      * Verifica que el numero de la tarjeta no sea invalido.
      *
@@ -199,18 +189,15 @@ public class TarjetaDeCreditoLogic {
      * @return true si el numero es valido.
      */
     private boolean validateNumber(Long numero) {
-        boolean inValido = ( numero == null);
-        if(inValido)
-        {
-        return !inValido;
-        }
-        else
-        {
-            String numStr=numero.toString();
+        boolean inValido = (numero == null);
+        if (inValido) {
+            return !inValido;
+        } else {
+            String numStr = numero.toString();
             System.out.println(numStr);
-            inValido=(numStr.length()==16);
+            inValido = (numStr.length() == 16);
         }
         return inValido;
-        
+
     }
 }
