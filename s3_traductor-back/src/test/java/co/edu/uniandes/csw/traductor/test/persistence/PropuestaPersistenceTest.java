@@ -135,7 +135,8 @@ public class PropuestaPersistenceTest
         PropuestaEntity result = propuestaPersistence.create(newEntity);
         Assert.assertNotNull(result);
         PropuestaEntity entity = em.find(PropuestaEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getIdEmpleado(), entity.getIdEmpleado());
+        //Assert.assertEquals(newEntity.getIdEmpleado(), entity.getIdEmpleado());
+        //Se dejo comentada la aserción debido a que se ha removido el atributo IdEmpleado
     }	
 	
 	/**

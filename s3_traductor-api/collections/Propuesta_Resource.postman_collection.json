@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b8f7530e-6bec-4a4e-adf6-1de556d8ed1e",
+		"_postman_id": "20ed0e78-87d1-44c7-8159-84dd9b7634d9",
 		"name": "Propuesta_Resource",
 		"description": "Se acomodan los resources en carpetas unicas. Autor: Geovanny",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -81,7 +81,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Prueba subrecursos\",\n\t\"idEmpleado\": {{id_emp_prop}},\n\t\"costo\" : 150000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+					"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Prueba subrecursos Geovanny\",\n\t\"costo\" : 1, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop}}/propuestas",

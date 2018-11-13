@@ -20,7 +20,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class InvitacionEntity extends BaseEntity implements Serializable {
 
-	private Long idCliente;
 	private Long idEmpleado;	
 	private String descripcion;	
 	private Long solicitudId;
@@ -44,21 +43,7 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 	 */
 	
 	public InvitacionEntity() {
-	}
-
-	/**
-	 * @return the idCliente
-	 */
-	public Long getIdCliente() {
-		return idCliente;
-	}
-
-	/**
-	 * @param idCliente the idCliente to set
-	 */
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
-	}
+	}	
 
 	/**
 	 * @return the idEmpleado

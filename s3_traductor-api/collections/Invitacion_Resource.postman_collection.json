@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d5b5b6a0-274f-4f39-ae4c-c72f986c0758",
+		"_postman_id": "31feff70-84b1-4b39-8f53-534db60e670f",
 		"name": "Invitacion_Resource",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -80,7 +80,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idCliente\": 1,\n    \"descripcion\": \"Prueba1\",\n    \"idEmpleado\": 1\n}"
+					"raw": "{\n    \"descripcion\": \"Prueba de Ejecucion Geovanny\",\n    \"idEmpleado\": 2,\n    \"solicitudId\": 100\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{id_cli_inv}}/invitaciones/",

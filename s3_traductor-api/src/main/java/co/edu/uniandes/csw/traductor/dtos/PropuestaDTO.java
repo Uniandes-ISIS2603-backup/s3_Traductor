@@ -38,7 +38,7 @@ public class PropuestaDTO implements Serializable {
     private String descripcion;
     private Integer costo;
     private String estado;
-    private Long idEmpleado;
+    //Noviembre 13 - Se borra el atributo idEmpleado y se devolvera el del Entity del Empleado
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date tiempoEstimado;
 
@@ -69,8 +69,7 @@ public class PropuestaDTO implements Serializable {
             this.id = propuestaEntity.getId();
             this.descripcion = propuestaEntity.getDescripcion();
             this.costo = propuestaEntity.getCosto();
-            this.estado = propuestaEntity.getEstado();
-            this.idEmpleado = propuestaEntity.getIdEmpleado();
+            this.estado = propuestaEntity.getEstado();            
             this.tiempoEstimado = propuestaEntity.getTiempoEstimado();
             this.invitacion = (propuestaEntity.getInvitacion() != null) ? new InvitacionDTO(propuestaEntity.getInvitacion()) : null;
         }
@@ -86,8 +85,7 @@ public class PropuestaDTO implements Serializable {
         PropuestaEntity propuestaEntity = new PropuestaEntity();
         propuestaEntity.setCosto(costo);
         propuestaEntity.setDescripcion(descripcion);
-        propuestaEntity.setEstado(estado);
-        propuestaEntity.setIdEmpleado(idEmpleado);
+        propuestaEntity.setEstado(estado);        
         propuestaEntity.setTiempoEstimado(tiempoEstimado);
         if (invitacion != null) {
             propuestaEntity.setInvitacion(invitacion.toEntity());
@@ -169,25 +167,7 @@ public class PropuestaDTO implements Serializable {
      */
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    /**
-     * Retorna el ID del empleado que va a realizar el trabajo.
-     *
-     * @return the idEmpleado
-     */
-    public Long getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    /**
-     * Cambia el ID del empleado que va a realizar el trabajo.
-     *
-     * @param idEmpleado the idEmpleado to set
-     */
-    public void setIdEmpleado(Long idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
+    }    
 
     /**
      * Retorna la fecha estimada de entrega
