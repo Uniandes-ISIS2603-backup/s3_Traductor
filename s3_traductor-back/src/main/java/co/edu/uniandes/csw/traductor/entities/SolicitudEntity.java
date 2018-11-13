@@ -53,11 +53,11 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     private EmpleadoEntity empleado;
 
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
     private IdiomaEntity idiomaSalida;
 
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
     private IdiomaEntity idiomaEntrada;
 
     @PodamExclude

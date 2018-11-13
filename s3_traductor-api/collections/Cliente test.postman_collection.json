@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "97be34e4-bd4e-46d3-a9d5-e32dc26a3a12",
+		"_postman_id": "2e152117-fb61-4b5e-8c60-ddf047989441",
 		"name": "Cliente test",
 		"description": "Coleccion de pruebas sobre el recurso Author",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -247,7 +247,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\",\"tipoCliente\":\"PERSONA_NATURAL\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
@@ -485,7 +485,10 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/0",
 							"protocol": "http",

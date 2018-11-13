@@ -1,7 +1,4 @@
 /*
-=======
-    /*
->>>>>>> bcfafbac880704c92501d879eaaa27300626a2c5
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes; 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -46,14 +43,19 @@ public class SolicitudResource {
     @POST
     public SolicitudDTO createSolicitud(SolicitudDTO solicitud) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SolicitudResource createSolicitud: input: {0}", solicitud.toString());
-        SolicitudDTO nuevaSolicitudDTO = new SolicitudDTO(solicitudLogic.createSolicitud(solicitud.toEntity()));
+        SolicitudEntity solicitudEntity = solicitud.toEntity();
+
+        SolicitudEntity nuevaSolicitudEntity = solicitudLogic.createSolicitud(solicitudEntity);
+        SolicitudDTO nuevaSolicitudDTO = new SolicitudDTO(nuevaSolicitudEntity);
         LOGGER.log(Level.INFO, "Solicitudesource createSolicitud: output: {0}", solicitud.toString());
         return nuevaSolicitudDTO;
     }
 
     @GET
-    public List<SolicitudDTO> getAllSolicitudes() throws BusinessLogicException {
-        List<SolicitudDTO> respuesta = new ArrayList<>();
+    public List<SolicitudDTO> getSolicitudes() throws BusinessLogicException {
+        LOGGER.info("SolicitudResource getSolicitudes: input: void");
+        List<SolicitudDTO> respuesta = listEntity2DTO(solicitudLogic.getSolicitudes());
+        LOGGER.log(Level.INFO, "SolicitudResource getSolicitudes: output: {0}", respuesta.toString());
         return respuesta;
     }
 
@@ -71,6 +73,19 @@ public class SolicitudResource {
         return obtenido;
     }
 
+    @PUT
+    @Path("(SolicitudId: \\d+})")
+    public SolicitudDTO updateSolicitud(@PathParam("SolicitudId") Long id, SolicitudDTO nueva) {
+        LOGGER.log(Level.INFO, "SolicitudResouce updateSolicitud: input --> solicitudId: {0}", id);
+        SolicitudEntity solicitudEntity = solicitudLogic.getSolicitud(id);
+        if (solicitudEntity == null) {
+            throw new WebApplicationException("La solicitud /solicitudes/" + id + "no existe.", 404);
+        }
+        //COMENTARIO
+        solicitudLogic.cambiarEstado(id, nueva.getEstado());
+        return new SolicitudDTO(solicitudEntity);
+    }
+
     @DELETE
     @Path("{SolicitudId: \\d+}")
     public void deleteSolicitud(@PathParam("SolicitudId") Long solicitudId) throws BusinessLogicException {
@@ -84,17 +99,21 @@ public class SolicitudResource {
         LOGGER.log(Level.INFO, "SolicitudResource deleteSolicitud: input: {0}", solicitudId);
     }
 
-    @PUT
-    @Path("(solicitudId: \\d+})")
-    public SolicitudDTO updateSolicitud(@PathParam("solicitudId") Long id) {
-        LOGGER.log(Level.INFO, "SolicitudResouce updateSolicitud: input : solicitudId: {0}");
-        SolicitudEntity solicitudEntity = solicitudLogic.getSolicitud(id);
-        if (solicitudEntity == null) {
-            throw new WebApplicationException("La solicitud /solicitudes/" + id + "no existe.", 404);
+    /**
+     * Convierte una lista de entidades a DTO.
+     *
+     * Este método convierte una lista de objetos SolicitudEntity a una lista de
+     * objetos SolicitudDTO (json)
+     *
+     * @param entityList corresponde a la lista de solicitudes de tipo Entity
+     * que vamos a convertir a DTO.
+     * @return la lista de solicitudes en forma DTO (json)
+     */
+    private List<SolicitudDTO> listEntity2DTO(List<SolicitudEntity> entityList) {
+        List<SolicitudDTO> list = new ArrayList<>();
+        for (SolicitudEntity entity : entityList) {
+            list.add(new SolicitudDTO(entity));
         }
-        //COMENTARIO
-        solicitudLogic.cambiarEstado(id);
-        return new SolicitudDTO(solicitudEntity);
+        return list;
     }
-
 }

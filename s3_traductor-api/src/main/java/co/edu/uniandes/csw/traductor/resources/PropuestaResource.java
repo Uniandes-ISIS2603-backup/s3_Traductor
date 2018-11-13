@@ -87,7 +87,7 @@ public class PropuestaResource {
     public PropuestaDTO updatePropuesta(@PathParam("empleadoId") Long empleadosId, @PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws BusinessLogicException {
         // TODO: [updatePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         LOGGER.log(Level.INFO, "propuestaResource updatePropuesta: input: empleadoId: {0} , propuestaId: {1} , propuesta:{2}", new Object[]{empleadosId, propuestaId, propuesta.toString()});
-        if (propuestaId.equals(propuesta.getPropuestaId())) {
+        if (propuestaId.equals(propuesta.getId())) {
             throw new BusinessLogicException("Los ids de la propuesta no coinciden.");
         }
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadosId, propuestaId);
