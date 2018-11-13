@@ -26,8 +26,7 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 
     private String descripcion;
     private Integer costo;
-    private String estado;
-    private Long idEmpleado;
+    private String estado;  
 
     @Temporal(TemporalType.DATE)
     private Date tiempoEstimado;
@@ -109,25 +108,7 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
      */
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    /**
-     * Retorna el ID del empleado que va a realizar el trabajo.
-     *
-     * @return the idEmpleado
-     */
-    public Long getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    /**
-     * Cambia el ID del empleado que va a realizar el trabajo.
-     *
-     * @param idEmpleado the idEmpleado to set
-     */
-    public void setIdEmpleado(Long idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
+    }    
 
     /**
      * Retorna la fecha estimada de entrega

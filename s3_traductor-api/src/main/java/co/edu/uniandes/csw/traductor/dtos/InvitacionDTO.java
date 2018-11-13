@@ -17,8 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
- *   {
- *		"idCliente" : Long,
+ *   { 
  *		"descripcion" : String,
  *		"idEmpleado" : Long
  *	 }
@@ -29,8 +28,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class InvitacionDTO implements Serializable {
 
-    private Long idInvitacion;
-    private Long idCliente;
+    private Long idInvitacion;    
     private Long idEmpleado;
     private Long solicitudId;
     private String descripcion;
@@ -52,8 +50,7 @@ public class InvitacionDTO implements Serializable {
      */
     public InvitacionDTO(InvitacionEntity invitacionEntity) {
         if (invitacionEntity != null) {
-            this.idInvitacion = invitacionEntity.getId();
-            this.idCliente = invitacionEntity.getIdCliente();
+            this.idInvitacion = invitacionEntity.getId();            
             this.descripcion = invitacionEntity.getDescripcion();
             this.idEmpleado = invitacionEntity.getIdEmpleado();
             this.solicitudId = invitacionEntity.getSolicitudId();
@@ -67,8 +64,7 @@ public class InvitacionDTO implements Serializable {
      * @return Una InvitacionEntity con los valores que posee el DTO.
      */
     public InvitacionEntity toEntity() {
-        InvitacionEntity invitacionEntity = new InvitacionEntity();
-        invitacionEntity.setIdCliente(idCliente);
+        InvitacionEntity invitacionEntity = new InvitacionEntity();        
         invitacionEntity.setDescripcion(descripcion);
         invitacionEntity.setIdEmpleado(idEmpleado);
         invitacionEntity.setSolicitudId(solicitudId);
@@ -95,21 +91,7 @@ public class InvitacionDTO implements Serializable {
      */
     public void setIdInvitacion(Long idInvitacion) {
         this.idInvitacion = idInvitacion;
-    }
-
-    /**
-     * @return the idCliente
-     */
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    /**
-     * @param idCliente the idCliente to set
-     */
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
+    }   
 
     /**
      * @return the idEmpleado
