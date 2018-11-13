@@ -302,7 +302,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"estado\": 1,\n    \"tipoSolicitud\": 3,\n    \"id\": {{new_id_sol}},\n    \"fechaInicio\": \"2018-11-13T00:10:00-05:00\",\n    \"fechaEntrega\": \"2018-11-29T00:10:00-05:00\"\n}"
+					"raw": "{\n    \"estado\": 1,\n    \"tipoSolicitud\": 3,\n    \"id\": {{new_id_sol}},\n    \"fechaInicio\": \"2018-11-13T00:10:00-05:00\",\n    \"fechaEntrega\": \"2018-11-29T00:10:00-05:00\",\n        \"idiomaEntrada\": {\n    \t\"id\": {{idioma_sol1_id}},\n    \t\"idioma\": \"italiano\"\n    },\n    \"idiomaSalida\": {\n    \t\"id\": {{idioma_sol2_id}},\n    \t\"idioma\": \"inglés\"\n    }\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes/{{new_id_sol}}",

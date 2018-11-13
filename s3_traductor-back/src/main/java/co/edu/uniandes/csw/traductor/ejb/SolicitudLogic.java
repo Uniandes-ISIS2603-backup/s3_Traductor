@@ -74,26 +74,18 @@ public class SolicitudLogic {
     public void deleteSolicitud(Long id) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de borrar el libro con el id = {0}", id);
         SolicitudEntity solicitudEntity = persistence.find(id);
-        //Se arregla el bug aparecido en Sonarcube debido a la confirmacion de un null inutil.
-        //Geovanny Gonzalez.
-
         if (solicitudEntity == null) {
-            throw new WebApplicationException("No se encontro la solicitud con el id:" + id, 404);
-        } else if (SolicitudEntity.EN_ESPERA.intValue() == solicitudEntity.getEstado().intValue()) {
-            throw new BusinessLogicException("La solicitud con id = " + id + " no se puede eliminar porque esta en espera de una respuesta");
+            throw new WebApplicationException("El recurso /solicitudes/" + id + " no existe.", 404);
         }
-
         persistence.delete(id);
     }
 
-    public void cambiarEstado(Long id, Integer estado) {
+    public SolicitudEntity updateSolicitud(Long id, SolicitudEntity nueva) {
 
-        LOGGER.log(Level.INFO, "Inicia el proceso de cambiar de estado la solicitud con el id: " + id);
-        SolicitudEntity solicitudACambiar = persistence.find(id);
-        if (solicitudACambiar == null) {
-            throw new WebApplicationException("No se encontro la solicitud con el id:" + id, 404);
-        }
-        solicitudACambiar.setEstado(estado);
-        LOGGER.log(Level.INFO, "Se cambio el estado de la solicitud con id: " + id + "satisfactoriamente");
+        LOGGER.log(Level.INFO, "Inicia el proceso de cambiar de estado la solicitud con el id: {0}", id);
+
+        SolicitudEntity solicitudACambiar = persistence.update(nueva);
+        LOGGER.log(Level.INFO, "Se cambio el estado de la solicitud con id: {0}", id);
+        return solicitudACambiar;
     }
 }

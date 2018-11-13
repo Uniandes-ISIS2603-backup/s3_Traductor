@@ -74,16 +74,17 @@ public class SolicitudResource {
     }
 
     @PUT
-    @Path("(SolicitudId: \\d+})")
+    @Path("{SolicitudId: \\d+}")
     public SolicitudDTO updateSolicitud(@PathParam("SolicitudId") Long id, SolicitudDTO nueva) {
         LOGGER.log(Level.INFO, "SolicitudResouce updateSolicitud: input --> solicitudId: {0}", id);
-        SolicitudEntity solicitudEntity = solicitudLogic.getSolicitud(id);
-        if (solicitudEntity == null) {
+        solicitudLogic.getSolicitud(id);
+        if (solicitudLogic.getSolicitud(id) == null) {
             throw new WebApplicationException("La solicitud /solicitudes/" + id + "no existe.", 404);
         }
         //COMENTARIO
-        solicitudLogic.cambiarEstado(id, nueva.getEstado());
-        return new SolicitudDTO(solicitudEntity);
+        SolicitudDTO actualizada = new SolicitudDTO(solicitudLogic.updateSolicitud(id, nueva.toEntity()));
+        LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", actualizada.toString());
+        return actualizada;
     }
 
     @DELETE
