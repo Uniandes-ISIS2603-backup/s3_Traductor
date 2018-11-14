@@ -53,7 +53,7 @@ public class TraductorIT {
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "s3_prometeus-api.war")//War del modulo api
+        return ShrinkWrap.create(WebArchive.class, "s3_traductor-api.war")//War del modulo api
                 // Se agrega las dependencias
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
                         .importRuntimeDependencies().resolve()

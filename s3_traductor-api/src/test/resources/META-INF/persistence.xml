@@ -12,7 +12,6 @@
     <class>co.edu.uniandes.csw.traductor.entities.InvitacionEntity</class>
     <class>co.edu.uniandes.csw.traductor.entities.PagosEntity</class>
     <class>co.edu.uniandes.csw.traductor.entities.PropuestaEntity</class>
-    <class>co.edu.uniandes.csw.traductor.entities.ReferenciaEntity</class>
     <class>co.edu.uniandes.csw.traductor.entities.SolicitudEntity</class>
     <class>co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity</class> 
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -21,7 +20,7 @@
       <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
       <property name="eclipselink.target-database" value="Derby"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/traductor"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/prometeusDB"/>
       <property name="javax.persistence.jdbc.user" value="APP"/>
       <property name="javax.persistence.jdbc.password" value="APP"/>
       <property name="eclipselink.logging.level" value="FINE"/>
