@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "196425c7-5dd7-4b44-a69d-3de792937ab8",
+		"_postman_id": "adb49d66-b9f4-441e-a824-4f66d7c7fac2",
 		"name": "Empleado Test",
 		"description": "Coleccion de pruebas sobre el recurso Author",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -18,7 +18,7 @@
 								"id": "b132ce6f-76c4-468e-bf75-b73c58e5520e",
 								"exec": [
 									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_o\",data.id);",
+									"postman.setGlobalVariable(\"new_id_emp\",data.id);",
 									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
 									"console.log(data.id);",
 									""
@@ -52,7 +52,7 @@
 								"empleados"
 							]
 						},
-						"description": "Se crean un nuevo cliente con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\nLos atributos de nombreUsuario, correoElectronico e identificacion deben ser únicos.\n\n**Código Http esperado: 200**"
+						"description": "Se crean un nuevo empleado con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
@@ -65,7 +65,7 @@
 								"id": "6967c244-d97e-4b6d-acf5-ca48044307ba",
 								"exec": [
 									"var data = JSON.parse(responseBody);",
-									"postman.setGlobalVariable(\"new_id_o2\",data.id);",
+									"postman.setGlobalVariable(\"new_id_emp2\",data.id);",
 									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
 									"console.log(data.id);",
 									""
@@ -99,12 +99,24 @@
 								"empleados"
 							]
 						},
-						"description": "Se crean un nuevo cliente con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\nLos atributos de nombreUsuario, correoElectronico e identificacion deben ser únicos.\n\n**Código Http esperado: 200**"
+						"description": "Se crean un nuevo empleado con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
 				{
 					"name": "Obtener todos los Empleados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c9a7a99-609c-4958-a551-41ac304446c3",
+								"exec": [
+									"tests[\"no genera error en el get all\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -115,7 +127,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":\"01051354\",\"nombreUsuario\":\"pepito\",\"contrasenia\":\"pepito123\",\"correoElectronico\":\"pepito@fake.com\",\"nombre\":\"Pedro\",\"identificacion\":\"10263495\",\"tipoCliente\":\"PERSONA_NATURAL\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
@@ -130,12 +142,24 @@
 								"empleados"
 							]
 						},
-						"description": "Se encarga de retornar todos los clientes de la aplicacion.\nRecibe un JSON con un arreglo de clientes.\n\n**Código Http esperado: 200**"
+						"description": "Se encarga de retornar todos los empleados de la aplicacion.\nRecibe un JSON con un arreglo de empleados.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
 				{
-					"name": "Obtener un Empleados",
+					"name": "Obtener un Empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0f73283-f928-4ff1-92a5-2a1569d915de",
+								"exec": [
+									"tests[\"No genera error en el get de uno\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -144,7 +168,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_o}}",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_emp}}",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -154,10 +178,10 @@
 								"s3_traductor-api",
 								"api",
 								"empleados",
-								"{{new_id_o}}"
+								"{{new_id_emp}}"
 							]
 						},
-						"description": "Retorna el cliente que tiene el id indicado en el parametro.\nSe recibe un JSON con el cliente encontrado que existe y está en la base de datos.\n\n**Código Http esperado: 200**"
+						"description": "Retorna el empleado que tiene el id indicado en el parametro.\nSe recibe un JSON con el empleado encontrado que existe y está en la base de datos.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
@@ -197,7 +221,7 @@
 								"0"
 							]
 						},
-						"description": "Intenta obtener un cliente que no existe en la base de datos de la aplicación, por lo que debería fallar.\n\n**Código Http esperado: 404**"
+						"description": "Intenta obtener un empleado que no existe en la base de datos de la aplicación, por lo que debería fallar.\n\n**Código Http esperado: 404**"
 					},
 					"response": []
 				},
@@ -227,10 +251,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"nombreEmpleado\":\"Kaitlyn\",\n\"correoElectronico\":\"kdoohan0@bigcartel.com\",\n\"aniosExperiencia\":12,\n\"nombreUsuario\":\"kewles0\",\n\"contrasenia\":\"NuevaPass\",\n\"trayectoria\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n\"HojaDeVida\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n\"tipoEmpleado\":0,\n\"estudios\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n\"referencias\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\"\n}"
+							"raw": "{\n    \"nombreEmpleado\": \"Kaitlyn\",\n    \"correoElectronico\": \"kdoohan0@bigcartel.com\",\n    \"aniosExperiencia\": 12,\n    \"nombreUsuario\": \"kewles0\",\n    \"contrasenia\": \"NuevaPass\",\n    \"trayectoria\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"HojaDeVida\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"referencias\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\"\n}"
 						},
 						"url": {
-							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_o}}",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_emp}}",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -240,10 +264,10 @@
 								"s3_traductor-api",
 								"api",
 								"empleados",
-								"{{new_id_o}}"
+								"{{new_id_emp}}"
 							]
 						},
-						"description": "Se encarga de actualizar la informacion de un cliente, a partir de su id.\nSe recibe un JSON con la información del cliente nueva a actualizar.\n\n**Código Http esperado: 200**"
+						"description": "Se encarga de actualizar la informacion de un empleado, a partir de su id.\nSe recibe un JSON con la información del cliente nueva a actualizar.\n\n**Código Http esperado: 200**"
 					},
 					"response": []
 				},
@@ -272,7 +296,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"nombreEmpleado\":\"Noexiste\",\n\"correoElectronico\":\"noexiste@fake.com\",\n\"aniosExperiencia\":13,\n\"nombreUsuario\":\"12323fsdf\",\n\"contrasenia\":\"asdf\",\n\"trayectoria\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n\"HojaDeVida\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n\"tipoEmpleado\":0,\n\"estudios\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n\"referencias\":\"No hay nada mejor que levantarse e ir derecho al Hueveo\"\n}"
+							"raw": "{\n    \"nombreEmpleado\": \"Noexiste\",\n    \"correoElectronico\": \"noexiste@fake.com\",\n    \"aniosExperiencia\": 13,\n    \"nombreUsuario\": \"12323fsdf\",\n    \"contrasenia\": \"asdf\",\n    \"trayectoria\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"HojaDeVida\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"tipoEmpleado\": \"CORRECTOR\",\n    \"estudios\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\",\n    \"referencias\": \"No hay nada mejor que levantarse e ir derecho al Hueveo\"\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/0",
@@ -288,7 +312,7 @@
 								"0"
 							]
 						},
-						"description": "Intenta editar un cliente inexistente en la aplicacion. No debería editar nada y debería fallar.\n\n**Código Http esperado: 404**"
+						"description": "Intenta editar un empleado inexistente en la aplicacion. No debería editar nada y debería fallar.\n\n**Código Http esperado: 404**"
 					},
 					"response": []
 				},
@@ -319,7 +343,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_o}}",
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_id_emp}}",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -329,10 +353,10 @@
 								"s3_traductor-api",
 								"api",
 								"empleados",
-								"{{new_id_o}}"
+								"{{new_id_emp}}"
 							]
 						},
-						"description": "Borra de la aplicacion al cliente con el id especificado.\nSe ingresa el id del cliente especificado y no se retorna nada.\n\n**Código Http esperado: 204**"
+						"description": "Borra de la aplicacion al empleado con el id especificado.\nSe ingresa el id del empleado especificado y no se retorna nada.\n\n**Código Http esperado: 204**"
 					},
 					"response": []
 				},
@@ -371,7 +395,7 @@
 								"0"
 							]
 						},
-						"description": "Intenta borrar un cliente que no existe en la aplicacion.\nPor ende, esto debe fallar.\n**Código Http esperado: 404**"
+						"description": "Intenta borrar un empleado que no existe en la aplicacion.\nPor ende, esto debe fallar.\n\n**Código Http esperado: 404**"
 					},
 					"response": []
 				}
