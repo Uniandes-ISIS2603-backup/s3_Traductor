@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.ClienteEntity;
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
-import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
