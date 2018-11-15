@@ -19,18 +19,14 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class PagosEntity extends BaseEntity implements Serializable {
 
     private Boolean pagoAprobado;
-    
-   
-    
+
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
-    
-     @PodamExclude
-   @OneToOne
-   private PropuestaEntity propuesta;
 
-    
+    @PodamExclude
+    @OneToOne
+    private PropuestaEntity propuesta;
 
     public ClienteEntity getCliente() {
         return cliente;
@@ -39,8 +35,7 @@ public class PagosEntity extends BaseEntity implements Serializable {
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
     }
-   
-    
+
     public PagosEntity() {
 
     }
@@ -52,14 +47,13 @@ public class PagosEntity extends BaseEntity implements Serializable {
     public void setPagoAprobado(Boolean pagoAprobado) {
         this.pagoAprobado = pagoAprobado;
     }
-    
-     public PropuestaEntity getPropuesta() {
+
+    public PropuestaEntity getPropuesta() {
         return propuesta;
     }
 
     public void setPropuesta(PropuestaEntity propuesta) {
         this.propuesta = propuesta;
     }
-
 
 }
