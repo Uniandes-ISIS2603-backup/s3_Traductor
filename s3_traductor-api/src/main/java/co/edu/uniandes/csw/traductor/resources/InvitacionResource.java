@@ -104,7 +104,7 @@ public class InvitacionResource {
         }
 
         InvitacionDTO reviewDTO = new InvitacionDTO(invitacionLogic.updateInvitacion(clienteId, invitacion.toEntity()));
-        LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", reviewDTO.toString());
+        LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: output:{0}", reviewDTO.toString());
         return reviewDTO;
     }
 

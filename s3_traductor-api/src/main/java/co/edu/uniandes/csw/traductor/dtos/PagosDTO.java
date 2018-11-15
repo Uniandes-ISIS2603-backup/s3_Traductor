@@ -33,8 +33,7 @@ public class PagosDTO implements Serializable {
         if (entity != null) {
             this.idTransaccion = entity.getId();
             this.pagoAprobado = entity.getPagoAprobado();
-            if(entity.getPropuesta() != null)
-            {
+            if (entity.getPropuesta() != null) {
                 this.propuestaDto = new PropuestaDTO(entity.getPropuesta());
             }
         }
@@ -44,8 +43,7 @@ public class PagosDTO implements Serializable {
         PagosEntity pagoEntity = new PagosEntity();
         pagoEntity.setId(this.idTransaccion);
         pagoEntity.setPagoAprobado(this.pagoAprobado);
-        if(this.propuestaDto != null)
-        {
+        if (this.propuestaDto != null) {
             pagoEntity.setPropuesta(this.propuestaDto.toEntity());
         }
         return pagoEntity;
