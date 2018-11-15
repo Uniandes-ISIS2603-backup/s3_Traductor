@@ -7,8 +7,10 @@ package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.CalificacionEntity;
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
+import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -34,11 +36,35 @@ public class EmpleadoCalificacionLogic {
      */
     public   CalificacionEntity  addCalificacion(Long empleadoId,Long calificacionId){
         LOGGER.log(Level.INFO,"Inicia proceso de asocicacion de calificacion a un empleado con id {0}",empleadoId);
-        //EmpleadoEntity entidadSuperior=empleadoPersistence.find(clienteId);
-        CalificacionEntity entidadInferior=calificacionPersistence.find(calificacionId);
-        //entidadSuperior.getCalificaciones().add(entidadInferior);
+        EmpleadoEntity empleadoEntity=empleadoPersistence.find(empleadoId);
+        CalificacionEntity calificacionEntity=calificacionPersistence.find(calificacionId);
+        calificacionEntity.setEmpleado(empleadoEntity);
+        empleadoEntity.getCalificaciones().add(calificacionEntity);
         LOGGER.log(Level.INFO,"Termina proceso de agregar una calificacion a un empleado con id {0}",empleadoId);
-        return calificacionPersistence.find(calificacionId);
+        return calificacionEntity;
     }
-
+    /**
+     * Metodo que permite consultar una calificacion de un empleado especifico
+     * 
+     * @param idCalificacion la id del la calificacion que se desea consultar
+     * @param idEmpleado la id del empleado sobre el cual se hara la consulta
+     * @return Calificacion consultada
+     * @throws BusinessLogicException en caso que la calificacion no este asociada al empleado
+     */
+    public CalificacionEntity getCalificacion(Long idCalificacion,Long idEmpleado) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la calificacion con id = {0} de del empleado con id = " + idEmpleado, idCalificacion);
+        List<CalificacionEntity> caliicaciones = empleadoPersistence.find(idEmpleado).getCalificaciones();
+        CalificacionEntity calificacionEntity = calificacionPersistence.find(idCalificacion);
+        int index = caliicaciones.indexOf(calificacionEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar la califiacion con id = {0} del empleado con id = " + idEmpleado, idCalificacion);
+        if (index >= 0) {
+            return caliicaciones.get(index);
+        }
+        throw new BusinessLogicException("la calificion no está asociada al empleado");
+    }
+    
+    public List<CalificacionEntity> getCalificaciones(Long idEmpleado) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificaciones asociados al empleado con id = {0}", idEmpleado);
+        return empleadoPersistence.find(idEmpleado).getCalificaciones();
+    }
 }

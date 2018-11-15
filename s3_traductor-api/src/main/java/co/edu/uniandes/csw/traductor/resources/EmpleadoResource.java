@@ -162,7 +162,31 @@ public class EmpleadoResource
         }
         return PropuestaResource.class;
     }
-
+    /**
+     * Metodo que retorna el el resource EmpleadoCalificacion para poder operar sobre esta asociacion
+     * @param empleadoId La id del empleado que llega por la url
+     * @return El recurso EmpleadoCalificacion
+     */
+    @Path("{empleadoId: \\d+}/propuestas")
+    public Class<EmpleadoCalificacionResource> getEmpleadoCalificacionResource(@PathParam("empleadoId") Long empleadoId){
+        if (logic.getEmpleado(empleadoId) == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
+        }
+        return EmpleadoCalificacionResource.class;
+    }
+    /**
+     * Metodo que retorna el el resource AreaConocimientoResource para poder operar sobre esta asociacion
+     * @param empleadoId La id del empleado que llega por la url
+     * @return El recurso EmpleadoCalificacion
+     */
+    @Path("{empleadoId: \\d+}/propuestas")
+    public Class<EmpleadoAreaConocimientoResource> getEmpleadoAreaConocimientoResource(@PathParam("empleadoId") Long empleadoId){
+        if (logic.getEmpleado(empleadoId) == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
+        }
+        return EmpleadoAreaConocimientoResource.class;
+    }
+    
     /**
      * Convierte una lista de entidades a DTO.
      *
