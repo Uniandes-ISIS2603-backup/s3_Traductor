@@ -51,5 +51,4 @@ public class PagosEntity extends BaseEntity implements Serializable {
     public void setPropuesta(PropuestaEntity propuesta) {
         this.propuesta = propuesta;
     }
-
 }
