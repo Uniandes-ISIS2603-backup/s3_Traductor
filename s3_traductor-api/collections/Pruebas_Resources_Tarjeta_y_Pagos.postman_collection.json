@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d2def86e-934a-4320-8c2b-9349dd583766",
+		"_postman_id": "49747692-5b43-4ae4-aede-89644314f1fd",
 		"name": "Pruebas_Resources_Tarjeta_y_Pagos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -441,7 +441,7 @@
 									"var data = JSON.parse(responseBody);",
 									"postman.setGlobalVariable(\"new_id_p\",data.idTransaccion);",
 									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
-									"console.log(data.id);",
+									"console.log(data.idTransaccion);",
 									""
 								],
 								"type": "text/javascript"
@@ -458,7 +458,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idSolicitud\": 123456789,\n    \"pagoAprobado\": false,\n    \"propuestaDto\": {\n        \"costo\": 1,\n        \"id\": {{id_pro_pago}},\n        \"descripcion\": \"Prueba subrecursos Geovanny\",\n        \"estado\": \"EN_PROCESO\",\n        \"tiempoEstimado\": \"2018-08-20T00:10:00Z[UTC]\"\n    }\n}"
+							"raw": "{\n    \"pagoAprobado\": false,\n    \"propuestaDto\": {\n        \"id\": {{id_pro_pago}},\n        \"descripcion\" : \"Propuesta para el pago :D\",\n\t\t\"costo\" : 25000, \n\t\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\",\n\t\t\"estado\": \"EN_PROCESO\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos",
@@ -585,7 +585,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idSolicitud\": 123456789,\n    \"pagoAprobado\": true,\n    \"idTransaccion\": {{new_id_p}},\n    \"propuestaDto\": {\n        \"costo\": 1,\n        \"id\": {{id_pro_pago}},\n        \"descripcion\": \"Prueba subrecursos Geovanny\",\n        \"estado\": \"EN_PROCESO\",\n        \"tiempoEstimado\": \"2018-08-20T00:10:00Z[UTC]\"\n    }\n}\n"
+							"raw": "{\n    \"idSolicitud\": 123456789,\n    \"pagoAprobado\": true,\n    \"idTransaccion\": {{new_id_p}},\n    \"propuestaDto\": {\n        \"id\": {{id_pro_pago}},\n        \"descripcion\" : \"Propuesta para el pago :D\",\n\t\t\"costo\" : 25000, \n\t\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\",\n\t\t\"estado\": \"EN_PROCESO\"\n    }\n}\n"
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos/{{new_id_p}}",

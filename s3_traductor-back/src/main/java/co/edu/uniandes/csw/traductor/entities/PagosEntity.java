@@ -36,10 +36,6 @@ public class PagosEntity extends BaseEntity implements Serializable {
         this.cliente = cliente;
     }
 
-    public PagosEntity() {
-
-    }
-
     public Boolean getPagoAprobado() {
         return pagoAprobado;
     }
