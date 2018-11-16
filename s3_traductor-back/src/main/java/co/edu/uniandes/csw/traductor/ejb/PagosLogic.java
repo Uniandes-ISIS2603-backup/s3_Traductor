@@ -113,9 +113,9 @@ public class PagosLogic {
      */
     public void deletePago(Long idCliente,Long idTransaccion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar pago con id = {0}", idTransaccion);
-        PagosEntity old=getPago(idCliente, idTransaccion);
-        if (old == null) {
-            throw new BusinessLogicException("El pago con id = " + idTransaccion + " no esta asociado a el cliente con id = " + idCliente);
+        if(!(getPago(idCliente, idTransaccion).getPagoAprobado()))
+        {
+            throw new BusinessLogicException("EL pago no se puede eliminar porque no se ha aprobado");
         }
         pagosPersistence.delete(idTransaccion);
         LOGGER.log(Level.INFO, "Termina proceso de borrar pago con id = {0}", idTransaccion);

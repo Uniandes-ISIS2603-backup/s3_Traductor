@@ -137,15 +137,16 @@ public class ClienteLogic
     public void deleteCliente(Long clientesId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el cliente con id = {0}", clientesId);
         // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
-        List<SolicitudEntity> solicitudes = getCliente(clientesId).getSolicitudes();
+        ClienteEntity c = getCliente(clientesId);
+        List<SolicitudEntity> solicitudes = c.getSolicitudes();
         if (solicitudes != null && !solicitudes.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el cliente con id = " + clientesId + " porque tiene solicitudes asociadas");
         }
-        List<PropuestaEntity> propuestas = getCliente(clientesId).getPropuestas();
+        List<PropuestaEntity> propuestas = c.getPropuestas();
         if (propuestas != null && !propuestas.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el cliente con id = " + clientesId + " porque tiene propuestas asociadas");
         }
-        List<InvitacionEntity> invitaciones = getCliente(clientesId).getInvitaciones();
+        List<InvitacionEntity> invitaciones = c.getInvitaciones();
         if (invitaciones != null && !invitaciones.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el clinte con id = " + clientesId + " porque tiene invitaciones asociadas");
         }
