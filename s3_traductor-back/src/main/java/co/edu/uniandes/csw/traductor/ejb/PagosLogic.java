@@ -94,12 +94,17 @@ public class PagosLogic {
     /**
      * Actualizar un pago por ID
      *
-     * @param idTransaccion El ID del pago a actualizar
+     * @param idCliente El ID del cliente a actualizarle el pago
      * @param pagosEntity La entidad del pago con los cambios deseados
      * @return La entidad del pago luego de actualizarla
      */
-    public PagosEntity updatePago(Long idTransaccion, PagosEntity pagosEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar pago con id = {0}", idTransaccion);
+    public PagosEntity updatePago(Long idCliente, PagosEntity pagosEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar pago con id = {0}", pagosEntity.getId());
+        ClienteEntity cliente = clientePersistence.find(idCliente);
+        //System.out.println(pagosEntity.getPropuesta().getId() + " AQUIIIIIIIIIIII");
+        //PropuestaEntity propuesta = propuestaPersistence.findSoloId(pagosEntity.getPropuesta().getId());
+        pagosEntity.setCliente(cliente);
+        //pagosEntity.setPropuesta(propuesta);
         PagosEntity newEntity = pagosPersistence.update(pagosEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar pago con id = {0}", pagosEntity.getId());
         return newEntity;
@@ -113,9 +118,9 @@ public class PagosLogic {
      */
     public void deletePago(Long idCliente,Long idTransaccion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar pago con id = {0}", idTransaccion);
-        PagosEntity old=getPago(idCliente, idTransaccion);
-        if (old == null) {
-            throw new BusinessLogicException("El pago con id = " + idTransaccion + " no esta asociado a el cliente con id = " + idCliente);
+        if(!(getPago(idCliente, idTransaccion).getPagoAprobado()))
+        {
+            throw new BusinessLogicException("EL pago no se puede eliminar porque no se ha aprobado");
         }
         pagosPersistence.delete(idTransaccion);
         LOGGER.log(Level.INFO, "Termina proceso de borrar pago con id = {0}", idTransaccion);

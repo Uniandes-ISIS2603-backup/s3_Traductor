@@ -50,12 +50,6 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private ClienteEntity cliente;
 
-    /*
-		Constructor
-     */
-    public PropuestaEntity() {
-    }
-
     /**
      * Descripcion de la propuesta
      *

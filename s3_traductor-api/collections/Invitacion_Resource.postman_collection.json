@@ -1,10 +1,105 @@
 {
 	"info": {
-		"_postman_id": "31feff70-84b1-4b39-8f53-534db60e670f",
+		"_postman_id": "252e95c7-a535-4a3e-9981-d8166a130c0e",
 		"name": "Invitacion_Resource",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Crea solicitud para la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08bdeb5d-ce99-4b45-bae5-efa7da8209fd",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_sol\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": 2,\n    \"tipoSolicitud\": 3,\n    \"fechaInicio\": \"2018-11-13T00:10:00-05:00\",\n    \"fechaEntrega\": \"2018-11-29T00:10:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un empleado para la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf7adc2-da23-46dc-8262-64492f7c8b1e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_empleado\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreEmpleado\": \"El Nuevo empleado\",\n    \"correoElectronico\": \"asdasda@gmail.com\",\n    \"aniosExperiencia\": 7,\n    \"nombreUsuario\": \"newbie\",\n    \"contrasenia\": \"ffolvl13tg\",\n    \"trayectoria\": \"Trabajé con lo cracks\",\n    \"HojaDeVida\": \"Soy experto en lenguas\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"Lenguas en oxford\",\n    \"referencias\": \"Profe Xavier: El es re crack!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Crear un cliente",
 			"event": [
@@ -61,7 +156,7 @@
 						"id": "2b0eeb35-4bc9-44e5-a07c-801368f51d35",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_inv\",data.id);",
+							"postman.setGlobalVariable(\"new_id_inv\",data.idInvitacion);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
 							"console.log(data.id);",
 							""
@@ -80,7 +175,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"descripcion\": \"Prueba de Ejecucion Geovanny\",\n    \"idEmpleado\": 2,\n    \"solicitudId\": 100\n}"
+					"raw": "{\n    \"descripcion\": \"Prueba de Ejecucion Geovanny\",\n    \"idEmpleado\": {{new_empleado}},\n    \"solicitudId\": {{new_sol}}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{id_cli_inv}}/invitaciones/",
@@ -219,7 +314,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"idCliente\" : 1, \"descripcion\" : \"Cambiando descripcion\", \"idEmpleado\" : 1, \"idInvitacion\": 5}"
+					"raw": "{\n    \"descripcion\": \"Cambiando descripcion\",\n    \"idEmpleado\": {{new_empleado}},\n    \"idInvitacion\": {{new_id_inv}}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{id_cli_inv}}/invitaciones/{{new_id_inv}}",
@@ -243,6 +338,18 @@
 		},
 		{
 			"name": "Elimina una invitación del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de062f34-309a-4fc9-98aa-f123f5c081e2",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],

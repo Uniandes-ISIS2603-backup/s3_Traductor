@@ -72,6 +72,7 @@ public class PropuestaDTO implements Serializable {
             this.estado = propuestaEntity.getEstado();            
             this.tiempoEstimado = propuestaEntity.getTiempoEstimado();
             this.invitacion = (propuestaEntity.getInvitacion() != null) ? new InvitacionDTO(propuestaEntity.getInvitacion()) : null;
+//            this.pago = (propuestaEntity.getPago() != null ) ? new PagosDTO(propuestaEntity.getPago()) : null;
         }
     }
 
@@ -90,6 +91,9 @@ public class PropuestaDTO implements Serializable {
         if (invitacion != null) {
             propuestaEntity.setInvitacion(invitacion.toEntity());
         }
+//        if(pago != null) {
+//            propuestaEntity.setPago(pago.toEntity());
+//        }
 
         return propuestaEntity;
     }

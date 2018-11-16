@@ -13,7 +13,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -139,12 +138,12 @@ public class PagosResource {
     @DELETE
     @Path("{idTransaccion: \\d+}")
     public void deletePago(@PathParam("clientesId") Long idCliente, @PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException, BusinessLogicException {
-
-        PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
-        if (entity == null) {
+        LOGGER.log(Level.INFO, "PagosResource deletePago: input: idCliente -> {0}, idTransaccion -> {1}", new Object[] {idCliente, idTransaccion});
+        if (pagosLogic.getPago(idCliente, idTransaccion) == null) {
             throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
         }
         pagosLogic.deletePago(idCliente, idTransaccion);
+        LOGGER.info("PagosResource deletePago: output: void");
     }
 
     /**
