@@ -62,7 +62,12 @@ public class EmpleadoCalificacionLogic {
         }
         throw new BusinessLogicException("la calificion no está asociada al empleado");
     }
-    
+    /**
+     * Metodo que permite consultar todas las calificaciones asociadas a un empleado
+     * 
+     * @param idEmpleado id del empleado del cual se desea conocer las calificaciones
+     * @return lista de calificaciones asociadas a un empleado
+     */
     public List<CalificacionEntity> getCalificaciones(Long idEmpleado) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificaciones asociados al empleado con id = {0}", idEmpleado);
         return empleadoPersistence.find(idEmpleado).getCalificaciones();

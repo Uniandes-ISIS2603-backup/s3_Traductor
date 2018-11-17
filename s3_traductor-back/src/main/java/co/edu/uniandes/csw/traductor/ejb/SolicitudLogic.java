@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.traductor.ejb;
 
-import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.SolicitudPersistence;

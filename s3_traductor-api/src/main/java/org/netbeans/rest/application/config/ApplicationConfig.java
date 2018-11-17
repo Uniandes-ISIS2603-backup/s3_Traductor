@@ -36,9 +36,11 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.traductor.resources.AreaConocimientoResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.CalificacionResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.ClienteResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoCalificacionResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.EmpleadoResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.IdiomaResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.InvitacionResource.class);
+        resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudIdiomaResource.class);
         resources.add(co.edu.uniandes.csw.traductor.resources.SolicitudResource.class);
 }
     

@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.SolicitudDTO;
-import co.edu.uniandes.csw.traductor.dtos.SolicitudDetailDTO;
 import co.edu.uniandes.csw.traductor.ejb.EmpleadoLogic;
 import co.edu.uniandes.csw.traductor.ejb.EmpleadoSolicitudLogic;
 import co.edu.uniandes.csw.traductor.ejb.SolicitudLogic;
@@ -74,29 +73,26 @@ public class EmpleadoSolicitudResource {
      * @return lista de los dto de las solicitudes asignadas a un empleado
      */
     @GET
-    public List<SolicitudDetailDTO> getSolicitudes(@PathParam("id") Long empleadoId) {
+    public List<SolicitudDTO> getSolicitudes(@PathParam("id") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
         EmpleadoEntity empleada = empleadoLogic.getEmpleado(empleadoId);
         if (empleada == null) {
             throw new WebApplicationException("El empleado con id : " + empleadoId + " no existe.", 404);
         }
-        List<SolicitudDetailDTO> solicitudesDetailDTO = solicitudesListEntity2DTO(empleada.getSolicitudes());
-        if (solicitudesDetailDTO == null) {
-            throw new WebApplicationException("Las solicitudes del empleado con id: " + empleadoId + " son inexistentes.", 404);
-        }
-        return solicitudesDetailDTO;
+        List<SolicitudDTO> solicitudDTO = solicitudesListEntity2DTO(empleada.getSolicitudes());
+        return solicitudDTO;
     }
     
     @GET
     @Path("{solicitudId: \\d+}")
-    public SolicitudDetailDTO getSolicitud(@PathParam("EmpleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
+    public SolicitudDTO getSolicitud(@PathParam("EmpleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce getSolicitud: input: empleadoId: {0} , solicitudId: {1}", new Object[]{empleadoId, solicitudId});
         if (solicitudLogica.getSolicitud(solicitudId) == null) {
             throw new WebApplicationException("El recurso /empleado/" + empleadoId + "/solicitudes/" + solicitudId + " no existe.", 404);
         }
-        SolicitudDetailDTO solicitudDetailDTO = new SolicitudDetailDTO(empleadoSolicitudLogic.getSolicitud(empleadoId, solicitudId));
+        SolicitudDTO solicitudDTO = new SolicitudDTO(empleadoSolicitudLogic.getSolicitud(empleadoId, solicitudId));
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce getSolicitud: output: {0}");
-        return solicitudDetailDTO;
+        return solicitudDTO;
     }
     
     /**
@@ -130,10 +126,10 @@ public class EmpleadoSolicitudResource {
      * @param solicitudEntity List, Lista de BookEntity a convertir.
      * @return Lista de BookDTO convertida.
      */
-    private List<SolicitudDetailDTO> solicitudesListEntity2DTO(List<SolicitudEntity> entityList) {
-        List<SolicitudDetailDTO> list = new ArrayList();
+    private List<SolicitudDTO> solicitudesListEntity2DTO(List<SolicitudEntity> entityList) {
+        List<SolicitudDTO> list = new ArrayList();
         for (SolicitudEntity entity : entityList) {
-            list.add(new SolicitudDetailDTO(entity));
+            list.add(new SolicitudDTO(entity));
         }
         return list;
     }

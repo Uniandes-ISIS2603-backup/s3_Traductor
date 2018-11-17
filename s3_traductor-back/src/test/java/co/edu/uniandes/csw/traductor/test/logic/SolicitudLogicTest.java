@@ -7,7 +7,6 @@
 package co.edu.uniandes.csw.traductor.test.logic;
 
 import co.edu.uniandes.csw.traductor.ejb.SolicitudLogic;
-import co.edu.uniandes.csw.traductor.entities.DocumentoEntity;
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.SolicitudPersistence;
@@ -97,13 +96,9 @@ public class SolicitudLogicTest {
         for (int i = 0; i < 3; i++) {
             SolicitudEntity soliEntity = factory.manufacturePojo(SolicitudEntity.class);
             em.persist(soliEntity);
-            soliEntity.setDocumentos(new ArrayList<DocumentoEntity>());
             data.add(soliEntity);
         }
         SolicitudEntity solicitud = data.get(2);
-        DocumentoEntity docu = factory.manufacturePojo(DocumentoEntity.class);
-        solicitud.getDocumentos().add(docu);
-        em.persist(docu);
 
     }
 
