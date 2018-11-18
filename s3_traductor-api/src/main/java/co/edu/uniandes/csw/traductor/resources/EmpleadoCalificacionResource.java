@@ -53,13 +53,13 @@ public class EmpleadoCalificacionResource {
     @Path("(calificacionId: \\d+")
 
     public CalificacionDTO addCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) {
-        LOGGER.log(Level.INFO, "EmpleadoCalificacion addCalificacion: input: empleadoId {0}, calificaionId: {1}", new Object[]{empleadoId, calificacionId});
-//        if(empleadoCalificacionLogic.) {
-//            
-//        }
-        CalificacionDTO calififacion = new CalificacionDTO(empleadoCalificacionLogic.addCalificacion(empleadoId, calificacionId));
-        LOGGER.log(Level.INFO, "EmpleadoCalificacion addCalificaion: output: {0}", calififacion.toString());
-        return calififacion;
+        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource addCalificacion: input: empleadoID: {0} , calificacionID: {1}", new Object[]{empleadoId, calificacionId});
+        if (calificacionLogic.getCalificacion(calificacionId) == null) {
+            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + " no existe.", 404);
+        }
+        CalificacionDTO calificacionDTO = new CalificacionDTO(empleadoCalificacionLogic.addCalificacion(empleadoId, calificacionId));
+        LOGGER.log(Level.INFO, "EEmpleadoCalificacionResource addCalificacion: output: {0}", calificacionDTO.toString());
+        return calificacionDTO;
     }
 
     /**
@@ -70,12 +70,12 @@ public class EmpleadoCalificacionResource {
     @GET
     public List<CalificacionDTO> getCalificaciones(@PathParam("id") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
-        //List<CalificacionDTO> calificaciones= calificaciones(empleadoLogic.getCalificaciones(empleadoId));
-        //LOGGER.log(Level.INFO,"EmpleadoCalificacionResource getCalificaciones: output: {0}",calififcaciones.toString());
-        //return calificaciones;
+        List<CalificacionDTO> listaDTOs = calificaciones(empleadoCalificacionLogic.getCalificaciones(empleadoId));
+        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: output: {0}", listaDTOs.toString());
 
-        return null;
+        return listaDTOs;
     }
+    
 
     private List<CalificacionDTO> calificaciones(List<CalificacionEntity> listaEntities) {
         List<CalificacionDTO> lista = new ArrayList<>();
