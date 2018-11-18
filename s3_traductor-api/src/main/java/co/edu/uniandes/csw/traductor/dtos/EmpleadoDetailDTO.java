@@ -28,7 +28,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
     private List<CalificacionDTO> calificaciones ;
     private List<InvitacionDTO> invitaciones ;
     private List<PropuestaDTO> propuestas;
-    private List<SolicitudDetailDTO> solicitudes;
+    private List<SolicitudDTO> solicitudes;
     private List<AreaConocimientoDTO> areasDeConocimiento;
     private List<IdiomaDTO> idiomas;
     //----------------------------------------------------
@@ -79,7 +79,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         solicitudes=new ArrayList<>();
         if(empleado.getSolicitudes()!=null){
             for(SolicitudEntity solen:empleado.getSolicitudes()){
-                SolicitudDetailDTO tmpsoli = new SolicitudDetailDTO(solen);
+                SolicitudDTO tmpsoli = new SolicitudDTO(solen);
                 solicitudes.add(tmpsoli);
             }
         }
@@ -113,11 +113,11 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         this.propuestas = propuestas;
     }
 
-    public List<SolicitudDetailDTO> getSolicitudes() {
+    public List<SolicitudDTO> getSolicitudes() {
         return solicitudes;
     }
 
-    public void setSolicitudes(List<SolicitudDetailDTO> solicitudes) {
+    public void setSolicitudes(List<SolicitudDTO> solicitudes) {
         this.solicitudes = solicitudes;
     }
 
@@ -195,7 +195,7 @@ public class EmpleadoDetailDTO extends EmpleadoDTO implements Serializable{
         }
         if(this.solicitudes!=null){
             List<SolicitudEntity> listSoli=new ArrayList<>();
-            for(SolicitudDetailDTO tmpSol: this.solicitudes){
+            for(SolicitudDTO tmpSol: this.solicitudes){
                 listSoli.add(tmpSol.toEntity());
             }
             nemen.setSolicitudes(listSoli);
