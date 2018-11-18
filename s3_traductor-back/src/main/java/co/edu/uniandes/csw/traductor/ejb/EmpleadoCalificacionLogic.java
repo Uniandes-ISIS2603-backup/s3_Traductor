@@ -72,4 +72,23 @@ public class EmpleadoCalificacionLogic {
         }
         throw new BusinessLogicException("La calificacion no esta asociada al empleado");
     }
+    /**
+     * Elimina una solicitud de la lista de solicitudes de un empleado.
+     * @param empleadoId empleado a buscar.
+     * @param solicitudId solicitud a eliminar.
+     * @throws BusinessLogicException 
+     */
+
+    public void deleteCalificacion(Long empleadoId, Long calificacionId) throws BusinessLogicException {
+        
+        LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce deleteCalificacion: input: empleadoId {0}, calificacionId: {1}", new Object[]{empleadoId, calificacionId});
+        EmpleadoEntity empleado = empleadoPersistence.find(empleadoId);
+        CalificacionEntity cal = calificacionPersistence.find(calificacionId);
+        int index = empleado.getCalificaciones().indexOf(cal);
+        if(index >= 0)
+        {
+          empleado.getCalificaciones().remove(index);
+        }
+        throw new BusinessLogicException("La calificacion no esta asociada al empleado");
+    }
 }

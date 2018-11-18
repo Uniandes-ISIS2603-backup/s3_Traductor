@@ -178,6 +178,14 @@ public class EmpleadoResource
         }
         return EmpleadoSolicitudResource.class;
     }
+     //llamado a areas de conocimiento
+     @Path("{empleadoId: \\d+}/areasConocimiento")
+    public Class<EmpleadoAreaConocimientoResource> getEmpleadoAreaConocimientoResource(@PathParam("empleadoId") Long empleadoId) {
+        if (logic.getEmpleado(empleadoId) == null) {
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + " no existe.", 404);
+        }
+        return EmpleadoAreaConocimientoResource.class;
+    }
     /**
      * Convierte una lista de entidades a DTO.
      *
