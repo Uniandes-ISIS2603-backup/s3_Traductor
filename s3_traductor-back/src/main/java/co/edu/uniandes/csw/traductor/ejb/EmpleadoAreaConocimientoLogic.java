@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Alvaro
  */
 public class EmpleadoAreaConocimientoLogic {
      private final static Logger LOGGER=Logger.getLogger(EmpleadoAreaConocimientoLogic.class.getName());
