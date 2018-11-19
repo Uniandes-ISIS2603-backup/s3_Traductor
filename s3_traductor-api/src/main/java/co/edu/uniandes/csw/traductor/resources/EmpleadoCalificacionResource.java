@@ -69,7 +69,7 @@ public class EmpleadoCalificacionResource {
      * @return lista de los dto de las calififcaciones asignadas a un empleado
      */
     @GET
-    public List<CalificacionDTO> getCalificaciones(@PathParam("id") Long empleadoId) {
+    public List<CalificacionDTO> getCalificaciones(@PathParam("empleadoId") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
         List<CalificacionDTO> listaDTOs = calificacionEntiryToDTO(empleadoCalificacionLogic.getCalificaciones(empleadoId));
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: output: {0}", listaDTOs.toString());
@@ -96,7 +96,7 @@ public class EmpleadoCalificacionResource {
     @Path("{calificacionId: \\d+}")
     public void deleteCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource deleteCalificacion: input: {0}", empleadoId);
-        if (calificacionLogic.getCalificacion(empleadoId) == null) {
+        if (calificacionLogic.getCalificacion(calificacionId) == null) {
             throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + " no existe.", 404);
         }
         empleadoCalificacionLogic.deleteCalificacion(empleadoId, calificacionId);

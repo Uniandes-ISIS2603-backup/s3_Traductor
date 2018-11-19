@@ -73,9 +73,9 @@ public class EmpleadoCalificacionLogic {
         throw new BusinessLogicException("La calificacion no esta asociada al empleado");
     }
     /**
-     * Elimina una solicitud de la lista de solicitudes de un empleado.
+     * Elimina una calificacion de la lista de calificaciones de un empleado.
      * @param empleadoId empleado a buscar.
-     * @param solicitudId solicitud a eliminar.
+     * @param calificacionId calificacion a eliminar.
      * @throws BusinessLogicException 
      */
 
