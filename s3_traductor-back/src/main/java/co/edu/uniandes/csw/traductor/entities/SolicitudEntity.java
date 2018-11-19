@@ -60,18 +60,6 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
     private IdiomaEntity idiomaEntrada;
 
-    @PodamExclude
-    @OneToMany(mappedBy = "solicitud", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<DocumentoEntity> documentos;
-
-    public List<DocumentoEntity> getDocumentos() {
-        return documentos;
-    }
-
-    public void setDocumentos(List<DocumentoEntity> documentos) {
-        this.documentos = documentos;
-    }
-
     public Date getFechaInicio() {
         return fechaInicio;
     }

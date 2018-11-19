@@ -62,7 +62,7 @@ public class EmpleadoPersistence {
         return em.find(EmpleadoEntity.class, emId);
     }
     /**
-     * Actualiza un documento.
+     * Actualiza un empleado.
      *
      * @param empleadoEntity: el empleado que viene con los nuevos cambios. 
      * @return un empleado con los cambios aplicados.
@@ -73,13 +73,13 @@ public class EmpleadoPersistence {
     }
     /**
      * Borra un empleado de la base de datos recibiendo como argumento el id de
-     * el documento
+     * el empleado
      *
      * @param empId: id correspondiente al empleado a borrar.
      */
     public void delete(Long empId) {
 
-        LOGGER.log(Level.INFO, "Borrando el documento con id={0}", empId);
+        LOGGER.log(Level.INFO, "Borrando el empleado con id={0}", empId);
         EmpleadoEntity empleadoTmp = em.find(EmpleadoEntity.class, empId);
         em.remove(empleadoTmp);
     }

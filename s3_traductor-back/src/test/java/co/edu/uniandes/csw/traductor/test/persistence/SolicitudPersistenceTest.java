@@ -81,7 +81,7 @@ public class SolicitudPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from AuthorEntity").executeUpdate();
+        em.createQuery("delete from SolicitudEntity").executeUpdate();
     }
 
     /**
