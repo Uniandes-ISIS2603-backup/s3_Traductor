@@ -61,4 +61,21 @@ public class CalificacionPersistence {
         LOGGER.log(Level.INFO, "Consultando calificacion con id={0}", calId);
         return em.find(CalificacionEntity.class, calId);
     }
+     /**
+     * Actualiza una calificacion.
+     *
+     * @param areaEntity: la calificacion que viene con los nuevos cambios.
+     * Por ejemplo el estado o el costo pudo cambiar. En ese caso, se haria uso
+     * del método update.
+     * @return una calificacion con los cambios aplicados.
+     */
+    public CalificacionEntity update(CalificacionEntity areaEntity) {
+        LOGGER.log(Level.INFO, "Actualizando calificacion con id = {0}", areaEntity.getId());
+
+        /* Note que hacemos uso de un método propio del EntityManager llamado merge() que recibe como argumento
+        la propuesta con los cambios, esto es similar a 
+        "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;" en SQL.
+         */
+        return em.merge(areaEntity);
+    }
 }

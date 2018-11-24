@@ -82,4 +82,23 @@ public class ClientePropuestaLogic
         }
         throw new BusinessLogicException("La propuesta no esta asociada con el cliente");
     }	
+    /**
+     * Delete
+     * @param clienteId cliente a buscar.
+     * @param propuestaId propuesta a eliminar.
+     * @throws BusinessLogicException 
+     */
+
+    public void deletePropuesta(Long clienteId, Long propuestaId) throws BusinessLogicException {
+        
+        LOGGER.log(Level.INFO, "ClientePropuestaResoruce deletePropuesta: input: clienteId {0}, propuestaId: {1}", new Object[]{clienteId, propuestaId});
+        ClienteEntity cliente = clientePersistence.find(clienteId);
+        PropuestaEntity propuesta = propuestaPersistence.findSoloId(propuestaId);
+        int index = cliente.getPropuestas().indexOf(propuesta);
+        if(index >= 0)
+        {
+          cliente.getPropuestas().remove(index);
+        }
+        throw new BusinessLogicException("El propuesta no esta asociada al cliente");
+    }
 }
