@@ -37,6 +37,22 @@ public class PagosResource {
 
     @Inject
     private PagosLogic pagosLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
+    
+    //Define la frase "/pagos/" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String PAGOS = "/pagos/";
+    
+    //Define la frase "El recurso /clientes/" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String RECURSO_CLIENTE = "El recurso /clientes/";  
+    
 
     /**
      * Crea una nueva tarjeta con la informacion que se recibe en el cuerpo de
@@ -82,7 +98,7 @@ public class PagosResource {
 
         PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_CLIENTE + idCliente + PAGOS + idTransaccion + NO_EXISTE, 404);
 
         }
         PagosDTO pagoDTO = new PagosDTO(pagosLogic.updatePago(idCliente, pago.toEntity()));
@@ -121,7 +137,7 @@ public class PagosResource {
         LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", idTransaccion);
         PagosEntity entity = pagosLogic.getPago(idCliente, idTransaccion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_CLIENTE + idCliente + PAGOS + idTransaccion + NO_EXISTE, 404);
         }
         PagosDTO pagosDTO = new PagosDTO(entity);
         LOGGER.log(Level.INFO, "ReviewResource getReview: output: {0}", pagosDTO.toString());
@@ -140,7 +156,7 @@ public class PagosResource {
     public void deletePago(@PathParam("clientesId") Long idCliente, @PathParam("idTransaccion") Long idTransaccion) throws WebApplicationException, BusinessLogicException {
         LOGGER.log(Level.INFO, "PagosResource deletePago: input: idCliente -> {0}, idTransaccion -> {1}", new Object[] {idCliente, idTransaccion});
         if (pagosLogic.getPago(idCliente, idTransaccion) == null) {
-            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/pagos/" + idTransaccion + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_CLIENTE + idCliente + PAGOS + idTransaccion + NO_EXISTE, 404);
         }
         pagosLogic.deletePago(idCliente, idTransaccion);
         LOGGER.info("PagosResource deletePago: output: void");

@@ -31,6 +31,11 @@ public class TarjetaDeCreditoLogic {
 
     @Inject
     private ClientePersistence clientePersistence;
+    
+    //Constante para definir el mensaje "La fecha de expiracion es menor a la actual con el fin
+    //de evitar replicaciones
+    
+    private static final String ERROR_FECHA_ACTUAL = "La fecha de expiracion es anterior a la actual";
 
     /**
      * Guardar una nueva tarjeta
@@ -69,10 +74,10 @@ public class TarjetaDeCreditoLogic {
         }
         Date fechaActual = new Date();
         if (tarjetaEntity.getAnioExpiracion() < fechaActual.getYear()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getAnioExpiracion() == fechaActual.getYear() && tarjetaEntity.getMesExpiracion() < fechaActual.getMonth()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getRedBancaria().equals("") || tarjetaEntity.getRedBancaria() == null) {
             throw new BusinessLogicException("La red bancaria es invalida");
@@ -145,10 +150,10 @@ public class TarjetaDeCreditoLogic {
         }
         Date fechaActual = new Date();
         if (tarjetaEntity.getAnioExpiracion() < fechaActual.getYear()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getAnioExpiracion() == fechaActual.getYear() && tarjetaEntity.getMesExpiracion() < fechaActual.getMonth()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getMesExpiracion() > 12) {
             throw new BusinessLogicException("El fecha de expiracion es invalida");

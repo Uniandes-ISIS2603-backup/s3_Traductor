@@ -37,6 +37,11 @@ public class TarjetaDeCreditoResource {
     
     @Inject
     private TarjetaDeCreditoLogic tarjetaLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
    
    
 
@@ -86,7 +91,7 @@ public class TarjetaDeCreditoResource {
         }
         TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente, idTarjeta);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + NO_EXISTE, 404);
         }
         TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaLogic.updateTarjeta(idCliente, tarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource updateTarjeta: output: {0}", tarjetaDTO.toString());
@@ -124,7 +129,7 @@ public class TarjetaDeCreditoResource {
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: input: {0}", idTarjeta);
         TarjetaDeCreditoEntity tarjetaEntity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (tarjetaEntity == null) {
-            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+            throw new WebApplicationException("El recurso /tarjetasDeCredito/" + idTarjeta + NO_EXISTE, 404);
         }
         TarjetaDeCreditoDTO tarjetaDTO = new TarjetaDeCreditoDTO(tarjetaEntity);
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource getTarjeta: output: {0}", tarjetaDTO.toString());
@@ -147,7 +152,7 @@ public class TarjetaDeCreditoResource {
         LOGGER.log(Level.INFO, "TarjetaDeCreditoResource deleteTarjeta: input: {0}", idTarjeta);
         TarjetaDeCreditoEntity entity = tarjetaLogic.getTarjetaDeCredito(idCliente,idTarjeta);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + idCliente + "/tarjetasDeCredito/" + idTarjeta + NO_EXISTE, 404);
        }
         /*
         clienteTarjetaLogic.removeTarjeta(idTarjeta);

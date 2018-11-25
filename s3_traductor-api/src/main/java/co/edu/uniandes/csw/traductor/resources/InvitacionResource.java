@@ -41,7 +41,18 @@ public class InvitacionResource {
     //Inyeccion de Logica
     @Inject
     private InvitacionLogic invitacionLogic;
+    
+    //Define la frase "/invitaciones/" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String INVITACIONES = "/invitaciones/";
 
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
+    
+    
     /**
      * Crea una nueva invitacion con la informacion que se recibe en el cuerpo
      * de la petición y se regresa un objeto identico con un id auto-generado
@@ -100,7 +111,7 @@ public class InvitacionResource {
 
         InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, idInvitacion);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/invitaciones/" + idInvitacion + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + INVITACIONES + idInvitacion + NO_EXISTE, 404);
         }
 
         InvitacionDTO reviewDTO = new InvitacionDTO(invitacionLogic.updateInvitacion(clienteId, invitacion.toEntity()));
@@ -142,7 +153,7 @@ public class InvitacionResource {
         LOGGER.log(Level.INFO, "InvitacionResources getInvitacion: input: {0}", invitacionId);
         InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, invitacionId); //DTO respuesta.	
         if (entity == null) {
-            throw new WebApplicationException("El recurso /cliente/" + clienteId + "/invitaciones/" + invitacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /cliente/" + clienteId + INVITACIONES + invitacionId + NO_EXISTE, 404);
         }
         InvitacionDTO entityBuscada = new InvitacionDTO(entity);
         LOGGER.log(Level.INFO, "InvitacionResources getInvitacion: output: {0}", entityBuscada.toString());
@@ -167,7 +178,7 @@ public class InvitacionResource {
 
         InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, invitacionId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/invitaciones/" + invitacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + INVITACIONES + invitacionId + NO_EXISTE, 404);
         }
 
         invitacionLogic.deleteInvitacion(clienteId, invitacionId);

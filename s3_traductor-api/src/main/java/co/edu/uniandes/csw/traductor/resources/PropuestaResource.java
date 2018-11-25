@@ -38,6 +38,16 @@ public class PropuestaResource {
     //Inyeccion de la logica
     @Inject
     private PropuestaLogic propuestaLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
+    
+    //Define la frase "El recurso /empleados/" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String RECURSO_EMPLEADO = "El recurso /empleados/";
 
     /**
      * Crea una nueva propuesta con la informacion que se recibe en el cuerpo de
@@ -91,7 +101,7 @@ public class PropuestaResource {
         }
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadosId, propuestaId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /empleados/" + empleadosId + "/propuestas/" + propuestaId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_EMPLEADO + empleadosId + "/propuestas/" + propuestaId + NO_EXISTE, 404);
         }
         PropuestaDTO propuestaDTO = new PropuestaDTO(propuestaLogic.updatePropuesta(empleadosId, propuesta.toEntity()));
         LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", propuestaDTO.toString());
@@ -133,7 +143,7 @@ public class PropuestaResource {
         LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: input: {0}", propuestaId);
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId); //DTO respuesta.	
         if (entity == null) {
-            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/invitaciones/" + propuestaId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + "/invitaciones/" + propuestaId + NO_EXISTE, 404);
         }
 
         PropuestaDTO entityBuscada = new PropuestaDTO(entity);
@@ -160,7 +170,7 @@ public class PropuestaResource {
 
         PropuestaEntity entity = propuestaLogic.getPropuesta(empleadoId, propuestaId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/propuestas/" + propuestaId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + "/propuestas/" + propuestaId + NO_EXISTE, 404);
         }
         propuestaLogic.deletePropuesta(empleadoId, propuestaId);
         LOGGER.info("PropuestaResources deletePropuesta: output: void");

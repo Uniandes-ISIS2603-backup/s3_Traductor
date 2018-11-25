@@ -43,6 +43,15 @@ public class InvitacionEntity extends BaseEntity implements Serializable {
 	 */
 	
 	public InvitacionEntity() {
+            
+            /**
+             * Se deja el constructor vacio debido a que el API JAX-RS necesita un constructor que
+             * le permita crear el objeto sin necesidad de pasar parametros de primero
+             * 
+             * Luego el mismo API se encargara de asignar los valores con los metodos Setters
+             * 
+             * Geovanny Andres Gonzalez
+             */
 	}	
 
 	/**
