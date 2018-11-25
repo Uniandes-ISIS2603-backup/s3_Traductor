@@ -36,6 +36,11 @@ public class EmpleadoAreaConocimientoResource {
     private AreaConocimientoLogic areaLogic;
     @Inject
     private EmpleadoAreaConocimientoLogic empleadoAreaLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
 
     /**
      * agregar una calificaicon corespondiente al empleado
@@ -50,7 +55,7 @@ public class EmpleadoAreaConocimientoResource {
     public AreaConocimientoDTO addArea(@PathParam("empleadoId") Long empleadoId, @PathParam("areaConocimientoId") Long areaConocimientoId) {
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource addArea: input: empleadoID: {0} , areaConocimientoId: {1}", new Object[]{empleadoId, areaConocimientoId});
         if (areaLogic.getArea(areaConocimientoId) == null) {
-            throw new WebApplicationException("El recurso /areasConocimiento/" + areaConocimientoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /areasConocimiento/" + areaConocimientoId + NO_EXISTE, 404);
         }
         AreaConocimientoDTO areaDTO = new AreaConocimientoDTO(empleadoAreaLogic.addArea(empleadoId, areaConocimientoId));
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource addArea: output: {0}", areaDTO.toString());
@@ -74,7 +79,7 @@ public class EmpleadoAreaConocimientoResource {
     public AreaConocimientoDTO getArea(@PathParam("empleadoId") Long empleadoId, @PathParam("areaConocimientoId") Long areaConocimientoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getArea: input: empleadoId: {0} , areaConocimientoId: {1}", new Object[]{empleadoId, areaConocimientoId});
         if (areaLogic.getArea(areaConocimientoId) == null) {
-            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/areasConocimiento/" + areaConocimientoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/areasConocimiento/" + areaConocimientoId + NO_EXISTE, 404);
         }
         AreaConocimientoDTO areaDTO = new AreaConocimientoDTO(empleadoAreaLogic.getAreaConocmiento(empleadoId, areaConocimientoId));
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getArea: output: {0}", areaDTO.toString());
@@ -91,7 +96,7 @@ public class EmpleadoAreaConocimientoResource {
     public void deleteArea(@PathParam("empleadoId") Long empleadoId, @PathParam("areaConocimientoId") Long areaConocimientoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource deleteArea: input: {0}", empleadoId);
         if (areaLogic.getArea(areaConocimientoId) == null) {
-            throw new WebApplicationException("El recurso /areasConocimiento/" + areaConocimientoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /areasConocimiento/" + areaConocimientoId + NO_EXISTE, 404);
         }
         empleadoAreaLogic.deleteArea(empleadoId, areaConocimientoId);
         LOGGER.info("EmpleadoAreaConocimientoResource deleteArea: output: void");
