@@ -76,4 +76,21 @@ public class CalificacionLogic {
         LOGGER.log(Level.INFO, "Termina el proceso de consulta de una calificacion con el id={0}", calificacionID);
         return calificacionEntity;
     }
+    /**
+     *
+     * Actualizar un calificacion.
+     *
+     * @param calificacionesId: id del calificacion para buscarla en la base de
+     * datos.
+     * @param calificacionEntity: calificacion con los cambios para ser actualizada,
+     * por ejemplo el nombre.
+     * @return El calificacion con los cambios actualizados en la base de datos.
+     */
+    public CalificacionEntity updateCalificacion(Long calificacionesId, CalificacionEntity calificacionEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la calificacion con id = {0}", calificacionesId);
+        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
+        CalificacionEntity newEntity = persistence.update(calificacionEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar la calificacion con id = {0}", calificacionEntity.getId());
+        return newEntity;
+    }
 }

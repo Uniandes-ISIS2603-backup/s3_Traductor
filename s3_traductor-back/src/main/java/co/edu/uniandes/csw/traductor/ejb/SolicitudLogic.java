@@ -40,7 +40,7 @@ public class SolicitudLogic {
     }
 
     /**
-     * Busca un libro por ID.
+     * Busca un solicitud por ID.
      *
      * @param solicitudId El id de la solicitud buscada.
      * @return La solicitud econtrada, null si no lo encuentra.
@@ -70,13 +70,10 @@ public class SolicitudLogic {
         return lista;
     }
 
-    public void deleteSolicitud(Long id) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia el proceso de borrar el libro con el id = {0}", id);
-        SolicitudEntity solicitudEntity = persistence.find(id);
-        if (solicitudEntity == null) {
-            throw new WebApplicationException("El recurso /solicitudes/" + id + " no existe.", 404);
-        }
+    public void deleteSolicitud(Long id) {
+        LOGGER.log(Level.INFO, "Inicia el proceso de borrar el solicitud con el id = {0}", id);
         persistence.delete(id);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar un Empleado id={0}", id);
     }
 
     public SolicitudEntity updateSolicitud(Long id, SolicitudEntity nueva) {
