@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
@@ -63,14 +58,10 @@ public class PropuestaPersistence {
         q.setParameter("propuestaId", propuestaId);
         List<PropuestaEntity> results = q.getResultList();
         PropuestaEntity review = null;
-        if (results == null) {
-            review = null;
-        } else if (results.isEmpty()) {
-            review = null;
-        } else if (results.size() >= 1) {
+        if (results != null && results.size() >= 1) {
             review = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la propueta con id = {0} del empleado con id =" + empleadoId, propuestaId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar la propueta con id = {1} del empleado con id {0}", new Object[]{empleadoId, propuestaId});
         return review;
     }
 
@@ -137,14 +128,14 @@ public class PropuestaPersistence {
      * Si existe alguna devuelve la primera.
      */
     public List<PropuestaEntity> findAllByCosto(Integer costo) {
-        LOGGER.log(Level.INFO, "Consultando propuestas por costo ", costo);
+        LOGGER.log(Level.INFO, "Consultando propuestas por costo {0}", costo);
         // Se crea un query para buscar propuestaes con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From PropuestaEntity e where e.costo = :costo", PropuestaEntity.class); //Quey tipeado para consulta
         // Se remplaza el placeholder ":name" con el valor del argumento. Igual que el ? en el PreparedStatement
         query = query.setParameter("costo", costo); //Parecido al Set de parametros del PreparedStatement
         // Se invoca el query se obtiene la lista resultado
         List<PropuestaEntity> propuestasCosto = query.getResultList(); //Retorna una lista con las tuplas resultados.        
-        LOGGER.log(Level.INFO, "Saliendo de las propuestas por costo ", costo);
+        LOGGER.log(Level.INFO, "Saliendo de las propuestas por costo {0}", costo);
         return propuestasCosto;
     }
 

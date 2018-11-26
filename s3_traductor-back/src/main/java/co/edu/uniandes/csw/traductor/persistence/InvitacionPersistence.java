@@ -51,24 +51,20 @@ public class InvitacionPersistence
      */
 	
     public InvitacionEntity find(Long clienteId,Long invitacionId) {
-        LOGGER.log(Level.INFO, "Consultando invitacion con id ={0} del cliente con id: " + clienteId, invitacionId);
+        LOGGER.log(Level.INFO, "Consultando invitacion con id ={0} del cliente con id {1}", new Object[]{invitacionId,clienteId});
         /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
         el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
         Suponga que es algo similar a "select * from InvitacionEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
          */
-		TypedQuery<InvitacionEntity> q = em.createQuery("select p from InvitacionEntity p where (p.cliente.id = :clienteId) and (p.id = :invitacionId)", InvitacionEntity.class);
+        TypedQuery<InvitacionEntity> q = em.createQuery("select p from InvitacionEntity p where (p.cliente.id = :clienteId) and (p.id = :invitacionId)", InvitacionEntity.class);
         q.setParameter("clienteId", clienteId);
         q.setParameter("invitacionId", invitacionId);
         List<InvitacionEntity> results = q.getResultList();
         InvitacionEntity review = null;
-        if (results == null) {
-            review = null;
-        } else if (results.isEmpty()) {
-            review = null;
-        } else if (results.size() >= 1) {
+        if (results != null && results.size() >= 1) {
             review = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la invitacion con id = {0} del cliente con id =" + clienteId, invitacionId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar la invitacion con id = {0} del cliente con id = {1}", new Object[]{invitacionId,clienteId});
         return review;        
     }
     /**

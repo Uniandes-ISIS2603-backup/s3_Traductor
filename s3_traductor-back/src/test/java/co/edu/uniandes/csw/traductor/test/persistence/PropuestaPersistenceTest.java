@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.test.persistence;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
 import co.edu.uniandes.csw.traductor.persistence.PropuestaPersistence;
@@ -134,9 +129,7 @@ public class PropuestaPersistenceTest
         PropuestaEntity newEntity = factory.manufacturePojo(PropuestaEntity.class);
         PropuestaEntity result = propuestaPersistence.create(newEntity);
         Assert.assertNotNull(result);
-        PropuestaEntity entity = em.find(PropuestaEntity.class, result.getId());
-        //Assert.assertEquals(newEntity.getIdEmpleado(), entity.getIdEmpleado());
-        //Se dejo comentada la aserción debido a que se ha removido el atributo IdEmpleado
+        PropuestaEntity entity = em.find(PropuestaEntity.class, result.getId());        
     }	
 	
 	/**
@@ -200,7 +193,7 @@ public class PropuestaPersistenceTest
 		}
 		
 		List<PropuestaEntity> respuesta = propuestaPersistence.findAllByCosto(1); //Le pide a la BD que le retorne todos las propuestas con costo 1.
-		Assert.assertEquals("Deberia haber 4 propuestas con el costo de 1 pesito", respuesta.size(), 4);
+		Assert.assertEquals("Deberia haber 4 propuestas con el costo de 1 pesito", 4 ,respuesta.size());
 	}
 	
 	/**

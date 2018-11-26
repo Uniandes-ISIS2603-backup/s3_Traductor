@@ -42,12 +42,12 @@ public class SolicitudResource {
 
     @POST
     public SolicitudDTO createSolicitud(SolicitudDTO solicitud) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "SolicitudResource createSolicitud: input: {0}", solicitud.toString());
+        LOGGER.log(Level.INFO, "SolicitudResource createSolicitud: input: {0}", solicitud);
         SolicitudEntity solicitudEntity = solicitud.toEntity();
 
         SolicitudEntity nuevaSolicitudEntity = solicitudLogic.createSolicitud(solicitudEntity);
         SolicitudDTO nuevaSolicitudDTO = new SolicitudDTO(nuevaSolicitudEntity);
-        LOGGER.log(Level.INFO, "Solicitudesource createSolicitud: output: {0}", solicitud.toString());
+        LOGGER.log(Level.INFO, "Solicitudesource createSolicitud: output: {0}", solicitud);
         return nuevaSolicitudDTO;
     }
 
@@ -55,7 +55,7 @@ public class SolicitudResource {
     public List<SolicitudDTO> getSolicitudes() throws BusinessLogicException {
         LOGGER.info("SolicitudResource getSolicitudes: input: void");
         List<SolicitudDTO> respuesta = listEntity2DTO(solicitudLogic.getSolicitudes());
-        LOGGER.log(Level.INFO, "SolicitudResource getSolicitudes: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "SolicitudResource getSolicitudes: output: {0}", respuesta);
         return respuesta;
     }
 
@@ -83,7 +83,7 @@ public class SolicitudResource {
         }
         //COMENTARIO
         SolicitudDTO actualizada = new SolicitudDTO(solicitudLogic.updateSolicitud(id, nueva.toEntity()));
-        LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", actualizada.toString());
+        LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", actualizada);
         return actualizada;
     }
 

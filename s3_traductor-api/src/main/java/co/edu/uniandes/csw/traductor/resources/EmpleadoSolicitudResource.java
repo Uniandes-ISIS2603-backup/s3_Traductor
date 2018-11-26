@@ -68,7 +68,7 @@ public class EmpleadoSolicitudResource {
             throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + NO_EXISTE, 404);
         }
         SolicitudDTO solicitud = new SolicitudDTO(empleadoSolicitudLogic.addSolicitud(solicitudId, empleadoId));
-        LOGGER.log(Level.INFO, "EmpleadoSolicitud addCalificaion: output: {0}", solicitud.toString());
+        LOGGER.log(Level.INFO, "EmpleadoSolicitud addCalificaion: output: {0}", solicitud);
         return solicitud;
     }
 

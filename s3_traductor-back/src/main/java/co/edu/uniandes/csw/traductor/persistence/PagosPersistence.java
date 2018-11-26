@@ -57,20 +57,16 @@ public class PagosPersistence {
      * @return una editorial.
      */
     public PagosEntity find(Long idCliente,Long idTransaccion) {
-       LOGGER.log(Level.INFO, "Consultando el pago con id = {0} del cliente con id = " + idCliente, idTransaccion);
+       LOGGER.log(Level.INFO, "Consultando el pago con id = {0} del cliente con id = {1}", new Object[]{idTransaccion,idCliente});
         TypedQuery<PagosEntity> q = em.createQuery("select p from PagosEntity p where (p.cliente.id = :idCliente) and (p.id = :idTransaccion)", PagosEntity.class);
         q.setParameter("idCliente", idCliente);
         q.setParameter("idTransaccion", idTransaccion);
         List<PagosEntity> results = q.getResultList();
         PagosEntity pago = null;
-        if (results == null) {
-            pago = null;
-        } else if (results.isEmpty()) {
-            pago = null;
-        } else if (results.size() >= 1) {
+        if (results != null && results.size() >= 1) {
             pago = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el pago con id = {0} del cliente con id =" + idTransaccion, idCliente);
+        LOGGER.log(Level.INFO, "Saliendo de consultar el pago con id = {0} del cliente con id = {1}", new Object[]{idTransaccion,idCliente});
         return pago;
     }
     public PagosEntity update(PagosEntity pagosEntity) {
