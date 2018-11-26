@@ -64,7 +64,7 @@ public class EmpleadoCalificacionResource {
             throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + NO_EXISTE, 404);
         }
         CalificacionDTO calificacionDTO = new CalificacionDTO(empleadoCalificacionLogic.addCalificacion(empleadoId, calificacionId));
-        LOGGER.log(Level.INFO, "EEmpleadoCalificacionResource addCalificacion: output: {0}", calificacionDTO.toString());
+        LOGGER.log(Level.INFO, "EEmpleadoCalificacionResource addCalificacion: output: {0}", calificacionDTO);
         return calificacionDTO;
     }
 
@@ -77,7 +77,7 @@ public class EmpleadoCalificacionResource {
     public List<CalificacionDTO> getCalificaciones(@PathParam("empleadoId") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
         List<CalificacionDTO> listaDTOs = calificacionEntiryToDTO(empleadoCalificacionLogic.getCalificaciones(empleadoId));
-        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: output: {0}", listaDTOs);
         return listaDTOs;
     }
     @GET
@@ -88,7 +88,7 @@ public class EmpleadoCalificacionResource {
             throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/calificaciones/" + calificacionId + NO_EXISTE, 404);
         }
         CalificacionDTO calificacionDTO = new CalificacionDTO(empleadoCalificacionLogic.getCalificacion(empleadoId, calificacionId));
-        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getBook: output: {0}", calificacionDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getBook: output: {0}", calificacionDTO);
         return calificacionDTO;
     }
     /**

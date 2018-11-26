@@ -58,7 +58,7 @@ public class EmpleadoAreaConocimientoResource {
             throw new WebApplicationException("El recurso /areasConocimiento/" + areaConocimientoId + NO_EXISTE, 404);
         }
         AreaConocimientoDTO areaDTO = new AreaConocimientoDTO(empleadoAreaLogic.addArea(empleadoId, areaConocimientoId));
-        LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource addArea: output: {0}", areaDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource addArea: output: {0}", areaDTO);
         return areaDTO;
     }
 
@@ -71,7 +71,7 @@ public class EmpleadoAreaConocimientoResource {
     public List<AreaConocimientoDTO> getAreas(@PathParam("empleadoId") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getAreas: input: {0}", empleadoId);
         List<AreaConocimientoDTO> listaDTOs = areasEntityToDTO(empleadoAreaLogic.getAreasConocimiento(empleadoId));
-        LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getAreas: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getAreas: output: {0}", listaDTOs);
         return listaDTOs;
     }
     @GET
@@ -82,7 +82,7 @@ public class EmpleadoAreaConocimientoResource {
             throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/areasConocimiento/" + areaConocimientoId + NO_EXISTE, 404);
         }
         AreaConocimientoDTO areaDTO = new AreaConocimientoDTO(empleadoAreaLogic.getAreaConocmiento(empleadoId, areaConocimientoId));
-        LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getArea: output: {0}", areaDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource getArea: output: {0}", areaDTO);
         return areaDTO;
     }
     /**

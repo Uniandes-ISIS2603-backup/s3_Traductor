@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.ClienteDTO;
@@ -70,14 +65,14 @@ public class ClienteResource
     @POST
     public ClienteDTO createCliente(ClienteDTO cliente) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", cliente.toString());
+        LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", cliente);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ClienteEntity clienteEntity = cliente.toEntity();
         // Invoca la lógica para crear el cliente nueva
         ClienteEntity nuevoClienteEntity = clienteLogic.createCliente(clienteEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         ClienteDTO nuevoClienteDTO = new ClienteDTO(nuevoClienteEntity);
-        LOGGER.log(Level.INFO, "ClienteResource createCliente: output: {0}", nuevoClienteDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteResource createCliente: output: {0}", nuevoClienteDTO);
         return nuevoClienteDTO;  
     }
     
@@ -92,26 +87,9 @@ public class ClienteResource
     {
         LOGGER.info("ClienteResource getClientes: input: void");
         List<ClienteDetailDTO> listaClientes = listEntity2DetailDTO(clienteLogic.getClientes());
-        LOGGER.log(Level.INFO, "ClienteResource getClientes: output: {0}", listaClientes.toString());
+        LOGGER.log(Level.INFO, "ClienteResource getClientes: output: {0}", listaClientes);
         return listaClientes;
     }
-    
-//    /**
-//     * Busca y devuelve todos los clientes que existen en la aplicacion
-//     * del tipo buscado.
-//     *
-//     * @param tipo El tipo de clientes a buscar
-//     * @return JSONArray {@link ClienteDetailDTO} - Los clientes
-//     * encontrados en la aplicación de ese tipo. Si no hay ninguno retorna una lista vacía.
-//     */
-//    @GET
-//    public List<ClienteDetailDTO> getClientesDeUnTipo(TipoCliente tipo)
-//    {
-//        LOGGER.info("ClienteResource getClientesDeUnTipo: input: void");
-//        List<ClienteDetailDTO> listaClientes = listEntity2DetailDTO(clienteLogic.getClientesByTipo(tipo));
-//        LOGGER.log(Level.INFO, "ClienteResource getClientesDeUnTipo: output: {0}", listaClientes.toString());
-//        return listaClientes;
-//    }
     
     /**
      * Busca el cliente con el id asociado recibido en la URL y la devuelve.
@@ -132,7 +110,7 @@ public class ClienteResource
             throw new WebApplicationException(RECURSO_CLIENTE + clientesId + NO_EXISTE, 404);
         }
         ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteEntity);
-        LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO);
         return detailDTO;
     }
     
@@ -153,13 +131,13 @@ public class ClienteResource
     @Path("{clientesId: \\d+}")
     public ClienteDetailDTO updateCliente(@PathParam("clientesId") Long clientesId, ClienteDetailDTO cliente) throws WebApplicationException
     {
-        LOGGER.log(Level.INFO, "ClienteResouce updateCliente: input: id:{0} , cliente: {1}", new Object[]{clientesId, cliente.toString()});
+        LOGGER.log(Level.INFO, "ClienteResouce updateCliente: input: id:{0} , cliente: {1}", new Object[]{clientesId, cliente});
         cliente.setId(clientesId);
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException(RECURSO_CLIENTE + clientesId + NO_EXISTE, 404);
         }
         ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteLogic.updateCliente(clientesId, cliente.toEntity()));
-        LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "clienteResource updateCliente: output: {0}", detailDTO);
         return detailDTO;
     }
     

@@ -58,7 +58,7 @@ public class SolicitudIdiomaResource {
       if(solicitudLogic.getSolicitud(solicitudId)==null)
           throw new WebApplicationException("El recurso /solicitud/"+solicitudId+"/idioma/"+idiomaId+" no existe",404);
       IdiomaDTO idioma=new IdiomaDTO(solicitudIdiomaLogic.getIdioma(solicitudId,idiomaId));
-      LOGGER.log(Level.INFO,"SolicitudIdiomaResource getIdioma: output: {0}", idioma.toString());
+      LOGGER.log(Level.INFO,"SolicitudIdiomaResource getIdioma: output: {0}", idioma);
       return idioma;
   }
    

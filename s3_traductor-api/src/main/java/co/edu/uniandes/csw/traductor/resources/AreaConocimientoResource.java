@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.*;
@@ -18,7 +13,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -60,7 +54,7 @@ public class AreaConocimientoResource {
 
         // TODO:[createArea] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         //Llamado al Logger, no se para que sirve :(
-        LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: input: {0}", nuevaArea.toString());
+        LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: input: {0}", nuevaArea);
 
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         AreaConocimientoEntity areaEntity = nuevaArea.toEntity();
@@ -68,7 +62,7 @@ public class AreaConocimientoResource {
         AreaConocimientoEntity nuevaEntity = areaLogic.createArea(areaEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.		        
         AreaConocimientoDTO respuestaDTO = new AreaConocimientoDTO(nuevaEntity);
-        LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: output: {0}", respuestaDTO.toString());
+        LOGGER.log(Level.INFO, "AreaConocimientoResources createArea: output: {0}", respuestaDTO);
         return respuestaDTO;
     }
 
@@ -83,7 +77,7 @@ public class AreaConocimientoResource {
         // TODO: [getAllAreas] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
         LOGGER.info("AreaConocimientoResources getAllAreas: input: void");
         List<AreaConocimientoDTO> listaAreas = listEntity2DetailDTO(areaLogic.getAllAreas()); //Se llama a la logica para que devuelva la lista !
-        LOGGER.log(Level.INFO, "AreaConocimientoResources getAllAreas: output: {0}", listaAreas.toString());
+        LOGGER.log(Level.INFO, "AreaConocimientoResources getAllAreas: output: {0}", listaAreas);
         return listaAreas;
     }
 
@@ -107,7 +101,7 @@ public class AreaConocimientoResource {
             throw new WebApplicationException("El recurso /areasConocimiento/" + id + " no existe.", 404);
         }
         AreaConocimientoDTO buscada = new AreaConocimientoDTO(areaEntity);
-        LOGGER.log(Level.INFO, "AreaConocimientoResource getArea: output: {0}", buscada.toString());
+        LOGGER.log(Level.INFO, "AreaConocimientoResource getArea: output: {0}", buscada);
         return buscada;
     }
 

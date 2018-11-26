@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
@@ -92,7 +87,7 @@ public class EmpleadoPersistence {
      * existe alguno devuelve el primero.
      */
     public EmpleadoEntity findByNombreUsuario(String nombreUsuario) {
-        LOGGER.log(Level.INFO, "Consultando empleados por nombre de usuario ", nombreUsuario);
+        LOGGER.log(Level.INFO, "Consultando empleados por nombre de usuario. Nombre = {0} ", nombreUsuario);
         // Se crea un query para buscar empleados con el nombre de usuario que recibe el método como argumento. ":nombreUsuario" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From EmpleadoEntity e where e.nombreUsuario = :nombreUsuario", EmpleadoEntity.class);
         // Se remplaza el placeholder ":nombreUsuario" con el valor del argumento 
@@ -107,7 +102,7 @@ public class EmpleadoPersistence {
         } else {
             result = sameNombreUsuario.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar empleados por nombre de usuario ", nombreUsuario);
+        LOGGER.log(Level.INFO, "Saliendo de consultar empleados por nombre de usuario. Nombre = {0} ", nombreUsuario);
         return result;
     }
     /**
@@ -118,7 +113,7 @@ public class EmpleadoPersistence {
      * existe alguno devuelve el primero.
      */
     public EmpleadoEntity findByCorreo(String correoElectronico) {
-        LOGGER.log(Level.INFO, "Consultando empleados por correo electronico ", correoElectronico);
+        LOGGER.log(Level.INFO, "Consultando empleados por correo electronico. Correo = {0} ", correoElectronico);
         // Se crea un query para buscar empleados con el correo que recibe el método como argumento. ":correoElectronico" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From EmpleadoEntity e where e.correoElectronico = :correoElectronico", EmpleadoEntity.class);
         // Se remplaza el placeholder ":correoElectronico" con el valor del argumento 
@@ -133,7 +128,7 @@ public class EmpleadoPersistence {
         } else {
             result = sameCorreoElectronico.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar Empleados por correo electronico ", correoElectronico);
+        LOGGER.log(Level.INFO, "Saliendo de consultar empleados por correo electronico. Correo = {0} ", correoElectronico);
         return result;
     }
 }

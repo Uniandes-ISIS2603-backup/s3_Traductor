@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.ClienteDetailDTO;
@@ -65,7 +60,7 @@ public class ClientePropuestaResource
 		}		
         
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.addPropuesta(clienteId, propuestaId));
-        LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta);
         return respuesta;
     }
 	
@@ -80,7 +75,7 @@ public class ClientePropuestaResource
     public List<PropuestaDTO> getAllPropuestas(@PathParam("clientesId") Long clienteId) {
         LOGGER.log(Level.INFO, "ClientePropuestaResource getAllPropuestas: input: {0}", clienteId);
         List<PropuestaDTO> listaObjetos = propuestasADTO(clientePropuestaLogic.getPropuestas(clienteId));		
-        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos.toString());
+        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos);
         return listaObjetos;
     }	
 	
@@ -107,7 +102,7 @@ public class ClientePropuestaResource
         }
 		
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.getPropuesta(clienteId, propuestaId));
-        LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: output: {0}", respuesta);
         return respuesta;
     }
 	

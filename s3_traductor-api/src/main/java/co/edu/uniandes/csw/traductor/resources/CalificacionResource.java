@@ -52,7 +52,7 @@ public class CalificacionResource {
     public List<CalificacionDTO> getCalificaciones() {
         LOGGER.info("CalificacionResource getCalificaciones: input: void");
         List<CalificacionDTO> listaCalificaciones = listEntity2DTO(calificacionLogic.getCalificaciones());
-        LOGGER.log(Level.INFO, "CalificacionResource getCalificaciones: output: {0}", listaCalificaciones.toString());
+        LOGGER.log(Level.INFO, "CalificacionResource getCalificaciones: output: {0}", listaCalificaciones);
         return listaCalificaciones;
     }
 
@@ -74,7 +74,7 @@ public class CalificacionResource {
             throw new WebApplicationException("El recurso /calificaciones/" + calificacionesId + " no existe.", 404);
         }
         CalificacionDTO dtoCalificacion = new CalificacionDTO(calificacionEntity);
-        LOGGER.log(Level.INFO, "CalificacionResource getCalificacion: output: {0}", dtoCalificacion.toString());
+        LOGGER.log(Level.INFO, "CalificacionResource getCalificacion: output: {0}", dtoCalificacion);
         return dtoCalificacion;
     }
 
@@ -92,14 +92,14 @@ public class CalificacionResource {
      */
     @POST
     public CalificacionDTO createCalificacion(CalificacionDTO calificacion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "CalificacionResource createCalificacion: input: {0}", calificacion.toString());
+        LOGGER.log(Level.INFO, "CalificacionResource createCalificacion: input: {0}", calificacion);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         CalificacionEntity calificacionEntity = calificacion.toEntity();
         // Invoca la lógica para crear la calificacion nueva
         CalificacionEntity nuevaCalificacionEntity = calificacionLogic.createCalificacion(calificacionEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         CalificacionDTO nuevaCalificacionDTO = new CalificacionDTO(nuevaCalificacionEntity);
-        LOGGER.log(Level.INFO, "CalificacionResource createCalificacion: output: {0}", nuevaCalificacionDTO.toString());
+        LOGGER.log(Level.INFO, "CalificacionResource createCalificacion: output: {0}", nuevaCalificacionDTO);
         return nuevaCalificacionDTO;
     }
 

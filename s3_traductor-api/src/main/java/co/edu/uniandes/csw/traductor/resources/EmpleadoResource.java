@@ -64,14 +64,14 @@ public class EmpleadoResource
     @POST
     public EmpleadoDTO createEmpleado(EmpleadoDTO empleado) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: input: {0}", empleado.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: input: {0}", empleado);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         EmpleadoEntity empleadoEntity = empleado.toEntity();
         // Invoca la lógica para crear la editorial nueva
         EmpleadoEntity nuevoEmpleadoEntity = logic.createEmpleado(empleadoEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         EmpleadoDTO nuevoEmpleadoDTO = new EmpleadoDTO(nuevoEmpleadoEntity);
-        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: output: {0}", nuevoEmpleadoDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource createEmpleado: output: {0}", nuevoEmpleadoDTO);
         return nuevoEmpleadoDTO;  
     }
     
@@ -86,7 +86,7 @@ public class EmpleadoResource
     {
         LOGGER.info("EmpleadoResource getEmpleados: input: void");
         List<EmpleadoDetailDTO> listaEmpleados = listEntity2DetailDTO(logic.getEmpleados());
-        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleados: output: {0}", listaEmpleados.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleados: output: {0}", listaEmpleados);
         return listaEmpleados;
     }
     
@@ -109,7 +109,7 @@ public class EmpleadoResource
             throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + NO_EXISTE, 404);
         }
         EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(empleadoEntity);
-        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleado: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoResource getEmpleado: output: {0}", detailDTO);
         return detailDTO; //Estaba retornando null, se te paso aqui Salo.
     }
     
@@ -130,13 +130,13 @@ public class EmpleadoResource
     @Path("{empleadoId: \\d+}")
     public EmpleadoDetailDTO updateEmpleado(@PathParam("empleadoId") Long empleadoId, EmpleadoDetailDTO empleado) throws WebApplicationException
     {
-        LOGGER.log(Level.INFO, "EmpleadoResouce updateEmpleado: input: id:{0} , empleado: {1}", new Object[]{empleadoId, empleado.toString()});
+        LOGGER.log(Level.INFO, "EmpleadoResouce updateEmpleado: input: id:{0} , empleado: {1}", new Object[]{empleadoId, empleado});
         empleado.setId(empleadoId);
         if (logic.getEmpleado(empleadoId) == null) {
             throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + NO_EXISTE, 404);
         }
         EmpleadoDetailDTO detailDTO = new EmpleadoDetailDTO(logic.updateEmpleado(empleadoId, empleado.toEntity()));
-        LOGGER.log(Level.INFO, "empleadoResource updateEmpleado: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "empleadoResource updateEmpleado: output: {0}", detailDTO);
         return detailDTO;
     }
     

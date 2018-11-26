@@ -51,7 +51,7 @@ public class IdiomaResource {
     public List<IdiomaDTO> getIdiomas() {
         LOGGER.info("IdiomaResource getIdiomas: input: void");
         List<IdiomaDTO> listaIdiomas = listEntity2DTO(idiomaLogic.getIdiomas());
-        LOGGER.log(Level.INFO, "IdiomaResource getIdiomas: output: {0}", listaIdiomas.toString());
+        LOGGER.log(Level.INFO, "IdiomaResource getIdiomas: output: {0}", listaIdiomas);
         return listaIdiomas;
     }
 
@@ -72,7 +72,7 @@ public class IdiomaResource {
             throw new WebApplicationException("El recurso /idiomas/" + idiomasId + " no existe.", 404);
         }
         IdiomaDTO dtoIdioma = new IdiomaDTO(idiomaEntity);
-        LOGGER.log(Level.INFO, "IdiomaResource getIdioma: output: {0}", dtoIdioma.toString());
+        LOGGER.log(Level.INFO, "IdiomaResource getIdioma: output: {0}", dtoIdioma);
         return dtoIdioma;
     }
 
@@ -87,14 +87,14 @@ public class IdiomaResource {
      */
     @POST
     public IdiomaDTO createIdioma(IdiomaDTO idioma) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "IdiomaResource createIdioma: input: {0}", idioma.toString());
+        LOGGER.log(Level.INFO, "IdiomaResource createIdioma: input: {0}", idioma);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         IdiomaEntity idiomaEntity = idioma.toEntity();
         // Invoca la lógica para crear el idioma nuevo
         IdiomaEntity nuevoIdiomaEntity = idiomaLogic.createIdioma(idiomaEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         IdiomaDTO nuevoIdiomaDTO = new IdiomaDTO(nuevoIdiomaEntity);
-        LOGGER.log(Level.INFO, "IdiomaResource createIdioma: output: {0}", nuevoIdiomaDTO.toString());
+        LOGGER.log(Level.INFO, "IdiomaResource createIdioma: output: {0}", nuevoIdiomaDTO);
         return nuevoIdiomaDTO;
     }
 

@@ -71,7 +71,7 @@ public class InvitacionResource {
 
         // TODO:[createInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         //Llamado al Logger, no se para que sirve :(
-        LOGGER.log(Level.INFO, "InvitacionResources createInvitacion: input: {0}", nuevaInvitacion.toString());
+        LOGGER.log(Level.INFO, "InvitacionResources createInvitacion: input: {0}", nuevaInvitacion);
 
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         InvitacionEntity invitacionEntity = nuevaInvitacion.toEntity();
@@ -79,7 +79,7 @@ public class InvitacionResource {
         InvitacionEntity nuevaEntity = invitacionLogic.createInvitacion(clienteId, invitacionEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.		        
         InvitacionDTO respuestaDTO = new InvitacionDTO(nuevaEntity);
-        LOGGER.log(Level.INFO, "InvitacionResources createInvitacion: output: {0}", respuestaDTO.toString());
+        LOGGER.log(Level.INFO, "InvitacionResources createInvitacion: output: {0}", respuestaDTO);
         return respuestaDTO;
     }
 
@@ -103,7 +103,7 @@ public class InvitacionResource {
     @Path("{idInvitacion: \\d+}") //Es la forma como se va a reconocer lo contenido en la invitacion, en este caso es 1 o mas numeros.
     public InvitacionDTO updateInvitacion(@PathParam("clientesId") Long clienteId, @PathParam("idInvitacion") Long idInvitacion, InvitacionDTO invitacion) throws BusinessLogicException {
         // TODO: [updateInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-        LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: input: clienteId: {0} , invitacionId: {1} , review:{2}", new Object[]{clienteId, idInvitacion, invitacion.toString()});
+        LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: input: clienteId: {0} , invitacionId: {1} , review:{2}", new Object[]{clienteId, idInvitacion, invitacion});
 
         if (!idInvitacion.equals(invitacion.getIdInvitacion())) {
             throw new BusinessLogicException("Los ids de la invitacion no coinciden");
@@ -115,7 +115,7 @@ public class InvitacionResource {
         }
 
         InvitacionDTO reviewDTO = new InvitacionDTO(invitacionLogic.updateInvitacion(clienteId, invitacion.toEntity()));
-        LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: output:{0}", reviewDTO.toString());
+        LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: output:{0}", reviewDTO);
         return reviewDTO;
     }
 
@@ -131,7 +131,7 @@ public class InvitacionResource {
         // TODO: [getAllInvitaciones] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
         LOGGER.info("InvitacionResources getAllInvitaciones: input: void");
         List<InvitacionDTO> listaInvitaciones = listEntity2DetailDTO(invitacionLogic.getAllInvitaciones(clienteId)); //Se llama a la logica para que devuelva la lista !
-        LOGGER.log(Level.INFO, "InvitacionResources getAllInvitaciones: output: {0}", listaInvitaciones.toString());
+        LOGGER.log(Level.INFO, "InvitacionResources getAllInvitaciones: output: {0}", listaInvitaciones);
         return listaInvitaciones;
     }
 
@@ -156,7 +156,7 @@ public class InvitacionResource {
             throw new WebApplicationException("El recurso /cliente/" + clienteId + INVITACIONES + invitacionId + NO_EXISTE, 404);
         }
         InvitacionDTO entityBuscada = new InvitacionDTO(entity);
-        LOGGER.log(Level.INFO, "InvitacionResources getInvitacion: output: {0}", entityBuscada.toString());
+        LOGGER.log(Level.INFO, "InvitacionResources getInvitacion: output: {0}", entityBuscada);
         return entityBuscada;
     }
 

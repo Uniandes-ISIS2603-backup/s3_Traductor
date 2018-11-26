@@ -66,14 +66,14 @@ public class PropuestaResource {
     public PropuestaDTO createPropuesta(@PathParam("empleadoId") Long empleadosId, PropuestaDTO nuevaPropuesta) throws BusinessLogicException {
 
         // TODO: [createPropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
-        LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta.toString());
+        LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: input: {0}", nuevaPropuesta);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         PropuestaEntity entidad = nuevaPropuesta.toEntity();
         // Invoca la lógica para crear la propuesta nueva. Ahi abajo debe ir la logica.	
         PropuestaEntity nuevaEntity = propuestaLogic.createPropuesta(empleadosId, entidad);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.	
         PropuestaDTO respuestaDTO = new PropuestaDTO(nuevaEntity);
-        LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", respuestaDTO.toString());
+        LOGGER.log(Level.INFO, "PropuestaResources createPropuesta: output: {0}", respuestaDTO);
         return respuestaDTO;
     }
 
@@ -95,7 +95,7 @@ public class PropuestaResource {
     @Path("{propuestaId: \\d+}") //Es la forma como se va a reconocer lo contenido en la propuesta, en este caso es 1 o mas numeros.
     public PropuestaDTO updatePropuesta(@PathParam("empleadoId") Long empleadosId, @PathParam("propuestaId") Long propuestaId, PropuestaDTO propuesta) throws BusinessLogicException {
         // TODO: [updatePropuesta] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
-        LOGGER.log(Level.INFO, "propuestaResource updatePropuesta: input: empleadoId: {0} , propuestaId: {1} , propuesta:{2}", new Object[]{empleadosId, propuestaId, propuesta.toString()});
+        LOGGER.log(Level.INFO, "propuestaResource updatePropuesta: input: empleadoId: {0} , propuestaId: {1} , propuesta:{2}", new Object[]{empleadosId, propuestaId, propuesta});
         if (propuestaId.equals(propuesta.getId())) {
             throw new BusinessLogicException("Los ids de la propuesta no coinciden.");
         }
@@ -104,7 +104,7 @@ public class PropuestaResource {
             throw new WebApplicationException(RECURSO_EMPLEADO + empleadosId + "/propuestas/" + propuestaId + NO_EXISTE, 404);
         }
         PropuestaDTO propuestaDTO = new PropuestaDTO(propuestaLogic.updatePropuesta(empleadosId, propuesta.toEntity()));
-        LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", propuestaDTO.toString());
+        LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", propuestaDTO);
         return propuestaDTO;
     }
 
@@ -121,7 +121,7 @@ public class PropuestaResource {
 
         LOGGER.info("PropuestaResources getAllPropuestas: input: void");
         List<PropuestaDTO> listaPropuestas = listEntity2DetailDTO(propuestaLogic.getAllPropuestas(empleadoId)); //Se llama a la logica para que devuelva la lista !
-        LOGGER.log(Level.INFO, "PropuestaResources getAllPropuestas:: output: {0}", listaPropuestas.toString());
+        LOGGER.log(Level.INFO, "PropuestaResources getAllPropuestas:: output: {0}", listaPropuestas);
         return listaPropuestas;
     }
 
@@ -147,7 +147,7 @@ public class PropuestaResource {
         }
 
         PropuestaDTO entityBuscada = new PropuestaDTO(entity);
-        LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", entityBuscada.toString());
+        LOGGER.log(Level.INFO, "PropuestaResources getPropuesta: output: {0}", entityBuscada);
         return entityBuscada;
     }
 
