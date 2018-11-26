@@ -59,11 +59,11 @@ public class EmpleadoAreaConocimientoLogic {
      * @throws BusinessLogicException si el area no se encuentra en el empleado
      */
     public AreaConocimientoEntity getAreaConocmiento(Long empleadoId,Long areaConocimientoId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el area de conocimiento con id = {0} del empleado con id = " + empleadoId, areaConocimientoId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el area de conocimiento con id = {0} del empleado con id = {1}", new Object[]{empleadoId, areaConocimientoId});
         List<AreaConocimientoEntity> areas = empleadoPersistence.find(empleadoId).getAreasDeConocimiento();
         AreaConocimientoEntity areaEntity = areaPersistence.find(areaConocimientoId);
         int index = areas.indexOf(areaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el area de conocimiento con id = {0} del empleado con id = " + empleadoId, areaConocimientoId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el area de conocimiento con id = {0} del empleado con id = {1}", new Object[]{empleadoId, areaConocimientoId});
         if (index >= 0) {
             return areas.get(index);
         }

@@ -121,7 +121,7 @@ public class ClientePersistence
      * existe alguno devuelve el primero.
      */
     public ClienteEntity findByIdentificacion(String identificacion) {
-        LOGGER.log(Level.INFO, "Consultando clientes por identificacion ", identificacion);
+        LOGGER.log(Level.INFO, "Consultando clientes por identificacion. Identificacion = {0}", identificacion);
         // Se crea un query para buscar clientes con la identificacion que recibe el método como argumento. ":identificacion" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.identificacion = :identificacion", ClienteEntity.class);
         // Se remplaza el placeholder ":identificacion" con el valor del argumento 
@@ -136,7 +136,7 @@ public class ClientePersistence
         } else {
             result = sameIdentificacion.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por identificacion ", identificacion);
+        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por identificacion. Identificacion = {0}", identificacion);
         return result;
     }
     /**
@@ -147,7 +147,7 @@ public class ClientePersistence
      * existe alguno devuelve el primero.
      */
     public ClienteEntity findByNombreUsuario(String nombreUsuario) {
-        LOGGER.log(Level.INFO, "Consultando clientes por nombre de usuario ", nombreUsuario);
+        LOGGER.log(Level.INFO, "Consultando clientes por nombre de usuario. Nombre = {0} ", nombreUsuario);
         // Se crea un query para buscar clientes con el nombre de usuario que recibe el método como argumento. ":nombreUsuario" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.nombreUsuario = :nombreUsuario", ClienteEntity.class);
         // Se remplaza el placeholder ":nombreUsuario" con el valor del argumento 
@@ -162,7 +162,7 @@ public class ClientePersistence
         } else {
             result = sameNombreUsuario.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por nombre de usuario ", nombreUsuario);
+        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por nombre de usuario. Nombre = {0} ", nombreUsuario);
         return result;
     }
     /**
@@ -173,7 +173,7 @@ public class ClientePersistence
      * existe alguno devuelve el primero.
      */
     public ClienteEntity findByCorreo(String correoElectronico) {
-        LOGGER.log(Level.INFO, "Consultando clientes por correo electronico ", correoElectronico);
+        LOGGER.log(Level.INFO, "Consultando clientes por correo electronico. Correo = {0} ", correoElectronico);
         // Se crea un query para buscar clientes con el correo que recibe el método como argumento. ":correoElectronico" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.correoElectronico = :correoElectronico", ClienteEntity.class);
         // Se remplaza el placeholder ":correoElectronico" con el valor del argumento 
@@ -188,7 +188,7 @@ public class ClientePersistence
         } else {
             result = sameCorreoElectronico.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por correo electronico ", correoElectronico);
+        LOGGER.log(Level.INFO, "Saliendo de consultar clientes por correo electronico. Correo = {0} ", correoElectronico);
         return result;
     }
 }

@@ -54,11 +54,11 @@ public class EmpleadoSolicitudLogic {
      * empleado
      */
     public SolicitudEntity getSolicitud(Long empleadoId, Long solicitudId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la solicitud con id = {0} del empleado con id = " + empleadoId, solicitudId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la solicitud con id = {0} del empleado con id = {1}" ,new Object[]{empleadoId, solicitudId});
         List<SolicitudEntity> solicitudes = empleadoPersistence.find(empleadoId).getSolicitudes();
         SolicitudEntity soliEntity = solicitudPersistence.find(solicitudId);
         int index = solicitudes.indexOf(soliEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar la solicitud con id = {0} del empleado con id = " + empleadoId, solicitudId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar la solicitud con id = {0} del empleado con id = {1}" ,new Object[]{empleadoId, solicitudId});
         if (index >= 0) {
             return solicitudes.get(index);
         }
