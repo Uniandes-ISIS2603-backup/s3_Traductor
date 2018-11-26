@@ -71,11 +71,11 @@ public class ClientePropuestaLogic
 	
     public PropuestaEntity getPropuesta(Long clienteId, Long propuestaId) throws BusinessLogicException
 	{
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la propuesta con id = {0} del cliente con id = " + clienteId, propuestaId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la propuesta con id = {0} del cliente con id = {1}", new Object[]{clienteId, propuestaId});
         List<PropuestaEntity> entidadesHijasPadre = clientePersistence.find(clienteId).getPropuestas();
         PropuestaEntity entidadHija = propuestaPersistence.findSoloId(propuestaId);
         int index = entidadesHijasPadre.indexOf(entidadHija);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar la propuesta con id = {0} del cliente con id = " + clienteId, propuestaId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar la propuesta con id = {0} del cliente con id = {1}", new Object[]{clienteId, propuestaId});
         
 		if (index >= 0) {
             return entidadesHijasPadre.get(index);

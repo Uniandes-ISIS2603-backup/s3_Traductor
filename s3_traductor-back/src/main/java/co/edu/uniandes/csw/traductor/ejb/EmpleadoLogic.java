@@ -70,7 +70,7 @@ public class EmpleadoLogic {
      * @return La entidad que representa al Empleado que llega por parametro
      */
     public EmpleadoEntity getEmpleado(Long docID){
-        LOGGER.log(Level.INFO, "Inicia el proceso de consulta de un empleado con el id={0}",docID);
+        LOGGER.log(Level.INFO, "Inicia el proceso de consulta de un empleado con el id = {0}",docID);
         EmpleadoEntity EmpleadoEntity = persistence.find(docID);
         if(EmpleadoEntity==null)
             LOGGER.log(Level.SEVERE,"El empleado con el id = {0} no existe", docID);

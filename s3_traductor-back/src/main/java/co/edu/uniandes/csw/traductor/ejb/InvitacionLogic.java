@@ -93,7 +93,7 @@ public class InvitacionLogic {
      * @return la invitacion solicitada por medio de su id.
      */
     public InvitacionEntity getInvitacion(Long clienteId, Long invitacionId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la invitacion con id = {0} del cliente: " + clienteId, invitacionId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la invitacion con id = {0} del cliente: {1}", new Object[]{invitacionId,clienteId});
         // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
         return invitacionPersistence.find(clienteId, invitacionId);
     }
@@ -127,6 +127,6 @@ public class InvitacionLogic {
             throw new BusinessLogicException("La invitacion con id = " + invitacionId + " no esta asociado a el cliente con id = " + clienteId);
         }
         invitacionPersistence.delete(invitacionId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar la invitacion con id = {0} del cliente: " + clienteId, invitacionId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la invitacion con id = {0} del cliente: {1}", new Object[]{invitacionId,clienteId});
     }
 }

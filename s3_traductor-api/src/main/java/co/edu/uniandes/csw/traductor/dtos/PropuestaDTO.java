@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.adapters.DateAdapter;
@@ -72,7 +67,7 @@ public class PropuestaDTO implements Serializable {
             this.estado = propuestaEntity.getEstado();            
             this.tiempoEstimado = propuestaEntity.getTiempoEstimado();
             this.invitacion = (propuestaEntity.getInvitacion() != null) ? new InvitacionDTO(propuestaEntity.getInvitacion()) : null;
-//            this.pago = (propuestaEntity.getPago() != null ) ? new PagosDTO(propuestaEntity.getPago()) : null;
+
         }
     }
 
@@ -90,10 +85,7 @@ public class PropuestaDTO implements Serializable {
         propuestaEntity.setTiempoEstimado(tiempoEstimado);
         if (invitacion != null) {
             propuestaEntity.setInvitacion(invitacion.toEntity());
-        }
-//        if(pago != null) {
-//            propuestaEntity.setPago(pago.toEntity());
-//        }
+        }    
 
         return propuestaEntity;
     }
