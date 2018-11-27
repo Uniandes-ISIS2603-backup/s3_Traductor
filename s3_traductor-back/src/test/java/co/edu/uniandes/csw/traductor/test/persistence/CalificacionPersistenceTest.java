@@ -112,6 +112,6 @@ public class CalificacionPersistenceTest {
     @Test
     public void findByIDTest(){
         CalificacionEntity e=data.get(0);
-        Assert.assertEquals("El obejto deberia ser el mismo", e.getId(),(calificacionPersistance.find(data.get(0).getId()).getId()));
+        Assert.assertEquals("El obejto deberia ser el mismo", e.getId(),(calificacionPersistance.findSoloId(data.get(0).getId()).getId()));
     }
 }

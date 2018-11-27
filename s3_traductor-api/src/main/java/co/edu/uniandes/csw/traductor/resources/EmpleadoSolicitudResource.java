@@ -35,7 +35,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class EmpleadoSolicitudResource {
     
-    private static final Logger LOGGER = Logger.getLogger(EmpleadoCalificacionResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EmpleadoSolicitudResource.class.getName());
     @Inject
     private SolicitudLogic solicitudLogica;
     

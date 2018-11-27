@@ -174,11 +174,11 @@ public class EmpleadoResource
     }
     //llamado a calificaciones
      @Path("{empleadoId: \\d+}/calificaciones")
-    public Class<EmpleadoCalificacionResource> getEmpleadoCalificacionResource(@PathParam("empleadoId") Long empleadoId) {
+    public Class<CalificacionResource> getEmpleadoCalificacionResource(@PathParam("empleadoId") Long empleadoId) {
         if (logic.getEmpleado(empleadoId) == null) {
             throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + NO_EXISTE, 404);
         }
-        return EmpleadoCalificacionResource.class;
+        return CalificacionResource.class;
     }
     //llamado a solicitudes
      @Path("{empleadoId: \\d+}/solicitudes")

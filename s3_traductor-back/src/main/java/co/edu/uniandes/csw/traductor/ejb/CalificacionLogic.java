@@ -1,8 +1,10 @@
 package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.CalificacionEntity;
+import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.CalificacionPersistence;
+import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,76 +18,109 @@ import javax.inject.Inject;
 @Stateless
 public class CalificacionLogic {
 
-    private final static Logger LOGGER = Logger.getLogger(CalificacionLogic.class.getName());
+     private static final Logger LOGGER = Logger.getLogger(CalificacionLogic.class.getName());
+    public final static String EN_PROCESO = "EN_PROCESO"; //Valor de estado para la calificacion.
+    public final static String CULMINADA = "CULMINADA"; //Valor de estado para la calificacion.
 
     @Inject
-    private CalificacionPersistence persistence;
+    private CalificacionPersistence calificacionPersistence; //Invocación a la tabla de calificacion para trabajar en la base de datos.	
+
+    @Inject
+    private EmpleadoPersistence empleadoPersistence;
 
     /**
-     * encargado de persistir una calificacion en la base de datos
+     * Crea una calificacion en la persistencia.
      *
-     * @param calificacionEntity entidad que representa la informacion a
-     * persistir en la base de datos
-     * @return la misma entidad que es persistida en el metodo
-     * @throws BusinessLogicException si ya existe una calificacion con ese
-     * mismo id, o si la calificacion se pasa de su valor máximo
+     * @param empleadoId Identificacion del empleado.
+     * @param calificacionEntity La entidad que representa la calificacion a
+     * persistir.
+     * @return La entidad de la calificacion luego de persistirla.
+     * @throws BusinessLogicException Si la calificacion a persistir ya existe o si
+     * no se cumple la integridad de los datos requeridos.
      */
-    public CalificacionEntity createCalificacion(CalificacionEntity calificacionEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia el proceso de creacion de una calificacion");
-        //Verifica regla de negocio de que la calificación deve tener su valor entre 0 y 10.
-        if (calificacionEntity.getValorCalificacion() < 0 || calificacionEntity.getValorCalificacion() > 10) {
-            throw new BusinessLogicException("La calificacion posee un valor inválido");
+    public CalificacionEntity createCalificacion(Long empleadoId, CalificacionEntity calificacionEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de la calificacion");
+
+        // Verifica la regla de negocio. Verificacion de los datos del Entity.
+        if (calificacionEntity.getValorCalificacion()< 0) {
+            throw new BusinessLogicException("El valor de la calificacion no puede ser un valor negativo, su valor fue: " + calificacionEntity.getValorCalificacion());
+        } else if (calificacionEntity.getComentario().length() == 0 || calificacionEntity.getComentario()== null) {
+            throw new BusinessLogicException("La descripcion de la calificacion no puede ser nula o vacia");
         }
-        persistence.create(calificacionEntity);
-        LOGGER.log(Level.INFO, "Termina el proceso de creacion de la calificacion");
+
+        // Invoca la persistencia para crear la calificacion pues se ha validado todas las reglas.
+        EmpleadoEntity entidadPadre = empleadoPersistence.find(empleadoId);
+        LOGGER.log(Level.INFO, "Termina proceso de creación de la calificacion");
+        calificacionEntity.setEmpleado(entidadPadre);
+        return calificacionPersistence.create(calificacionEntity);
+    }
+
+    /**
+     * Actualiza la calificacion con el id recibido en la URL con la informacion
+     * que se recibe en el cuerpo de la petición.
+     *
+     * @param empleadoId Id del empleado a actualizar su calificacion a actualizar
+     * en la base de datos.
+     * @param calificacionEntity Entidad con la informacion a actualizar en la base
+     * de datos.
+     * @return La calificacion con la información actualizada.
+     */
+    public CalificacionEntity updateCalificacion(Long empleadoId, CalificacionEntity calificacionEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la calificacion del empleado con el id = {0}", empleadoId);
+        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.		
+        EmpleadoEntity entidadPadre = empleadoPersistence.find(empleadoId);
+        calificacionEntity.setEmpleado(entidadPadre);
+        calificacionPersistence.update(calificacionEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar la calificacion del empleado con el id = {0}", empleadoId);
         return calificacionEntity;
     }
 
     /**
-     * reotrna todas las calificaciones almacenadas en el sistema
+     * Obtener una calificacion por medio de su id.
      *
-     * @return Lista de las calificaciones almacenadas en el sistes
+     * @param empleadoId Identificacion del empleado
+     * @param calificacionId: id de la calificacion para ser buscada.
+     * @return la calificacion solicitada por medio de su id.
      */
-    public List<CalificacionEntity> getCalificaciones() {
-        LOGGER.log(Level.INFO, "Imicia la consulta de todas las califiacaciones");
-        List<CalificacionEntity> idiomas = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina la consulta");
-        return idiomas;
+    public CalificacionEntity getCalificacion(Long empleadoId, Long calificacionId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la calificacion con id = {0}", calificacionId);
+        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
+        return calificacionPersistence.find(empleadoId, calificacionId);
     }
 
     /**
-     * retorna la entidad que representa la informacion de la entidad buscada
-     * por id
+     * Obtener una calificacion por medio de su id sin tener en cuente el empleado.
      *
-     * @param calificacionID identifiacdor mediante el cual se va buscar la
-     * informacion de la entidad a retornar
-     * @return la entidad que representa la informacion de la calificacion
-     * buscada
+     * @param calificacionId: id de la calificacion para ser buscada.
+     * @return la calificacion solicitada por medio de su id.
      */
-    public CalificacionEntity getCalificacion(Long calificacionID) {
-        LOGGER.log(Level.INFO, "Inicia la consulta de calificacion segun el id={0}", calificacionID);
-        CalificacionEntity calificacionEntity = persistence.find(calificacionID);
-        if (calificacionEntity == null) {
-            LOGGER.log(Level.SEVERE, "La calificacion con el id = {0} no existe", calificacionID);
-        }
-        LOGGER.log(Level.INFO, "Termina el proceso de consulta de una calificacion con el id={0}", calificacionID);
-        return calificacionEntity;
+    public CalificacionEntity getCalificacionSoloId(Long calificacionId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la calificacion con id = {0}", calificacionId);
+        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
+        return calificacionPersistence.findSoloId(calificacionId);
     }
+
     /**
+     * Obtener todas las calificaciones existentes en la base de datos.
      *
-     * Actualizar un calificacion.
-     *
-     * @param calificacionesId: id del calificacion para buscarla en la base de
-     * datos.
-     * @param calificacionEntity: calificacion con los cambios para ser actualizada,
-     * por ejemplo el nombre.
-     * @return El calificacion con los cambios actualizados en la base de datos.
+     * @param empleadoId Identificador del empleado
+     * @return una lista de calificaciones.
      */
-    public CalificacionEntity updateCalificacion(Long calificacionesId, CalificacionEntity calificacionEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la calificacion con id = {0}", calificacionesId);
-        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
-        CalificacionEntity newEntity = persistence.update(calificacionEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar la calificacion con id = {0}", calificacionEntity.getId());
-        return newEntity;
+    public List<CalificacionEntity> getAllCalificaciones(Long empleadoId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        // Note que, por medio de la inyección de dependencias se llama al método "findAll()" que se encuentra en la persistencia.
+        EmpleadoEntity entidadPadre = empleadoPersistence.find(empleadoId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        return entidadPadre.getCalificaciones();
     }
+
+    /**
+     * Borrar un calificacion existente en la base de datos.
+     *
+     * @param empleadoId Identificacion del empleado
+     * @param calificacionId: id de la calificacion a borrar
+     * @throws BusinessLogicException Si la calificacion asociada posee una
+     * invitación, debido a que esa labor es responsabilidad del cliente que la
+     * interpuso.
+     */
 }
