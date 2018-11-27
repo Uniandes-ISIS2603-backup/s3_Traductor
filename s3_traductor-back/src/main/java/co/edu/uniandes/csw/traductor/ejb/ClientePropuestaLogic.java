@@ -99,6 +99,7 @@ public class ClientePropuestaLogic
         {
           cliente.getPropuestas().remove(index);
         }
-        throw new BusinessLogicException("El propuesta no esta asociada al cliente");
+        else
+            throw new BusinessLogicException("El propuesta no esta asociada al cliente");
     }
 }
