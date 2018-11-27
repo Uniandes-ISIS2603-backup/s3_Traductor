@@ -78,6 +78,7 @@ public class InvitacionLogic {
     public InvitacionEntity updateInvitacion(Long clienteId, InvitacionEntity invitacionEntity) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la invitacion del cliente con el id = {0}", clienteId);
         // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.		
+        System.out.println("El ID de la invitación a actuializar es:" + invitacionEntity.getId());
         ClienteEntity entidadPadre = clientePersistence.find(clienteId);
         invitacionEntity.setCliente(entidadPadre);
         invitacionPersistence.update(invitacionEntity);
