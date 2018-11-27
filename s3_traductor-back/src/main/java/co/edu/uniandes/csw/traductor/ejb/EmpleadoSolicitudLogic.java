@@ -37,7 +37,7 @@ public class EmpleadoSolicitudLogic {
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de agregarle una solicitud al empleado con id = {0}", empleadoId);
         EmpleadoEntity  empleadoEntity = empleadoPersistence.find(empleadoId);
-        SolicitudEntity solicitudEtity = solicitudPersistence.find(solicitudId);
+        SolicitudEntity solicitudEtity = solicitudPersistence.findSoloId(solicitudId);
         empleadoEntity.getSolicitudes().add(solicitudEtity);
         solicitudEtity.setEmpleado(empleadoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle una solicitud al empleado con id = {0}" , empleadoId);
@@ -56,7 +56,7 @@ public class EmpleadoSolicitudLogic {
     public SolicitudEntity getSolicitud(Long empleadoId, Long solicitudId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la solicitud con id = {0} del empleado con id = {1}" ,new Object[]{empleadoId, solicitudId});
         List<SolicitudEntity> solicitudes = empleadoPersistence.find(empleadoId).getSolicitudes();
-        SolicitudEntity soliEntity = solicitudPersistence.find(solicitudId);
+        SolicitudEntity soliEntity = solicitudPersistence.findSoloId(solicitudId);
         int index = solicitudes.indexOf(soliEntity);
         LOGGER.log(Level.INFO, "Termina proceso de consultar la solicitud con id = {0} del empleado con id = {1}" ,new Object[]{empleadoId, solicitudId});
         if (index >= 0) {
@@ -96,7 +96,7 @@ public class EmpleadoSolicitudLogic {
         
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce deleteSolicitud: input: empleadoId {0}, solicitudId: {1}", new Object[]{empleadoId, solicitudId});
         EmpleadoEntity empleado = empleadoPersistence.find(empleadoId);
-        SolicitudEntity solicitud = solicitudPersistence.find(solicitudId);
+        SolicitudEntity solicitud = solicitudPersistence.findSoloId(solicitudId);
         int index = empleado.getSolicitudes().indexOf(solicitud);
         if(index >= 0)
         {
