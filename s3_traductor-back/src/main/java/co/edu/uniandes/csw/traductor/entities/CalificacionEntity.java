@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
@@ -20,6 +15,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable
     private Long idEmpleado;
     private String comentario;
     private Integer valorCalificacion;
+    private String nombreCalificador;
     @PodamExclude
     @ManyToOne
     private EmpleadoEntity empleado;
@@ -53,5 +49,13 @@ public class CalificacionEntity extends BaseEntity implements Serializable
 
     public void setValorCalificacion(Integer valorCalificacion) {
         this.valorCalificacion = valorCalificacion;
+    }
+
+    public String getNombreCalificador() {
+        return nombreCalificador;
+    }
+
+    public void setNombreCalificador(String nombreCalificador) {
+        this.nombreCalificador = nombreCalificador;
     }
 }

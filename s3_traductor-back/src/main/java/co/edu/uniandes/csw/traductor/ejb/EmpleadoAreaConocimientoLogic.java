@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Alvaro
  */
 public class EmpleadoAreaConocimientoLogic {
      private final static Logger LOGGER=Logger.getLogger(EmpleadoAreaConocimientoLogic.class.getName());
@@ -37,6 +37,7 @@ public class EmpleadoAreaConocimientoLogic {
         EmpleadoEntity empleadoEntity = empleadoPersistence.find(empleadoId);
         AreaConocimientoEntity areaEntity = areaPersistence.find(areaConocimientoId);
         empleadoEntity.getAreasDeConocimiento().add(areaEntity);
+        areaEntity.getEmpleados().add(empleadoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle una area de conocimiento al empleado con id = {0}", empleadoId);
         return areaEntity;
     }
@@ -59,11 +60,11 @@ public class EmpleadoAreaConocimientoLogic {
      * @throws BusinessLogicException si el area no se encuentra en el empleado
      */
     public AreaConocimientoEntity getAreaConocmiento(Long empleadoId,Long areaConocimientoId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el area de conocimiento con id = {0} del empleado con id = " + empleadoId, areaConocimientoId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el area de conocimiento con id = {0} del empleado con id = {1}", new Object[]{empleadoId, areaConocimientoId});
         List<AreaConocimientoEntity> areas = empleadoPersistence.find(empleadoId).getAreasDeConocimiento();
         AreaConocimientoEntity areaEntity = areaPersistence.find(areaConocimientoId);
         int index = areas.indexOf(areaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el area de conocimiento con id = {0} del empleado con id = " + empleadoId, areaConocimientoId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el area de conocimiento con id = {0} del empleado con id = {1}", new Object[]{empleadoId, areaConocimientoId});
         if (index >= 0) {
             return areas.get(index);
         }
@@ -85,6 +86,11 @@ public class EmpleadoAreaConocimientoLogic {
         if(index >= 0)
         {
           empleado.getAreasDeConocimiento().remove(index);
+        }
+        int index2 = area.getEmpleados().indexOf(empleado);
+        if(index2 >= 0)
+        {
+          area.getEmpleados().remove(index2);
         }
         throw new BusinessLogicException("El area no esta asociada al empleado");
     }

@@ -36,15 +36,16 @@ import javax.ws.rs.core.MediaType;
 public class EmpleadoSolicitudResource {
     
     private static final Logger LOGGER = Logger.getLogger(EmpleadoCalificacionResource.class.getName());
-    //@Inject
-    //private EmpleadoLogic empleadoLogic
     @Inject
     private SolicitudLogic solicitudLogica;
-    @Inject
-    private EmpleadoLogic empleadoLogic;
     
     @Inject
     private EmpleadoSolicitudLogic empleadoSolicitudLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
 
     /**
      * agregar una calificaicon corespondiente al empleado
@@ -59,11 +60,11 @@ public class EmpleadoSolicitudResource {
     
     public SolicitudDTO addSolicitud(@PathParam("solicitudId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) {
         LOGGER.log(Level.INFO, "EmpleadoSolicitud addSolicitud: input: empleadoId {0}, solicitudId: {1}", new Object[]{empleadoId, solicitudId});
-        if (solicitudLogica.getSolicitud(solicitudId) == null) {
-            throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + " no existe.", 404);
+        if (solicitudLogica.getSolicitudSoloId(solicitudId) == null) {
+            throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + NO_EXISTE, 404);
         }
-        SolicitudDTO solicitud = new SolicitudDTO(empleadoSolicitudLogic.añadirSolicitud(solicitudId, empleadoId));
-        LOGGER.log(Level.INFO, "EmpleadoSolicitud addCalificaion: output: {0}", solicitud.toString());
+        SolicitudDTO solicitud = new SolicitudDTO(empleadoSolicitudLogic.addSolicitud(solicitudId, empleadoId));
+        LOGGER.log(Level.INFO, "EmpleadoSolicitud addCalificaion: output: {0}", solicitud);
         return solicitud;
     }
 
@@ -75,11 +76,8 @@ public class EmpleadoSolicitudResource {
     @GET
     public List<SolicitudDTO> getSolicitudes(@PathParam("id") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
-        EmpleadoEntity empleada = empleadoLogic.getEmpleado(empleadoId);
-        if (empleada == null) {
-            throw new WebApplicationException("El empleado con id : " + empleadoId + " no existe.", 404);
-        }
-        List<SolicitudDTO> solicitudesDTO = solicitudesListEntity2DTO(empleada.getSolicitudes());
+
+        List<SolicitudDTO> solicitudesDTO = solicitudesListEntity2DTO(empleadoSolicitudLogic.getSolicitudes(empleadoId));
 
         return solicitudesDTO;
     }
@@ -88,8 +86,8 @@ public class EmpleadoSolicitudResource {
     @Path("{solicitudId: \\d+}")
     public SolicitudDTO getSolicitud(@PathParam("EmpleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce getSolicitud: input: empleadoId: {0} , solicitudId: {1}", new Object[]{empleadoId, solicitudId});
-        if (solicitudLogica.getSolicitud(solicitudId) == null) {
-            throw new WebApplicationException("El recurso /empleado/" + empleadoId + "/solicitudes/" + solicitudId + " no existe.", 404);
+        if (solicitudLogica.getSolicitudSoloId(solicitudId) == null) {
+            throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + NO_EXISTE, 404);
         }
         SolicitudDTO solicitudDTO = new SolicitudDTO(empleadoSolicitudLogic.getSolicitud(empleadoId, solicitudId));
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce getSolicitud: output: {0}");
@@ -107,18 +105,10 @@ public class EmpleadoSolicitudResource {
     public void deleteSolicitud(@PathParam("EmpleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
         
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce deleteSolicitud: input: empleadoId {0}, solidicutdId: {1}", new Object[]{empleadoId, solicitudId});
-        EmpleadoEntity empleada = empleadoLogic.getEmpleado(empleadoId);
-        if (empleada == null) {
-            throw new WebApplicationException("El empleado con id: " + empleadoId + " no existe.", 404);
-            
+        if (solicitudLogica.getSolicitudSoloId(solicitudId) == null) {
+            throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + NO_EXISTE, 404);
         }
-        SolicitudEntity soli = solicitudLogica.getSolicitud(solicitudId);
-        int index = empleada.getSolicitudes().indexOf(soli);
-        if(index >= 0)
-        {
-          empleada.getSolicitudes().remove(index);
-        }
-        solicitudLogica.deleteSolicitud(solicitudId);
+        empleadoSolicitudLogic.deleteSolicitud(empleadoId, solicitudId);
     }
 
     /**

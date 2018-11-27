@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.resources;
 
 import co.edu.uniandes.csw.traductor.dtos.ClienteDetailDTO;
@@ -17,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -65,7 +61,7 @@ public class ClientePropuestaResource
 		}		
         
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.addPropuesta(clienteId, propuestaId));
-        LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "ClientePropuestaResource addPropuesta: output: {0}", respuesta);
         return respuesta;
     }
 	
@@ -80,7 +76,7 @@ public class ClientePropuestaResource
     public List<PropuestaDTO> getAllPropuestas(@PathParam("clientesId") Long clienteId) {
         LOGGER.log(Level.INFO, "ClientePropuestaResource getAllPropuestas: input: {0}", clienteId);
         List<PropuestaDTO> listaObjetos = propuestasADTO(clientePropuestaLogic.getPropuestas(clienteId));		
-        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos.toString());
+        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos);
         return listaObjetos;
     }	
 	
@@ -107,10 +103,25 @@ public class ClientePropuestaResource
         }
 		
         PropuestaDTO respuesta = new PropuestaDTO(clientePropuestaLogic.getPropuesta(clienteId, propuestaId));
-        LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: output: {0}", respuesta.toString());
+        LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: output: {0}", respuesta);
         return respuesta;
     }
-	
+    /**
+     * Delete
+     * @param clienteId
+     * @param propuestaId
+     * @throws BusinessLogicException 
+     */
+    @DELETE
+    @Path("{propuestaId: \\d+}")
+    public void deletePropuesta(@PathParam("clienteId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ClientePropuestaResource deletePropuesta: input: {0}", clienteId);
+        if (propuestaLogic.getPropuestaSoloId(propuestaId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/propuestas/" + propuestaId + " no existe.", 404);
+        }
+        clientePropuestaLogic.deletePropuesta(clienteId, propuestaId);
+        LOGGER.info("ClientePropuestaResource deletePropuesta: output: void");
+    }
 	/**
      * Convierte una lista de PropuestaEntity a una lista de PropuestaDTO.     *
      * @param entities Lista de PropuestaEntities a convertir.

@@ -34,7 +34,7 @@ public class EmpleadoLogic {
     
     /**
      * encargado de persistir un empleado en la base de datos
-     * @param EmpleadoEntity entidad que representa un Empleado, EmpleadoEntity !=null
+     * @param empleadoEntity entidad que representa un Empleado, EmpleadoEntity !=null
      * @return El mismo empleadoEntity luego de persistirlo
      * @throws BusinessLogicException si ya existe un Empleado en el sistema con ese mismo id o nombre
      */
@@ -56,7 +56,7 @@ public class EmpleadoLogic {
     }
     /**
      * entrega una lista con todos los Empleados almacenados en el sistema
-     * @return List<EmpleadoEntity> con los Empleados almacenados en la persitencia de la aplicacion
+     * @return Lista con los Empleados almacenados en la persitencia de la aplicacion
      */
     public List<EmpleadoEntity> getEmpleados(){
         LOGGER.log(Level.INFO,"Inicia la consulta de todos los Empleados");
@@ -70,7 +70,7 @@ public class EmpleadoLogic {
      * @return La entidad que representa al Empleado que llega por parametro
      */
     public EmpleadoEntity getEmpleado(Long docID){
-        LOGGER.log(Level.INFO, "Inicia la consulta de empleado segun el id "+docID);
+        LOGGER.log(Level.INFO, "Inicia el proceso de consulta de un empleado con el id = {0}",docID);
         EmpleadoEntity EmpleadoEntity = persistence.find(docID);
         if(EmpleadoEntity==null)
             LOGGER.log(Level.SEVERE,"El empleado con el id = {0} no existe", docID);

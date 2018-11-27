@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.test.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
@@ -120,7 +115,7 @@ public class SolicitudPersistenceTest {
     @Test
     public void getSolicitudesTest() {
         List<SolicitudEntity> list = solicitudrPersistence.findAll();
-        Assert.assertEquals(data.size(), 0);
+        Assert.assertEquals(0, data.size());
         for (SolicitudEntity ent : list) {
             boolean found = false;
             for (SolicitudEntity entity : data) {

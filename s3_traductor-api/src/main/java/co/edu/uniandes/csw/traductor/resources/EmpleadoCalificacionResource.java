@@ -41,6 +41,11 @@ public class EmpleadoCalificacionResource {
     private CalificacionLogic calificacionLogic;
     @Inject
     private EmpleadoCalificacionLogic empleadoCalificacionLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
 
     /**
      * agregar una calificaicon corespondiente al empleado
@@ -56,10 +61,10 @@ public class EmpleadoCalificacionResource {
     public CalificacionDTO addCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource addCalificacion: input: empleadoID: {0} , calificacionID: {1}", new Object[]{empleadoId, calificacionId});
         if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + NO_EXISTE, 404);
         }
         CalificacionDTO calificacionDTO = new CalificacionDTO(empleadoCalificacionLogic.addCalificacion(empleadoId, calificacionId));
-        LOGGER.log(Level.INFO, "EEmpleadoCalificacionResource addCalificacion: output: {0}", calificacionDTO.toString());
+        LOGGER.log(Level.INFO, "EEmpleadoCalificacionResource addCalificacion: output: {0}", calificacionDTO);
         return calificacionDTO;
     }
 
@@ -72,7 +77,7 @@ public class EmpleadoCalificacionResource {
     public List<CalificacionDTO> getCalificaciones(@PathParam("empleadoId") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
         List<CalificacionDTO> listaDTOs = calificacionEntiryToDTO(empleadoCalificacionLogic.getCalificaciones(empleadoId));
-        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: output: {0}", listaDTOs);
         return listaDTOs;
     }
     @GET
@@ -80,10 +85,10 @@ public class EmpleadoCalificacionResource {
     public CalificacionDTO getCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificacion: input: empleadoId: {0} , calificacionId: {1}", new Object[]{empleadoId, calificacionId});
         if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/calificaciones/" + calificacionId + NO_EXISTE, 404);
         }
         CalificacionDTO calificacionDTO = new CalificacionDTO(empleadoCalificacionLogic.getCalificacion(empleadoId, calificacionId));
-        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getBook: output: {0}", calificacionDTO.toString());
+        LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getBook: output: {0}", calificacionDTO);
         return calificacionDTO;
     }
     /**
@@ -97,7 +102,7 @@ public class EmpleadoCalificacionResource {
     public void deleteCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource deleteCalificacion: input: {0}", empleadoId);
         if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + NO_EXISTE, 404);
         }
         empleadoCalificacionLogic.deleteCalificacion(empleadoId, calificacionId);
         LOGGER.info("EmpleadoCalificacionResource deleteCalificacion: output: void");

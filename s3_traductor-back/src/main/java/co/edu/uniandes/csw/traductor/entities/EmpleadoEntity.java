@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -52,7 +48,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<InvitacionEntity> invitaciones;
 
     @PodamExclude
-    @OneToMany(mappedBy = "empleado")
+    @ManyToMany(mappedBy = "empleados")
     private List<AreaConocimientoEntity> areasDeConocimiento;
 
     @PodamExclude
@@ -60,7 +56,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<SolicitudEntity> solicitudes;
 
     @PodamExclude
-    @OneToMany(mappedBy = "empleado")
+    @ManyToMany(mappedBy = "empleados")
     private List<IdiomaEntity> idiomas;
 
     //----------------------------------------------------

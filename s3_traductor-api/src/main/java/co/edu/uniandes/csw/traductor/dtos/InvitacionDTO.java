@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.dtos;
 
 import co.edu.uniandes.csw.traductor.entities.InvitacionEntity;
@@ -64,7 +59,11 @@ public class InvitacionDTO implements Serializable {
      * @return Una InvitacionEntity con los valores que posee el DTO.
      */
     public InvitacionEntity toEntity() {
-        InvitacionEntity invitacionEntity = new InvitacionEntity();        
+        InvitacionEntity invitacionEntity = new InvitacionEntity();
+        if(idInvitacion != null && idInvitacion >= 0)
+        {
+            invitacionEntity.setId(idInvitacion);
+        }
         invitacionEntity.setDescripcion(descripcion);
         invitacionEntity.setIdEmpleado(idEmpleado);
         invitacionEntity.setSolicitudId(solicitudId);

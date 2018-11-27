@@ -35,7 +35,7 @@ public class InvitacionPersistence
 	
 	public InvitacionEntity create(InvitacionEntity invitacionEntity) {
         LOGGER.log(Level.INFO, "Creando una invitacion nueva");
-        /* Note que hacemos uso de un método propio de EntityManager para persistir la propuesta en la base de datos.
+        /* Note que hacemos uso de un método propio de EntityManager para persistir la invitacion en la base de datos.
         Es similar a "INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);" en SQL.
          */
         em.persist(invitacionEntity); 
@@ -51,25 +51,36 @@ public class InvitacionPersistence
      */
 	
     public InvitacionEntity find(Long clienteId,Long invitacionId) {
-        LOGGER.log(Level.INFO, "Consultando invitacion con id ={0} del cliente con id: " + clienteId, invitacionId);
+        LOGGER.log(Level.INFO, "Consultando invitacion con id ={0} del cliente con id {1}", new Object[]{invitacionId,clienteId});
         /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
         el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
         Suponga que es algo similar a "select * from InvitacionEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
          */
-		TypedQuery<InvitacionEntity> q = em.createQuery("select p from InvitacionEntity p where (p.cliente.id = :clienteId) and (p.id = :invitacionId)", InvitacionEntity.class);
+        TypedQuery<InvitacionEntity> q = em.createQuery("select p from InvitacionEntity p where (p.cliente.id = :clienteId) and (p.id = :invitacionId)", InvitacionEntity.class);
         q.setParameter("clienteId", clienteId);
         q.setParameter("invitacionId", invitacionId);
         List<InvitacionEntity> results = q.getResultList();
         InvitacionEntity review = null;
-        if (results == null) {
-            review = null;
-        } else if (results.isEmpty()) {
-            review = null;
-        } else if (results.size() >= 1) {
+        if (results != null && results.size() >= 1) {
             review = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la invitacion con id = {0} del cliente con id =" + clienteId, invitacionId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar la invitacion con id = {0} del cliente con id = {1}", new Object[]{invitacionId,clienteId});
         return review;        
+    }
+    /**
+     * Busca si hay alguna invitacion con el id que se envía de argumento
+     *
+     * @param invitacionId: id correspondiente a la invitacion buscada.
+     * @return La invitacion con el id que se recibe por parametro.
+     */
+    public InvitacionEntity findSoloId(Long invitacionId) {
+        LOGGER.log(Level.INFO, "Consultando invitacion con id={0}", invitacionId);
+        /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
+        el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+        Suponga que es algo similar a "select * from InvitacionEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+         */
+        LOGGER.log(Level.INFO, "Finalizando consulta invitacion con id={0}", invitacionId);
+        return em.find(InvitacionEntity.class, invitacionId);
     }
 
 	 /**
@@ -84,7 +95,7 @@ public class InvitacionPersistence
         LOGGER.log(Level.INFO, "Actualizando invitacion con id = {0}", invitacionEntity.getId());
         
 		/* Note que hacemos uso de un método propio del EntityManager llamado merge() que recibe como argumento
-        la propuesta con los cambios, esto es similar a 
+        la invitacion con los cambios, esto es similar a 
         "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;" en SQL.
          */
 		
@@ -95,14 +106,14 @@ public class InvitacionPersistence
     /**
      *
      * Borra una invitacion de la base de datos recibiendo como argumento el id
-     * de la propuesta
-     * @param invitacionId: id correspondiente a la propuesta a borrar.
+     * de la invitacion
+     * @param invitacionId: id correspondiente a la invitacion a borrar.
      */
 	
     public void delete(Long invitacionId) {
         LOGGER.log(Level.INFO, "Borrando invitacion con id = {0}", invitacionId);
         
-		// Se hace uso de mismo método que esta explicado en public InvitacionEntity find(Long id) para obtener la propuesta a borrar.
+		// Se hace uso de mismo método que esta explicado en public InvitacionEntity find(Long id) para obtener la invitacion a borrar.
         InvitacionEntity entity = em.find(InvitacionEntity.class, invitacionId);
         /* Note que una vez obtenido el objeto desde la base de datos llamado "entity", volvemos hacer uso de un método propio del
          EntityManager para eliminar de la base de datos el objeto que encontramos y queremos borrar.
@@ -112,8 +123,8 @@ public class InvitacionPersistence
     }
 	
 	/**
-     * Busca las propuestas que existen en la base de datos.          
-     * @return Todas las propuestas existentes en la base de datos.     
+     * Busca las invitaciones que existen en la base de datos.          
+     * @return Todas las invitaciones existentes en la base de datos.     
      */
 	
     public List<InvitacionEntity> getAll() {

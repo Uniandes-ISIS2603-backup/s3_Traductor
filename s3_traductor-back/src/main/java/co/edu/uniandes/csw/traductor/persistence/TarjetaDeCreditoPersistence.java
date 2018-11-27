@@ -66,19 +66,15 @@ public class TarjetaDeCreditoPersistence {
         q.setParameter("idTarjeta", idTarjetaDeCredito);
         List<TarjetaDeCreditoEntity> results = q.getResultList();
         TarjetaDeCreditoEntity review = null;
-        if (results == null) {
-            review = null;
-        } else if (results.isEmpty()) {
-            review = null;
-        } else if (results.size() >= 1) {
+        if (results != null && results.size() >= 1) {
             review = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta con id = {0} del cliente con id =" + idCliente, idTarjetaDeCredito);
+        LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta con id = {0} del cliente con id {0}", new Object[]{idCliente, idTarjetaDeCredito});
         return review;
     }
 
     public TarjetaDeCreditoEntity findByNumeroTarjeta(Long numeroTarjetaCredito) {
-        LOGGER.log(Level.INFO, "Consultando tarjetas por numero ", numeroTarjetaCredito);
+        LOGGER.log(Level.INFO, "Consultando tarjetas con numero {0}", numeroTarjetaCredito);
         // Se crea un query para buscar libros con el isbn que recibe el método como argumento. ":isbn" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From TarjetaDeCreditoEntity e where e.numeroTarjetaCredito = :numeroTarjetaCredito", TarjetaDeCreditoEntity.class);
         // Se remplaza el placeholder ":isbn" con el valor del argumento 
@@ -93,7 +89,7 @@ public class TarjetaDeCreditoPersistence {
         } else {
             result = mismoNumero.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar tarjetas por numero ", numeroTarjetaCredito);
+        LOGGER.log(Level.INFO, "Saliendo de consultar tarjetas con numero {0}", numeroTarjetaCredito);
         return result;
     }
 

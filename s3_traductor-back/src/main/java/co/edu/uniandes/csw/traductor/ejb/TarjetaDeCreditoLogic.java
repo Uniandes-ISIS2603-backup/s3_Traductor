@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.traductor.ejb;
 
 import co.edu.uniandes.csw.traductor.entities.TarjetaDeCreditoEntity;
@@ -31,6 +26,11 @@ public class TarjetaDeCreditoLogic {
 
     @Inject
     private ClientePersistence clientePersistence;
+    
+    //Constante para definir el mensaje "La fecha de expiracion es menor a la actual con el fin
+    //de evitar replicaciones
+    
+    private static final String ERROR_FECHA_ACTUAL = "La fecha de expiracion es anterior a la actual";
 
     /**
      * Guardar una nueva tarjeta
@@ -43,7 +43,8 @@ public class TarjetaDeCreditoLogic {
      */
     public TarjetaDeCreditoEntity createTarjeta(Long idCliente, TarjetaDeCreditoEntity tarjetaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
-        System.out.println(tarjetaEntity.getNombreTitular());
+        LOGGER.log(Level.INFO, "Nombre del titular de la tarjeta: {0}", tarjetaEntity.getNombreTitular());
+        
         if (tarjetaEntity.getNombreTitular().equals("") || tarjetaEntity.getNombreTitular() == null) {
             throw new BusinessLogicException("El nombre es inválida");
         }
@@ -58,7 +59,6 @@ public class TarjetaDeCreditoLogic {
         }
 
         if (tarjetaEntity.getCcv() < 0 || tarjetaEntity.getCcv().toString().length() != 3) {
-            System.out.println(tarjetaEntity.getCcv());
             throw new BusinessLogicException("El ccv es invalido");
         }
         if (tarjetaEntity.getAnioExpiracion() == null) {
@@ -69,10 +69,10 @@ public class TarjetaDeCreditoLogic {
         }
         Date fechaActual = new Date();
         if (tarjetaEntity.getAnioExpiracion() < fechaActual.getYear()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getAnioExpiracion() == fechaActual.getYear() && tarjetaEntity.getMesExpiracion() < fechaActual.getMonth()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getRedBancaria().equals("") || tarjetaEntity.getRedBancaria() == null) {
             throw new BusinessLogicException("La red bancaria es invalida");
@@ -118,7 +118,7 @@ public class TarjetaDeCreditoLogic {
     /**
      * Actualizar una tarjeta por ID
      *
-     * @param idTarjeta El ID de la tarjeta a actualizar
+     * @param idCliente El ID del cliente a qui se le actualizara la tarjete
      * @param tarjetaEntity La entidad de la tarjeta con los cambios deseados
      * @return La entidad de la tarjeta luego de actualizarla
      * @throws BusinessLogicException Si el numero de la tarjeta es inválido
@@ -134,9 +134,6 @@ public class TarjetaDeCreditoLogic {
         if (tarjetaEntity.getCcv() < 0 || tarjetaEntity.getCcv().toString().length() != 3) {
             throw new BusinessLogicException("El ccv es invalido");
         }
-//        if (persistence.find(idCliente,tarjetaEntity.getId()) == null) {
-//            throw new BusinessLogicException("La tarjeta no existe");
-//        }
         if (tarjetaEntity.getAnioExpiracion() == null) {
             throw new BusinessLogicException("El año de expiracion es invalido");
         }
@@ -145,10 +142,10 @@ public class TarjetaDeCreditoLogic {
         }
         Date fechaActual = new Date();
         if (tarjetaEntity.getAnioExpiracion() < fechaActual.getYear()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getAnioExpiracion() == fechaActual.getYear() && tarjetaEntity.getMesExpiracion() < fechaActual.getMonth()) {
-            throw new BusinessLogicException("El fecha de expiracion es menor a la actual");
+            throw new BusinessLogicException(ERROR_FECHA_ACTUAL);
         }
         if (tarjetaEntity.getMesExpiracion() > 12) {
             throw new BusinessLogicException("El fecha de expiracion es invalida");
@@ -194,7 +191,6 @@ public class TarjetaDeCreditoLogic {
             return !inValido;
         } else {
             String numStr = numero.toString();
-            System.out.println(numStr);
             inValido = (numStr.length() == 16);
         }
         return inValido;

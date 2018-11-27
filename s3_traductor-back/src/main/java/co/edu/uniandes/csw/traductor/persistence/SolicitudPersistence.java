@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.persistence;
 
 import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
+import co.edu.uniandes.csw.traductor.entities.SolicitudEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,15 +53,37 @@ public class SolicitudPersistence {
         return query.getResultList();
     }
 
+    public SolicitudEntity find(Long clienteId,Long solicitudId) {
+        LOGGER.log(Level.INFO, "Consultando Solicitud con id ={0} del cliente con id {1}", new Object[]{solicitudId,clienteId});
+        /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
+        el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+        Suponga que es algo similar a "select * from SolicitudEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+         */
+        TypedQuery<SolicitudEntity> q = em.createQuery("select p from SolicitudEntity p where (p.cliente.id = :clienteId) and (p.id = :solicitudId)", SolicitudEntity.class);
+        q.setParameter("clienteId", clienteId);
+        q.setParameter("solicitudId", solicitudId);
+        List<SolicitudEntity> results = q.getResultList();
+        SolicitudEntity solicitud = null;
+        if (results != null && results.size() >= 1) {
+            solicitud = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar la Solicitud con id = {0} del cliente con id = {1}", new Object[]{solicitudId,clienteId});
+        return solicitud;        
+    }
     /**
-     * Busca si hay alguna solcitud con el id enviado por parametro
+     * Busca si hay alguna Solicitud con el id que se envía de argumento
      *
-     * @param calId: id correspondiente a la calificacion buscada.
-     * @return una editorial.
+     * @param solicitudId: id correspondiente a la Solicitud buscada.
+     * @return La Solicitud con el id que se recibe por parametro.
      */
-    public SolicitudEntity find(Long calId) {
-        LOGGER.log(Level.INFO, "Consultando solicitud con id={0}", calId);
-        return em.find(SolicitudEntity.class, calId);
+    public SolicitudEntity findSoloId(Long solicitudId) {
+        LOGGER.log(Level.INFO, "Consultando Solicitud con id={0}", solicitudId);
+        /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
+        el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+        Suponga que es algo similar a "select * from SolicitudEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+         */
+        LOGGER.log(Level.INFO, "Finalizando consulta Solicitud con id={0}", solicitudId);
+        return em.find(SolicitudEntity.class, solicitudId);
     }
 
     /**

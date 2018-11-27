@@ -196,4 +196,24 @@ insert into INVITACIONENTITY (ID, DESCRIPCION, SOLICITUDID, CLIENTE_ID, EMPLEADO
 insert into INVITACIONENTITY (ID, DESCRIPCION, SOLICITUDID, CLIENTE_ID, EMPLEADO_ID, PROPUESTA_ID) values (2900, 'Traducir documento',  200, 700, 2800, 2800);
 insert into INVITACIONENTITY (ID, DESCRIPCION, SOLICITUDID, CLIENTE_ID, EMPLEADO_ID, PROPUESTA_ID) values (3000, 'Revision de documento', 3000, 2800, 2000, 200);
 
+insert into AREACONOCIMIENTOENTITY (id,area) values (100,'aspectos legales');
+insert into AREACONOCIMIENTOENTITY (id,area) values (200,'ciencias sociales');
+insert into AREACONOCIMIENTOENTITY (id,area) values (300,'software');
+insert into AREACONOCIMIENTOENTITY (id,area) values (400,'religion');
+insert into AREACONOCIMIENTOENTITY (id,area) values (500,'matematicas');
+insert into AREACONOCIMIENTOENTITY (id,area) values (600,'fisica');
+insert into AREACONOCIMIENTOENTITY (id,area) values (700,'biologia');
+insert into AREACONOCIMIENTOENTITY (id,area) values (800,'quimica');
+insert into AREACONOCIMIENTOENTITY (id,area) values (900,'administracion');
+insert into AREACONOCIMIENTOENTITY (id,area) values (1000,'economia');
 
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (100,100,'sdahjdbafssafd',4);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (200,200,'gtrtvwaarabv',5);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (300,300,'buytyrtebwva',3);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (400,400,'vtrutruewag',2);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (500,500,'qvbtyuimyrtdsdb',1);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (600,600,'asvfgtuiyrterwtag',5);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (700,700,'avbynu5yretsrv',5);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (800,800,'vlooiuyrtbveaewGRYSD',3);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (900,900,'WQYOTKYRTYERAREGWEHRNUTYRdsag',4);
+insert into CALIFICACIONENTITY (id,idEmpleado,comentario,valorCalificacion) values (1000,1000,'myitrewyhj8hewq34yjd',4);
