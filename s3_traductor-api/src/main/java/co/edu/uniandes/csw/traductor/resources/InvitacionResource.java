@@ -104,11 +104,8 @@ public class InvitacionResource {
     public InvitacionDTO updateInvitacion(@PathParam("clientesId") Long clienteId, @PathParam("idInvitacion") Long idInvitacion, InvitacionDTO invitacion) throws BusinessLogicException {
         // TODO: [updateInvitacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
         LOGGER.log(Level.INFO, "InvitacionResource updateInvitacion: input: clienteId: {0} , invitacionId: {1} , review:{2}", new Object[]{clienteId, idInvitacion, invitacion});
-
-        if (!idInvitacion.equals(invitacion.getIdInvitacion())) {
-            throw new BusinessLogicException("Los ids de la invitacion no coinciden");
-        }
-
+        invitacion.setIdInvitacion(idInvitacion); //Poner el ID adecuado para cambiar la información.        
+        
         InvitacionEntity entity = invitacionLogic.getInvitacion(clienteId, idInvitacion);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clienteId + INVITACIONES + idInvitacion + NO_EXISTE, 404);

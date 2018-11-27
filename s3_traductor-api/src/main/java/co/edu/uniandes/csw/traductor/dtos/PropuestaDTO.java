@@ -79,6 +79,10 @@ public class PropuestaDTO implements Serializable {
      */
     public PropuestaEntity toEntity() {
         PropuestaEntity propuestaEntity = new PropuestaEntity();
+        if (id != null && id >= 0)
+        {
+            propuestaEntity.setId(id); //Cambiar el ID cuando se pasa uno por peticion HTML.
+        }
         propuestaEntity.setCosto(costo);
         propuestaEntity.setDescripcion(descripcion);
         propuestaEntity.setEstado(estado);        
