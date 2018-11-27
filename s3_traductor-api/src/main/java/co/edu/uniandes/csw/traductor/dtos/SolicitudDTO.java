@@ -51,6 +51,9 @@ public class SolicitudDTO implements Serializable {
     protected Integer tipoSolicitud;
     protected IdiomaDTO idiomaEntrada;
     protected IdiomaDTO idiomaSalida;
+    private String descripcion;
+    private String archivo;
+    private int longitud;
 
     /**
      * Constructor vacio para que sea llenado por JAX-RS
@@ -81,6 +84,9 @@ public class SolicitudDTO implements Serializable {
             if (solicitudEntity.getIdiomaSalida() != null) {
                 this.idiomaSalida = new IdiomaDTO(solicitudEntity.getIdiomaSalida());
             }
+            this.descripcion=solicitudEntity.getDescripcion();
+            this.archivo=solicitudEntity.getArchivo();
+            this.longitud=solicitudEntity.getLongitud();
         }
     }
 
@@ -97,6 +103,9 @@ public class SolicitudDTO implements Serializable {
         solicitudEntity.setTipoSolicitud(this.tipoSolicitud);
         solicitudEntity.setFechaInicio(this.fechaInicio);
         solicitudEntity.setFechaEntrega(this.fechaEntrega);
+        solicitudEntity.setDescripcion(this.descripcion);
+        solicitudEntity.setArchivo(this.archivo);
+        solicitudEntity.setLongitud(this.longitud);
         if(this.idiomaEntrada != null)
         { 
             solicitudEntity.setIdiomaEntrada(this.idiomaEntrada.toEntity());
@@ -166,6 +175,31 @@ public class SolicitudDTO implements Serializable {
     public void setIdiomaSalida(IdiomaDTO idiomaSalida) {
         this.idiomaSalida = idiomaSalida;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }
+
+    public int getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
+    }
+    
     
     @Override
     public String toString() {

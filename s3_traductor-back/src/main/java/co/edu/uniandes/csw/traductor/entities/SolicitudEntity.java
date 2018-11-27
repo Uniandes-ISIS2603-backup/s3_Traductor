@@ -43,6 +43,10 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     private Date fechaEntrega;
     private Integer estado;
     private Integer tipoSolicitud;
+    private String descripcion;
+    private String archivo;
+    private int longitud;
+
 
     @PodamExclude
     @ManyToOne
@@ -123,5 +127,30 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     public void setIdiomaEntrada(IdiomaEntity idiomaEntrada) {
         this.idiomaEntrada = idiomaEntrada;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }
+
+    public int getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
+    }
+    
 
 }

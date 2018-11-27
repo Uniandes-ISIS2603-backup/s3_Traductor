@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -105,7 +106,22 @@ public class ClientePropuestaResource
         LOGGER.log(Level.INFO, "ClientePropuestaResource getPropuesta: output: {0}", respuesta);
         return respuesta;
     }
-	
+    /**
+     * Delete
+     * @param clienteId
+     * @param propuestaId
+     * @throws BusinessLogicException 
+     */
+    @DELETE
+    @Path("{propuestaId: \\d+}")
+    public void deletePropuesta(@PathParam("clienteId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ClientePropuestaResource deletePropuesta: input: {0}", clienteId);
+        if (propuestaLogic.getPropuestaSoloId(propuestaId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clienteId + "/propuestas/" + propuestaId + " no existe.", 404);
+        }
+        clientePropuestaLogic.deletePropuesta(clienteId, propuestaId);
+        LOGGER.info("ClientePropuestaResource deletePropuesta: output: void");
+    }
 	/**
      * Convierte una lista de PropuestaEntity a una lista de PropuestaDTO.     *
      * @param entities Lista de PropuestaEntities a convertir.

@@ -103,30 +103,30 @@ public class CalificacionResource {
         return nuevaCalificacionDTO;
     }
 
-//    /**
-//     * Actualiza la calificacion con el id recibido en la URL con la informacion
-//     * que se recibe en el cuerpo de la petición.
-//     *
-//     * @param calificacionesId Identificador de la calificacion que se desea
-//     * actualizar. Este debe ser una cadena de dígitos.
-//     * @param calificacion {@link CalificacionDTO} La calificacion que se desea
-//     * guardar.
-//     * @return JSON {@link CalificacionDTO} - La calificacion guardada.
-//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra la calificacion a
-//     * actualizar.
-//     */
-//    @PUT
-//    @Path("{calificacionesId: \\d+}")
-//    public CalificacionDTO updateCalificacion(@PathParam("calificacionesId") Long calificacionesId, CalificacionDTO calificacion) throws WebApplicationException {
-//        LOGGER.log(Level.INFO, "CalificacionResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionesId, calificacion.toString()});
-//        if (calificacionLogic.getCalificacion(calificacionesId) == null) {
-//            throw new WebApplicationException("El recurso /clientes/" + calificacionesId + " no existe.", 404);
-//        }
-//        CalificacionDTO detailDTO = new CalificacionDTO(calificacionLogic.updateCalificacion(calificacionesId, calificacion.toEntity()));
-//        LOGGER.log(Level.INFO, "CalificacionResource updateCalificacion: output: {0}", detailDTO.toString());
-//        return detailDTO;
-//    }
+    /**
+     * Actualiza la calificacion con el id recibido en la URL con la informacion
+     * que se recibe en el cuerpo de la petición.
+     *
+     * @param calificacionesId Identificador de la calificacion que se desea
+     * actualizar. Este debe ser una cadena de dígitos.
+     * @param calificacion {@link CalificacionDTO} La calificacion que se desea
+     * guardar.
+     * @return JSON {@link CalificacionDTO} - La calificacion guardada.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la calificacion a
+     * actualizar.
+     */
+    @PUT
+    @Path("{calificacionesId: \\d+}")
+    public CalificacionDTO updateCalificacion(@PathParam("calificacionesId") Long calificacionesId, CalificacionDTO calificacion) throws WebApplicationException {
+        LOGGER.log(Level.INFO, "CalificacionResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionesId, calificacion.toString()});
+        if (calificacionLogic.getCalificacion(calificacionesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + calificacionesId + " no existe.", 404);
+        }
+        CalificacionDTO detailDTO = new CalificacionDTO(calificacionLogic.updateCalificacion(calificacionesId, calificacion.toEntity()));
+        LOGGER.log(Level.INFO, "CalificacionResource updateCalificacion: output: {0}", detailDTO.toString());
+        return detailDTO;
+    }
 
 //    /**
 //     * Borra la calificacion con el id asociado recibido en la URL.

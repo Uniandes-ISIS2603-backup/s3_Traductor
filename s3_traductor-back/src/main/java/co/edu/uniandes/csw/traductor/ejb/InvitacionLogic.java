@@ -54,7 +54,7 @@ public class InvitacionLogic {
         if (idEmpleado == null) {
             throw new BusinessLogicException("El id de empleado es un valor nulo");
         } else if (empleadoPersistence.find(idEmpleado) == null) {
-            throw new BusinessLogicException("El empleado con id: " + idEmpleado + " para asociarle la propuesta no existe");
+            throw new BusinessLogicException("El empleado con id: " + idEmpleado + " para asociarle la invitacion no existe");
         } else if (invitacionEntity.getDescripcion().length() == 0 || invitacionEntity.getDescripcion() == null) {
             throw new BusinessLogicException("La descripcion de la invitacion no puede ser nula o vacia");
         }
@@ -112,7 +112,11 @@ public class InvitacionLogic {
         LOGGER.log(Level.INFO, "Termina proceso de consultar todas las del cliente id ={0}", clienteId);
         return entidadPadre.getInvitaciones();
     }
-
+    public InvitacionEntity getInvitacionSoloId(Long invitacionId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la invitacion con id = {0}", invitacionId);
+        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
+        return invitacionPersistence.findSoloId(invitacionId);
+    }
     /**
      * Borrar un invitacion existente en la base de datos.
      *
