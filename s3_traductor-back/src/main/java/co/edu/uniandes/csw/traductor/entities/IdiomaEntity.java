@@ -6,8 +6,9 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -21,19 +22,19 @@ public class IdiomaEntity extends BaseEntity implements Serializable
     private String idioma;
     
     @PodamExclude
-    @ManyToOne
-    private EmpleadoEntity empleado;
+    @ManyToMany
+    private List<EmpleadoEntity> empleados;
     
     @PodamExclude
     @OneToOne
     private SolicitudEntity solicitud;
 
-    public EmpleadoEntity getEmpleado() {
-        return empleado;
+    public List<EmpleadoEntity> getEmpleados() {
+        return empleados;
     }
 
-    public void setEmpleado(EmpleadoEntity empleado) {
-        this.empleado = empleado;
+    public void setEmpleados(List<EmpleadoEntity> empleados) {
+        this.empleados = empleados;
     }
 
     public SolicitudEntity getSolicitud() {

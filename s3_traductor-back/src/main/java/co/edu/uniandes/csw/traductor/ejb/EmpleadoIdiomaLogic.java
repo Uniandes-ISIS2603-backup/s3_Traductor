@@ -37,6 +37,7 @@ public class EmpleadoIdiomaLogic {
         EmpleadoEntity empleadoEntity = empleadoPersistence.find(empleadoId);
         IdiomaEntity idiomaEntity = idiomaPersistence.find(idiomaId);
         empleadoEntity.getIdiomas().add(idiomaEntity);
+        idiomaEntity.getEmpleados().add(empleadoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un idioma al empleado con id = {0}", empleadoId);
         return idiomaEntity;
     }
@@ -85,6 +86,11 @@ public class EmpleadoIdiomaLogic {
         if(index >= 0)
         {
           empleado.getIdiomas().remove(index);
+        }
+        int indexDos = idioma.getEmpleados().indexOf(empleado);
+        if(indexDos >= 0)
+        {
+          idioma.getEmpleados().remove(indexDos);
         }
         throw new BusinessLogicException("El idioma no esta asociada al empleado");
     }

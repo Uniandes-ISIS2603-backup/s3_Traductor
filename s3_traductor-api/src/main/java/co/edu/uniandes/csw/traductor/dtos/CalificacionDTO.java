@@ -15,7 +15,7 @@ public class CalificacionDTO implements Serializable
     private Long idEmpleado;
     private String comentario;
     private Integer valorCalificacion;
-    
+    private String nombreCalificador;
     /**
      * Constructor por defecto
      */
@@ -86,6 +86,14 @@ public class CalificacionDTO implements Serializable
         this.valorCalificacion = valorCalificacion;
     }
     
+    public String getNombreCalificador() {
+        return nombreCalificador;
+    }
+
+    public void setNombreCalificador(String nombreCalificador) {
+        this.nombreCalificador = nombreCalificador;
+    }
+    
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
@@ -98,9 +106,11 @@ public class CalificacionDTO implements Serializable
             this.idEmpleado = calificacionEntity.getIdEmpleado();
             this.comentario = calificacionEntity.getComentario();
             this.valorCalificacion = calificacionEntity.getValorCalificacion();
+            this.nombreCalificador = calificacionEntity.getNombreCalificador();
         }
     }
-    
+
+
     /**
      * Convertir DTO a Entity
      *
@@ -112,6 +122,7 @@ public class CalificacionDTO implements Serializable
         calificacionEntity.setIdEmpleado(this.idEmpleado);
         calificacionEntity.setComentario(this.comentario);
         calificacionEntity.setValorCalificacion(this.valorCalificacion);
+        calificacionEntity.setNombreCalificador(this.nombreCalificador);
         return calificacionEntity;
     }
     

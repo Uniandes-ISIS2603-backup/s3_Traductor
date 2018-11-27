@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.traductor.entities;
+
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -14,31 +17,38 @@ import uk.co.jemos.podam.common.PodamExclude;
  * serialización.
  *
  * @author Geovanny Andres Gonzalez
- * 
+ *
  */
-
 @Entity
 public class AreaConocimientoEntity extends BaseEntity implements Serializable {
 
-	private String area;
-	
-	//"Callback a Empleado - Relacion ManyToOne"
-	@PodamExclude
-	@ManyToOne
-	private EmpleadoEntity empleado;
-	
-	
-	/**
-	 * @return the area
-	 */
-	public String getArea() {
-		return area;
-	}
+    private String area;
 
-	/**
-	 * @param area the area to set
-	 */
-	public void setArea(String area) {
-		this.area = area;
-	}	
+    //"Callback a Empleado - Relacion ManyToMany"
+    @PodamExclude
+    @ManyToMany
+    private List<EmpleadoEntity> empleados;
+
+    /**
+     * @return the area
+     */
+    public String getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public List<EmpleadoEntity> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(List<EmpleadoEntity> empleados) {
+        this.empleados = empleados;
+    }
+
 }
