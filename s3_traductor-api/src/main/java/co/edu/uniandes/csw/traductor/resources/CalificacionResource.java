@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.traductor.ejb.CalificacionLogic;
 import co.edu.uniandes.csw.traductor.entities.CalificacionEntity;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,139 +31,141 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author Santiago Salazar
  */
-@Path("calificaciones")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class CalificacionResource {
 
+    
+    //Logger
     private static final Logger LOGGER = Logger.getLogger(CalificacionResource.class.getName());
 
-    //inyección de la dependencia de lógica: calificacionLogic
+    //Inyeccion de la logica
     @Inject
     private CalificacionLogic calificacionLogic;
+    
+    //Define la frase "no existe" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String NO_EXISTE = " no existe.";
+    
+    //Define la frase "El recurso /empleados/" en una constante para sustuirlo en los multiples lugares
+    //donde se define un error, todo ello con el fin de evitar duplicados
+    
+    private static final String RECURSO_EMPLEADO = "El recurso /empleados/";
 
     /**
-     * Busca y devuelve todas las calificaciones que existen en la aplicacion.
+     * Crea una nueva calificacion con la informacion que se recibe en el cuerpo de
+     * la petición y se regresa un objeto identico con un id auto-generado por
+     * la base de datos.
      *
-     * @return JSONArray {@link CalificacionDTO} - Las calificaciones
-     * encontrados en la aplicación. Si no hay ninguna retorna una lista vacía.
-     */
-    @GET
-    public List<CalificacionDTO> getCalificaciones() {
-        LOGGER.info("CalificacionResource getCalificaciones: input: void");
-        List<CalificacionDTO> listaCalificaciones = listEntity2DTO(calificacionLogic.getCalificaciones());
-        LOGGER.log(Level.INFO, "CalificacionResource getCalificaciones: output: {0}", listaCalificaciones);
-        return listaCalificaciones;
-    }
-
-    /**
-     * Busca la calificacion con el id en la URL y lo retorna
+     * Agosto 27 - 2018: Esta operacion solo esta puesta para retornar lo
+     * recibido. Geovanny.
      *
-     * @param calificacionesId Identificador numerico de la calificacion que se
-     * esta buscando
-     * @return JSON {@link CalificacionDTO} - La calificacion buscada
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la calificacion.
-     */
-    @GET
-    @Path("{calificacionesId: \\d+}")
-    public CalificacionDTO getCalificacion(@PathParam("calificacionesId") Long calificacionesId) throws WebApplicationException {
-        LOGGER.log(Level.INFO, "CalificacionResource getCalificacion: input: {0}", calificacionesId);
-        CalificacionEntity calificacionEntity = calificacionLogic.getCalificacion(calificacionesId);
-        if (calificacionEntity == null) {
-            throw new WebApplicationException("El recurso /calificaciones/" + calificacionesId + " no existe.", 404);
-        }
-        CalificacionDTO dtoCalificacion = new CalificacionDTO(calificacionEntity);
-        LOGGER.log(Level.INFO, "CalificacionResource getCalificacion: output: {0}", dtoCalificacion);
-        return dtoCalificacion;
-    }
-
-    /**
-     * Crea la calificacion segun el objeto JSON recibido y retorna la misma
-     * calificacion con el id generado por el sistema
-     *
-     * @param calificacion {@link CalificacionDTO} - La calificacion que se
-     * quiere crear
-     * @return JSON {@link CalificacionDTO} - la calificacion creada con el id
-     * autogenerado
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando ya existe una calificacion o el
-     * valor de la calificacion es invalido
+     * @param empleadosId El id del empleado a mirar los recursos
+     * @param nuevaCalificacion {@link CalificacionDTO} - La calificacion que se desea
+     * guardar.
+     * @return JSON {@link CalificacionDTO} - La calificacion recibida.
      */
     @POST
-    public CalificacionDTO createCalificacion(CalificacionDTO calificacion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "CalificacionResource createCalificacion: input: {0}", calificacion);
+    public CalificacionDTO createCalificacion(@PathParam("empleadoId") Long empleadosId, CalificacionDTO nuevaCalificacion) throws BusinessLogicException {
+
+        // TODO: [createCalificacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.		
+        LOGGER.log(Level.INFO, "CalificacionResources createCalificacion: input: {0}", nuevaCalificacion);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-        CalificacionEntity calificacionEntity = calificacion.toEntity();
-        // Invoca la lógica para crear la calificacion nueva
-        CalificacionEntity nuevaCalificacionEntity = calificacionLogic.createCalificacion(calificacionEntity);
-        // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
-        CalificacionDTO nuevaCalificacionDTO = new CalificacionDTO(nuevaCalificacionEntity);
-        LOGGER.log(Level.INFO, "CalificacionResource createCalificacion: output: {0}", nuevaCalificacionDTO);
-        return nuevaCalificacionDTO;
+        CalificacionEntity entidad = nuevaCalificacion.toEntity();
+        // Invoca la lógica para crear la calificacion nueva. Ahi abajo debe ir la logica.	
+        CalificacionEntity nuevaEntity = calificacionLogic.createCalificacion(empleadosId, entidad);
+        // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo.	
+        CalificacionDTO respuestaDTO = new CalificacionDTO(nuevaEntity);
+        LOGGER.log(Level.INFO, "CalificacionResources createCalificacion: output: {0}", respuestaDTO);
+        return respuestaDTO;
     }
 
     /**
      * Actualiza la calificacion con el id recibido en la URL con la informacion
      * que se recibe en el cuerpo de la petición.
      *
-     * @param calificacionesId Identificador de la calificacion que se desea
-     * actualizar. Este debe ser una cadena de dígitos.
-     * @param calificacion {@link CalificacionDTO} La calificacion que se desea
-     * guardar.
-     * @return JSON {@link CalificacionDTO} - La calificacion guardada.
+     * @param empleadosId El empleado que tiene esas calificaciones.
+     * @param calificacionId Identificador de la calificacion que se desea actualizar.
+     * Este debe ser una cadena de dígitos.
+     * @param calificacion {@link CalificacionDTO} La calificacion que se desea guardar.
+     * @return JSON {@link CalificacionDTO} - La editorial guardada.
+     * @throws BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la calificacion a
      * actualizar.
      */
     @PUT
-    @Path("{calificacionesId: \\d+}")
-    public CalificacionDTO updateCalificacion(@PathParam("calificacionesId") Long calificacionesId, CalificacionDTO calificacion) throws WebApplicationException {
-        LOGGER.log(Level.INFO, "CalificacionResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionesId, calificacion.toString()});
-        if (calificacionLogic.getCalificacion(calificacionesId) == null) {
-            throw new WebApplicationException("El recurso /clientes/" + calificacionesId + " no existe.", 404);
+    @Path("{calificacionId: \\d+}") //Es la forma como se va a reconocer lo contenido en la calificacion, en este caso es 1 o mas numeros.
+    public CalificacionDTO updateCalificacion(@PathParam("empleadoId") Long empleadosId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException {
+        // TODO: [updateCalificacion] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+        LOGGER.log(Level.INFO, "calificacionResource updateCalificacion: input: empleadoId: {0} , calificacionId: {1} , calificacion:{2}", new Object[]{empleadosId, calificacionId, calificacion});
+        calificacion.setId(calificacionId); //Cambiar el ID de la calificacion.        
+        CalificacionEntity entity = calificacionLogic.getCalificacion(empleadosId, calificacionId);
+        if (entity == null) {
+            throw new WebApplicationException(RECURSO_EMPLEADO + empleadosId + "/calificaciones/" + calificacionId + NO_EXISTE, 404);
         }
-        CalificacionDTO detailDTO = new CalificacionDTO(calificacionLogic.updateCalificacion(calificacionesId, calificacion.toEntity()));
-        LOGGER.log(Level.INFO, "CalificacionResource updateCalificacion: output: {0}", detailDTO.toString());
-        return detailDTO;
+        CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.updateCalificacion(empleadosId, calificacion.toEntity()));
+        LOGGER.log(Level.INFO, "ReviewResource updateReview: output:{0}", calificacionDTO);
+        return calificacionDTO;
     }
 
-//    /**
-//     * Borra la calificacion con el id asociado recibido en la URL.
-//     *
-//     * @param calificacionesId Identificador de la calificacion que se desea
-//     * borrar. Este debe ser una cadena de dígitos.
-//     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-//     * Error de lógica que se genera cuando no se puede eliminar la
-//     * calificacion.
-//     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-//     * Error de lógica que se genera cuando no se encuentra la calificacion.
-//     */
-//    @DELETE
-//    @Path("{calificacionesId: \\d+}")
-//    public void deleteCalificacion(@PathParam("calificacionesId") Long calificacionesId) throws BusinessLogicException {
-//        LOGGER.log(Level.INFO, "CalificacionResource deleteCalificacion: input: {0}", calificacionesId);
-//        if (calificacionLogic.getCalificacion(calificacionesId) == null) {
-//            throw new WebApplicationException("El recurso /calificaciones/" + calificacionesId + " no existe.", 404);
-//        }
-//        calificacionLogic.deleteCalificacion(calificacionesId);
-//        LOGGER.info("CalificacionResource deleteCalificacion: output: void");
-//    }
+    /**
+     * Busca y devuelve todas las calificacion que posee el empleado.
+     *
+     * @param empleadoId Identificacion del empleado.
+     * @return JSONArray {@link CalificacionDTO} - Las calificaciones que posee el
+     * empleado Si no hay ninguna retorna una lista vacía.
+     */
+    @GET
+    public List<CalificacionDTO> getAllCalificaciones(@PathParam("empleadoId") Long empleadoId) {
+        // TODO: [getAllCalificaciones] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+
+        LOGGER.info("CalificacionResources getAllCalificaciones: input: void");
+        List<CalificacionDTO> listaCalificaciones = listEntity2DetailDTO(calificacionLogic.getAllCalificaciones(empleadoId)); //Se llama a la logica para que devuelva la lista !
+        LOGGER.log(Level.INFO, "CalificacionResources getAllCalificaciones:: output: {0}", listaCalificaciones);
+        return listaCalificaciones;
+    }
+
+    /**
+     * Busca la calificacion con el id asociado recibido en la URL y la devuelve.
+     *
+     * @param empleadoId Identificacion del empleado
+     * @param calificacionId Identificador de la calificacion que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link CalificacionDTO} - La editorial buscada
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la editorial.
+     */
+    @GET
+    @Path("{calificacionId: \\d+}")
+    public CalificacionDTO getCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) throws WebApplicationException {
+
+        // TODO: [getCalificaciones] Terminar el metodo cuando se tenga la conexion a la logica y persistencia.
+        LOGGER.log(Level.INFO, "CalificacionResources getCalificacion: input: {0}", calificacionId);
+        CalificacionEntity entity = calificacionLogic.getCalificacion(empleadoId, calificacionId); //DTO respuesta.	
+        if (entity == null) {
+            throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + "/calificaciones/" + calificacionId + NO_EXISTE, 404);
+        }
+
+        CalificacionDTO entityBuscada = new CalificacionDTO(entity);
+        LOGGER.log(Level.INFO, "CalificacionResources getCalificacion: output: {0}", entityBuscada);
+        return entityBuscada;
+    }
 
     /**
      * Convierte una lista de entidades a DTO.
      *
-     * Este método convierte una lista de objetos CalificacionEntity a una lista
-     * de objetos CalificacionDTO (json)
+     * Este método convierte una lista de objetos CalificacionEntity a una lista de
+     * objetos CalificacionDTO (json)
      *
-     * @param entityList corresponde a la lista de calificaciones de tipo Entity
+     * @param calificacionList corresponde a la lista de editoriales de tipo Entity
      * que vamos a convertir a DTO.
-     * @return la lista de calificaciones en forma DTO (json)
+     * @return la lista de editoriales en forma DTO (json)
      */
-    private List<CalificacionDTO> listEntity2DTO(List<CalificacionEntity> entityList) {
-        List<CalificacionDTO> list = new ArrayList<>();
-        for (CalificacionEntity entity : entityList) {
+    private List<CalificacionDTO> listEntity2DetailDTO(List<CalificacionEntity> calificacionList) {
+        List<CalificacionDTO> list = new LinkedList<>();
+        for (CalificacionEntity entity : calificacionList) {
             list.add(new CalificacionDTO(entity));
         }
         return list;
