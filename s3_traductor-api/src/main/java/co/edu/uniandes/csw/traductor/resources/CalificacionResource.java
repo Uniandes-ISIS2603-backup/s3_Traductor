@@ -152,6 +152,30 @@ public class CalificacionResource {
         LOGGER.log(Level.INFO, "CalificacionResources getCalificacion: output: {0}", entityBuscada);
         return entityBuscada;
     }
+    
+    /**
+     * Borra la calificacion con el id asociado recibido en la URL.
+     *
+     * @param empleadoId Identificador del empleado.
+     * @param calificacionId Identificador de la calificacion que se desea borrar.
+     * Este debe ser una cadena de dígitos.
+     * @throws WebApplicationException Error de lógica que se genera cuando no se
+     * encuentra la calificacion.
+     */
+    @DELETE
+    @Path("{calificacionId: \\d+}")
+    public void deleteCalificacion(@PathParam("empleadoId") Long empleadoId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException {
+
+        LOGGER.log(Level.INFO, "CalificacionResources getCalificacion: input: {0}", calificacionId);
+
+        CalificacionEntity entity = calificacionLogic.getCalificacion(empleadoId, calificacionId);
+        if (entity == null) {
+            throw new WebApplicationException(RECURSO_EMPLEADO + empleadoId + "/calificaciones/" + calificacionId + NO_EXISTE, 404);
+        }
+
+        calificacionLogic.deleteCalificacion(empleadoId, calificacionId);
+        LOGGER.info("InvitacionResources deleteInvitacion: output: void");
+    }
 
     /**
      * Convierte una lista de entidades a DTO.

@@ -99,6 +99,24 @@ public class CalificacionLogic {
         // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
         return calificacionPersistence.findSoloId(calificacionId);
     }
+    
+    /**
+     * Borrar un invitacion existente en la base de datos.
+     *
+     * @param empleadoId Identificacion del empleado
+     * @param calificacionId: id de la calificacion a borrar
+     * @throws BusinessLogicException si la calificacion no esta asociada al
+     * cliente.
+     */
+    public void deleteCalificacion(Long empleadoId, Long calificacionId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar la calificacion con id = {0}", calificacionId);
+        CalificacionEntity entidadEliminar = getCalificacion(empleadoId, calificacionId);
+        if (entidadEliminar == null) {
+            throw new BusinessLogicException("La calificacion con id = " + calificacionId + " no esta asociado a el empleado con id = " + empleadoId);
+        }
+        calificacionPersistence.delete(calificacionId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la calificacion con id = {0} del empleado: {1}", new Object[]{calificacionId,empleadoId});
+    }
 
     /**
      * Obtener todas las calificaciones existentes en la base de datos.
