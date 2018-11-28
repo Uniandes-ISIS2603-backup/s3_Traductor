@@ -113,6 +113,7 @@ public class CalificacionLogicTest {
             EmpleadoEntity emp=eData.get(0);
             Assert.assertNotNull(calificacionLogic.createCalificacion(emp.getId(), cal));
         } catch (BusinessLogicException ex) {
+            Assert.fail();
         }
         
     }
@@ -136,5 +137,20 @@ public class CalificacionLogicTest {
          emp=eData.get(0);
         Assert.assertEquals(0,calificacionLogic.getAllCalificaciones(emp.getId()).size());
        
+    }
+    @Test
+    public void  updateCalificacionTest(){
+        EmpleadoEntity emp=eData.get(1);
+            CalificacionEntity entity = data.get(0);
+        CalificacionEntity pojoEntity = factory.manufacturePojo(CalificacionEntity.class);
+        pojoEntity.setId(entity.getId());
+        calificacionLogic.updateCalificacion(emp.getId(), pojoEntity);
+        CalificacionEntity resp = em.find(CalificacionEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
+        Assert.assertEquals(pojoEntity.getValorCalificacion(), resp.getValorCalificacion());
+        Assert.assertEquals(pojoEntity.getNombreCalificador(), resp.getNombreCalificador());
+            
+      
     }
 }

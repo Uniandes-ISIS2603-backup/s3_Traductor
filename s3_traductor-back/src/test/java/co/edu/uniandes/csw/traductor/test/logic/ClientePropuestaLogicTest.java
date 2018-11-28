@@ -154,7 +154,7 @@ public class ClientePropuestaLogicTest {
      */
 	
     @Test
-    public void getBooksTest() {
+    public void getPropuestasTest() {
         List<PropuestaEntity> list = clientePropuestaLogic.getPropuestas(data.get(0).getId());
         Assert.assertEquals(1, list.size());
     }
@@ -165,7 +165,7 @@ public class ClientePropuestaLogicTest {
      * @throw BussinessLogicException si se incumplen las precondiciones de la logica.
      */
     @Test
-    public void getBookTest()  {
+    public void getPropuestaTest()  {
         
         try{
             ClienteEntity entity = data.get(0);
@@ -185,17 +185,14 @@ public class ClientePropuestaLogicTest {
      * Prueba para obtener una instancia de Propuesta asociada a una instancia
      * Cliente que no le pertenece.
      *
-     * @throw BussinessLogicException si se incumplen las precondiciones de la logica.
+     * @throws BusinessLogicException si se incumplen las precondiciones de la logica.
      */
-    @Test
-    public void getPropuestaNoAsociadaTest()  {
-        
-        try{
+    @Test(expected = BusinessLogicException.class)
+    public void getPropuestaNoAsociadaTest() throws BusinessLogicException  {
+
             ClienteEntity entity = data.get(0);
         PropuestaEntity propuestaEntity = propuestasData.get(1);
         clientePropuestaLogic.getPropuesta(entity.getId(), propuestaEntity.getId());
-        }catch(BusinessLogicException b){
-            Assert.fail();
-        }
+
     }   
 }
