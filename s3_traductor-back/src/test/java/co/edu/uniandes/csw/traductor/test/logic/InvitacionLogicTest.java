@@ -152,7 +152,7 @@ public class InvitacionLogicTest {
 	 * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
 	 */
 	@Test
-	public void getAllInvitacionesTest() throws BusinessLogicException {
+	public void getAllInvitacionesTest()  {
 		List<InvitacionEntity> list = reviewLogic.getAllInvitaciones(dataBook.get(1).getId());
 		Assert.assertEquals(data.size(), list.size());
 		for (InvitacionEntity entity : list) {
