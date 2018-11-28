@@ -39,7 +39,10 @@ public class EmpleadoInvitacionLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de asociarle una invitacion al empleado con id = {0}", empleadoId);
         EmpleadoEntity entidadPadre = empleadoPersistence.find(empleadoId);
         InvitacionEntity entidadHija = invitacionPersistence.findSoloId(invitacionId);
+		System.out.println("Es entidad padre" + entidadPadre);
+		System.out.println("Es entidad hija" + entidadHija);
         entidadHija.setEmpleado(entidadPadre); // Se asocia la invitacion al empleado como ManyToOne según ejemplo.
+		invitacionPersistence.update(entidadHija); //Actualizar la llave 
         LOGGER.log(Level.INFO, "Termina proceso de asociarle una invitacion al empleado con id = {0}", invitacionId);
         return entidadHija;
     }
