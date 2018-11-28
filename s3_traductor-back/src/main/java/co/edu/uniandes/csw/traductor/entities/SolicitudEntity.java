@@ -151,6 +151,6 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     public void setLongitud(int longitud) {
         this.longitud = longitud;
     }
-    
+
 
 }

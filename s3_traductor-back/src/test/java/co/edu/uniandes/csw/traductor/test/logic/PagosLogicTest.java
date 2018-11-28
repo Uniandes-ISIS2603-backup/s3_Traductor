@@ -164,7 +164,6 @@ public class PagosLogicTest {
         newEntity.setCliente(null);
         pagosLogic.createPago(Long.MIN_VALUE, Long.MIN_VALUE, newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 
@@ -182,7 +181,7 @@ public class PagosLogicTest {
         newEntity.setCliente(cliente);
         pagosLogic.createPago(cliente.getId(), propuesta.getId(), newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
+
         }
     }
 
@@ -197,7 +196,6 @@ public class PagosLogicTest {
         newEntity.setCliente(clienteData.get(0));
         pagosLogic.createPago(clienteData.get(0).getId(), Long.MIN_VALUE, newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 

@@ -151,7 +151,6 @@ entity.setCliente(clienteData.get(1));
         newEntity.setNumeroTarjetaCredito(Long.valueOf(1));
         tarjetaLogic.createTarjeta(clienteData.get(1).getId(),newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 
@@ -166,7 +165,6 @@ entity.setCliente(clienteData.get(1));
         newEntity.setNumeroTarjetaCredito(null);
         tarjetaLogic.createTarjeta(clienteData.get(1).getId(),newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
     
@@ -182,7 +180,6 @@ entity.setCliente(clienteData.get(1));
         newEntity.setNumeroTarjetaCredito(data.get(0).getNumeroTarjetaCredito());
         tarjetaLogic.createTarjeta(clienteData.get(1).getId(),newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 
@@ -197,7 +194,6 @@ entity.setCliente(clienteData.get(1));
         ClienteEntity clienteEntity = new ClienteEntity();
         tarjetaLogic.createTarjeta(Long.MIN_VALUE,newEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
  /**
@@ -213,7 +209,6 @@ entity.setCliente(clienteData.get(1));
         pojoEntity.setId(entity.getId());
         tarjetaLogic.updateTarjeta(pojoEntity.getId(), pojoEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 
@@ -230,7 +225,6 @@ entity.setCliente(clienteData.get(1));
         pojoEntity.setId(entity.getId());
         tarjetaLogic.updateTarjeta(pojoEntity.getId(), pojoEntity);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 
@@ -246,7 +240,6 @@ entity.setCliente(clienteData.get(1));
         TarjetaDeCreditoEntity deleted = em.find(TarjetaDeCreditoEntity.class, entity.getId());
         Assert.assertNull(deleted);
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
 
@@ -259,7 +252,6 @@ entity.setCliente(clienteData.get(1));
             TarjetaDeCreditoEntity entity = data.get(1);
         tarjetaLogic.deleteTarjeta(clienteData.get(1).getId(),entity.getId());
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
     }
     

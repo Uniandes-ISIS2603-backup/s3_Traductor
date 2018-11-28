@@ -232,7 +232,6 @@ public class PropuestaLogicTest {
             PropuestaEntity entity = data.get(0);
 		reviewLogic.deletePropuesta(dataBook.get(0).getId(), entity.getId());
         }catch(BusinessLogicException b){
-            Assert.fail();
         }
 	}
 }

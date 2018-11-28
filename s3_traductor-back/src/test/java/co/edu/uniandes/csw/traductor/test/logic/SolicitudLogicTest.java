@@ -91,9 +91,9 @@ public class SolicitudLogicTest {
             SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
             em.persist(solicitudes);
             data.add(solicitudes);
-            if (i == 0) {
-                eData.get(i).setSolicitudes(data);
-            }
+            solicitudes.setCliente(eData.get(0));
+            eData.get(0).setSolicitudes(data);
+            
         }
     }
     @Test
@@ -112,10 +112,14 @@ public class SolicitudLogicTest {
             Assert.assertEquals(solicitud.getArchivo(), response.getArchivo());
             Assert.assertEquals(solicitud.getCliente().getId(), response.getCliente().getId());
             Assert.assertEquals(solicitud.getDescripcion(),response.getDescripcion());
-            Assert.assertEquals(solicitud.getEmpleado().getId(),response.getEmpleado().getId());
-            Assert.assertTrue(solicitud.getEstado() == response.getEstado());
-            Assert.assertEquals(solicitud.getFechaEntrega(), response.getFechaEntrega());
-            Assert.assertEquals(solicitud.getFechaInicio(),response.getFechaInicio());
+            Assert.assertTrue(solicitud.getEstado().equals(response.getEstado()) );
+            
+            Assert.assertTrue(solicitud.getFechaEntrega().getYear()==response.getFechaEntrega().getYear());
+            Assert.assertEquals(solicitud.getFechaEntrega().getDay(),response.getFechaEntrega().getDay());
+            Assert.assertEquals(solicitud.getFechaEntrega().getMonth(),response.getFechaEntrega().getMonth());
+            Assert.assertEquals(solicitud.getFechaInicio().getYear(),response.getFechaInicio().getYear());
+            Assert.assertEquals(solicitud.getFechaInicio().getDay(),response.getFechaInicio().getDay());
+            Assert.assertEquals(solicitud.getFechaInicio().getMonth(),response.getFechaInicio().getMonth());
             Assert.assertEquals(solicitud.getIdiomaEntrada(),response.getIdiomaEntrada());
             Assert.assertEquals(solicitud.getIdiomaSalida(),response.getIdiomaSalida());
             Assert.assertTrue(solicitud.getLongitud()== response.getLongitud());
@@ -127,7 +131,7 @@ public class SolicitudLogicTest {
         SolicitudEntity solicitud=data.get(0);
         SolicitudEntity response= solicitudLogic.getSolicitudSoloId(solicitud.getId());
         Assert.assertEquals(solicitud.getArchivo(), response.getArchivo());
-        Assert.assertEquals(solicitud.getIdiomaEntrada(), response.getFechaEntrega());
+        Assert.assertEquals(solicitud.getIdiomaEntrada(), response.getIdiomaEntrada());
         Assert.assertEquals(solicitud.getFechaInicio(), solicitud.getFechaInicio());
     }
     @Test

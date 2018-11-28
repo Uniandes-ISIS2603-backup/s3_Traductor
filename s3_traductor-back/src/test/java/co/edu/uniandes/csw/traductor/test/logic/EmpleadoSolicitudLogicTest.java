@@ -77,8 +77,9 @@ public class EmpleadoSolicitudLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
+                em.createQuery("delete from SolicitudEntity").executeUpdate();
         em.createQuery("delete from EmpleadoEntity").executeUpdate();
-        em.createQuery("delete from SolicitudEntity").executeUpdate();
+
     }
 
     /**
@@ -87,59 +88,47 @@ public class EmpleadoSolicitudLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
-            em.persist(solicitudes);
-            sData.add(solicitudes);
-        }
-        for (int i = 0; i < 3; i++) {
             EmpleadoEntity entity = factory.manufacturePojo(EmpleadoEntity.class);
             em.persist(entity);
             data.add(entity);
-            if (i == 0) {
-                sData.get(i).setEmpleado(entity);
-            }
+            System.out.println(entity.getId());
         }
+        for (int i = 0; i < 3; i++) {
+            SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
+            solicitudes.setEmpleado(data.get(0));
+             System.out.println("unicornio" +solicitudes.getId());
+              System.out.println(data.get(0).getId());
+            em.persist(solicitudes);
+            sData.add(solicitudes);
+        }
+                    SolicitudEntity sol=factory.manufacturePojo(SolicitudEntity.class);
+            em.persist(sol);
+            sData.add(sol);
+
     }
     @Test
-    public void addInvitacionTest(){
-        EmpleadoEntity entity=null;
-            for (EmpleadoEntity empleadoEntity : data) {
-                entity=empleadoEntity;
-                break;
-            }
-            SolicitudEntity sol=null;
-            int cont=0;
-            for (SolicitudEntity solicitudEntity : sData) {
-                
-                if(cont==0){
-                    sol=solicitudEntity;
-                    cont++;
-                }
-                else{
-                    break;
-                }
-                
-                
-            }
-        SolicitudEntity response = empleadoSolicitudLogic.addSolicitud(sol.getId(), entity.getId());
+    public void addSolicitudTest(){
+        EmpleadoEntity entity=data.get(0);
+        SolicitudEntity solecito=sData.get(3);
+        SolicitudEntity response = empleadoSolicitudLogic.addSolicitud(solecito.getId(), entity.getId());
 
         Assert.assertNotNull(response);
-        Assert.assertEquals(sol.getId(), response.getId());
+        Assert.assertEquals(solecito.getId(), response.getId());
     }
     
     @Test
-    public void getInvitacionesTest(){
-        EmpleadoEntity entity=null;
-            for (EmpleadoEntity empleadoEntity : data) {
-                entity=empleadoEntity;
-                break;
-            }
+    public void getSolicitudesTest(){
+        EmpleadoEntity entity=data.get(0);
+//            for (EmpleadoEntity empleadoEntity : data) {
+//                entity=empleadoEntity;
+//                break;
+//            }
         if(entity!=null){List<SolicitudEntity> list = empleadoSolicitudLogic.getSolicitudes(entity.getId());
-        Assert.assertEquals(1, list.size());}
+        Assert.assertEquals(3, list.size());}
     }
     
     @Test
-    public void getInvitacionTest(){
+    public void getSolicitudTest(){
        try{
             EmpleadoEntity entity=null;
             for (EmpleadoEntity empleadoEntity : data) {
@@ -157,12 +146,14 @@ public class EmpleadoSolicitudLogicTest {
 
         Assert.assertEquals(solicitudEntity.getId(), response.getId());
         Assert.assertEquals(solicitudEntity.getDescripcion(), response.getDescripcion());
-       }catch(BusinessLogicException | NullPointerException b){
-           Assert.fail();
+       }catch(BusinessLogicException b){
+           Assert.fail("falla en la logica");
+       }catch( NullPointerException b){
+           Assert.fail("ni siquiera se crea");
        }
     }
     @Test
-    public void getInvitacionNoAsociada(){
+    public void getSolicitudNoAsociada(){
         try{
             EmpleadoEntity entity=null;
             for (EmpleadoEntity empleadoEntity : data) {
@@ -184,10 +175,10 @@ public class EmpleadoSolicitudLogicTest {
                 
             }
             empleadoSolicitudLogic.getSolicitud(entity.getId(), solicitud.getId());
-            Assert.fail("No debe encontrar la invitacion");
+            Assert.fail("No debe encontrar la solicitudes");
         }
         catch(Exception b){
-            Assert.assertTrue("No encontro la invitacion", true);
+            Assert.assertTrue("No encontro la solicitudes", true);
         }
     }
 }

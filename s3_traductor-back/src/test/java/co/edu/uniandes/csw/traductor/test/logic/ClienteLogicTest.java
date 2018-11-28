@@ -225,7 +225,7 @@ public class ClienteLogicTest
     @Test(expected = BusinessLogicException.class)
     public void createClienteConMismoNombreUsuarioTest() throws BusinessLogicException {
 
-            ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setNombreUsuario(data.get(0).getNombreUsuario());
         clienteLogic.createCliente(newEntity);
     }
@@ -238,7 +238,7 @@ public class ClienteLogicTest
      */
     @Test(expected = BusinessLogicException.class)
     public void createClienteConMismaIdentificacionTest() throws BusinessLogicException {
-            ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setIdentificacion(data.get(0).getIdentificacion());
         clienteLogic.createCliente(newEntity);
     }
