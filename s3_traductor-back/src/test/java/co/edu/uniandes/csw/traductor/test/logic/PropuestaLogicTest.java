@@ -23,7 +23,6 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.traductor.test.logic;
 
-import co.edu.uniandes.csw.traductor.ejb.InvitacionLogic;
 import co.edu.uniandes.csw.traductor.ejb.PropuestaLogic;
 import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.traductor.entities.PropuestaEntity;
@@ -135,8 +134,10 @@ public class PropuestaLogicTest {
 	*/
 	
 	@Test
-	public void createPropuestaTest() throws BusinessLogicException {
-		PropuestaEntity newEntity = factory.manufacturePojo(PropuestaEntity.class);
+	public void createPropuestaTest()  {
+		
+                try{
+            PropuestaEntity newEntity = factory.manufacturePojo(PropuestaEntity.class);
                 newEntity.setCosto(102340);
 		newEntity.setEmpleado(dataBook.get(1));
 		PropuestaEntity result = reviewLogic.createPropuesta(dataBook.get(1).getId(), newEntity);
@@ -144,6 +145,9 @@ public class PropuestaLogicTest {
 		PropuestaEntity entity = em.find(PropuestaEntity.class, result.getId());
 		Assert.assertEquals(newEntity.getId(), entity.getId());
 		Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
 	}
 
 	
@@ -155,7 +159,7 @@ public class PropuestaLogicTest {
 	 * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
 	 */
 	@Test
-	public void getAllPropuestasTest() throws BusinessLogicException {
+	public void getAllPropuestasTest()  {
 		List<PropuestaEntity> list = reviewLogic.getAllPropuestas(dataBook.get(1).getId());
 		Assert.assertEquals(data.size(), list.size());
 		for (PropuestaEntity entity : list) {
@@ -204,11 +208,16 @@ public class PropuestaLogicTest {
 	 * @throws co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException
 	*/
 	@Test
-	public void deletePropuestaTest() throws BusinessLogicException {
-		PropuestaEntity entity = data.get(0);
+	public void deletePropuestaTest()  {
+		
+                try{
+            PropuestaEntity entity = data.get(0);
 		reviewLogic.deletePropuesta(dataBook.get(1).getId(), entity.getId());
 		PropuestaEntity deleted = em.find(PropuestaEntity.class, entity.getId());
 		Assert.assertNull(deleted);
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
 	}
 	
 	
@@ -216,9 +225,14 @@ public class PropuestaLogicTest {
 	 * Prueba para eliminarle un review a un book del cual no pertenece.	 *
 	 * @throws co.edu.uniandes.csw.traducto.exceptions.BusinessLogicException
 	 */
-	@Test(expected = BusinessLogicException.class)
-	public void deletePropuestaConClienteNoAsociadoTest() throws BusinessLogicException {
-		PropuestaEntity entity = data.get(0);
+	@Test
+	public void deletePropuestaConClienteNoAsociadoTest() {
+		
+                try{
+            PropuestaEntity entity = data.get(0);
 		reviewLogic.deletePropuesta(dataBook.get(0).getId(), entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
 	}
 }

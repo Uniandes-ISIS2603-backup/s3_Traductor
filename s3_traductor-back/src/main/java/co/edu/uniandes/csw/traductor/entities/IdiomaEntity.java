@@ -52,5 +52,7 @@ public class IdiomaEntity extends BaseEntity implements Serializable
     public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
-    
+    public void addEmpleado(EmpleadoEntity empleado){
+        this.empleados.add(empleado);
+    }
 }

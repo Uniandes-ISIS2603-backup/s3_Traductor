@@ -56,8 +56,7 @@ public class ClientePropuestaLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
-    @Inject
-    private ClienteLogic clienteLogic;
+    
 	
     @Inject
     private ClientePropuestaLogic clientePropuestaLogic;
@@ -166,15 +165,20 @@ public class ClientePropuestaLogicTest {
      * @throw BussinessLogicException si se incumplen las precondiciones de la logica.
      */
     @Test
-    public void getBookTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+    public void getBookTest()  {
+        
+        try{
+            ClienteEntity entity = data.get(0);
         PropuestaEntity propuestaEntity = propuestasData.get(0);
         PropuestaEntity response = clientePropuestaLogic.getPropuesta(entity.getId(), propuestaEntity.getId());
 
         Assert.assertEquals(propuestaEntity.getId(), response.getId());
         Assert.assertEquals(propuestaEntity.getCosto(), response.getCosto());
         Assert.assertEquals(propuestaEntity.getDescripcion(), response.getDescripcion());
-        Assert.assertEquals(propuestaEntity.getEstado(), response.getEstado());        
+        Assert.assertEquals(propuestaEntity.getEstado(), response.getEstado()); 
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 
     /**
@@ -183,10 +187,15 @@ public class ClientePropuestaLogicTest {
      *
      * @throw BussinessLogicException si se incumplen las precondiciones de la logica.
      */
-    @Test(expected = BusinessLogicException.class)
-    public void getPropuestaNoAsociadaTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+    @Test
+    public void getPropuestaNoAsociadaTest()  {
+        
+        try{
+            ClienteEntity entity = data.get(0);
         PropuestaEntity propuestaEntity = propuestasData.get(1);
         clientePropuestaLogic.getPropuesta(entity.getId(), propuestaEntity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }   
 }

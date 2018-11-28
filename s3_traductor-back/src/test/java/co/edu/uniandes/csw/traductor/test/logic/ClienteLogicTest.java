@@ -15,8 +15,6 @@ import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.traductor.persistence.ClientePersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -202,8 +200,9 @@ public class ClienteLogicTest
      * @throws BusinessLogicException
      */
     @Test
-    public void createClienteTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+    public void createClienteTest()  {
+       try{
+            ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         ClienteEntity result = clienteLogic.createCliente(newEntity);
         Assert.assertNotNull(result);
         ClienteEntity entity = em.find(ClienteEntity.class, result.getId());
@@ -211,6 +210,9 @@ public class ClienteLogicTest
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
         Assert.assertEquals(newEntity.getIdentificacion(), entity.getIdentificacion());
         Assert.assertEquals(newEntity.getNombreUsuario(), entity.getNombreUsuario());
+       }catch(BusinessLogicException b){
+           Assert.fail();
+       }
     }
 
     /**
@@ -219,11 +221,15 @@ public class ClienteLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createClienteConMismoNombreUsuarioTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+    @Test
+    public void createClienteConMismoNombreUsuarioTest() {
+        try{
+            ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setNombreUsuario(data.get(0).getNombreUsuario());
         clienteLogic.createCliente(newEntity);
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -232,11 +238,15 @@ public class ClienteLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createClienteConMismaIdentificacionTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+    @Test
+    public void createClienteConMismaIdentificacionTest() {
+        try{
+            ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setIdentificacion(data.get(0).getIdentificacion());
         clienteLogic.createCliente(newEntity);
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -245,11 +255,15 @@ public class ClienteLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createClienteConMismoCorreoTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+    @Test
+    public void createClienteConMismoCorreoTest() {
+        try{
+            ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setCorreoElectronico(data.get(0).getCorreoElectronico());
         clienteLogic.createCliente(newEntity);
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 
     /**
@@ -274,11 +288,15 @@ public class ClienteLogicTest
      * @throws BusinessLogicException
      */
     @Test
-    public void deleteClienteTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(3);
+    public void deleteClienteTest()  {
+        try{
+            ClienteEntity entity = data.get(3);
         clienteLogic.deleteCliente(entity.getId());
         ClienteEntity deleted = em.find(ClienteEntity.class, entity.getId());
         Assert.assertNull(deleted);
+        }catch (BusinessLogicException b){
+            Assert.fail();
+        }
     }
 
     /**
@@ -286,10 +304,14 @@ public class ClienteLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteClienteConSolicitudesAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(0);
+    @Test
+    public void deleteClienteConSolicitudesAsociadasTest(){
+        try{
+            ClienteEntity entity = data.get(0);
         clienteLogic.deleteCliente(entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -297,10 +319,15 @@ public class ClienteLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteClienteConPropuestasAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(2);
+    @Test
+    public void deleteClienteConPropuestasAsociadasTest()  {
+        
+        try{
+            ClienteEntity entity = data.get(2);
         clienteLogic.deleteCliente(entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -308,9 +335,14 @@ public class ClienteLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteClienteConInvitacionesAsociadasTest() throws BusinessLogicException {
-        ClienteEntity entity = data.get(1);
+    @Test
+    public void deleteClienteConInvitacionesAsociadasTest()  {
+        
+        try{
+            ClienteEntity entity = data.get(1);
         clienteLogic.deleteCliente(entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 }

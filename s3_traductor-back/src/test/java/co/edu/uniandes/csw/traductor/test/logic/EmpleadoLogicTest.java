@@ -181,13 +181,18 @@ public class EmpleadoLogicTest
      */
     @Test
     public void createEmpleadoTest() throws BusinessLogicException {
-        EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
+        
+        try{
+            EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
         EmpleadoEntity result = empleadoLogic.createEmpleado(newEntity);
         Assert.assertNotNull(result);
         EmpleadoEntity entity = em.find(EmpleadoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombreEmpleado(), entity.getNombreEmpleado());
         Assert.assertEquals(newEntity.getNombreUsuario(), entity.getNombreUsuario());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 
     /**
@@ -196,11 +201,16 @@ public class EmpleadoLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createEmpleadoConMismoNombreUsuarioTest() throws BusinessLogicException {
-        EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
+    @Test
+    public void createEmpleadoConMismoNombreUsuarioTest() {
+        
+        try{
+            EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
         newEntity.setNombreUsuario(data.get(0).getNombreUsuario());
         empleadoLogic.createEmpleado(newEntity);
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -209,11 +219,16 @@ public class EmpleadoLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void createEmpleadoConMismoCorreoTest() throws BusinessLogicException {
-        EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
+    @Test
+    public void createEmpleadoConMismoCorreoTest() {
+        
+        try{
+            EmpleadoEntity newEntity = factory.manufacturePojo(EmpleadoEntity.class);
         newEntity.setCorreoElectronico(data.get(0).getCorreoElectronico());
         empleadoLogic.createEmpleado(newEntity);
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 
     /**
@@ -222,11 +237,17 @@ public class EmpleadoLogicTest
      * @throws BusinessLogicException
      */
     @Test
-    public void deleteEmpleadoTest() throws BusinessLogicException {
-        EmpleadoEntity entity = data.get(3);
+    public void deleteEmpleadoTest() {
+       
+        try{ 
+            EmpleadoEntity entity = data.get(3);
         empleadoLogic.deleteEmpleado(entity.getId());
         EmpleadoEntity deleted = em.find(EmpleadoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+            
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 
     /**
@@ -234,10 +255,15 @@ public class EmpleadoLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteEmpleadoConSolicitudesAsociadasTest() throws BusinessLogicException {
-        EmpleadoEntity entity = data.get(0);
+    @Test
+    public void deleteEmpleadoConSolicitudesAsociadasTest() {
+        
+        try{
+            EmpleadoEntity entity = data.get(0);
         empleadoLogic.deleteEmpleado(entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -245,10 +271,15 @@ public class EmpleadoLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteEmpleadoConPropuestasAsociadasTest() throws BusinessLogicException {
-        EmpleadoEntity entity = data.get(2);
+    @Test
+    public void deleteEmpleadoConPropuestasAsociadasTest()  {
+       
+        try{
+             EmpleadoEntity entity = data.get(2);
         empleadoLogic.deleteEmpleado(entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
     
     /**
@@ -256,9 +287,14 @@ public class EmpleadoLogicTest
      *
      * @throws BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteEmpleadoConInvitacionesAsociadasTest() throws BusinessLogicException {
-        EmpleadoEntity entity = data.get(1);
+    @Test
+    public void deleteEmpleadoConInvitacionesAsociadasTest() {
+        
+        try{
+            EmpleadoEntity entity = data.get(1);
         empleadoLogic.deleteEmpleado(entity.getId());
+        }catch(BusinessLogicException b){
+            Assert.fail();
+        }
     }
 }
