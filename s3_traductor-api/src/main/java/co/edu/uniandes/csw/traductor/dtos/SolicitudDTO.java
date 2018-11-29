@@ -49,8 +49,8 @@ public class SolicitudDTO implements Serializable {
     protected Date fechaEntrega;
     protected Integer estado;
     protected Integer tipoSolicitud;
-    protected IdiomaDTO idiomaEntrada;
-    protected IdiomaDTO idiomaSalida;
+    protected String idiomaEntrada;
+    protected String idiomaSalida;
     private String descripcion;
     private String archivo;
     private int longitud;
@@ -78,12 +78,8 @@ public class SolicitudDTO implements Serializable {
             this.fechaEntrega = solicitudEntity.getFechaEntrega();
             this.estado = solicitudEntity.getEstado();
             this.tipoSolicitud = solicitudEntity.getTipoSolicitud();
-            if (solicitudEntity.getIdiomaEntrada() != null) {
-                this.idiomaEntrada = new IdiomaDTO(solicitudEntity.getIdiomaEntrada());
-            }
-            if (solicitudEntity.getIdiomaSalida() != null) {
-                this.idiomaSalida = new IdiomaDTO(solicitudEntity.getIdiomaSalida());
-            }
+            this.idiomaEntrada =  solicitudEntity.getIdiomaEntrada();
+            this.idiomaSalida = solicitudEntity.getIdiomaSalida();
             this.descripcion=solicitudEntity.getDescripcion();
             this.archivo=solicitudEntity.getArchivo();
             this.longitud=solicitudEntity.getLongitud();
@@ -106,14 +102,8 @@ public class SolicitudDTO implements Serializable {
         solicitudEntity.setDescripcion(this.descripcion);
         solicitudEntity.setArchivo(this.archivo);
         solicitudEntity.setLongitud(this.longitud);
-        if(this.idiomaEntrada != null)
-        { 
-            solicitudEntity.setIdiomaEntrada(this.idiomaEntrada.toEntity());
-        }
-        if(this.idiomaSalida != null)
-        {
-            solicitudEntity.setIdiomaSalida(this.idiomaSalida.toEntity());
-        }
+            solicitudEntity.setIdiomaEntrada(this.idiomaEntrada);
+            solicitudEntity.setIdiomaSalida(this.idiomaSalida);
         return solicitudEntity;
     }
 
@@ -160,19 +150,19 @@ public class SolicitudDTO implements Serializable {
         this.tipoSolicitud = tipoSolicitud;
     }
 
-    public IdiomaDTO getIdiomaEntrada() {
+    public String getIdiomaEntrada() {
         return idiomaEntrada;
     }
 
-    public void setIdiomaEntrada(IdiomaDTO idiomaEntrada) {
+    public void setIdiomaEntrada(String idiomaEntrada) {
         this.idiomaEntrada = idiomaEntrada;
     }
 
-    public IdiomaDTO getIdiomaSalida() {
+    public String getIdiomaSalida() {
         return idiomaSalida;
     }
 
-    public void setIdiomaSalida(IdiomaDTO idiomaSalida) {
+    public void setIdiomaSalida(String idiomaSalida) {
         this.idiomaSalida = idiomaSalida;
     }
 

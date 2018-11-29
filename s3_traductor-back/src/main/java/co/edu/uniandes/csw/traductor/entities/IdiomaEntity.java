@@ -25,9 +25,6 @@ public class IdiomaEntity extends BaseEntity implements Serializable
     @ManyToMany
     private List<EmpleadoEntity> empleados;
     
-    @PodamExclude
-    @OneToOne
-    private SolicitudEntity solicitud;
 
     public List<EmpleadoEntity> getEmpleados() {
         return empleados;
@@ -35,14 +32,6 @@ public class IdiomaEntity extends BaseEntity implements Serializable
 
     public void setEmpleados(List<EmpleadoEntity> empleados) {
         this.empleados = empleados;
-    }
-
-    public SolicitudEntity getSolicitud() {
-        return solicitud;
-    }
-
-    public void setSolicitud(SolicitudEntity solicitud) {
-        this.solicitud = solicitud;
     }
 
     public String getIdioma() {
