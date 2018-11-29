@@ -115,16 +115,7 @@ public class SolicitudPersistenceTest {
     @Test
     public void getSolicitudesTest() {
         List<SolicitudEntity> list = solicitudrPersistence.findAll();
-        Assert.assertEquals(0, data.size());
-        for (SolicitudEntity ent : list) {
-            boolean found = false;
-            for (SolicitudEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertFalse(found);
-        }
+        Assert.assertEquals(3, list.size());
     }
 
     /**
@@ -132,10 +123,11 @@ public class SolicitudPersistenceTest {
      */
     @Test
     public void getSolicitudTest() {
-        SolicitudEntity newEntity = new SolicitudEntity();
+        SolicitudEntity newEntity =  data.get(0);
+        SolicitudEntity result=solicitudrPersistence.findSoloId(newEntity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(newEntity.getEstado(), newEntity.getEstado());
-        Assert.assertEquals(newEntity.getTipoSolicitud(), newEntity.getTipoSolicitud());
+        Assert.assertEquals(result.getEstado(), newEntity.getEstado());
+        Assert.assertEquals(result.getTipoSolicitud(), newEntity.getTipoSolicitud());
     }
 
 
