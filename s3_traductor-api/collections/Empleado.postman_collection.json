@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "73900d4c-6afb-4d5d-b0ad-f5128e0b50aa",
+		"_postman_id": "4940710a-2d0e-4ab9-bea8-4e550c3eaf13",
 		"name": "Empleado test",
 		"description": "Coleccion de pruebas sobre el recurso Author",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -37,7 +37,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"nombreEmpleado\":\"Kaitlyn\",\n\"correoElectronico\":\"kdoohan0@bigcartel.com\",\n\"aniosExperiencia\":12,\n\"nombreUsuario\":\"kewles0\",\n\"contrasenia\":\"zq0rUN4N\",\n\"trayectoria\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"HojaDeVida\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"tipoEmpleado\":\"TRADUCTOR\",\n\"estudios\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"referencias\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\"\n}"
+							"raw": "{\n\"nombreEmpleado\":\"Kaitlsadfsadfyn\",\n\"correoElectronico\":\"sadfsdafdsaf@bigcartel.com\",\n\"aniosExperiencia\":12,\n\"nombreUsuario\":\"sdkfjsadkljhfsadf\",\n\"contrasenia\":\"asdfsdafsdf\",\n\"trayectoria\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"HojaDeVida\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"tipoEmpleado\":\"TRADUCTOR\",\n\"estudios\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"referencias\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\"\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",

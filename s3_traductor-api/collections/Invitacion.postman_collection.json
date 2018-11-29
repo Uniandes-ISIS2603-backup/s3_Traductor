@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "a4e551f8-50c3-4cdc-8153-241ad4eb00fb",
+		"name": "Invitacion test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente para la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d196c55-1371-4623-83e4-43ae415de918",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_o\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"pepE\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea solicitud para la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08bdeb5d-ce99-4b45-bae5-efa7da8209fd",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_sol\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": 2,\n    \"tipoSolicitud\": 3,\n    \"fechaInicio\": \"11/02/2018\",\n    \"fechaEntrega\": \"11/13/2018\",\n    \"idiomaEntrada\": \"Italiano\",\n    \"idiomaSalida\": \"inglés\",\n\"descripcion\":\"fhbadsfhjdv qhvbauagb\",\n\t\"archivo\":\"dkahbsjbnlsdafhblrvbHLSJRKGHFBHFA RSRGVBNALHVRBALVNA\",\n\t\"longitud\":1235\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un empleado para la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf7adc2-da23-46dc-8262-64492f7c8b1e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_empleado\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreEmpleado\": \"El Nuevo empleado\",\n    \"correoElectronico\": \"asdasda@gmail.com\",\n    \"aniosExperiencia\": 7,\n    \"nombreUsuario\": \"newbie\",\n    \"contrasenia\": \"ffolvl13tg\",\n    \"trayectoria\": \"Trabajé con lo cracks\",\n    \"HojaDeVida\": \"Soy experto en lenguas\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"Lenguas en oxford\",\n    \"referencias\": \"Profe Xavier: El es re crack!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea una invitación al cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b0eeb35-4bc9-44e5-a07c-801368f51d35",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_inv\",data.idInvitacion);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"Prueba de Ejecucion\",\n    \"idEmpleado\": {{new_empleado}},\n    \"solicitudId\": {{new_sol}}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/invitaciones/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"invitaciones",
+						""
+					]
+				},
+				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtiene todas las invitaciones del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0920f7f-13a5-4b44-9f4a-dd6268252988",
+						"exec": [
+							"tests[\"No hay error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/invitaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"invitaciones"
+					]
+				},
+				"description": "Prueba Get para InvitacionResource"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtiene una invitación del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34a2f827-18a7-4e9f-b43e-8009d7444c9f",
+						"exec": [
+							"tests[\"No hay error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/invitaciones/{{new_id_inv}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"invitaciones",
+						"{{new_id_inv}}"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null. Valor especifico"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualiza una invitación del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cea3893a-2e64-423e-8c95-dffbd61719ed",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"Cambiando descripcion\",\n    \"idEmpleado\": {{new_empleado}},\n    \"idInvitacion\": {{new_id_inv}}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/invitaciones/{{new_id_inv}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"invitaciones",
+						"{{new_id_inv}}"
+					]
+				},
+				"description": "Prueba Put para PropuestaResource siguiendo los lineamientos, retorna null"
+			},
+			"response": []
+		},
+		{
+			"name": "Elimina una invitación del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de062f34-309a-4fc9-98aa-f123f5c081e2",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/invitaciones/{{new_id_inv}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"invitaciones",
+						"{{new_id_inv}}"
+					]
+				},
+				"description": "Prueba DELETE para una propuesta en especifico"
+			},
+			"response": []
+		}
+	]
+}
