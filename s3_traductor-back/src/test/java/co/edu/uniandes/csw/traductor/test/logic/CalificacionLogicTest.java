@@ -86,7 +86,9 @@ public class CalificacionLogicTest {
      * Dejar limpia la tabla implicada en la pruba
      */
     private void clearData(){
+        
         em.createQuery("delete from CalificacionEntity").executeUpdate();
+        em.createQuery("delete from EmpleadoEntity").executeUpdate();
     }
     /**
      * Inserta datos para llevar a cabo las pruebas
@@ -99,21 +101,21 @@ public class CalificacionLogicTest {
         }
         for(int i=0;i<=2;i++){
             CalificacionEntity calificacion=factory.manufacturePojo(CalificacionEntity.class);
+            int tmp = calificacion.getValorCalificacion();
+            calificacion.setValorCalificacion(Math.abs(tmp));
             em.persist(calificacion);
             data.add(calificacion);
-            if(i==0){
-                eData.get(i).setCalificaciones(data);
-            }
         }
+        eData.get(0).setCalificaciones(data);
     }
     @Test
     public void createCalificacionTest(){
         try {
-            CalificacionEntity cal=data.get(0);
+            CalificacionEntity cal=data.get(1);
             EmpleadoEntity emp=eData.get(0);
             Assert.assertNotNull(calificacionLogic.createCalificacion(emp.getId(), cal));
         } catch (BusinessLogicException ex) {
-            Assert.fail();
+            Assert.fail(ex.getMessage());
         }
         
     }
