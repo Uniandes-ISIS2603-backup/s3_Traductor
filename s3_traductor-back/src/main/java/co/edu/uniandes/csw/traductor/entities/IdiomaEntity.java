@@ -24,8 +24,6 @@ public class IdiomaEntity extends BaseEntity implements Serializable
     @PodamExclude
     @ManyToMany
     private List<EmpleadoEntity> empleados;
-    
-
     public List<EmpleadoEntity> getEmpleados() {
         return empleados;
     }
