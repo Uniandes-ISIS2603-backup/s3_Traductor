@@ -12,7 +12,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CalificacionDTO implements Serializable
 {
     private Long id;
-    private Long idEmpleado;
     private String comentario;
     private Integer valorCalificacion;
     private String nombreCalificador;
@@ -36,22 +35,6 @@ public class CalificacionDTO implements Serializable
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * Da el id del empleado que se califico
-     * @return el id del empleado calificado.
-     */
-    public Long getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    /**
-     * Cambia el id del empleado que se califico
-     * @param idEmpleado el nuevo id de empleado calificado
-     */
-    public void setIdEmpleado(Long idEmpleado) {
-        this.idEmpleado = idEmpleado;
     }
 
     /**
@@ -103,7 +86,6 @@ public class CalificacionDTO implements Serializable
     public CalificacionDTO(CalificacionEntity calificacionEntity) {
         if (calificacionEntity != null) {
             this.id = calificacionEntity.getId();
-            this.idEmpleado = calificacionEntity.getIdEmpleado();
             this.comentario = calificacionEntity.getComentario();
             this.valorCalificacion = calificacionEntity.getValorCalificacion();
             this.nombreCalificador = calificacionEntity.getNombreCalificador();
@@ -119,7 +101,6 @@ public class CalificacionDTO implements Serializable
     public CalificacionEntity toEntity() {
         CalificacionEntity calificacionEntity = new CalificacionEntity();
         calificacionEntity.setId(this.id);
-        calificacionEntity.setIdEmpleado(this.idEmpleado);
         calificacionEntity.setComentario(this.comentario);
         calificacionEntity.setValorCalificacion(this.valorCalificacion);
         calificacionEntity.setNombreCalificador(this.nombreCalificador);
