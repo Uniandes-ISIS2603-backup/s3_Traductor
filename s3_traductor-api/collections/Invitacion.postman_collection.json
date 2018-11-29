@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a4e551f8-50c3-4cdc-8153-241ad4eb00fb",
+		"_postman_id": "a6a71371-bc62-48a4-a07f-0e1cdc7f9d08",
 		"name": "Invitacion test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -35,7 +35,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"pepE\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+					"raw": "{\n\t\"nombreUsuario\":\"pepitdssdfo123\",\n\t\"contrasenia\":\"pepasdfdsfE\",\n\t\"correoElectronico\":\"pepasdfsdafe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"1231246572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
