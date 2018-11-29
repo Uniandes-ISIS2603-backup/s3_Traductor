@@ -96,8 +96,6 @@ public class EmpleadoSolicitudLogicTest {
         for (int i = 0; i < 3; i++) {
             SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
             solicitudes.setEmpleado(data.get(0));
-             System.out.println("unicornio" +solicitudes.getId());
-              System.out.println(data.get(0).getId());
             em.persist(solicitudes);
             sData.add(solicitudes);
         }
@@ -155,25 +153,10 @@ public class EmpleadoSolicitudLogicTest {
     @Test
     public void getSolicitudNoAsociada(){
         try{
-            EmpleadoEntity entity=null;
-            for (EmpleadoEntity empleadoEntity : data) {
-                entity=empleadoEntity;
-                break;
-            }
-            SolicitudEntity solicitud=null;
-            int cont=0;
-            for (SolicitudEntity solicitudEntity : sData) {
-                
-                if(cont==0){
-                    solicitud=solicitudEntity;
-                    cont++;
-                }
-                else{
-                    break;
-                }
-                
-                
-            }
+            EmpleadoEntity entity=data.get(0);
+
+            SolicitudEntity solicitud=sData.get(3);
+
             empleadoSolicitudLogic.getSolicitud(entity.getId(), solicitud.getId());
             Assert.fail("No debe encontrar la solicitudes");
         }

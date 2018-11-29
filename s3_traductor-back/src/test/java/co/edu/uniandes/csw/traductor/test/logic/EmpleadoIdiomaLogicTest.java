@@ -28,6 +28,7 @@ import co.edu.uniandes.csw.traductor.entities.EmpleadoEntity;
 import co.edu.uniandes.csw.traductor.entities.IdiomaEntity;
 import co.edu.uniandes.csw.traductor.persistence.EmpleadoPersistence;
 import co.edu.uniandes.csw.traductor.ejb.EmpleadoIdiomaLogic;
+import co.edu.uniandes.csw.traductor.ejb.EmpleadoLogic;
 import co.edu.uniandes.csw.traductor.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class EmpleadoIdiomaLogicTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(EmpleadoEntity.class.getPackage())
-                .addPackage(EmpleadoLogicTest.class.getPackage())
+                .addPackage(EmpleadoLogic.class.getPackage())
                 .addPackage(EmpleadoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -96,29 +97,38 @@ public class EmpleadoIdiomaLogicTest {
         }
     }
     private void clearData() {
-        em.createQuery("delete from EmpleadoEntity").executeUpdate();
         em.createQuery("delete from IdiomaEntity").executeUpdate();
+        em.createQuery("delete from EmpleadoEntity").executeUpdate();
+
     }
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            IdiomaEntity propuestas = factory.manufacturePojo(IdiomaEntity.class);
-            em.persist(propuestas);
-            iData.add(propuestas);
-        }
         for (int i = 0; i < 3; i++) {
             EmpleadoEntity entity = factory.manufacturePojo(EmpleadoEntity.class);
             em.persist(entity);
             data.add(entity);
-            if (i == 0) {
-                iData.get(i).addEmpleado(entity);
-            }
         }
+
+        for (int i = 0; i < 3; i++) {
+            IdiomaEntity idiomas = factory.manufacturePojo(IdiomaEntity.class);
+            
+            idiomas.setEmpleados(data);
+            em.persist(idiomas);
+            iData.add(idiomas);
+           
+        }
+        data.get(0).setIdiomas(iData);
+        EmpleadoEntity entity2 = factory.manufacturePojo(EmpleadoEntity.class);
+        em.persist(entity2);
+        data.add(entity2);
+        IdiomaEntity idiomas2 = factory.manufacturePojo(IdiomaEntity.class);
+        em.persist(idiomas2);
+        iData.add(idiomas2);
     }
 	
     @Test
-    public void addPropuestasTest() {
-        EmpleadoEntity entity = data.get(0);
-        IdiomaEntity iEntity = iData.get(1);
+    public void addIdiomaTest() {
+        EmpleadoEntity entity = data.get(3);
+        IdiomaEntity iEntity = iData.get(3);
         IdiomaEntity response = empleadoIdiomaLogic.addIdioma(entity.getId(), iEntity.getId());
 
         Assert.assertNotNull(response);
@@ -126,13 +136,13 @@ public class EmpleadoIdiomaLogicTest {
     }
 	
     @Test
-    public void getBooksTest() {
+    public void getIdiomasTest() {
         List<IdiomaEntity> list = empleadoIdiomaLogic.getIdiomas(data.get(0).getId());
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(3, list.size());
     }
 
     @Test
-    public void getBookTest()  {
+    public void getIdiomaTest()  {
         try{
         EmpleadoEntity entity = data.get(0);
         IdiomaEntity iEntity = iData.get(0);
@@ -141,18 +151,17 @@ public class EmpleadoIdiomaLogicTest {
         Assert.assertEquals(iEntity.getId(), response.getId());
         Assert.assertEquals(iEntity.getEmpleados().size(), response.getEmpleados().size());
         Assert.assertEquals(iEntity.getIdioma(), response.getIdioma());
-        Assert.assertEquals(iEntity.getSolicitud().getId(), response.getSolicitud().getId()); 
        }catch(BusinessLogicException b){
            Assert.fail();
        }      
     }
 
     @Test
-    public void getPropuestaNoAsociadaTest()  {
+    public void getIdiomaNoAsociadoTest()  {
         try{
-            EmpleadoEntity entity = data.get(0);
-        IdiomaEntity propuestaEntity = iData.get(1);
-        empleadoIdiomaLogic.getIdioma(entity.getId(), propuestaEntity.getId());
+            EmpleadoEntity entity = data.get(3);
+        IdiomaEntity idiomaEntity = iData.get(3);
+        empleadoIdiomaLogic.getIdioma(entity.getId(), idiomaEntity.getId());
         Assert.fail();
         }catch(BusinessLogicException b){
             Assert.assertTrue(true);
