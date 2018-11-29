@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "5fb22bc4-b2d0-4260-930b-0349cf331327",
+		"name": "Idioma test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Idioma",
+			"item": [
+				{
+					"name": "crear un nuevo idioma",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ffd5de4-eecc-46bc-83e4-39b68bb494f5",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_idioma\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idioma\": \"ruso\"\n}"
+						},
+						"url": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas",
+						"description": "guarda un nuevo idioma en la base de datos de la aplicacion"
+					},
+					"response": []
+				},
+				{
+					"name": "obtener todos los idiomas de la aplicacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd2b323a-ebcc-4e90-a10f-9dddf5fe2c45",
+								"exec": [
+									"tests[\"No genera error en el get\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas",
+						"description": "Retorna todos los idiomas almacenados en la aplicacion"
+					},
+					"response": []
+				},
+				{
+					"name": "obtener el idioma con el id indicado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b83f0796-3026-4079-9e5f-edc374ed1c5a",
+								"exec": [
+									"tests[\"No genera error en el get\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas/{{new_id_idioma}}",
+						"description": "retorna un idioma a partir de su id"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un idioma de la base de datos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b83f0796-3026-4079-9e5f-edc374ed1c5a",
+								"exec": [
+									"console.log(responseCode.code)",
+									"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/idiomas/{{new_id_idioma}}",
+						"description": "retorna un idioma a partir de su id"
+					},
+					"response": []
+				}
+			],
+			"description": "pruebas para verificar el funcionamiento de los recursos de idioma"
+		}
+	]
+}
