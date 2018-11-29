@@ -57,11 +57,11 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     private EmpleadoEntity empleado;
 
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "solicitud", fetch = FetchType.EAGER)
     private IdiomaEntity idiomaSalida;
 
     @PodamExclude
-    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "solicitud", fetch = FetchType.EAGER)
     private IdiomaEntity idiomaEntrada;
 
     public Date getFechaInicio() {
