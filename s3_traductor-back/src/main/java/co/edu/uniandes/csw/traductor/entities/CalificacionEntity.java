@@ -12,7 +12,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class CalificacionEntity extends BaseEntity implements Serializable
 {
-    private Long idEmpleado;
     private String comentario;
     private Integer valorCalificacion;
     private String nombreCalificador;
@@ -26,13 +25,6 @@ public class CalificacionEntity extends BaseEntity implements Serializable
 
     public void setEmpleado(EmpleadoEntity empleado) {
         this.empleado = empleado;
-    }
-    public Long getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    public void setIdEmpleado(Long idEmpleado) {
-        this.idEmpleado = idEmpleado;
     }
 
     public String getComentario() {

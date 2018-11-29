@@ -28,11 +28,11 @@ public class PropuestaEntity extends BaseEntity implements Serializable {
 
     //Asociacion de cardinalidad 1 con Invitacion
     @PodamExclude
-    @OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
+    @OneToOne(mappedBy = "propuesta", fetch = FetchType.EAGER) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
     private InvitacionEntity invitacion;
 
     @PodamExclude
-    @OneToOne(mappedBy = "propuesta", fetch = FetchType.LAZY, optional = true) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
+    @OneToOne(mappedBy = "propuesta", fetch = FetchType.EAGER, optional = true) //Asociacion 1-1. Se pone de dueña a propuesta. Por ello tiene el mapeo.
     private PagosEntity pago;
 
     //"Callback a Empleado - Relacion ManyToOne"

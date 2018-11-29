@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "4b0a6155-c64c-4fec-b569-26aeb4bdb97d",
+		"name": "Pagos test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pagos",
+			"item": [
+				{
+					"name": "Crear un cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7a91b96-f943-464d-b1a4-536de787fe3a",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_cli3\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombreUsuario\":\"salito\",\n\t\"contrasenia\":\"sasabestpass\",\n\t\"correoElectronico\":\"salito@mem.com\",\n\t\"nombre\":\"Santiago\",\n\t\"identificacion\":\"44325234\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Se crean un nuevo cliente con el JSON ingresado.\nSe retorna el mismo JSON pero con el id generado por la base de datos.\nLos atributos de nombreUsuario, correoElectronico e identificacion deben ser únicos.\n\n**Código Http esperado: 200**"
+					},
+					"response": []
+				},
+				{
+					"name": "crea un empleado para la propuesta del pago",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c0dce15-69da-4c46-a3a6-673bbdbb517a",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"id_emp_pago\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombreEmpleado\": \"El ree nuevooo\",\n    \"correoElectronico\": \"nosequeponer@bigcartel.com\",\n    \"aniosExperiencia\": 8,\n    \"nombreUsuario\": \"lalalalaasff\",\n    \"contrasenia\": \"fqf82bf\",\n    \"trayectoria\": \"RECRACK\",\n    \"HojaDeVida\": \"RECRACK\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"RECRACK\",\n    \"referencias\": \"RECRACK\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crea propuesta para el pago",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ad0d18ef-2349-4fe7-b1d3-9977aeb2f739",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"id_pro_pago\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Propuesta para el pago :D\",\n\t\"costo\" : 25000, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_pago}}/propuestas",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{id_emp_pago}}",
+								"propuestas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un pago",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28f30e6d-d955-4773-9c3b-faccb979d81b",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_id_p\",data.idTransaccion);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.idTransaccion);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pagoAprobado\": false,\n    \"propuestaDto\": {\n        \"id\": {{id_pro_pago}},\n        \"descripcion\" : \"Propuesta para el pago :D\",\n\t\t\"costo\" : 25000, \n\t\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\",\n\t\t\"estado\": \"EN_PROCESO\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_cli3}}",
+								"pagos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener los pagos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "19558793-81e5-40fa-8064-dc65d21895e4",
+								"exec": [
+									"tests[\"no genera error en el get\"] = responseCode.code === 200;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_cli3}}",
+								"pagos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un pago",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6751b09e-69c3-4aa4-9bb6-2b9507aab019",
+								"exec": [
+									"tests[\"no genera error en el Get de uno\"] = responseCode.code === 200;",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos/{{new_id_p}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_cli3}}",
+								"pagos",
+								"{{new_id_p}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar un pago",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "07f6cafe-33fb-4e7a-9841-5bd896c91e51",
+								"exec": [
+									"tests[\"no genera error en el Put\"] = responseCode.code === 200;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idSolicitud\": 123456789,\n    \"pagoAprobado\": true,\n    \"idTransaccion\": {{new_id_p}},\n    \"propuestaDto\": {\n        \"id\": {{id_pro_pago}},\n        \"descripcion\" : \"Propuesta para el pago :D\",\n\t\t\"costo\" : 25000, \n\t\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\",\n\t\t\"estado\": \"EN_PROCESO\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos/{{new_id_p}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_cli3}}",
+								"pagos",
+								"{{new_id_p}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un pago",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c816066a-eff9-42a0-bbd5-d79d0d649179",
+								"exec": [
+									"tests[\"no genera error en el Delete\"] = responseCode.code === 204;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_cli3}}/pagos/{{new_id_p}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"clientes",
+								"{{new_id_cli3}}",
+								"pagos",
+								"{{new_id_p}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

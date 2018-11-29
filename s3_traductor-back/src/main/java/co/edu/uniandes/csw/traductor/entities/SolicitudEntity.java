@@ -56,13 +56,11 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private EmpleadoEntity empleado;
 
-    @PodamExclude
-    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
-    private IdiomaEntity idiomaSalida;
+    
+    private String idiomaSalida;
 
-    @PodamExclude
-    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.PERSIST)
-    private IdiomaEntity idiomaEntrada;
+
+    private String idiomaEntrada;
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -88,11 +86,11 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
         return empleado;
     }
 
-    public IdiomaEntity getIdiomaSalida() {
+    public String getIdiomaSalida() {
         return idiomaSalida;
     }
 
-    public IdiomaEntity getIdiomaEntrada() {
+    public String getIdiomaEntrada() {
         return idiomaEntrada;
     }
 
@@ -120,11 +118,11 @@ public class SolicitudEntity extends BaseEntity implements Serializable {
         this.empleado = empleado;
     }
 
-    public void setIdiomaSalida(IdiomaEntity idiomaSalida) {
+    public void setIdiomaSalida(String idiomaSalida) {
         this.idiomaSalida = idiomaSalida;
     }
 
-    public void setIdiomaEntrada(IdiomaEntity idiomaEntrada) {
+    public void setIdiomaEntrada(String idiomaEntrada) {
         this.idiomaEntrada = idiomaEntrada;
     }
 

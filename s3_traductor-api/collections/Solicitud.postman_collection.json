@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "2bf8b573-87e3-4eda-a6b8-dd1eb9c092f1",
+		"name": "Solicitud test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crea un cliente para la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac649209-4de1-4e5b-8105-4104c2a63e0e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_o\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"pepito123\",\n\t\"contrasenia\":\"pepE\",\n\t\"correoElectronico\":\"pepe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12346572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearSolicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31b4b76d-a776-4f08-a0c2-9aa148515432",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_sol\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": 2,\n    \"tipoSolicitud\": 3,\n    \"fechaInicio\": \"11/02/2018\",\n    \"fechaEntrega\": \"11/13/2018\",\n    \"idiomaEntrada\": \"Italiano\",\n    \"idiomaSalida\": \"inglés\",\n\"descripcion\":\"fhbadsfhjdv qhvbauagb\",\n\t\"archivo\":\"dkahbsjbnlsdafhblrvbHLSJRKGHFBHFA RSRGVBNALHVRBALVNA\",\n\t\"longitud\":1235\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener todas las solicitudes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bcc58f57-b2de-4c13-85b9-7a61826bd5d2",
+						"exec": [
+							"tests[\"no genera error en el get all\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0fdae725-fcc5-46b7-a5dd-48b699bcbcb6",
+						"exec": [
+							"tests[\"no genera error en el get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/solicitudes/{{new_id_sol}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"solicitudes",
+						"{{new_id_sol}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar una solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ea912f6-f3ec-4324-bae6-8816f1a8112b",
+						"exec": [
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": 1,\n    \"tipoSolicitud\": 3,\n    \"fechaInicio\": \"11/02/2018\",\n    \"fechaEntrega\": \"11/13/2018\",\n    \"idiomaEntrada\": \"Italiano\",\n    \"idiomaSalida\": \"inglés\",\n\"descripcion\":\"fhbadsfhjdv qhvbauagb\",\n\t\"archivo\":\"dkahbsjbnlsdafhblrvbHLSJRKGHFBHFA RSRGVBNALHVRBALVNA\",\n\t\"longitud\":1235\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/solicitudes/{{new_id_sol}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"solicitudes",
+						"{{new_id_sol}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar una solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8673966-91f3-45a4-93b6-062b1904fbf1",
+						"exec": [
+							"tests[\"no genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o}}/solicitudes/{{new_id_sol}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o}}",
+						"solicitudes",
+						"{{new_id_sol}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "b295fcd7-4a4b-4b94-8b67-e9c9de0b6f4c",
+		"name": "Calificacion test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Calificacion",
+			"item": [
+				{
+					"name": "Crear un empleado para la calificacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4d1beaf-6d7d-4101-8372-d09c7e542cff",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_empleado_id\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"nombreEmpleado\":\"Kaitlyn\",\n\"correoElectronico\":\"kdoohan0@bigcartel.com\",\n\"aniosExperiencia\":12,\n\"nombreUsuario\":\"kewles0\",\n\"contrasenia\":\"zq0rUN4N\",\n\"trayectoria\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"HojaDeVida\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"tipoEmpleado\":\"TRADUCTOR\",\n\"estudios\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\",\n\"referencias\":\"No hay nada mejor que levantarse e ir derecho al gimnasio\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear una califiacion para un empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2266e4c2-1055-482e-9ffa-76932ea76f56",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_cal_id\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comentario\":\"fnakjfjhsabdfjkbbhbuirwfbaljsg\",\n    \"valorCalificacion\":4,\n    \"nombreCalificador\":\"Juan Parra\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_id}}/calificaciones",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_empleado_id}}",
+								"calificaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear una califiacion para un empleado dos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2266e4c2-1055-482e-9ffa-76932ea76f56",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"new_cal_id_2\",data.id);",
+									"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+									"console.log(data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comentario\":\"sdfasdfsdafasdfdsaf\",\n    \"valorCalificacion\":3,\n    \"nombreCalificador\":\"Alvaro Parra\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_id}}/calificaciones",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_empleado_id}}",
+								"calificaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas las calificaciones de un empleado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bf33bc4-ee33-406c-a36f-b2e03d7e99b3",
+								"exec": [
+									"tests[\"no genera error en el get all\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_id}}/calificaciones",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_empleado_id}}",
+								"calificaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una calificacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb5d861d-db9e-4e7a-96a7-dcc1110e33fc",
+								"exec": [
+									"tests[\"No genera error en el get de uno\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_id}}/calificaciones/{{new_cal_id_2}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_empleado_id}}",
+								"calificaciones",
+								"{{new_cal_id_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar una calificacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "731ae0d5-544c-4f4b-bfdf-9cfc16a48872",
+								"exec": [
+									"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comentario\":\"Se cambio la califiacion\",\n    \"valorCalificacion\":5,\n    \"nombreCalificador\":\"Juan Parra\"\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_id}}/calificaciones/{{new_cal_id}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_empleado_id}}",
+								"calificaciones",
+								"{{new_cal_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar una califiacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4de86a51-ba5b-4b6f-bd54-927e15e841b7",
+								"exec": [
+									"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_id}}/calificaciones/{{new_cal_id_2}}",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"s3_traductor-api",
+								"api",
+								"empleados",
+								"{{new_empleado_id}}",
+								"calificaciones",
+								"{{new_cal_id_2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
