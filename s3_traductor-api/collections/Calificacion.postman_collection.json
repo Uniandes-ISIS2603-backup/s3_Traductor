@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "45450956-2ffc-4dca-bae5-820a5bb9474e",
+		"_postman_id": "b295fcd7-4a4b-4b94-8b67-e9c9de0b6f4c",
 		"name": "Calificacion test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -196,7 +196,7 @@
 					"response": []
 				},
 				{
-					"name": "Obtener un empleado",
+					"name": "Obtener una calificacion",
 					"event": [
 						{
 							"listen": "test",
