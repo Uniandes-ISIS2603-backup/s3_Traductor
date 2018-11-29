@@ -56,7 +56,7 @@ public class EmpleadoSolicitudResource {
      * @return el dto de la calificaion asignada
      */
     @POST
-    @Path("(solicitudId: \\d+")
+    @Path("{solicitudId: \\d+}")
     
     public SolicitudDTO addSolicitud(@PathParam("solicitudId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) {
         LOGGER.log(Level.INFO, "EmpleadoSolicitud addSolicitud: input: empleadoId {0}, solicitudId: {1}", new Object[]{empleadoId, solicitudId});

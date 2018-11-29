@@ -41,7 +41,7 @@ public class EmpleadoIdiomaResource {
      * @return el dto del idioma asignado
      */
     @POST
-    @Path("(idiomaId: \\d+")
+    @Path("{idiomaId: \\d+}")
 
     public IdiomaDTO addIdioma(@PathParam("empleadoId") Long empleadoId, @PathParam("idiomaId") Long idiomaId) {
         LOGGER.log(Level.INFO, "EmpleadoIdiomaResource addIdioma: input: empleadoID: {0} , idiomaId: {1}", new Object[]{empleadoId, idiomaId});
