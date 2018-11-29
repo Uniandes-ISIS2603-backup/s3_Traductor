@@ -50,7 +50,7 @@ public class EmpleadoAreaConocimientoResource {
      * @return el dto del area asignada
      */
     @POST
-    @Path("(areaConocimientoId: \\d+")
+    @Path("{areaConocimientoId: \\d+}")
 
     public AreaConocimientoDTO addArea(@PathParam("empleadoId") Long empleadoId, @PathParam("areaConocimientoId") Long areaConocimientoId) {
         LOGGER.log(Level.INFO, "EmpleadoAreaConocimientoResource addArea: input: empleadoID: {0} , areaConocimientoId: {1}", new Object[]{empleadoId, areaConocimientoId});
