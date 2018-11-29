@@ -89,6 +89,8 @@ public class SolicitudLogicTest {
         }
         for (int i = 0; i < 3; i++) {
             SolicitudEntity solicitudes = factory.manufacturePojo(SolicitudEntity.class);
+            solicitudes.setIdiomaEntrada("entrada");
+            solicitudes.setIdiomaSalida("salida");
             em.persist(solicitudes);
             data.add(solicitudes);
             solicitudes.setCliente(eData.get(0));

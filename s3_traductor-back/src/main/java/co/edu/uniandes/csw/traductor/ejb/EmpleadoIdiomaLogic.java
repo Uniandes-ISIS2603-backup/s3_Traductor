@@ -37,7 +37,6 @@ public class EmpleadoIdiomaLogic {
         EmpleadoEntity empleadoEntity = empleadoPersistence.find(empleadoId);
         IdiomaEntity idiomaEntity = idiomaPersistence.find(idiomaId);
         empleadoEntity.getIdiomas().add(idiomaEntity);
-        idiomaEntity.getEmpleados().add(empleadoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un idioma al empleado con id = {0}", empleadoId);
         return idiomaEntity;
     }
