@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e0e54835-1404-47e2-9111-63f97218a7f3",
+		"_postman_id": "6addb6b6-9ede-4a27-b73b-901f05d082c1",
 		"name": "Empleado idiomas test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -143,6 +143,85 @@
 			"response": []
 		},
 		{
+			"name": "Obtener todos los idiomas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e2a184b1-23fa-4839-a351-fac0ebeb147f",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_aso}}/idiomas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_aso}}",
+						"idiomas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un idioma",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5528a91-f167-4bc1-b53e-e43deee52351",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_aso}}/idiomas/{{new_id_idioma_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_aso}}",
+						"idiomas",
+						"{{new_id_idioma_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Borrar la asosiacion",
 			"event": [
 				{
@@ -239,85 +318,6 @@
 					"path": [
 						"s3_traductor-api",
 						"api",
-						"idiomas",
-						"{{new_id_idioma_aso}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener todos los idiomas",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e2a184b1-23fa-4839-a351-fac0ebeb147f",
-						"exec": [
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_aso}}/idiomas",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_traductor-api",
-						"api",
-						"empleados",
-						"{{new_empleado_aso}}",
-						"idiomas"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener un idioma",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f5528a91-f167-4bc1-b53e-e43deee52351",
-						"exec": [
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_aso}}/idiomas/{{new_id_idioma_aso}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_traductor-api",
-						"api",
-						"empleados",
-						"{{new_empleado_aso}}",
 						"idiomas",
 						"{{new_id_idioma_aso}}"
 					]
