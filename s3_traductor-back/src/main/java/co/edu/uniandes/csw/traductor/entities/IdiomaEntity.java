@@ -22,7 +22,7 @@ public class IdiomaEntity extends BaseEntity implements Serializable
     private String idioma;
     
     @PodamExclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "idiomas")
     private List<EmpleadoEntity> empleados;
     public List<EmpleadoEntity> getEmpleados() {
         return empleados;

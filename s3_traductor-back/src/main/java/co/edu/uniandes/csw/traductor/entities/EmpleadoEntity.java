@@ -48,7 +48,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<InvitacionEntity> invitaciones;
 
     @PodamExclude
-    @ManyToMany(mappedBy = "empleados")
+    @ManyToMany
     private List<AreaConocimientoEntity> areasDeConocimiento;
 
     @PodamExclude
@@ -56,7 +56,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<SolicitudEntity> solicitudes;
 
     @PodamExclude
-    @ManyToMany(mappedBy = "empleados")
+    @ManyToMany
     private List<IdiomaEntity> idiomas;
 
     //----------------------------------------------------
