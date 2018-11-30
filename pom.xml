@@ -10,7 +10,10 @@
     <packaging>pom</packaging>
     <name>s3_prometeus</name>
  
-    <modules></modules>
+    <modules>
+        <module>s3_traductor-api</module>	
+        <module>s3_traductor-back</module>
+    </modules>
     
     <repositories>
         <repository>
