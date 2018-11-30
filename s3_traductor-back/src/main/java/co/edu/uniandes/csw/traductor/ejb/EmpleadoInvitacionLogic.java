@@ -98,6 +98,7 @@ public class EmpleadoInvitacionLogic {
         {
           empleado.getInvitaciones().remove(index);
         }
-        throw new BusinessLogicException("El invitacion no esta asociada al empleado");
+        else
+            throw new BusinessLogicException("El invitacion no esta asociada al empleado");
     }
 }

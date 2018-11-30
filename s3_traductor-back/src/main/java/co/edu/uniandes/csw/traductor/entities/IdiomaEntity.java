@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -22,8 +23,8 @@ public class IdiomaEntity extends BaseEntity implements Serializable
     private String idioma;
     
     @PodamExclude
-    @ManyToMany
-    private List<EmpleadoEntity> empleados;
+    @ManyToMany(mappedBy = "idiomas")
+    private List<EmpleadoEntity> empleados = new ArrayList<>();
     public List<EmpleadoEntity> getEmpleados() {
         return empleados;
     }

@@ -69,7 +69,7 @@ public class EmpleadoAreaConocimientoLogicTest {
     private List<EmpleadoEntity> data = new ArrayList<>();
 
     private List<AreaConocimientoEntity> iData = new ArrayList<>();
-
+    List<AreaConocimientoEntity> listTmp=new ArrayList<>();
     
     @Deployment
     public static JavaArchive createDeployment() {
@@ -114,9 +114,11 @@ public class EmpleadoAreaConocimientoLogicTest {
             areasConocimiento.setEmpleados(data);
             em.persist(areasConocimiento);
             iData.add(areasConocimiento);
+            listTmp.add(areasConocimiento);
            
         }
-        data.get(0).setAreasDeConocimiento(iData);
+
+        data.get(0).setAreasDeConocimiento(listTmp);
         EmpleadoEntity entity2 = factory.manufacturePojo(EmpleadoEntity.class);
         em.persist(entity2);
         data.add(entity2);
@@ -145,11 +147,10 @@ public class EmpleadoAreaConocimientoLogicTest {
     public void getAreaConocimientoTest()  {
         try{
         EmpleadoEntity entity = data.get(0);
-        AreaConocimientoEntity iEntity = iData.get(0);
+        AreaConocimientoEntity iEntity = listTmp.get(0);
         AreaConocimientoEntity response = empleadoAreaConocimientoLogic.getAreaConocmiento(entity.getId(), iEntity.getId());
 
         Assert.assertEquals(iEntity.getId(), response.getId());
-        Assert.assertEquals(iEntity.getEmpleados().size(), response.getEmpleados().size());
         Assert.assertEquals(iEntity.getArea(), response.getArea());
        }catch(BusinessLogicException b){
            Assert.fail();

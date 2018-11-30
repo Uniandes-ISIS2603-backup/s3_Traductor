@@ -30,16 +30,16 @@ public class EmpleadoInvitacionResource {
     private static final Logger LOGGER = Logger.getLogger(EmpleadoInvitacionResource.class.getName());
 
     @Inject
-    private EmpleadoInvitacionLogic clienteInvitacionLogic;
+    private EmpleadoInvitacionLogic empleadoInvitacionLogic;
 
     @Inject
     private InvitacionLogic invitacionLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     /**
-     * Guarda una invitacion dentro de un cliente con la informacion que recibe el
-     * la URL. Se devuelve la invitacion que se guarda en el cliente.
+     * Guarda una invitacion dentro de un empleado con la informacion que recibe el
+     * la URL. Se devuelve la invitacion que se guarda en el empleado.
      *
-     * @param clienteId Identificador del cliente que se esta
+     * @param empleadoId Identificador del empleado que se esta
      * actualizando. Este debe ser una cadena de dígitos.
      * @param invitacionId Identificador de la invitacion que se desea guardar. Este debe
      * ser una cadena de dígitos.
@@ -49,37 +49,37 @@ public class EmpleadoInvitacionResource {
      */
     @POST
     @Path("{invitacionId: \\d+}")
-    public InvitacionDTO addInvitacion(@PathParam("empleadoId") Long clienteId, @PathParam("invitacionId") Long invitacionId)
+    public InvitacionDTO addInvitacion(@PathParam("empleadoId") Long empleadoId, @PathParam("invitacionId") Long invitacionId)
 	{
-        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource addInvitacion: input: clienteId: {0} , invitacionId: {1}", new Object[]{clienteId, invitacionId});
+        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource addInvitacion: input: empleadoId: {0} , invitacionId: {1}", new Object[]{empleadoId, invitacionId});
 		if (invitacionLogic.getInvitacionSoloId(invitacionId) == null){
 				throw new WebApplicationException("El recurso /invitaciones/" + invitacionId + " no existe.", 404);
 		}		
         
-        InvitacionDTO respuesta = new InvitacionDTO(clienteInvitacionLogic.addInvitacion(clienteId, invitacionId));
+        InvitacionDTO respuesta = new InvitacionDTO(empleadoInvitacionLogic.addInvitacion(empleadoId, invitacionId));
         LOGGER.log(Level.INFO, "EmpleadoInvitacionResource addInvitacion: output: {0}", respuesta);
         return respuesta;
     }
 	
 	/**
-     * Busca y devuelve todos las invitaciones que existen en un cliente.     *
-     * @param clienteId Identificador del cliente que se esta buscando.
+     * Busca y devuelve todos las invitaciones que existen en un empleado.     *
+     * @param empleadoId Identificador del empleado que se esta buscando.
      * Este debe ser una cadena de dígitos.
      * @return JSONArray {@link InvitacionesDTO} - Las invitaciones encontradas en el
-     * cliente. Si no hay ninguno retorna una lista vacía.
+     * empleado. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<InvitacionDTO> getAllInvitaciones(@PathParam("empleadoId") Long clienteId) {
-        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource getAllInvitaciones: input: {0}", clienteId);
-        List<InvitacionDTO> listaObjetos = invitacionesADTO(clienteInvitacionLogic.getInvitaciones(clienteId));		
+    public List<InvitacionDTO> getAllInvitaciones(@PathParam("empleadoId") Long empleadoId) {
+        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource getAllInvitaciones: input: {0}", empleadoId);
+        List<InvitacionDTO> listaObjetos = invitacionesADTO(empleadoInvitacionLogic.getInvitaciones(empleadoId));		
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaObjetos);
         return listaObjetos;
     }	
 	
 	/**
-     * Busca la invitacion con el id asociado dentro del cliente con id asociado.
+     * Busca la invitacion con el id asociado dentro del empleado con id asociado.
      *
-     * @param clienteId Identificador del cliente que se esta buscando.
+     * @param empleadoId Identificador del empleado que se esta buscando.
      * Este debe ser una cadena de dígitos.
      * @param invitacionId Identificador de la invitacion que se esta buscando. Este debe
      * ser una cadena de dígitos.
@@ -87,35 +87,35 @@ public class EmpleadoInvitacionResource {
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la invitacion.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la invitacion en el cliente.
+     * Error de lógica que se genera cuando no se encuentra la invitacion en el empleado.
      */
     @GET
     @Path("{invitacionId: \\d+}")
-    public InvitacionDTO getInvitacion(@PathParam("empleadoId") Long clienteId, @PathParam("invitacionId") Long invitacionId) throws BusinessLogicException
+    public InvitacionDTO getInvitacion(@PathParam("empleadoId") Long empleadoId, @PathParam("invitacionId") Long invitacionId) throws BusinessLogicException
 	{
-        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource getInvitacion: input: clienteId: {0} , invitacionId: {1}", new Object[]{clienteId, invitacionId});
+        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource getInvitacion: input: empleadoId: {0} , invitacionId: {1}", new Object[]{empleadoId, invitacionId});
         if (invitacionLogic.getInvitacionSoloId(invitacionId) == null) {
-            throw new WebApplicationException("El recurso /empleados/" + clienteId + "/invitaciones/" + invitacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/invitaciones/" + invitacionId + " no existe.", 404);
         }
 		
-        InvitacionDTO respuesta = new InvitacionDTO(clienteInvitacionLogic.getInvitacion(clienteId, invitacionId));
+        InvitacionDTO respuesta = new InvitacionDTO(empleadoInvitacionLogic.getInvitacion(empleadoId, invitacionId));
         LOGGER.log(Level.INFO, "EmpleadoInvitacionResource getInvitacion: output: {0}", respuesta);
         return respuesta;
     }
     /**
      * Delete
-     * @param clienteId
+     * @param empleadoId
      * @param invitacionId
      * @throws BusinessLogicException 
      */
     @DELETE
     @Path("{invitacionId: \\d+}")
-    public void deleteInvitacion(@PathParam("clienteId") Long clienteId, @PathParam("invitacionId") Long invitacionId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource deleteInvitacion: input: {0}", clienteId);
+    public void deleteInvitacion(@PathParam("empleadoId") Long empleadoId, @PathParam("invitacionId") Long invitacionId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "EmpleadoInvitacionResource deleteInvitacion: input: {0}", empleadoId);
         if (invitacionLogic.getInvitacionSoloId(invitacionId) == null) {
-            throw new WebApplicationException("El recurso /empleados/" + clienteId + "/invitaciones/" + invitacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /empleados/" + empleadoId + "/invitaciones/" + invitacionId + " no existe.", 404);
         }
-        clienteInvitacionLogic.deleteInvitacion(clienteId, invitacionId);
+        empleadoInvitacionLogic.deleteInvitacion(empleadoId, invitacionId);
         LOGGER.info("EmpleadoInvitacionResource deleteInvitacion: output: void");
     }
 	/**

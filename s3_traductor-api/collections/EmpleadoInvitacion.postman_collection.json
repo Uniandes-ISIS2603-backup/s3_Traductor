@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "7969f457-da34-4ac0-9856-26bc69bc00bb",
+		"name": "Empleado Invitacion test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente para la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d196c55-1371-4623-83e4-43ae415de918",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_o_aso_213\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"pepitdssdfsadfsdfo123\",\n\t\"contrasenia\":\"pepasdfdsadfdsafsfE\",\n\t\"correoElectronico\":\"pepaasdfsdafsdfsdafe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12319991246572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea solicitud para la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08bdeb5d-ce99-4b45-bae5-efa7da8209fd",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_sol_empl\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": 2,\n    \"tipoSolicitud\": 3,\n    \"fechaInicio\": \"11/02/2018\",\n    \"fechaEntrega\": \"11/13/2018\",\n    \"idiomaEntrada\": \"Italiano\",\n    \"idiomaSalida\": \"inglés\",\n\"descripcion\":\"fhbadsfhjdv qhvbauagb\",\n\t\"archivo\":\"dkahbsjbnlsdafhblrvbHLSJRKGHFBHFA RSRGVBNALHVRBALVNA\",\n\t\"longitud\":1235\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_213}}/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_213}}",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un empleado para la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf7adc2-da23-46dc-8262-64492f7c8b1e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_empleado_inviaso\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreEmpleado\": \"El Nuevo empleado\",\n    \"correoElectronico\": \"asdasda@gmail.com\",\n    \"aniosExperiencia\": 7,\n    \"nombreUsuario\": \"newbie\",\n    \"contrasenia\": \"ffolvl13tg\",\n    \"trayectoria\": \"Trabajé con lo cracks\",\n    \"HojaDeVida\": \"Soy experto en lenguas\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"Lenguas en oxford\",\n    \"referencias\": \"Profe Xavier: El es re crack!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea una invitación al cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b0eeb35-4bc9-44e5-a07c-801368f51d35",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_inv_aso\",data.idInvitacion);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.idInvitacion);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"descripcion\": \"Prueba de Ejecucion\",\n    \"idEmpleado\": {{new_empleado_inviaso}},\n    \"solicitudId\": {{new_sol_empl}}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_213}}/invitaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_213}}",
+						"invitaciones"
+					]
+				},
+				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar una invitacion a un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa3fa40a-72ce-41d7-9304-328563653bf0",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_inviaso}}/invitaciones/{{new_id_inv_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_inviaso}}",
+						"invitaciones",
+						"{{new_id_inv_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las invitaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "555f17da-b838-49eb-a076-02b095a82982",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_inviaso}}/invitaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_inviaso}}",
+						"invitaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d33b825e-4ce8-45c2-9192-05f480991832",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_inviaso}}/invitaciones/{{new_id_inv_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_inviaso}}",
+						"invitaciones",
+						"{{new_id_inv_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar la asociacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a4f97a9f-eb7f-42e3-b858-fc54d569cf32",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_inviaso}}/invitaciones/{{new_id_inv_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_inviaso}}",
+						"invitaciones",
+						"{{new_id_inv_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar la invitacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c217362d-24ce-434a-a99d-af8b119d4f75",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_213}}/invitaciones/{{new_id_inv_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_213}}",
+						"invitaciones",
+						"{{new_id_inv_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar el empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c5af28a-dd11-4374-a063-8bb9f7cca602",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_inviaso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_inviaso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a0df1af-6f3e-498f-8d08-92713355cad2",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_213}}/solicitudes/{{new_sol_empl}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_213}}",
+						"solicitudes",
+						"{{new_sol_empl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_213}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_213}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

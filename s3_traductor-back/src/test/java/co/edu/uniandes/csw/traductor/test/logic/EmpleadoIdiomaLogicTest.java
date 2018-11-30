@@ -70,6 +70,7 @@ public class EmpleadoIdiomaLogicTest {
 
     private List<IdiomaEntity> iData = new ArrayList<>();
 
+    private List<IdiomaEntity> temporal = new ArrayList<>();
     
     @Deployment
     public static JavaArchive createDeployment() {
@@ -114,9 +115,9 @@ public class EmpleadoIdiomaLogicTest {
             idiomas.setEmpleados(data);
             em.persist(idiomas);
             iData.add(idiomas);
-           
+           temporal.add(idiomas);
         }
-        data.get(0).setIdiomas(iData);
+        data.get(0).setIdiomas(temporal);
         EmpleadoEntity entity2 = factory.manufacturePojo(EmpleadoEntity.class);
         em.persist(entity2);
         data.add(entity2);
@@ -149,7 +150,6 @@ public class EmpleadoIdiomaLogicTest {
         IdiomaEntity response = empleadoIdiomaLogic.getIdioma(entity.getId(), iEntity.getId());
 
         Assert.assertEquals(iEntity.getId(), response.getId());
-        Assert.assertEquals(iEntity.getEmpleados().size(), response.getEmpleados().size());
         Assert.assertEquals(iEntity.getIdioma(), response.getIdioma());
        }catch(BusinessLogicException b){
            Assert.fail();

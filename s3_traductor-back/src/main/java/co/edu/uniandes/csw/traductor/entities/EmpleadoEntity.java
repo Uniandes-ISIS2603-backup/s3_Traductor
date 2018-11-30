@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.traductor.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -48,16 +49,16 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<InvitacionEntity> invitaciones;
 
     @PodamExclude
-    @ManyToMany(mappedBy = "empleados")
-    private List<AreaConocimientoEntity> areasDeConocimiento;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private List<AreaConocimientoEntity> areasDeConocimiento= new ArrayList<>();
 
     @PodamExclude
     @OneToMany(mappedBy = "empleado")
     private List<SolicitudEntity> solicitudes;
 
     @PodamExclude
-    @ManyToMany(mappedBy = "empleados")
-    private List<IdiomaEntity> idiomas;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private List<IdiomaEntity> idiomas= new ArrayList<>();
 
     //----------------------------------------------------
     //getters and setters

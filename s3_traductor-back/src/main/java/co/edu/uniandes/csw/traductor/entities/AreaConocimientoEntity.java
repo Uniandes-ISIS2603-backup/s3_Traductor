@@ -26,7 +26,7 @@ public class AreaConocimientoEntity extends BaseEntity implements Serializable {
 
     //"Callback a Empleado - Relacion ManyToMany"
     @PodamExclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "areasDeConocimiento")
     private List<EmpleadoEntity> empleados;
 
     /**

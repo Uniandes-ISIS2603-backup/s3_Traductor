@@ -37,7 +37,7 @@ public class EmpleadoAreaConocimientoLogic {
         EmpleadoEntity empleadoEntity = empleadoPersistence.find(empleadoId);
         AreaConocimientoEntity areaEntity = areaPersistence.find(areaConocimientoId);
         empleadoEntity.getAreasDeConocimiento().add(areaEntity);
-        areaEntity.getEmpleados().add(empleadoEntity);
+        empleadoPersistence.update(empleadoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle una area de conocimiento al empleado con id = {0}", empleadoId);
         return areaEntity;
     }
@@ -86,12 +86,9 @@ public class EmpleadoAreaConocimientoLogic {
         if(index >= 0)
         {
           empleado.getAreasDeConocimiento().remove(index);
+          empleadoPersistence.update(empleado);
         }
-        int index2 = area.getEmpleados().indexOf(empleado);
-        if(index2 >= 0)
-        {
-          area.getEmpleados().remove(index2);
-        }
+        else
         throw new BusinessLogicException("El area no esta asociada al empleado");
     }
 }

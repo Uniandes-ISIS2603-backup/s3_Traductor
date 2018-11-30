@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "816da9b4-f5a7-4b95-8261-7f5a613805d8",
+		"name": "Empleado areas test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "crear un nueva area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ffd5de4-eecc-46bc-83e4-39b68bb494f5",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_area_aso\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"area\":\"Biologia\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/areasConocimiento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"areasConocimiento"
+					]
+				},
+				"description": "guarda un nuevo idioma en la base de datos de la aplicacion"
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf7adc2-da23-46dc-8262-64492f7c8b1e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_empleado_area\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreEmpleado\": \"El Nuevasdfdsfo empleado\",\n    \"correoElectronico\": \"asdasadfsdafsda213213@gmail.com\",\n    \"aniosExperiencia\": 7,\n    \"nombreUsuario\": \"newsadfsa123dfbie\",\n    \"contrasenia\": \"ffoasdfds123aflvl13tg\",\n    \"trayectoria\": \"Trabajé con lo cracks\",\n    \"HojaDeVida\": \"Soy experto en lenguas\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"Lenguas en oxford\",\n    \"referencias\": \"Profe Xavier: El es re crack!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar area a empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4694878-8bf3-4deb-8ceb-4c03ebf3c5dd",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_area}}/areasConocimiento/{{new_id_area_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_area}}",
+						"areasConocimiento",
+						"{{new_id_area_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos las areas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e2a184b1-23fa-4839-a351-fac0ebeb147f",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_area}}/areasConocimiento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_area}}",
+						"areasConocimiento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5528a91-f167-4bc1-b53e-e43deee52351",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_area}}/areasConocimiento/{{new_id_area_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_area}}",
+						"areasConocimiento",
+						"{{new_id_area_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar la asosiacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a076bcf0-6260-40aa-8ee8-75bc63e045e2",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_area}}/areasConocimiento/{{new_id_area_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_area}}",
+						"areasConocimiento",
+						"{{new_id_area_aso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar el empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa5f31ad-b6f1-486b-9e67-745e6748b68b",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_area}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_area}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar el area",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/areasConocimiento/{{new_id_area_aso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"areasConocimiento",
+						"{{new_id_area_aso}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "31c5abeb-80db-49a7-a2e3-830a0123a7a4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5aeb63f7-c77e-40b6-8b00-6fc8b678e25f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
