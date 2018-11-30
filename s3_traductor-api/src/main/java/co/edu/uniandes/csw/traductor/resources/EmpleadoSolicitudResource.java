@@ -58,7 +58,7 @@ public class EmpleadoSolicitudResource {
     @POST
     @Path("{solicitudId: \\d+}")
     
-    public SolicitudDTO addSolicitud(@PathParam("solicitudId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) {
+    public SolicitudDTO addSolicitud(@PathParam("empleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) {
         LOGGER.log(Level.INFO, "EmpleadoSolicitud addSolicitud: input: empleadoId {0}, solicitudId: {1}", new Object[]{empleadoId, solicitudId});
         if (solicitudLogica.getSolicitudSoloId(solicitudId) == null) {
             throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + NO_EXISTE, 404);
@@ -74,7 +74,7 @@ public class EmpleadoSolicitudResource {
      * @return lista de los dto de las solicitudes asignadas a un empleado
      */
     @GET
-    public List<SolicitudDTO> getSolicitudes(@PathParam("id") Long empleadoId) {
+    public List<SolicitudDTO> getSolicitudes(@PathParam("empleadoId") Long empleadoId) {
         LOGGER.log(Level.INFO, "EmpleadoCalificacionResource getCalificaciones: input: {0}", empleadoId);
 
         List<SolicitudDTO> solicitudesDTO = solicitudesListEntity2DTO(empleadoSolicitudLogic.getSolicitudes(empleadoId));
@@ -84,7 +84,7 @@ public class EmpleadoSolicitudResource {
     
     @GET
     @Path("{solicitudId: \\d+}")
-    public SolicitudDTO getSolicitud(@PathParam("EmpleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
+    public SolicitudDTO getSolicitud(@PathParam("empleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce getSolicitud: input: empleadoId: {0} , solicitudId: {1}", new Object[]{empleadoId, solicitudId});
         if (solicitudLogica.getSolicitudSoloId(solicitudId) == null) {
             throw new WebApplicationException("El recurso /solicitudes/" + solicitudId + NO_EXISTE, 404);
@@ -102,7 +102,7 @@ public class EmpleadoSolicitudResource {
      */
     @DELETE
     @Path("{solicitudId: \\d+}")
-    public void deleteSolicitud(@PathParam("EmpleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
+    public void deleteSolicitud(@PathParam("empleadoId") Long empleadoId, @PathParam("solicitudId") Long solicitudId) throws BusinessLogicException {
         
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce deleteSolicitud: input: empleadoId {0}, solidicutdId: {1}", new Object[]{empleadoId, solicitudId});
         if (solicitudLogica.getSolicitudSoloId(solicitudId) == null) {

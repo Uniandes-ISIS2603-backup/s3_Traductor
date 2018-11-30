@@ -45,7 +45,7 @@ public class EmpleadoEntity extends BaseEntity implements Serializable {
     private List<PropuestaEntity> propuestas;
 
     @PodamExclude
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.PERSIST)
     private List<InvitacionEntity> invitaciones;
 
     @PodamExclude

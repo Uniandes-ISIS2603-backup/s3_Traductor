@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "5afe950d-0cbe-454e-9bbb-f708ce3f7472",
+		"name": "Empleado solicitud test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente para la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d196c55-1371-4623-83e4-43ae415de918",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_o_aso_2134\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"pepitd11122ssdfsadfsdfo123\",\n\t\"contrasenia\":\"pe331pasdfdsadfdsafsfE\",\n\t\"correoElectronico\":\"42424sfdsad@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"1231999124446572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea solicitud para asociar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08bdeb5d-ce99-4b45-bae5-efa7da8209fd",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_sol_empl_asos\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"estado\": 2,\n    \"tipoSolicitud\": 3,\n    \"fechaInicio\": \"11/02/2018\",\n    \"fechaEntrega\": \"11/13/2018\",\n    \"idiomaEntrada\": \"Italiano\",\n    \"idiomaSalida\": \"inglés\",\n\"descripcion\":\"fhbadsfhjdv qhvbauagb\",\n\t\"archivo\":\"dkahbsjbnlsdafhblrvbHLSJRKGHFBHFA RSRGVBNALHVRBALVNA\",\n\t\"longitud\":1235\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2134}}/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2134}}",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un empleado para la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf7adc2-da23-46dc-8262-64492f7c8b1e",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_empleado_soliaso\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombreEmpleado\": \"El Nuevo empleado\",\n    \"correoElectronico\": \"asdaswqeqweda@gmail.com\",\n    \"aniosExperiencia\": 7,\n    \"nombreUsuario\": \"newbieqwewqe\",\n    \"contrasenia\": \"ffolvl13tg\",\n    \"trayectoria\": \"Trabajé con lo cracks\",\n    \"HojaDeVida\": \"Soy experto en lenguas\",\n    \"tipoEmpleado\": \"TRADUCTOR\",\n    \"estudios\": \"Lenguas en oxford\",\n    \"referencias\": \"Profe Xavier: El es re crack!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "asociar la solicitud al empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83407436-4a59-4cf9-b101-a4b74bc3e5a6",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_soliaso}}/solicitudes/{{new_sol_empl_asos}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_soliaso}}",
+						"solicitudes",
+						"{{new_sol_empl_asos}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener todas las solicitudes del empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82471a5a-c4e2-4835-86d2-0fb77e064c39",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_soliaso}}/solicitudes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_soliaso}}",
+						"solicitudes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener una solicitud de un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ee93e06-3a6f-48c3-86d5-12fd68bbfa99",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_soliaso}}/solicitudes/{{new_sol_empl_asos}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_soliaso}}",
+						"solicitudes",
+						"{{new_sol_empl_asos}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar una solicitud asociada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30c6f88c-19a7-4d56-9f75-a4be1d36f6b5",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_soliaso}}/solicitudes/{{new_sol_empl_asos}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_soliaso}}",
+						"solicitudes",
+						"{{new_sol_empl_asos}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar el empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c5af28a-dd11-4374-a063-8bb9f7cca602",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{new_empleado_soliaso}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{new_empleado_soliaso}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar la solicitud",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a0df1af-6f3e-498f-8d08-92713355cad2",
+						"exec": [
+							"tests[\"No genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2134}}/solicitudes/{{new_sol_empl_asos}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2134}}",
+						"solicitudes",
+						"{{new_sol_empl_asos}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrar cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2134}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2134}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

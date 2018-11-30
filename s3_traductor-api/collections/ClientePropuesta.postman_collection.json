@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "4aa99760-27a6-44b0-9733-979c0da0edd1",
+		"name": "Cliente propuesta test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente para asociar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d196c55-1371-4623-83e4-43ae415de918",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_o_aso_2123\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"pepitdssdfs23adfsdfo123\",\n\t\"contrasenia\":\"pepasdfd123sadfdsafsfE\",\n\t\"correoElectronico\":\"pe123paasdfsdafsdfsdafe@fake.com\",\n\t\"nombre\":\"pedro payares\",\n\t\"identificacion\":\"12213319991246572\",\n\t\"tipoCliente\":\"PERSONA_NATURAL\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04ac5980-df30-4eee-878d-964ead423457",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_emp_prop_2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreEmpleado\":\"SoyDanny\",\n\t\"correoElectronico\":\"danweqqweny@gmail.com\",\n\t\"aniosExperiencia\":3,\n\t\"nombreUsuario\":\"danieliqwewqenPinguin\",\n\t\"contrasenia\":\"123456qwewqeabc\",\n\t\"trayectoria\":\"Experto en Italiano\",\n\t\"hojaDeVida\":\"soy el mejor en lo que hago siempre que lo intento.\",\n\t\"tipoEmpleado\": \"TRADUCTOR\",\n\t\"estudios\": \"Pregrado, maestria y doctorado en Oxford en lengua italiana\",\n\t\"referencias\": \"Profesor Jones: El mejor en lo que hace, lo recomiendo!\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados"
+					]
+				},
+				"description": "Crea el empleado para la prueba con la prupuesta."
+			},
+			"response": []
+		},
+		{
+			"name": "Crea una propuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13e44413-9277-413a-9fb7-bb5d58c47e6f",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_prop\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;",
+							"console.log(data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"estado\" : \"Enviado\", \n\t\"descripcion\" : \"Prueba subrecursos Geovanny\",\n\t\"costo\" : 1, \n\t\"tiempoEstimado\" : \"2018-08-20T00:10:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop_2}}/propuestas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{id_emp_prop_2}}",
+						"propuestas"
+					]
+				},
+				"description": "Prueba Post para PropuestaResource siguiendo los lineamientos"
+			},
+			"response": []
+		},
+		{
+			"name": "asociar la propuesta al cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9972bbeb-4cba-4b76-81a4-03ea95736ce7",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2123}}/propuestas/{{id_prop}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2123}}",
+						"propuestas",
+						"{{id_prop}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener todas las propuestas del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a9ab769-6a74-4b9f-8fcf-c8c1769b8c81",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2123}}/propuestas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2123}}",
+						"propuestas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener una propuesta del cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8a55e1d-246b-4e5d-8ccd-f2a7a8605b12",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2123}}/propuestas/{{id_prop}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2123}}",
+						"propuestas",
+						"{{id_prop}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar la asociacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c255a03-68c1-47a9-87e4-569085c45371",
+						"exec": [
+							"tests[\"no genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2123}}/propuestas/{{id_prop}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2123}}",
+						"propuestas",
+						"{{id_prop}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar la propuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13b6a2c4-bdb5-4ded-937b-eed6217ed305",
+						"exec": [
+							"tests[\"no genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop_2}}/propuestas/{{id_prop}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{id_emp_prop_2}}",
+						"propuestas",
+						"{{id_prop}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar el empleado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f97c04b-9590-450f-a547-dd99700fc0c9",
+						"exec": [
+							"tests[\"no genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/empleados/{{id_emp_prop_2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"empleados",
+						"{{id_emp_prop_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar el cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18a6ef8d-b678-4b9c-9f89-ddf6f61768e1",
+						"exec": [
+							"tests[\"no genera error en el delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_traductor-api/api/clientes/{{new_id_o_aso_2123}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_traductor-api",
+						"api",
+						"clientes",
+						"{{new_id_o_aso_2123}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

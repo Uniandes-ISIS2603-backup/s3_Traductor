@@ -116,7 +116,7 @@ public class ClientePropuestaResource {
      */
     @DELETE
     @Path("{propuestaId: \\d+}")
-    public void deletePropuesta(@PathParam("clienteId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException {
+    public void deletePropuesta(@PathParam("clientesId") Long clienteId, @PathParam("propuestaId") Long propuestaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ClientePropuestaResource deletePropuesta: input: {0}", clienteId);
         if (propuestaLogic.getPropuestaSoloId(propuestaId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clienteId + "/propuestas/" + propuestaId + " no existe.", 404);

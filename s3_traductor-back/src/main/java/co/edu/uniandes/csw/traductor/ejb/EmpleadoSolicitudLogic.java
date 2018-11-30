@@ -95,14 +95,12 @@ public class EmpleadoSolicitudLogic {
     public void deleteSolicitud(Long empleadoId, Long solicitudId) throws BusinessLogicException {
         
         LOGGER.log(Level.INFO, "EmpleadoSolicitudResoruce deleteSolicitud: input: empleadoId {0}, solicitudId: {1}", new Object[]{empleadoId, solicitudId});
-        EmpleadoEntity empleado = empleadoPersistence.find(empleadoId);
         SolicitudEntity solicitud = solicitudPersistence.findSoloId(solicitudId);
-        int index = empleado.getSolicitudes().indexOf(solicitud);
-        if(index >= 0)
-        {
-          empleado.getSolicitudes().remove(index);
+        if (solicitud!=null) {
+            solicitud.setEmpleado(null);
+            solicitudPersistence.update(solicitud);
         }
-        throw new BusinessLogicException("El solicitud no esta asociada al empleado");
+        else throw new BusinessLogicException("El solicitud no esta asociada al empleado");
     }
 
 }

@@ -94,10 +94,11 @@ public class ClientePropuestaLogic
         LOGGER.log(Level.INFO, "ClientePropuestaResoruce deletePropuesta: input: clienteId {0}, propuestaId: {1}", new Object[]{clienteId, propuestaId});
         ClienteEntity cliente = clientePersistence.find(clienteId);
         PropuestaEntity propuesta = propuestaPersistence.findSoloId(propuestaId);
-        int index = cliente.getPropuestas().indexOf(propuesta);
-        if(index >= 0)
+        
+        if(propuesta!=null&&cliente!=null)
         {
-          cliente.getPropuestas().remove(index);
+          propuesta.setCliente(null);
+          propuestaPersistence.update(propuesta);
         }
         else
             throw new BusinessLogicException("El propuesta no esta asociada al cliente");

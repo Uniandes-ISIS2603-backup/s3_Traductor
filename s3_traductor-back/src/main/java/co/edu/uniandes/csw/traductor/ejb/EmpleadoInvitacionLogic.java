@@ -91,12 +91,10 @@ public class EmpleadoInvitacionLogic {
     public void deleteInvitacion(Long empleadoId, Long invitacionId) throws BusinessLogicException {
         
         LOGGER.log(Level.INFO, "EmpleadoInvitacionResoruce deleteInvitacion: input: empleadoId {0}, invitacionId: {1}", new Object[]{empleadoId, invitacionId});
-        EmpleadoEntity empleado = empleadoPersistence.find(empleadoId);
         InvitacionEntity invitacion = invitacionPersistence.findSoloId(invitacionId);
-        int index = empleado.getInvitaciones().indexOf(invitacion);
-        if(index >= 0)
-        {
-          empleado.getInvitaciones().remove(index);
+        if (invitacion != null) {
+            invitacion.setEmpleado(null);
+            invitacionPersistence.update(invitacion);
         }
         else
             throw new BusinessLogicException("El invitacion no esta asociada al empleado");
